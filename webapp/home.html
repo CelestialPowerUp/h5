@@ -1,0 +1,169 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="dns-prefetch" href="http://baseimg.yangaiche.com/">
+
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/amazeui.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+
+</head>
+<body>
+
+<header data-am-widget="header" class="home-header-logo">
+    <img src="img/logo.png"/>
+</header>
+
+<div class="user-header">
+    <div class="am-g">
+        <div class="am-u-sm-6 home-header" id="to_show_user_win">
+            <img src="img/user_logo1.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
+        </div>
+        <div class="am-u-sm-6 home-header">
+            <div class="download-div">
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">
+                    <img src="img/download.png"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-win" class="am-offcanvas">
+        <div class="am-offcanvas-bar user-win-content">
+            <div class="left">
+                <div class="user-logo">
+                    <img src="img/user_logo2.png">
+                </div>
+                <div class="user-info" id="user_phone">000****0000</div>
+
+                <div class="menu-info">
+                    <ul class="am-list">
+                        <li><a href="./order_list.html" class="am-vertical-align">
+                            <img src="./img/order_icon.png" class="am-vertical-align-middle" style="margin-right: 10px;margin-left: 4px;"/>
+                            <span class="am-vertical-align-middle">我的订单</span>
+                        </a></li>
+                        <li><a href="./my_cars.html" class="am-vertical-align">
+                            <img src="./img/car_icon.png" class="am-vertical-align-middle">
+                            <span class="am-vertical-align-middle">我的车</span>
+                        </a></li>
+                        <li><a href="./my_address_manage.html" class="am-vertical-align">
+                            <img src="./img/address_icon.png" class="am-vertical-align-middle" style="margin-right: 11px;margin-left: 6px;">
+                            <span class="am-vertical-align-middle">我的地址</span>
+                        </a></li>
+                        <li><a href="./my_exam_reports.html" class="am-vertical-align">
+                            <img src="./img/export_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
+                            <span class="am-vertical-align-middle">检测报告单</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="right">
+                <div class="close-icon" id="close-offcanvas">
+                    <img src="img/close_icon.png"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ul class="am-avg-sm-2 home-boxes" id="service">
+    <li class="box right"><a href="./butler_pick_service.html">
+        <div class="box-div"><img src="img/baoyangweixiu.png"/>
+
+            <div class="box-text">保养维修</div>
+        </div>
+    </a></li>
+    <li class="box"><a href="./car_beauty_service.html">
+        <div class="box-div"><img src="img/qichemeirong.png"/>
+
+            <div class="box-text">汽车美容</div>
+        </div>
+    </a></li>
+    <li class="box top right"><a href="./renewal_service.html">
+        <div class="box-div"><img src="img/baoxianxuxian.png"/>
+
+            <div class="box-text">保险续险</div>
+        </div>
+    </a></li>
+    <li class="box top"><a href="./home_testing_service.html">
+        <div class="box-div"><img src="img/guanjiajiance.png"/>
+
+            <div class="box-text">管家检测</div>
+        </div>
+    </a></li>
+    <li class="box top right"><a href="./set_loss_service.html">
+        <div class="box-div"><img src="img/daibandingshun.png"/>
+
+            <div class="box-text">代办定损</div>
+        </div>
+    </a></li>
+    <li class="box top"><a href="./emergency_rescue_service.html">
+        <div class="box-div"><img src="img/jingjijiuyuan.png"/>
+
+            <div class="box-text">紧急救援</div>
+        </div>
+    </a></li>
+</ul>
+
+<footer data-am-widget="footer" class="home-footer">
+    <a href="tel:400-0102-766">
+        <img src="img/contact_phone.png"/>
+    </a>
+</footer>
+<script type="text/javascript">!function (t) {
+    t(function () {
+        t('.home-footer').css('top', (t(window).height() - 88) + 'px');
+        var content = t(window).height() - 92 - 88 - 90;
+        t("#service").css("height", content + "px");
+        t(".box").css("height", content / 3 + "px");
+        var box_text_h = t('.box-text').height();
+        t('.box-div').css('margin-top', (content / 3 - box_text_h - 94) / 2 + 'px');
+
+        getStore().set('now_in', 'home');
+
+        function reset_phone() {
+            var user_phone = getUser()['phone'];
+            if (11 === user_phone.length) {
+                t('#user_phone').html(user_phone.substr(0, 3) + '****' + user_phone.substr(7, 4));
+            }
+        }
+
+        if (getReqParam()['back']) {
+            t('#user-win').offCanvas('open');
+            reset_phone();
+        }
+
+        t('#user-win').on('close.offcanvas.amui', function () {
+            window.history.replaceState(null, null, "./home.html");
+        }).on('open.offcanvas.amui', function () {
+            window.history.replaceState(null, null, "./home.html?back=true");
+        });
+
+        t('#close-offcanvas').click(function () {
+            t('#user-win').offCanvas('close');
+        });
+
+        t('#to_show_user_win').click(function () {
+            reset_phone();
+        });
+    })
+}(window.jQuery);</script>
+</body>
+</html><!-- Cached page generated on Thu Apr 09 2015 02:58:25 GMT+0000 (UTC) -->

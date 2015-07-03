@@ -1,0 +1,129 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no;">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>订单列表</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/handlebars.min.js"></script>
+    <script type="text/javascript" src="./js/amazeui.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/router.js"></script>
+</head>
+<body class="body-background-color-gray" onload="init_data()">
+<div id="order_list_view"></div>
+<div class="new-bottom-button-div">
+    <div data-am-widget="gotop" class="am-gotop am-gotop-default am-fl">
+        <a href="#top" id="top" title="回到顶部">
+            <!--<i class="am-gotop-icon am-icon-chevron-up"></i>-->
+            <svg height="100" width="100">
+                <path d="M 20 60 l 30 -30 30 30" stroke="white" stroke-width="2" fill="none" ></path>
+            </svg>
+        </a>
+    </div>
+</div>
+<script type="text/x-handlebars-template" id="order_list_item_tpl">{{#each this}}
+<div id="{{id}}" class="color_black">
+    <p class="am-form-help order-list-help-top"></p>
+
+    <div class="order-list-item-content0 am-vertical-align">
+        <div class="color_gray order-list-item-header am-vertical-align-middle">{{car_number}}</div>
+        <div class="order-list-item-header am-vertical-align-middle">状态：<span class="color_red">{{status}}</span></div>
+    </div>
+    <hr data-am-widget="divider" class="am-divider am-divider-default hr-pd" style="margin: 0px;"/>
+    <div class="am-g am-g-pd order-list-item-content" onclick="item_click_handler('{{id}}')">
+        <div class="am-u-sm-12">
+            <div class="am-g order-list-item-content-inner">
+                <div class="am-u-sm-5 order-list-item-pd">创建时间</div>
+                <div class="am-u-sm-7">{{place_time}}</div>
+            </div>
+            <div class="am-g order-list-item-content-inner">
+                <div class="am-u-sm-5 order-list-item-pd">订单金额</div>
+                <div class="am-u-sm-6">¥{{total_price}}</div>
+                <div class="am-u-sm-1">〉</div>
+            </div>
+            <div class="am-g order-list-item-content-inner">
+                <div class="am-u-sm-5 order-list-item-pd">支付状态</div>
+                <div class="am-u-sm-7">{{paid_info}}</div>
+            </div>
+        </div>
+    </div>
+    <hr data-am-widget="divider" class="am-divider am-divider-default hr-pd margin-0"/>
+    <div class="am-g order-list-item-content2 body-background-color-white am-vertical-align">
+        <div class="am-vertical-align-middle order-list-item-content2-width">
+            <div class="am-u-sm-8"></div>
+            <div class="am-u-sm-4 order-list-item-content2-right-padding">
+                <button onclick="order_flow('{{id}}');" class="am-btn am-btn-success am-btn-block order-list-flow-btn">
+                    订单流程
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}</script>
+<script type="application/javascript">
+
+    var save_now_location = function() {
+        getStore().set('now_scroll_top', document.body.scrollTop);
+    };
+
+    var order_flow = function (order_id) {
+        save_now_location();
+        window.location.href = './order_flow.html?order_id='+order_id;
+    };
+
+    var item_click_handler = function (order_id) {
+        save_now_location();
+        window.location.href = "./order_info.html?order_id=" + order_id;
+    };
+
+    var init_data = function () {
+        getStore().set('now_in', 'order_list');
+
+        if (connect_open_id()) {
+
+            var user = getUser();
+
+            getReq("orders.json?user_id=" + user.user_id, function (data) {
+                var items = [];
+                for (var i = 0; i < data.length; i++) {
+                    var item = {};
+                    item.id = data[i].id;
+                    item.car_number = data[i].car.licence.province + data[i].car.licence.number;
+                    item.paid_info = data[i].paid === true ? "已支付" : "未支付";
+                    item.total_price = data[i].total_price;
+                    item.place_time = format_time(data[i].place_time);
+                    item.status = data[i].status;
+                    items.push(item);
+                }
+                console.log(items);
+                var product_template = Handlebars.compile($("#order_list_item_tpl").html());
+                $("#order_list_view").html(product_template(items));
+
+                if (getStore().get('now_scroll_top')) {
+                    document.body.scrollTop = getStore().get('now_scroll_top');
+                    getStore().remove('now_scroll_top');
+                }
+
+                //bind_openid();
+            });
+        }
+    };
+
+</script>
+<script type="text/javascript">!function (t) {
+    t(function () {
+    })
+}(window.jQuery);</script>
+</body>
+</html><!-- Cached page generated on Thu Apr 09 2015 02:58:25 GMT+0000 (UTC) -->

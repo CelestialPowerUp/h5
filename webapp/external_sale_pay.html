@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>支付</title>
+</head>
+<body>
+<script type="text/javascript" src="./activities/pubjs/jquery.min.js"></script>
+<script type="text/javascript" src="./activities/pubjs/amazeui.min.js"></script>
+<script type="text/javascript" src="./activities/pubjs/pingpp_pay.js"></script>
+<script type="text/javascript" src="./activities/pubjs/common.js"></script>
+<script type="text/javascript">
+
+    if (getStore().get('already_cancel_pay')) {
+        getStore().remove('already_cancel_pay');
+    } else {
+
+        var is_weixin = function isWeiXin(){
+            var ua = window.navigator.userAgent.toLowerCase();
+            return ua.match(/MicroMessenger/i);
+        }();
+
+        var platform = loadCfg('platform.json', function(platform) {
+            return platform['platform'];
+        });
+
+        // 创建支付凭据
+        var param = {
+            subject: getStore().get('subject'),
+            body: getStore().get('subject')+"lon-"+getStore().get('lon')+" lat-"+getStore().get('lat'),
+            activity_record_id: getStore().get('activity_record_id'),
+            channel: 'alipay_wap',
+            extra: {
+                success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('success_url'),
+                cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('cancel_url')
+            }
+        };
+        if (is_weixin) {
+            param['channel'] = 'wx_pub';
+            param['extra'] = { open_id: getStore().get('external_sale_wechat_openid') };
+        }
+
+        postChargeReq('activity_record/charge', param, function (charge) {
+
+            // ping++支付
+            pingpp.createPayment(charge, function (result, error) {
+                console.log(result);
+                console.log(error);
+                if (result == "success") {
+                    // 微信公众账号支付的结果会在这里返回
+    //                alert('微信公众账号支付的结果会在这里返回');
+                    window.location.href = 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('success_url');
+                } else if (result == "fail") {
+                    // charge 不正确或者微信公众账号支付失败时会在此处返回
+                    show_msg("支付失败");
+    //                alert('charge 不正确或者微信公众账号支付失败时会在此处返回');
+    //                for (var i in error) {
+    //                    if('function' !== typeof(error[i])) {
+    //                        alert(i + ' : ' + error[i]);
+    //                    }
+    //                }
+    //                alert('finished alert error');
+                } else if (result == "cancel") {
+                    // 微信公众账号支付取消支付
+    //              alert('微信公众账号支付取消支付');
+                    show_msg('您已取消支付');
+                    getStore().set('already_cancel_pay', true);
+                    window.location.href = 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('cancel_url');
+                }
+            });
+
+        }, function (error) {
+            alert(error);
+            reset_button("login_button");
+        });
+    }
+</script>
+</body>
+</html>

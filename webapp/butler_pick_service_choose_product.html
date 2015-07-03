@@ -1,0 +1,169 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no;">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>管家保养维修</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/handlebars.min.js"></script>
+    <script type="text/javascript" src="./js/amazeui.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/router.js"></script>
+</head>
+<body class="body-background-color-gray">
+<div id="products"></div>
+<div class="am-g transparent-bottom-div-higher">
+    <div class="am-u-sm-12 my-product-comment am-vertical-align">
+        <input type="text" id="comment" class="my-product-comment-rounded-input am-form-field am-vertical-align-middle" placeholder="备注：填写其它需要保养或维修的项目"/>
+    </div>
+
+    <div class="am-u-sm-8 product-bottom-div am-vertical-align">
+        <span class="product-total-text am-vertical-align-middle">总计&nbsp;</span>
+        <span class="product-currency-text am-vertical-align-middle" id="total_price">¥0</span>
+    </div>
+    <div class="am-u-sm-4 product-bottom-div am-vertical-align">
+        <button id="next" class="am-btn am-btn-warning am-btn-block bottom-button-orange am-vertical-align-middle">
+            <!--<i class="am-icon-save"></i>-->
+            下一步
+        </button>
+    </div>
+</div>
+<script src="./js/swiper.min.js"></script>
+<script src="./template/template_utils.js"></script>
+<script src="./template/products_util.js"></script>
+<script>!function (t) {
+    if (t) {
+
+        var store = getStore();
+        var order = getOrder();
+
+        t(function () {
+
+            console.log([store.get('car_info')]);
+
+            template('./template/carInfo.html', 'body', 'prepend', [store.get('car_info')], null, null, function () {
+                t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30) + 'px');
+            });
+
+            load_products(get_service_type_from_router(), order['car_model_type'], null, null, function (param) {
+//                console.log(param['ret_data']);
+
+                var products = [], total_price = 0, product_dict = {}, product_part_dict = {};
+                t.each(param['ret_data']['required_products'] ? param['ret_data']['required_products'] : [], function (i, p) {
+                    products.push(p);
+                    total_price += product_price(p);
+                });
+
+                store.set('required_price', {data: total_price});
+
+                t.each(param['ret_data']['optional_products'] ? param['ret_data']['optional_products'] : [], function (i, p_c) {
+                    var part_type = p_c['part_type'];
+                    t.each(p_c['products'], function (j, p) {
+                        product_dict[p['product_type']] = p;
+                        product_part_dict[p['product_type']] = part_type;
+                    });
+                });
+
+//                console.log(param['ret_data']['optional_products']);
+                template('./template/carProducts.html', '#products', 'full-fill', param['ret_data']['optional_products'], null, null, function () {
+                    t('#products').css('margin-bottom', '130px');
+
+                    var swipers = t('.swiper-container');
+                    var max_length = t(window).width() - 30 - 90 - 30;
+                    t.each(param['ret_data']['optional_products'], function (i, ps) {
+                        var length = ps['products'].length;
+                        var len = length * 200 + (length - 1) * 24;
+                        swipers.eq(i).find('.swiper-slide').css('width', len);
+                        if (len > max_length) {
+                            len = max_length;
+                        }
+                        swipers.eq(i).css('width', len + 'px');
+                        swipers.eq(i).addClass('swiper-container' + i);
+                        swipers.eq(i).find('.swiper-scrollbar').addClass('swiper-scrollbar' + i);
+
+                        swipers.eq(i).find('.swiper-scrollbar').css('width', len + 'px');
+
+                        var swiper = new Swiper('.swiper-container' + i, {
+                            direction: 'horizontal',
+                            scrollbar: '.swiper-scrollbar' + i,
+                            slidesPerView: 'auto',
+                            slidesPerColumnFill: 'row',
+                            scrollbarHide: true,
+                            centeredSlides: false,
+                            spaceBetween: 24,
+                            grabCursor: true,
+                            freeMode: true
+                        });
+                    });
+
+                    t('#products').find('.swiper-scrollbar').css('margin', '0 0 105px -3px');
+                    t('#products').find('.swiper-scrollbar').css('height', '1px');
+
+                    t.each(t('.my-btn-group'), function (i, btn_group) {
+                        var partname = param['ret_data']['optional_products'][i]['part_name'];
+                        var first_p = t(btn_group).find('button').eq(0);
+                        if ('空气滤' === partname) {
+                            t(first_p).css('background-color', '#FFFFFF');
+                            t(first_p).css('color', '#333333');
+                            t(first_p).css('border', '1px solid #cccccc');
+                        } else {
+                            var local_rel = first_p.attr('data-rel');
+                            t(btn_group).attr('data-rel', local_rel);
+                        }
+                    });
+
+                    recal_products(product_dict, product_part_dict);
+
+                    t('.my-btn-group').on('click', 'button', function (e) {
+                        var group_p = t(this).parents()[1];
+                        var local_rel = t(this).attr('data-rel');
+                        var selected_rel = t(group_p).attr('data-rel');
+                        if (local_rel == selected_rel) {
+                            t(group_p).attr('data-rel', '');
+                            t(this).css('background-color', '#FFFFFF');
+                            t(this).css('color', '#333333');
+                            t(this).css('border', '1px solid #cccccc');
+
+                            recal_products(product_dict, product_part_dict);
+                            return;
+                        }
+
+                        t(group_p).attr('data-rel', local_rel);
+                        t(group_p).find('button').css('background-color', '#FFFFFF');
+                        t(group_p).find('button').css('color', '#333333');
+                        t(group_p).find('button').css('border', '1px solid #cccccc');
+                        t(this).css('background-color', '#0db603');
+                        t(this).css('color', '#FFFFFF');
+                        t(this).css('border', '1px solid #0db603');
+
+                        recal_products(product_dict, product_part_dict);
+                    });
+                });
+
+                t('#next').bind('click', function (e) {
+                    var order = getOrder();
+                    order['product_comment'] = t('#comment').val();
+                    updateOrder(order);
+
+                    recal_products(product_dict, product_part_dict, products);
+
+                    console.log(getOrder());
+                    route2();
+                });
+            });
+        });
+    }
+}(window.jQuery);</script>
+</body>
+</html>

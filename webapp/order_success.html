@@ -1,0 +1,169 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no;">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>下单成功</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/handlebars.min.js"></script>
+    <script type="text/javascript" src="./js/amazeui.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://a.alipayobjects.com/u/ecmng/js/201410/3fzyLyZl9J.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/router.js"></script>
+</head>
+<body class="body-background-color-gray">
+<div class="order-success-div" id="info_view">
+    <!--基本信息-->
+
+</div>
+
+<div class="normal-bottom-btn-div">
+    <button type="button" id="pay_button" class="am-btn am-btn-success am-btn-block new-bottom-button" style="display: none;">
+        支付
+    </button>
+    <button type="button" id="close_button" class="am-btn am-btn-success am-btn-block new-bottom-button">
+        关闭
+    </button>
+</div>
+
+<script type="text/x-handlebars-template" id="info-tpl">{{#this}}
+<img src="img/success.png" class="order-success-img">
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <div class="auto-center order-success-success-font">恭喜您，下单成功</div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <div class="auto-center order-success-success-info">
+            <hr data-am-widget="divider" class="am-divider am-divider-default"/>
+            订单号：{{number}}
+        </div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <div class="auto-center order-success-success-info">
+            <div>未付金额：¥<span id="total_price">{{total_price}}</span></div>
+            <hr data-am-widget="divider" class="am-divider am-divider-default" style="margin: 5px 0px;"/>
+            <p class="am-form-help order-success-help">稍后我们的客服会与你联系</p>
+        </div>
+    </div>
+</div>
+{{/this}}</script>
+<script type="text/javascript" src="./js/pingpp_pay.js"></script>
+<script type="text/javascript">!function (t) {
+    if (t) {
+        t(function () {
+//            alert(getUser()['open_id']);
+//            if (!getUser()['open_id']) {
+//                window.location.href = './open_id.html';
+//            }
+
+            var store = getStore();
+            store.set('inner', 'false');
+
+//            var platform = $.ajax({
+//                url: 'platform.json',
+//                cache: false,
+//                async: false,
+//                dataType: 'json'
+//            });
+
+            console.log(getOrder());
+            var order_info = getSuccessOrder();
+
+            if (1 === order_info['pay_mode'] && !order_info['paid'] && order_info['total_price'] > 0) {
+//                alert(order_info['pay_mode']);
+                t('#pay_button').css('display', 'block');
+            }
+
+            if (getReqParam()['suc']) {
+                t('#total_price').text('0');
+                t('#pay_button').css('display', 'none');
+            }
+
+            console.log(order_info);
+            var info_template = Handlebars.compile(t("#info-tpl").html());
+            t("#info_view").html(info_template(order_info));
+
+            t('#pay_button').click(function () {
+                var param = {
+                    amount: order_info['total_price'],
+                    subject: "养爱车－" + order_info['order_type'],
+                    body: "养爱车－" + order_info['order_type'],
+                    order_id: order_info['id'],
+                    channel: getStore().get('channel')
+                };
+                loadCfg('platform.json', function (platform) {
+                    if ('wechat' === platform['platform']) {
+                        param['extra'] = { open_id: getStore().get('open_id') };
+                    } else if ('normal' === platform['platform']) {
+                        param['channel'] = 'alipay_wap';
+                        param['extra'] = {
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_success.html?suc=true',
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_success.html'
+                        };
+                    } else {
+                        param['extra'] = {
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html?suc=true',
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html'
+                        };
+                    }
+                });
+                postChargeReq('charge', param, function (charge) {
+//                    alert(1);
+                    pingpp.createPayment(charge, function (result, error) {
+                        console.log(result);
+                        console.log(error);
+                        if (result == "success") {
+                            // 微信公众账号支付的结果会在这里返回
+//                            alert('微信公众账号支付的结果会在这里返回');
+                            t('#total_price').text('0');
+                            t('#pay_button').css('display', 'none');
+                        } else if (result == "fail") {
+                            // charge 不正确或者微信公众账号支付失败时会在此处返回
+                            show_msg("支付失败");
+                            alert('charge 不正确或者微信公众账号支付失败时会在此处返回');
+                            for (var i in error) {
+                                if('function' !== typeof(error[i])) {
+                                    alert(i + ' : ' + error[i]);
+                                }
+                            }
+                            alert('finished alert error');
+                        } else if (result == "cancel") {
+                            // 微信公众账号支付取消支付
+//                            alert('微信公众账号支付取消支付');
+                            show_msg('您已取消支付');
+                        }
+                    });
+                }, function (error) {
+                    alert(error);
+                });
+            });
+
+            t("#close_button").click(function () {
+                loadCfg('platform.json', function (platform) {
+                    if ('wechat' === platform['platform']) {
+                        wx.closeWindow();
+                    } else if ('alipay' === platform['platform']) {
+                        AlipayJSBridge.call('exitApp');
+                    }
+                });
+            });
+        });
+    }
+}(window.jQuery);</script>
+</body>
+</html><!-- Cached page generated on Thu Apr 09 2015 02:58:25 GMT+0000 (UTC) -->
