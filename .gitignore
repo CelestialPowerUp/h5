@@ -1,2 +1,5 @@
 .idea
 *.iml
+tmp
+h5-develop
+fis-cfgs
