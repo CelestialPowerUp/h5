@@ -345,14 +345,14 @@
                     }
                 };
 
-                lushu.create_single = function (geo_array) {
+                lushu.create_single = function (geo_array, speed) {
                     var arrPois = geo_array;
                     console.log(arrPois);
                     map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
 
                     return new BMapLib.LuShu(map, arrPois, {
 //                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
-                        speed: 4500,
+                        speed: speed,
                         icon: myIcon,
                         //enableRotation:true,
                         landmarkPois: [
@@ -365,8 +365,10 @@
                     if (this_pois.length === 0) {
                         this_pois.push(new BMap.Point(this_pois[0].lng, this_pois[0].lat));
                     }
-                    var cmp = this.create_single(this_pois);
-                    cmp.ycar_total_time = ((distance / 4500).toFixed(0) + 1) * 1000;
+                    var min_total_time = Math.min(2, parseInt((distance / 4500 + 1).toFixed(0)));
+                    var speed = distance / min_total_time;
+                    var cmp = this.create_single(this_pois, speed);
+                    cmp.ycar_total_time = min_total_time * 1000;
                     lushu_cmp.cmps.push(cmp);
                 };
 
@@ -400,7 +402,7 @@
                     };
 
                     var distance = 0, this_pois = [], last_point = null, gen_pois = this.gen_arr_pois(geo_array);
-                    for (var i = 0; i < gen_pois.length; i++) {
+                    for (var i = gen_pois.length - 1; i >= 0; i--) {
                         var point = gen_pois[i];
                         if (!last_point) {
                             this_pois.push(point);
