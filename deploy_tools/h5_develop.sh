@@ -1,6 +1,6 @@
 #!/bin/bash
 
-local_dir="../h5"
+local_dir=".."
 config="develop"
 make_dir="h5-"$config
 wechat="wechat"
