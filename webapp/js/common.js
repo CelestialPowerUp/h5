@@ -38,6 +38,8 @@ var login_by_opencode = function(){
     loadCfg('platform.json', function (platform) {
         if ('normal' === platform['platform']) {
             show_login_win();
+        } else if ('rc' === platform['platform']) {
+            show_login_win();
         } else {
             window.location.href = "./open_id.html";
         }
