@@ -318,7 +318,7 @@
                 var map = new BMap.Map('map_view');
                 map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
 
-                var myIcon = new BMap.Icon("http://api.map.baidu.com/lbsapi/cloud/cms/Mario.png", {
+                var myIcon = new BMap.Icon(getStore().get('keeper_avatar_img'), {
                     width: 128,
                     height: 128
                 }, {anchor: new BMap.Size(65, 128)});
@@ -351,7 +351,7 @@
                     map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
 
                     return new BMapLib.LuShu(map, arrPois, {
-                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
+//                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
                         speed: 4500,
                         icon: myIcon,
                         //enableRotation:true,
