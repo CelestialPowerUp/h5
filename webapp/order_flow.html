@@ -365,7 +365,7 @@
                     if (this_pois.length === 0) {
                         this_pois.push(new BMap.Point(this_pois[0].lng, this_pois[0].lat));
                     }
-                    var max_total_time = Math.max(2, parseInt((1 + (distance / 4500)).toFixed(0)));
+                    var max_total_time = Math.max(3, parseInt((1 + (distance / 4500)).toFixed(0)));
                     var speed = distance / max_total_time;
                     var cmp = this.create_single(this_pois, speed);
                     cmp.ycar_total_time = max_total_time * 1000;
