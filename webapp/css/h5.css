@@ -124,6 +124,8 @@ ul, li, div, span, input, img, a {
     background-color: #0db603;
     border-radius: 8px;
     border-color: #0db603;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .bottom-button-orange {

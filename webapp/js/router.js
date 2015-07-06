@@ -1,25 +1,6 @@
 /**
  * Created by Administrator on 2015/5/25.
  */
-function fake_open_id() {
-    //getStore().set('open_id', 'oTWbOt_s4QK0vuzjmzuIDYZy2aU4');
-}
-
-function connect_open_id() {
-    var result = true;
-    loadCfg('platform.json', function (platform) {
-        if ('normal' !== platform['platform']) {
-            var openId = getStore().get('open_id');
-            //alert(openId);
-            if (undefined === openId || null === openId) {
-                //alert('in');
-                result = false;
-                window.location.href = './open_id.html';
-            }
-        }
-    });
-    return result;
-}
 
 function bulter_pick() {
     getStore().set('now_in', 'butler_pick');

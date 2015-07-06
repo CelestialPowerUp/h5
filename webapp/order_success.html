@@ -135,13 +135,13 @@
                         } else if (result == "fail") {
                             // charge 不正确或者微信公众账号支付失败时会在此处返回
                             show_msg("支付失败");
-                            alert('charge 不正确或者微信公众账号支付失败时会在此处返回');
-                            for (var i in error) {
-                                if('function' !== typeof(error[i])) {
-                                    alert(i + ' : ' + error[i]);
-                                }
-                            }
-                            alert('finished alert error');
+//                            alert('charge 不正确或者微信公众账号支付失败时会在此处返回');
+//                            for (var i in error) {
+//                                if('function' !== typeof(error[i])) {
+//                                    alert(i + ' : ' + error[i]);
+//                                }
+//                            }
+//                            alert('finished alert error');
                         } else if (result == "cancel") {
                             // 微信公众账号支付取消支付
 //                            alert('微信公众账号支付取消支付');

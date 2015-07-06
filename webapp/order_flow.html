@@ -27,7 +27,7 @@
 <div id="car_tracks" style="display: none;">
     <div id="map_view" class="order-flow-map-view">
     </div>
-    <button id="run" class="am-btn am-btn-success new-bottom-button" style="width: 640px;margin-top: 10px;">点击观看地理位置信息
+    <button id="run" class="am-btn am-btn-success new-bottom-button" style="width: 100%;">点击观看地理位置信息
     </button>
 </div>
 <script type="text/x-handlebars-template" id="order_flow_tpl">
@@ -318,66 +318,118 @@
                 var map = new BMap.Map('map_view');
                 map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
 
-                var myIcon = new BMap.Icon("http://api.map.baidu.com/lbsapi/cloud/cms/Mario.png", {
+                var myIcon = new BMap.Icon(getStore().get('keeper_avatar_img'), {
                     width: 128,
                     height: 128
                 }, {anchor: new BMap.Size(65, 128)});
 
-                var drv = new BMap.DrivingRoute('北京', {
-                    onSearchComplete: function (res) {
-                        if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
-                            var source_arrPois = res.getPlan(0).getRoute(0).getPath(), arrPois = [];
-                            console.log(source_arrPois);
+                var lushu = {};
 
-                            var lushu = {};
+                lushu.gen_arr_pois = function (geo_array) {
+                    var gen_pois = [];
+                    t.each(geo_array, function (i, point) {
+                        gen_pois.push(new BMap.Point(point.longitude, point.latitude));
+                    });
+                    return gen_pois;
+                };
 
-                            lushu.gen_arr_pois = function (geo_array) {
-                                var gen_pois = [];
-                                t.each(geo_array, function (i, point) {
-                                    var baidu_point = {};
-                                    baidu_point.__proto__ = source_arrPois[0].__proto__;
-                                    baidu_point.lng = point.longitude;
-                                    baidu_point.lat = point.latitude;
-                                    gen_pois.push(baidu_point);
-                                });
-                                return gen_pois;
-                            };
+                lushu.is_mod = function (geo_array) {
+                    return false;//TODO
+                };
 
-                            lushu.is_mod = function (geo_array) {
-                                return false;//TODO
-                            };
+                lushu.update = function (geo_array) {
+                    if (this.is_mod(geo_array)) {
+                        map = new BMap.Map('map_view');
+                        map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+                        return this.create(geo_array);
+                    }
+                };
 
-                            lushu.update = function (geo_array) {
-                                if (this.is_mod(geo_array)) {
-                                    map = new BMap.Map('map_view');
-                                    map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
-                                    return this.create(geo_array);
-                                }
-                            };
+                lushu.create_single = function (geo_array, speed) {
+                    var arrPois = geo_array;
+                    console.log(arrPois);
+                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
 
-                            lushu.create = function (geo_array) {
-                                var arrPois = this.gen_arr_pois(geo_array);
-                                console.log(arrPois);
-                                map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
-                                map.setViewport(arrPois);
-
-                                return new BMapLib.LuShu(map, arrPois, {
-                                    defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
-                                    speed: 4500,
-                                    icon: myIcon,
-                                    //enableRotation:true,
-                                    landmarkPois: [
+                    return new BMapLib.LuShu(map, arrPois, {
+//                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
+                        speed: speed,
+                        icon: myIcon,
+                        //enableRotation:true,
+                        landmarkPois: [
 //                                    {lng: 116.314782, lat: 39.913508, html: '加油站', pauseTime: 2}
-                                    ]
-                                });
-                            };
+                        ]
+                    });
+                };
 
-                            callback(lushu);
+                lushu.create_util = function (lushu_cmp, this_pois, distance) {
+                    if (this_pois.length === 0) {
+                        this_pois.push(new BMap.Point(this_pois[0].lng, this_pois[0].lat));
+                    }
+                    var max_total_time = Math.max(3, parseInt((1 + (distance / 4500)).toFixed(0)));
+                    var speed = distance / max_total_time;
+                    var cmp = this.create_single(this_pois, speed);
+                    cmp.ycar_total_time = max_total_time * 1000;
+                    lushu_cmp.cmps.push(cmp);
+                };
+
+                lushu.create = function (geo_array) {
+                    var lushu_cmp = {
+                        cmps: [],
+                        now_cmp: null,
+                        timeout_task: null,
+                        start: function(i) {
+                            if (0 === i) {
+                                clearTimeout(this.timeout_task);
+                            }
+
+                            if (i == this.cmps.length) {
+                                return;
+                            }
+
+                            if (null !== this.now_cmp) {
+                                this.now_cmp.stop();
+                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800;"]').empty();
+                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400;"]').empty();
+                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300;"]').empty();
+                            }
+
+                            this.now_cmp = this.cmps[i];
+                            this.now_cmp.start();
+                            this.timeout_task = setTimeout(function() {
+                                lushu_cmp.start(i + 1);
+                            }, this.now_cmp.ycar_total_time);
+                        }
+                    };
+
+                    var distance = 0, this_pois = [], last_point = null, gen_pois = this.gen_arr_pois(geo_array);
+                    for (var i = gen_pois.length - 1; i >= 0; i--) {
+                        var point = gen_pois[i];
+                        if (!last_point) {
+                            this_pois.push(point);
+                            last_point = point;
+                            distance = 0;
+                        } else {
+                            var this_distance = (map.getDistance(last_point, point)).toFixed(0);
+                            if (this_distance < 1000) {
+                                distance += this_distance;
+                                this_pois.push(point);
+                                last_point = point;
+                            } else {
+                                this.create_util(lushu_cmp, this_pois, distance);
+                                this_pois = [];
+                                this_pois.push(point);
+                                distance = 0;
+                            }
                         }
                     }
-                });
+                    this.create_util(lushu_cmp, this_pois, distance);
 
-                drv.search('天安门', '天安门');
+                    console.log(lushu_cmp);
+                    map.setViewport(gen_pois);
+                    return lushu_cmp;
+                };
+
+                callback(lushu);
             }
 
             getReq('/tracks?order_id=' + getReqParam()['order_id'], function (data) {
@@ -403,28 +455,14 @@
                     t('#order_flow').css('display', 'none');
 
                     if (!loaded) {
-                        var run_btn_height = 60;
-                        t('#run').css('height', (run_btn_height) + 'px');
-                        t('#map_view').css('height', (t(window).height() - run_btn_height - 80 - 10) + 'px');
+                        t('#map_view').css('height', (t(window).height() - t('#run').height() - 80) + 'px');
 
                         init_lushu(function (util) {
 
                             var lushu_cmp = util.create(getStore().get('track_data'));
                             //绑定事件
                             t("#run").click(function () {
-                                lushu_cmp.start();
-                            });
-                            t("#stop").click(function () {
-                                lushu_cmp.stop();
-                            });
-                            t("#pause").click(function () {
-                                lushu_cmp.pause();
-                            });
-                            t("#hide").click(function () {
-                                lushu_cmp.hideInfoWindow();
-                            });
-                            t("#show").click(function () {
-                                lushu_cmp.showInfoWindow();
+                                lushu_cmp.start(0);
                             });
 
                             loaded = true;
