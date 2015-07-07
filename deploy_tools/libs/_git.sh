@@ -28,25 +28,25 @@ if [ $RollbackAble == 'y' ]; then
 
 	if [ ${deploy2:0:1} == 'y' ]; then
 		echo wechat stable
-	    deployed=deployed"wechat "
+	    deployed=$deployed"wechat "
 	fi
 
 	if [ ${deploy2:1:1} == 'y' ]; then
 		echo alipay stable
-	   	deployed=deployed"alipay "
+	   	deployed=$deployed"alipay "
 	fi
 
 	if [ ${deploy2:2:1} == 'y' ]; then
 		echo xiaomi stable
-	    deployed=deployed"xiaomi "
+	    deployed=$deployed"xiaomi "
 	fi
 
 	if [ ${deploy2:3:1} == 'y' ]; then
 		echo normal stable
-	    deployed=deployed"normal "
+	    deployed=$deployed"normal "
 	fi
 
-	comment="$local_cfg stable "$deployed" $version"
+	comment="$local_cfg stable"$deployed"$version"
 	echo $comment
 	git commit -am "$comment"
 	#git tag $comment
