@@ -13,10 +13,10 @@ var appId = loadCfg('data.json', function(enviroment) {
 });
 var snsapi = 'https://account.xiaomi.com/oauth2/authorize?client_id='+ appId +'&response_type=token&redirect_uri=http%3A%2F%2F' + host + 'xiaomi%2Fopen_id.html';
 
-var reqParam = getReqParam(), to_snsapi = true;
+var reqParam = getHashParam(), to_snsapi = true;
 var accessToken = reqParam['access_token'];//小米返回的access_token值
-var macKey = reqParam['mac_key'];//获取小米userId需要用到的macKey
-if (accessToken && macKey) {
+//var macKey = reqParam['mac_key'];//获取小米userId需要用到的macKey
+if (accessToken/* && macKey*/) {
     alert(accessToken);
     alert(macKey);
     postReq("login_by_xiaomi_openid.json?code="+accessToken+"&situation="+situation,{},function(data){

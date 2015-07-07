@@ -66,6 +66,22 @@ var getReqParam = function () {
     return theRequest;
 };
 
+var getHashParam = function() {
+    var hash_value = location.hash; //
+    var theRequest = {};
+    theRequest.counts = 0;
+    if (hash_value && hash_value !== '') {
+        var str = hash_value;
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            var ss = strs[i].split("=");
+            theRequest[ss[0]] = ss[1];
+            theRequest.counts++;
+        }
+    }
+    return theRequest;
+};
+
 var getReq = function (url, callBack, failureBack) {
     $.ajax({
         type: "GET",
