@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640, initial-scale=1,user-scalable=no"/>
+    <meta name="viewport" content="width=640px, user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
     <title>首页</title>
@@ -129,6 +129,8 @@
 </footer>
 <script type="text/javascript">!function (t) {
     t(function () {
+        console.log(navigator);
+
         t('.home-footer').css('top', (t(window).height() - 88) + 'px');
         var content = t(window).height() - 92 - 88 - 90;
         t("#service").css("height", content + "px");
