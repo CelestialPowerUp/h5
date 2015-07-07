@@ -67,11 +67,11 @@ var getReqParam = function () {
 };
 
 var getHashParam = function() {
-    var hash_value = location.hash; //
+    var url = location.href; //
     var theRequest = {};
     theRequest.counts = 0;
-    if (hash_value && hash_value !== '') {
-        var str = hash_value;
+    if (url.indexOf("#") != -1) {
+        var str = url.substr(url.indexOf("#") + 1);
         var strs = str.split("&");
         for (var i = 0; i < strs.length; i++) {
             var ss = strs[i].split("=");
