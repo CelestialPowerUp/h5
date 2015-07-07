@@ -1,13 +1,57 @@
 #!/bin/bash
 
-local_cfg="$1"
-git add *.cfg *output.log
-git commit -am "auto committed by _git.sh" 
-old_commit_id=$(git show ${local_cfg} |head -n 1 |awk '{print $2}')     
-old_tag=${local_cfg}"_old" 
-git tag  -d ${old_tag} 
-git push github_core --delete ${old_tag} 
-git tag -a ${old_tag}  ${old_commit_id} -m "set old ${local_cfg}" 
-git tag  -d ${local_cfg} 
-git push github_core --delete ${local_cfg} 
-git tag   ${local_cfg}
+local_dir="$1"
+local_cfg="$2"
+cfgfile=$local_dir/$local_cfg"_version.cfg"
+
+if [ -e $cfgfile ]; then
+	version=$(cat $cfgfile)
+	echo $version
+else
+	version="1"
+	echo $cfgfile file not exits
+fi
+
+#arrVersion=(${version//\./ })
+
+version=version+1
+echo version > $cfgfile
+
+deployed=" "
+
+if [ ${deploy:0:1} == 'y' ]; then
+    deployed=deployed"wechat "
+fi
+
+if [ ${deploy:1:1} == 'y' ]; then
+   	deployed=deployed"alipay "
+fi
+
+if [ ${deploy:2:1} == 'y' ]; then
+    deployed=deployed"xiaomi "
+fi
+
+if [ ${deploy:3:1} == 'y' ]; then
+    deployed=deployed"normal "
+fi
+
+if [ ${deploy:4:1} == 'y' ]; then
+    deployed=deployed"rc "
+fi
+
+if [ ${deploy:5:1} == 'y' ]; then
+    deployed=deployed"mirc "
+fi
+
+read -p "deploy RollbackAble version?(y/n): " RollbackAble
+
+git add $cfgfile
+if [ $RollbackAble == 'y' ]; then
+	comment="$local_cfg stable"$deployed"$version"
+	git commit -am $comment
+	git tag $comment
+else
+	comment="$local_cfg beta"$deployed"$version"
+	git commit -am $comment
+	git tag $comment
+fi
