@@ -44,11 +44,11 @@ if [ $RollbackAble == 'y' ]; then
 
 	comment="$local_cfg stable"$deployed"$version"
 	echo $comment
-	git commit -am $comment
+	git commit -am "$comment"
 	#git tag $comment
 else
 	comment="$local_cfg beta $version"
 	echo $comment
-	git commit -am $comment
+	git commit -am "$comment"
 	#git tag $comment
 fi
