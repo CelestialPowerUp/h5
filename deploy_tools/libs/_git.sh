@@ -15,7 +15,7 @@ fi
 
 #arrVersion=(${version//\./ })
 
-version=$version+1
+version=$(expr $version + 1)
 echo $version > $cfgfile
 
 deployed=" "
@@ -50,9 +50,9 @@ git add $cfgfile
 if [ $RollbackAble == 'y' ]; then
 	comment="$local_cfg stable"$deployed"$version"
 	git commit -am $comment
-	git tag $comment
+	#git tag $comment
 else
 	comment="$local_cfg beta"$deployed"$version"
 	git commit -am $comment
-	git tag $comment
+	#git tag $comment
 fi
