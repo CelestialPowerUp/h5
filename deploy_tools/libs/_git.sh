@@ -18,7 +18,7 @@ fi
 version=$(expr $version + 1)
 echo $version > $cfgfile
 
-git add *
+git add $cfgfile
 read -p "deploy RollbackAble version?(y/n): " RollbackAble
 
 if [ $RollbackAble == 'y' ]; then
@@ -44,11 +44,11 @@ if [ $RollbackAble == 'y' ]; then
 
 	comment="$local_cfg stable"$deployed"$version"
 	echo $comment
-	git commit -m $comment
+	git commit -am $comment
 	#git tag $comment
 else
 	comment="$local_cfg beta $version"
 	echo $comment
-	git commit -m $comment
+	git commit -am $comment
 	#git tag $comment
 fi
