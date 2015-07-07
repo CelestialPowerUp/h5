@@ -18,41 +18,37 @@ fi
 version=$(expr $version + 1)
 echo $version > $cfgfile
 
-deployed=" "
-
-if [ ${deploy:0:1} == 'y' ]; then
-    deployed=deployed"wechat "
-fi
-
-if [ ${deploy:1:1} == 'y' ]; then
-   	deployed=deployed"alipay "
-fi
-
-if [ ${deploy:2:1} == 'y' ]; then
-    deployed=deployed"xiaomi "
-fi
-
-if [ ${deploy:3:1} == 'y' ]; then
-    deployed=deployed"normal "
-fi
-
-if [ ${deploy:4:1} == 'y' ]; then
-    deployed=deployed"rc "
-fi
-
-if [ ${deploy:5:1} == 'y' ]; then
-    deployed=deployed"mirc "
-fi
-
+git add *
 read -p "deploy RollbackAble version?(y/n): " RollbackAble
 
-git add $cfgfile
 if [ $RollbackAble == 'y' ]; then
+
+	read -p "stable of wechat, alipay, xiaomi, normal?(y/n): " deploy
+	deployed=" "
+
+	if [ ${deploy:0:1} == 'y' ]; then
+	    deployed=deployed"wechat "
+	fi
+
+	if [ ${deploy:1:1} == 'y' ]; then
+	   	deployed=deployed"alipay "
+	fi
+
+	if [ ${deploy:2:1} == 'y' ]; then
+	    deployed=deployed"xiaomi "
+	fi
+
+	if [ ${deploy:3:1} == 'y' ]; then
+	    deployed=deployed"normal "
+	fi
+
 	comment="$local_cfg stable"$deployed"$version"
+	echo $comment
 	git commit -m $comment
 	#git tag $comment
 else
-	comment="$local_cfg beta"$deployed"$version"
+	comment="$local_cfg beta $version"
+	echo $comment
 	git commit -m $comment
 	#git tag $comment
 fi
