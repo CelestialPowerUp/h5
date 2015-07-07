@@ -2,20 +2,21 @@
 
 local_dir="$1"
 local_cfg="$2"
+deploy="$3"
 cfgfile=$local_dir/$local_cfg"_version.cfg"
 
 if [ -e $cfgfile ]; then
 	version=$(cat $cfgfile)
 	echo $version
 else
-	version="1"
+	version=0
 	echo $cfgfile file not exits
 fi
 
 #arrVersion=(${version//\./ })
 
-version=version+1
-echo version > $cfgfile
+version=$version+1
+echo $version > $cfgfile
 
 deployed=" "
 
