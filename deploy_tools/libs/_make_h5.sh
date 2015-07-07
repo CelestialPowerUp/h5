@@ -26,7 +26,7 @@ function after_xiaomi {
     echo 'done'
 }
 
-deploy="$10"
+read -p "deploy "$4","$5","$6","$7","$8","$9"?(y/n): " deploy
 
 if [ ${deploy:0:1} == 'y' ]; then
     mkdir -p $1/$3/$4 &&
