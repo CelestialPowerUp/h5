@@ -49,10 +49,10 @@ read -p "deploy RollbackAble version?(y/n): " RollbackAble
 git add $cfgfile
 if [ $RollbackAble == 'y' ]; then
 	comment="$local_cfg stable"$deployed"$version"
-	git commit -am $comment
+	git commit -m $comment
 	#git tag $comment
 else
 	comment="$local_cfg beta"$deployed"$version"
-	git commit -am $comment
+	git commit -m $comment
 	#git tag $comment
 fi
