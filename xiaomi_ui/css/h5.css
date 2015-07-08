@@ -323,7 +323,7 @@ ul, li, div, span, input, img, a {
 }
 
 .user-win-content {
-    width: 640px;
+    width: 100%;
     background: rgba(51, 51, 51, 0.80);
 }
 
@@ -334,39 +334,41 @@ ul, li, div, span, input, img, a {
 }
 
 .user-win-content .left {
-    width: 267px;
+    width: 87.5%;
     height: 100%;
     background-color: white;
 }
 
 .user-win-content .right {
-    width: 53px;
+    width: 12.5%;
     height: 100%;
 }
 
 .user-logo {
     position: absolute;
     top: 30px;
-    left: 109px;
+    left: 36%;
 }
 
 .user-logo img {
-    height: 50px;
+    height: 15.625%;
 }
 
 .user-info {
     position: absolute;
     top: 90px;
-    left: 98px;
+    left: 35%;
+    width: 17.5%;
     color: #999999;
     font-size: 14px;
+    text-align: center;
 }
 
 .menu-info {
     position: absolute;
     top: 132px;
-    left: 15px;
-    width: 237px;
+    left: 5%;
+    width: 82.5%;
     margin: 0 auto;
     font-size: 20px;
     color: #333333;
@@ -384,17 +386,17 @@ ul, li, div, span, input, img, a {
 
 .menu-info li a span {
     font-size: 20px;
-    padding-left: 10px;
+    padding-left: 3%;
 }
 
 .close-icon {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 2.5%;
+    right: 2.5%;
 }
 
 .close-icon img {
-    width: 33px;
+    width: 10%;
 }
 
 /* product */
