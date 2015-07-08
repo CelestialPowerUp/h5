@@ -346,7 +346,7 @@ ul, li, div, span, input, img, a {
 }
 
 .user-logo img {
-    width: 15.625%;
+    width: 50%;
 }
 
 .user-info {
@@ -391,8 +391,8 @@ ul, li, div, span, input, img, a {
 
 .close-icon {
     position: absolute;
-    top: 2.5%;
-    right: 2.5%;
+    top: 0.5%;
+    right: 0.5%;
 }
 
 .close-icon img {
