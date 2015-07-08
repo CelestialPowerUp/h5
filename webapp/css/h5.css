@@ -194,7 +194,7 @@ ul, li, div, span, input, img, a {
 }
 
 .home-boxes {
-    width: 640px;
+    width: 100%;
 }
 
 .home-boxes .box {
