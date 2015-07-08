@@ -119,10 +119,10 @@ ul, li, div, span, input, img, a {
 }
 
 .new-bottom-button {
-    height: 90px;
-    font-size: 30px;
+    height: 46px;
+    font-size: 20px;
     background-color: #0db603;
-    border-radius: 8px;
+    border-radius: 23px;
     border-color: #0db603;
     padding-top: 0;
     padding-bottom: 0;
