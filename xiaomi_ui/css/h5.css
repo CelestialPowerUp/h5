@@ -339,11 +339,6 @@ ul, li, div, span, input, img, a {
     background-color: white;
 }
 
-.user-win-content .right {
-    width: 12.5%;
-    height: 100%;
-}
-
 .user-logo {
     position: absolute;
     top: 30px;
@@ -351,14 +346,14 @@ ul, li, div, span, input, img, a {
 }
 
 .user-logo img {
-    height: 15.625%;
+    width: 15.625%;
 }
 
 .user-info {
     position: absolute;
     top: 90px;
-    left: 35%;
-    width: 17.5%;
+    left: 30%;
+    width: 27.5%;
     color: #999999;
     font-size: 14px;
     text-align: center;
@@ -389,6 +384,11 @@ ul, li, div, span, input, img, a {
     padding-left: 3%;
 }
 
+.user-win-content .right {
+    width: 12.5%;
+    height: 100%;
+}
+
 .close-icon {
     position: absolute;
     top: 2.5%;
@@ -396,7 +396,7 @@ ul, li, div, span, input, img, a {
 }
 
 .close-icon img {
-    width: 10%;
+    width: 50%;
 }
 
 /* product */
