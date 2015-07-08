@@ -34,11 +34,6 @@
             <img src="img/user_logo1.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
         </div>
         <div class="am-u-sm-6 home-header">
-            <!--<div class="download-div">-->
-                <!--<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">-->
-                    <!--<img src="img/download.png"/>-->
-                <!--</a>-->
-            <!--</div>-->
         </div>
     </div>
 
@@ -132,12 +127,12 @@
         console.log(navigator);
 //        alert(navigator.appVersion);
 
-        t('.home-footer').css('top', (t(window).height() - 88) + 'px');
-        var content = t(window).height() - 92 - 88 - 90;
+        t('.home-footer').css('top', (t(window).height() - 44) + 'px');
+        var content = t(window).height() - 46 - 44 - 45;
         t("#service").css("height", content + "px");
         t(".box").css("height", content / 3 + "px");
         var box_text_h = t('.box-text').height();
-        t('.box-div').css('margin-top', (content / 3 - box_text_h - 94) / 2 + 'px');
+        t('.box-div').css('margin-top', (content / 3 - box_text_h - 47) / 2 + 'px');
 
         getStore().set('now_in', 'home');
 
