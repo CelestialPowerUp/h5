@@ -16,7 +16,7 @@ function before_xiaomi {
 
     echo 'before fis xiaomi' &&
     cp -a $1/webapp/* $1/tmp/ &&
-    cp -a $1/xiaomi_ui/* $1/webapp/ &&
+    cp -a $1/xiaomi_ui/* $1/tmp/ &&
     echo 'done'
 }
 
@@ -45,8 +45,8 @@ fi
 if [ ${deploy:2:1} == 'y' ]; then
     mkdir -p $1/$3/$6 &&
     before_xiaomi $1 &&
-    fis release -com -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$6"-conf.js" -d $1/$3/$6 -D &&
-    after_xiaomi $1 &&
+    fis release -com -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$6"-conf.js" -d $1/$3/$6 -D &&
+    #after_xiaomi $1 &&
     cp -a $1/webapp/js/openid/* $1/$3/$6/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$6 $1/$3/$6
 fi
@@ -68,8 +68,8 @@ fi
 if [ ${deploy:5:1} == 'y' ]; then
     mkdir -p $1/$3/$9 &&
     before_xiaomi $1 &&
-    fis release -com -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$9"-conf.js" -d $1/$3/$9 -D &&
-    after_xiaomi $1 &&
+    fis release -com -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$9"-conf.js" -d $1/$3/$9 -D &&
+    #after_xiaomi $1 &&
     cp -a $1/webapp/js/openid/* $1/$3/$9/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$9 $1/$3/$9
 fi
