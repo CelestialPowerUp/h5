@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=640px,user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
-    <title>首页</title>
+    <title>养爱车</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -24,60 +24,58 @@
 </head>
 <body id="bd" class="body-background-color-gray">
 
-<header data-am-widget="header" class="home-with-products-header">
-    <div class="am-g">
-        <div class="am-u-sm-6 header" id="to_show_user_win">
-            <img src="img/user_logo1.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
-        </div>
-        <div class="am-u-sm-6 header">
+<img id="to_show_user_win" src="img/user_logo4.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
+
+<div id="user-win" class="am-offcanvas">
+    <div class="am-offcanvas-bar user-win-content">
+        <div class="left">
+            <div class="user-logo">
+                <img src="img/user_logo2.png">
+            </div>
+            <div class="user-info" id="user_phone">000****0000</div>
+
+            <div class="menu-info">
+                <ul class="am-list">
+                    <li><a href="./order_list.html" class="am-vertical-align">
+                        <img src="./img/order_icon.png" class="am-vertical-align-middle" style="margin-right: 10px;margin-left: 4px;"/>
+                        <span class="am-vertical-align-middle">我的订单</span>
+                    </a></li>
+                    <li><a href="./my_cars.html" class="am-vertical-align">
+                        <img src="./img/car_icon.png" class="am-vertical-align-middle">
+                        <span class="am-vertical-align-middle">我的车</span>
+                    </a></li>
+                    <li><a href="./my_address_manage.html" class="am-vertical-align">
+                        <img src="./img/address_icon.png" class="am-vertical-align-middle" style="margin-right: 11px;margin-left: 6px;">
+                        <span class="am-vertical-align-middle">我的地址</span>
+                    </a></li>
+                    <li><a href="./my_exam_reports.html" class="am-vertical-align">
+                        <img src="./img/export_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
+                        <span class="am-vertical-align-middle">检测报告单</span>
+                    </a></li>
+                </ul>
+            </div>
+
             <div class="download-div">
                 <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">
                     <img src="img/download.png"/>
                 </a>
             </div>
-        </div>
-    </div>
 
-    <div id="user-win" class="am-offcanvas">
-        <div class="am-offcanvas-bar user-win-content">
-            <div class="left">
-                <div class="user-logo">
-                    <img src="img/user_logo2.png">
-                </div>
-                <div class="user-info" id="user_phone">000****0000</div>
-
-                <div class="menu-info">
-                    <ul class="am-list">
-                        <li><a href="./order_list.html" class="am-vertical-align">
-                            <img src="./img/order_icon.png" class="am-vertical-align-middle" style="margin-right: 10px;margin-left: 4px;"/>
-                            <span class="am-vertical-align-middle">我的订单</span>
-                        </a></li>
-                        <li><a href="./my_cars.html" class="am-vertical-align">
-                            <img src="./img/car_icon.png" class="am-vertical-align-middle">
-                            <span class="am-vertical-align-middle">我的车</span>
-                        </a></li>
-                        <li><a href="./my_address_manage.html" class="am-vertical-align">
-                            <img src="./img/address_icon.png" class="am-vertical-align-middle" style="margin-right: 11px;margin-left: 6px;">
-                            <span class="am-vertical-align-middle">我的地址</span>
-                        </a></li>
-                        <li><a href="./my_exam_reports.html" class="am-vertical-align">
-                            <img src="./img/export_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
-                            <span class="am-vertical-align-middle">检测报告单</span>
-                        </a></li>
-                    </ul>
-                </div>
-
+            <div class="side-footer">
+                <a href="tel:400-0102-766">
+                    <img src="img/contact_phone.png"/>
+                </a>
             </div>
 
-            <div class="right">
-                <div class="close-icon" id="close-offcanvas">
-                    <img src="img/close_icon.png"/>
-                </div>
+        </div>
+
+        <div class="right" id="close-offcanvas" onclick="$('#user-win').offCanvas('close');">
+            <div class="close-icon" id="close-offcanvas">
+                <img src="img/close_icon.png"/>
             </div>
         </div>
     </div>
-
-</header>
+</div>
 
 <ul class="am-avg-sm-3 home-with-products-boxes" id="service">
     <li class="box"><a href="./butler_pick_service.html">
@@ -185,6 +183,7 @@
 <script type="text/javascript">!function (t) {
     if (t) {
         t(function () {
+            t('#to_show_user_win').css('top', (t(window).height() - 100 - 20) + 'px');
             getStore().set('now_in', 'home_wp');
 
             function reset_phone() {
