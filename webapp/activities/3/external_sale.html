@@ -81,7 +81,7 @@
                         break;
                         case error.POSITION_UNAVAILABLE:
                             {
-                                alert('d');
+                                alert('位置信息不可用');
                           console.log("位置信息不可用");
                             }
                         break;
@@ -114,8 +114,8 @@
 
                 getStore().set('activity_record_id', id);
                 getStore().set('subject', '养爱车-19.9元 洗车+打蜡+上门接车');
-                getStore().set('success_url', '/activities/2/external_sale_pay_success.html');
-                getStore().set('cancel_url', '/activities/2/external_sale_pay_fail.html');
+                getStore().set('success_url', '/activities/3/external_sale_pay_success.html');
+                getStore().set('cancel_url', '/activities/3/external_sale_pay_fail.html');
 
                 window.location.href = '../../external_sale_pay.html';
 
@@ -240,5 +240,6 @@
         });
     }
 }(window.jQuery)</script>
+<script type="text/javascript" src="http://js.tongji.linezing.com/3599107/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3599107/tongji.gif"/></a></noscript>
 </body>
 </html>
