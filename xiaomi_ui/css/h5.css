@@ -288,52 +288,37 @@ ul, li, div, span, input, img, a {
 }
 
 .user-win-content {
-    width: 267px;
+    width: 83.4375%;
 }
 
-.user-win-content div {
+.user-win-content>div {
     margin: 0;
     padding: 0;
     float: left;
 }
 
 .user-win-content .left {
-    width: 266px;
+    width: 100%;
     height: 100%;
     background-color: white;
 }
 
-.user-win-content .right {
-    width: 53px;
-    height: 100%;
-}
-
 .user-logo {
-    position: absolute;
-    top: 30px;
-    left: 108px;
-}
-
-.user-logo img {
-    width: 50px;
+    width: 18.8%;
+    margin: 30px 40.6% 0 40.6%;
 }
 
 .user-info {
-    position: absolute;
-    top: 90px;
-    left: 80px;
-    width: 106px;
+    width: 100%;
+    margin: 10px 0 0 0;
     color: #999999;
     font-size: 14px;
     text-align: center;
 }
 
 .menu-info {
-    position: absolute;
-    top: 132px;
-    left: 15px;
-    width: 246px;
-    margin: 0 auto;
+    width: 95%;
+    margin: 10px 2% 0 3%;
     font-size: 18px;
     color: #333333;
 }
@@ -349,21 +334,14 @@ ul, li, div, span, input, img, a {
 }
 
 .menu-info li a span {
-    font-size: 18px;
+    font-size: 16px;
     padding-left: 10px;
 }
-
-.close-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
 
 .side-footer {
     position: absolute;
     bottom: 0;
-    width: 266px;
+    width: 100%;
     height: 33px;
     text-align: center;
     overflow: hidden;
@@ -1020,7 +998,7 @@ ul, li, div, span, input, img, a {
 
 /* my list */
 .my-list {
-    margin-bottom: 120px;
+    margin-bottom: 60px;
     background-color: #f1f1f1;
 }
 
