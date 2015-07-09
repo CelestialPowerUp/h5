@@ -12,7 +12,7 @@ mirc="mirc"
 
 PATH=$PATH:./libs/
 
-read -p "deploy "$4","$5","$6","$7","$8","$9"?(y/n): " deploy
+read -p "deploy wechat, xiaomi, alipay, normal, rc, mirc?(y/n): " deploy
 
 bash _make_h5.sh $local_dir $config $make_dir $wechat $alipay $xiaomi $normal $rc $mirc $deploy &&
 
