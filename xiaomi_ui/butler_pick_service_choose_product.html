@@ -84,11 +84,14 @@
                     t('#products').css('margin-bottom', '130px');
 
                     var swipers = t('.swiper-container');
-                    var max_length = t(window).width() - 30 - 90 - 30;
+                    var base_ui = t('.my-product-line-content-label').eq(0);
+                    var max_length = t(window).width() - base_ui.width() - base_ui.css('margin-left').match(/\d*/) * 2;
                     t.each(param['ret_data']['optional_products'], function (i, ps) {
                         var length = ps['products'].length;
-                        var len = length * 200 + (length - 1) * 24;
-                        swipers.eq(i).find('.swiper-slide').css('width', len);
+                        var base_ui_btn = swipers.eq(i).find('.my-product-line-content-button').eq(length - 1);
+                        var len = length * base_ui_btn.css('width').match(/\d*/) + (length - 1) * base_ui_btn.css('margin-left').match(/\d*/);
+
+                        swipers.eq(i).find('.swiper-slide').css('width', len + 'px');
                         if (len > max_length) {
                             len = max_length;
                         }
@@ -111,7 +114,7 @@
                         });
                     });
 
-                    t('#products').find('.swiper-scrollbar').css('margin', '0 0 105px -3px');
+                    t('#products').find('.swiper-scrollbar').css('margin', '0 0 50px -3px');
                     t('#products').find('.swiper-scrollbar').css('height', '1px');
 
                     t.each(t('.my-btn-group'), function (i, btn_group) {

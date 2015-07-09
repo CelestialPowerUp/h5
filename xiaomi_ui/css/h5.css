@@ -132,9 +132,11 @@ ul, li, div, span, input, img, a {
     background-color: #FF6600;
     border-radius: 8px;
     border-color: #FF6600;
-    font-size: 36px;
+    font-size: 20px;
     height: 46px;
     color: #FFFFFF;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .margin-bottom-50 {
@@ -358,20 +360,20 @@ ul, li, div, span, input, img, a {
 }
 
 .product-bottom-div {
-    height: 130px;
-    padding: 10px 30px 10px 0;
+    height: 65px;
+    padding: 10px 15px 10px 0;
     background-color: #ffffff;
 }
 
 .product-total-text {
     color: #666666;
-    font-size: 30px;
-    margin-left: 30px;
+    font-size: 18px;
+    margin-left: 15px;
 }
 
 .product-currency-text {
     color: #ff5b00;
-    font-size: 45px;
+    font-size: 28px;
 }
 
 /* baseinfo */
@@ -1120,8 +1122,8 @@ ul, li, div, span, input, img, a {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 88px;
-    font-size: 30px;
+    height: 44px;
+    font-size: 16px;
     padding-left: 10px;
     border-width: 0;
 }
@@ -1160,11 +1162,11 @@ ul, li, div, span, input, img, a {
 
 /* choose product */
 .my-product-line {
-    height: 168px;
+    height: 83px;
 }
 
 .my-product-comment {
-    height: 130px;
+    height: 65px;
     border-width: 0;
     padding: 10px 30px;
     background-color: transparent;
@@ -1177,19 +1179,19 @@ ul, li, div, span, input, img, a {
 
 .my-product-line-content-label {
     color: #666666;
-    width: 90px;
-    margin-left: 30px;
+    width: 45px;
+    margin-left: 15px;
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .my-product-line-content-button {
-    width: 200px;
-    height: 104px;
+    width: 100px;
+    height: 52px;
     margin-top: 3px;
-    margin-left: 24px;
+    margin-left: 12px;
     border-radius: 8px;
-    font-size: 30px;
+    font-size: 16px;
     text-align: center;
     background-color: #FFFFFF;
     border: 1px solid #cccccc;
@@ -1204,5 +1206,5 @@ ul, li, div, span, input, img, a {
 }
 
 .swiper-container {
-    height: 110px;
+    height: 55px;
 }
