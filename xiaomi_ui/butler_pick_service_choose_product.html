@@ -53,7 +53,11 @@
             console.log([store.get('car_info')]);
 
             template('./template/carInfo.html', 'body', 'prepend', [store.get('car_info')], null, null, function () {
-                t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30) + 'px');
+                var base_ui = t('.car-info').eq(0);
+                var base_ui2 = base_ui.children('.my-list-line-content').eq(0);
+                t('body').children().eq(0).find('.fixed-width-content').css('width', (t(window).width()
+                        - base_ui.css('padding-left').match(/\d*/) * 2 - base_ui.height() * 0.6
+                        - base_ui2.css('margin-left').match(/\d*/)) + 'px');
             });
 
             load_products(get_service_type_from_router(), order['car_model_type'], null, null, function (param) {

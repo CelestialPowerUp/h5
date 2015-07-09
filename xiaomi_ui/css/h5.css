@@ -967,19 +967,19 @@ ul, li, div, span, input, img, a {
 
 /* car manager */
 .car-info {
-    padding-left: 30px;
+    padding-left: 15px;
     background-color: #ffffff;
-    width: 640px;
-    height: 120px;
+    width: 100%;
+    height: 60px;
     border-bottom: 1px solid #CCCCCC;
     border-top: 1px solid #CCCCCC;
 }
 
 .car-manager-clickable {
-    padding-left: 30px;
+    padding-left: 15px;
     background-color: #ffffff;
-    width: 640px;
-    height: 118px;
+    width: 100%;
+    height: 58px;
     position: absolute;
     z-index: 2;
 }
@@ -1003,7 +1003,7 @@ ul, li, div, span, input, img, a {
 }
 
 .my-list li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: #f1f1f1;
 }
 
@@ -1012,11 +1012,11 @@ ul, li, div, span, input, img, a {
 }
 
 .my-list-line-content {
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 .my-list-line {
-    height: 120px;
+    height: 60px;
 }
 
 .my-car-choose-list {
@@ -1059,9 +1059,12 @@ ul, li, div, span, input, img, a {
     background-color: #f1f1f1;
 }
 
+.my-thumb-icon-wrapper {
+    height: 60%;
+}
+
 .my-thumb-icon {
-    height: 70px;
-    width: 70px;
+    height: 100%;
 }
 
 .my-list-item-hd {
@@ -1097,12 +1100,15 @@ ul, li, div, span, input, img, a {
 }
 
 .am-list-item-hd {
-    font-size: 30px;
+    font-size: 15px;
     margin-bottom: 0;
 }
 
 .am-list-item-text {
-    font-size: 26px;
+    font-size: 11px;
+    /*overflow: hidden;*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
 }
 
 .am-form-field-wrapper {
