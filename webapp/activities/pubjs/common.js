@@ -409,10 +409,11 @@ function get_host() {
         host = 'dev.yangaiche.com%2Fdeveloper%2F';
     } else if ('staging' === thisis.responseJSON['thisis']) {
         host = 'dev.yangaiche.com%2Fstage%2F';
-    } else if (window.location.href.indexOf('/rc/') >= 0) {
-        host = 'pay.yangaiche.com%2Frc%2F';
     } else {
         host = 'pay.yangaiche.com%2F';
     }
-    return host;
+    if (host.indexOf(window.location.host) >= 0) {
+        return host;
+    }
+    return window.location.host + '%2Fh5%2F';
 }
