@@ -283,9 +283,12 @@ ul, li, div, span, input, img, a {
     width: 50px;
 }
 
-.user-win-content {
-    width: 320px;
+.am-offcanvas {
     background: rgba(51, 51, 51, 0.80);
+}
+
+.user-win-content {
+    width: 267px;
 }
 
 .user-win-content div {
@@ -295,7 +298,7 @@ ul, li, div, span, input, img, a {
 }
 
 .user-win-content .left {
-    width: 267px;
+    width: 266px;
     height: 100%;
     background-color: white;
 }
@@ -308,7 +311,7 @@ ul, li, div, span, input, img, a {
 .user-logo {
     position: absolute;
     top: 30px;
-    left: 108.5px;
+    left: 108px;
 }
 
 .user-logo img {
@@ -319,7 +322,7 @@ ul, li, div, span, input, img, a {
     position: absolute;
     top: 90px;
     left: 80px;
-    width: 107px;
+    width: 106px;
     color: #999999;
     font-size: 14px;
     text-align: center;
@@ -329,7 +332,7 @@ ul, li, div, span, input, img, a {
     position: absolute;
     top: 132px;
     left: 15px;
-    width: 252px;
+    width: 246px;
     margin: 0 auto;
     font-size: 18px;
     color: #333333;
@@ -356,22 +359,18 @@ ul, li, div, span, input, img, a {
     right: 10px;
 }
 
-.close-icon img {
-    width: 33px;
-}
 
 .side-footer {
     position: absolute;
     bottom: 0;
-    width: 267px;
+    width: 266px;
     height: 33px;
     text-align: center;
     overflow: hidden;
-    background-color: #f1f1f1;
 }
 
-.side-footer img {
-    height: 33px;
+.side-footer u {
+   font-size: 10px;
 }
 
 /* product */
