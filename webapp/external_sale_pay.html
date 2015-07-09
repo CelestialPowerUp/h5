@@ -11,8 +11,8 @@
 <script type="text/javascript" src="./activities/pubjs/common.js"></script>
 <script type="text/javascript">
 
-    if (getStore().get('already_cancel_pay')) {
-        getStore().remove('already_cancel_pay');
+    if (getStore().get('already_pay')) {
+        getStore().remove('already_pay');
     } else {
 
         var is_weixin = function isWeiXin(){
@@ -49,7 +49,7 @@
                 if (result == "success") {
                     // 微信公众账号支付的结果会在这里返回
     //                alert('微信公众账号支付的结果会在这里返回');
-                    getStore().set('already_cancel_pay', true);
+                    getStore().set('already_pay', true);
                     window.location.href = 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('success_url');
                 } else if (result == "fail") {
                     // charge 不正确或者微信公众账号支付失败时会在此处返回
@@ -65,7 +65,7 @@
                     // 微信公众账号支付取消支付
     //              alert('微信公众账号支付取消支付');
                     show_msg('您已取消支付');
-                    getStore().set('already_cancel_pay', true);
+                    getStore().set('already_pay', true);
                     window.location.href = 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('cancel_url');
                 }
             });
