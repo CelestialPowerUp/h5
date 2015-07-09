@@ -61,19 +61,12 @@
                 </a>
             </div>
 
-            <div class="side-footer">
-                <a href="tel:400-0102-766">
-                    <img src="img/contact_phone.png"/>
-                </a>
-            </div>
+            <a href="tel:400-0102-766" class="side-footer am-vertical-align">
+                <u class="am-vertical-align-middle">400-0102-766</u>
+            </a>
 
         </div>
 
-        <div class="right" id="close-offcanvas" onclick="$('#user-win').offCanvas('close');">
-            <div class="close-icon">
-                <img src="img/close_icon.png"/>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -117,7 +110,7 @@
 </ul>
 <script type="text/javascript">!function (t) {
     t(function () {
-        t('.home-footer').css('top', (t(window).height() - 88) + 'px');
+
         var content = t(window).height();
         t("#service").css("height", content + "px");
         t(".box").css("height", content / 3 + "px");
@@ -125,6 +118,7 @@
         t('.box-div').css('margin-top', (content / 3 - box_text_h - 94) / 2 + 'px');
 
         t('#to_show_user_win').css('top', (t(window).height() - 100 - 20) + 'px');
+
         getStore().set('now_in', 'home');
 
         function reset_phone() {
