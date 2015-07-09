@@ -26,7 +26,7 @@ function after_xiaomi {
     echo 'done'
 }
 
-deploy=$(10)
+deploy=${10}
 
 if [ ${deploy:0:1} == 'y' ]; then
     mkdir -p $1/$3/$4 &&
