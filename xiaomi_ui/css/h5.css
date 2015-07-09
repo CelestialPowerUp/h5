@@ -80,7 +80,7 @@ ul, li, div, span, input, img, a {
     _position: absolute;
     clear: both;
     margin: 0 5%;
-    height: 100px;
+    height: 50px;
 }
 
 .transparent-bottom-div {
@@ -90,7 +90,7 @@ ul, li, div, span, input, img, a {
     width: 100%;
     _position: absolute;
     clear: both;
-    height: 130px;
+    height: 65px;
     background-color: transparent;
 }
 
@@ -101,13 +101,13 @@ ul, li, div, span, input, img, a {
     width: 100%;
     _position: absolute;
     clear: both;
-    height: 260px;
+    height: 130px;
     background-color: transparent;
 }
 
 .normal-bottom-btn-div {
     width: 90%;
-    height: 90px;
+    height: 46px;
     clear: both;
     margin: 0 5%;
 }
@@ -133,7 +133,7 @@ ul, li, div, span, input, img, a {
     border-radius: 8px;
     border-color: #FF6600;
     font-size: 36px;
-    height: 90px;
+    height: 46px;
     color: #FFFFFF;
 }
 

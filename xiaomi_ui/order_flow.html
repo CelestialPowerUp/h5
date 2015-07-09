@@ -1,0 +1,487 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>订单流程</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+</head>
+<body class="body-background-color-white">
+<div class="am-g my-simple-2-divide-header">
+    <div class="am-u-sm-6 my-simple-2-divide-header-half my-header-selected" id="order_flow_btn">
+        养车进度
+    </div>
+    <div class="am-u-sm-6 my-simple-2-divide-header-half my-header-not-selected" id="car_tracks_btn">
+        爱车位置
+    </div>
+</div>
+<div id="order_flow" style="display: block;"></div>
+<div id="car_tracks" style="display: none;">
+    <div id="map_view" class="order-flow-map-view">
+    </div>
+    <button id="run" class="am-btn am-btn-success new-bottom-button" style="width: 100%;">点击观看地理位置信息
+    </button>
+</div>
+<script type="text/x-handlebars-template" id="order_flow_tpl">
+    <ul class="am-list margin-top-40">
+        {{#each this}}
+        <li class="am-nbfc" style="border: 0 none;">
+            <div class="am-fl left order-flow-box margin-left-30">
+                <div class="text-align-right">
+                    <span class="order-flow-time-text">{{time}}</span>
+                    <br>
+                    <span class="order-flow-date-text">{{date}}</span>
+                </div>
+            </div>
+            <div class="am-fl center order-flow-box">
+                <div class="line{{up_line_color}}" data-display="{{show_up_line}}"></div>
+                <div class="oval{{oval_type}}"></div>
+                <div class="line down-line{{down_line_color}}" data-display="{{show_down_line}}"></div>
+            </div>
+            <div class="am-fl right order-flow-box">
+                <div class="{{name_color}} order-flow-name-text">
+                    {{name}}
+                </div>
+                <div data-am-widget="gallery" class="am-gallery am-gallery-default am-cf my-gallery"
+                     data-am-gallery="{ pureview: true }">
+                    {{#each items}}
+                    {{#each pics}}
+                    <a class="am-fl am-gallery-item order-flow-gallery-item">
+                        <img src="{{thumbnail_url}}" class="gallery-img" style="height: 80px;width: 80px;" data-rel="{{original_url}}"/>
+                    </a>
+                    {{/each}}
+                    {{/each}}
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/amazeui.widgets.helper.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
+<script type="text/javascript" src="./js/LuShu_min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/router.js"></script>
+<script type="text/javascript">!function (t) {
+    if (t) {
+        t(function () {
+
+//            var raw_data = '{"code":"00000","data":[{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/234x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2},{"raw_url":"http://dummyimage.com/720x300","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3},{"raw_url":"http://dummyimage.com/88x31","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2}]}],"status":0,"time":"2015-05-04T14:02:35.000","name":"初检爱车","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/160x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3},{"raw_url":"http://dummyimage.com/160x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2},{"raw_url":"http://dummyimage.com/720x300","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/240x400","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2},{"raw_url":"http://dummyimage.com/120x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3},{"raw_url":"http://dummyimage.com/728x90","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/88x31","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3}]}],"status":0,"time":"2015-05-04T18:52:26.000","name":"全检爱车","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/468x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2},{"raw_url":"http://dummyimage.com/336x280","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/300x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/720x300","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3},{"raw_url":"http://dummyimage.com/720x300","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2},{"raw_url":"http://dummyimage.com/120x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3}]}],"status":1,"time":"2015-05-05T17:23:29.000","name":"啊啊","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/250x250","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2},{"raw_url":"http://dummyimage.com/120x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/250x250","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2},{"raw_url":"http://dummyimage.com/250x250","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3},{"raw_url":"http://dummyimage.com/125x125","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/240x400","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3},{"raw_url":"http://dummyimage.com/120x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2}]}],"status":0,"time":"2015-05-06T10:56:22.000","name":"adadad","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/250x250","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3},{"raw_url":"http://dummyimage.com/120x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2}]}],"status":0,"time":"2015-05-04T14:02:35.000","name":"初检爱车","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/120x240","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3},{"raw_url":"http://dummyimage.com/160x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2},{"raw_url":"http://dummyimage.com/728x90","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/240x400","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2}]}],"status":0,"time":"2015-05-04T18:52:26.000","name":"全检爱车","address":"默认供应商地址"},{"items":[],"status":0,"time":"2015-05-05T17:23:29.000","name":"啊啊","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/120x240","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/125x125","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2},{"raw_url":"http://dummyimage.com/125x125","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/120x240","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2},{"raw_url":"http://dummyimage.com/240x400","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3}]}],"status":1,"time":"2015-05-06T10:56:22.000","name":"adadad","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/120x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2},{"raw_url":"http://dummyimage.com/88x31","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3}]}],"status":1,"time":"2015-05-04T14:02:35.000","name":"初检爱车","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/120x240","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2},{"raw_url":"http://dummyimage.com/160x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/468x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2},{"raw_url":"http://dummyimage.com/160x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/125x125","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2}]}],"status":0,"time":"2015-05-04T18:52:26.000","name":"全检爱车","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/120x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3},{"raw_url":"http://dummyimage.com/120x240","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/250x250","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3},{"raw_url":"http://dummyimage.com/234x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/728x90","id":2}]}],"status":0,"time":"2015-05-05T17:23:29.000","name":"啊啊","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/250x250","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/125x125","id":3},{"raw_url":"http://dummyimage.com/120x600","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/120x240","id":2}]},{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/234x60","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/300x250","id":3}]}],"status":0,"time":"2015-05-06T10:56:22.000","name":"adadad","address":"默认供应商地址"},{"items":[],"status":0,"time":"2015-05-04T14:02:35.000","name":"初检爱车","address":"默认供应商地址"},{"items":[{"name":"左前方45度照片","pics":[{"raw_url":"http://dummyimage.com/336x280","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/1200x1200","id":2},{"raw_url":"http://dummyimage.com/120x90","thumbnail_url":"http://dummyimage.com/100x200","original_url":"http://dummyimage.com/100x200","id":3}]}],"status":-1,"time":"2015-05-04T18:52:26.000","name":"全检爱车","address":"默认供应商地址"}]}';
+//            var data = t.parseJSON(raw_data)['data'];
+
+            getReq('/order/service_flow?order_id=' + getReqParam()['order_id'], function (data) {
+                console.log(data);
+                function parse_date_time(time) {
+//                alert(time);
+                    if (undefined === time || null === time) {
+                        return ['', ''];
+                    }
+                    var match = time.match(/^\d{4}-(\d{2}-\d{2})T(\d{2}:\d{2}):\d{2}\.\d*$/);
+                    return [match[1].replace('-', '/'), match[2]];
+                }
+
+                var show_up_line = false, len = data.length;
+                t.each(data, function (i, d) {
+                    var date_time = parse_date_time(d['time']);
+                    d['date'] = date_time[0];
+                    d['time'] = date_time[1];
+                    if (!show_up_line) {
+                        d['show_up_line'] = 'f';
+                        show_up_line = true;
+                    }
+                    if (0 === d['status']) {
+                        d['oval_type'] = '';
+                        d['up_line_color'] = ' height-10';
+                        d['down_line_color'] = '';
+                        d['name_color'] = 'for-0';
+                    } else if (1 === d['status']) {
+                        d['oval_type'] = ' oval-double-fill margin-top-5';
+                        d['up_line_color'] = ' height-5';
+                        d['down_line_color'] = ' another';
+                        d['name_color'] = 'for-1';
+                    } else if (-1 === d['status']) {
+                        d['oval_type'] = ' oval-fill';
+                        d['up_line_color'] = ' another height-10';
+                        d['down_line_color'] = ' another';
+                        d['name_color'] = 'for--1';
+                    }
+                    if ((len - 1) === i) {
+                        d['show_down_line'] = 'f';
+                    }
+                    d['items'] = d['items'] || [];
+                });
+
+                var tpl = Handlebars.compile(t("#order_flow_tpl").text());
+                t("#order_flow").append(tpl(data));
+
+                var module = t.AMUI['gallery'];
+                module && module.init && module.init();
+
+                var left_width = t('.left').eq(0).width();
+                t('.left').css('width', left_width + 'px');
+                t('.my-gallery').css('margin', '0');
+                t('.my-gallery').css('padding', '10px 0 0 0');
+                t('.my-gallery').css('width', (640 - 30 - left_width - 81 - 30) + 'px');
+
+                t.each(t('.center'), function (i, c) {
+                    function max(a, b) {
+                        return a > b ? a : b;
+                    }
+
+                    var parent = t(c).parents()[0];
+                    var max_height = max(t(parent).find('.left').height(), t(parent).find('.right').height());
+                    t(c).css('height', max_height + 'px');
+                    var down_line = t(parent).find('.down-line')[0];
+                    t(down_line).css('height', (max_height - 5 - t(c).find('.oval').height()) + 'px');
+                    t.each(t(c).find('.line'), function (i, cc) {
+                        if (t(cc).attr('data-display') === 'f') {
+                            t(cc).css('display', 'none');
+                        }
+                    });
+                });
+
+            });
+
+//            raw_data = '['
+//                    +'{'
+//                    +'"supplier": {'
+//                    +'"name": "默认",'
+//                    +'"evaluation": 1,'
+//                    +'"address": "默认供应商",'
+//                    +'"confirm_score": 54178,'
+//                    +'"longitude": 116.403894,'
+//                    +'"mobile_number": "测试内容5q14",'
+//                    +'"type": "测试内容q1q6",'
+//                    +'"layoff": false,'
+//                    +'"contact_name": "默认供应商",'
+//                    +'"latitude": 39.914064,'
+//                    +'"service_score": 58210,'
+//                    +'"address_name": "测试内容i957",'
+//                    +'"rating": 3.5,'
+//                    +'"phone_number": "4000102766",'
+//                    +'"supplier_id": 999,'
+//                    +'"part_score": 68043,'
+//                    +'"price_score": 72211,'
+//                    +'"work_score": 26646,'
+//                    +'"time_score": 68268,'
+//                    +'"keeper_id": 1'
+//                    +'},'
+//                    +'"latitude": 39.914064,'
+//                    +'"track_id": 28,'
+//                    +'"longitude": 116.403894,'
+//                    +'"createTime": "2015-06-09T16:41:35.000",'
+//                    +'"type": 3,'
+//                    +'"address": "默认供应商",'
+//                    +'"address_name": 1'
+//                    +'},'
+//                    +'{'
+//                    +'"supplier": {'
+//                    +'"name": "默认",'
+//                    +'"evaluation": 1,'
+//                    +'"address": "默认供应商",'
+//                    +'"confirm_score": 54178,'
+//                    +'"longitude": 116.368005,'
+//                    +'"mobile_number": "测试内容5q14",'
+//                    +'"type": "测试内容q1q6",'
+//                    +'"layoff": false,'
+//                    +'"contact_name": "默认供应商",'
+//                    +'"latitude": 39.980141,'
+//                    +'"service_score": 58210,'
+//                    +'"address_name": "测试内容i957",'
+//                    +'"rating": 3.5,'
+//                    +'"phone_number": "4000102766",'
+//                    +'"supplier_id": 999,'
+//                    +'"part_score": 68043,'
+//                    +'"price_score": 72211,'
+//                    +'"work_score": 26646,'
+//                    +'"time_score": 68268,'
+//                    +'"keeper_id": 1'
+//                    +'},'
+//                    +'"latitude": 39.92264,'
+//                    +'"track_id": 28,'
+//                    +'"longitude": 116.363144,'
+//                    +'"createTime": "2015-06-09T16:41:35.000",'
+//                    +'"type": 3,'
+//                    +'"address": "默认供应商",'
+//                    +'"address_name": 1'
+//                    +'},'
+//                    +'{'
+//                    +'"supplier": {'
+//                    +'"name": "默认",'
+//                    +'"evaluation": 1,'
+//                    +'"address": "默认供应商",'
+//                    +'"confirm_score": 54178,'
+//                    +'"longitude": 116.368005,'
+//                    +'"mobile_number": "测试内容5q14",'
+//                    +'"type": "测试内容q1q6",'
+//                    +'"layoff": false,'
+//                    +'"contact_name": "默认供应商",'
+//                    +'"latitude": 39.980141,'
+//                    +'"service_score": 58210,'
+//                    +'"address_name": "测试内容i957",'
+//                    +'"rating": 3.5,'
+//                    +'"phone_number": "4000102766",'
+//                    +'"supplier_id": 999,'
+//                    +'"part_score": 68043,'
+//                    +'"price_score": 72211,'
+//                    +'"work_score": 26646,'
+//                    +'"time_score": 68268,'
+//                    +'"keeper_id": 1'
+//                    +'},'
+//                    +'"latitude": 39.951776,'
+//                    +'"track_id": 28,'
+//                    +'"longitude": 116.37042,'
+//                    +'"createTime": "2015-06-09T16:41:35.000",'
+//                    +'"type": 3,'
+//                    +'"address": "默认供应商",'
+//                    +'"address_name": 1'
+//                    +'},'
+//                    +'{'
+//                    +'"supplier": {'
+//                    +'"name": "默认",'
+//                    +'"evaluation": 1,'
+//                    +'"address": "默认供应商",'
+//                    +'"confirm_score": 54178,'
+//                    +'"longitude": 116.368005,'
+//                    +'"mobile_number": "测试内容5q14",'
+//                    +'"type": "测试内容q1q6",'
+//                    +'"layoff": false,'
+//                    +'"contact_name": "默认供应商",'
+//                    +'"latitude": 39.980141,'
+//                    +'"service_score": 58210,'
+//                    +'"address_name": "测试内容i957",'
+//                    +'"rating": 3.5,'
+//                    +'"phone_number": "4000102766",'
+//                    +'"supplier_id": 999,'
+//                    +'"part_score": 68043,'
+//                    +'"price_score": 72211,'
+//                    +'"work_score": 26646,'
+//                    +'"time_score": 68268,'
+//                    +'"keeper_id": 1'
+//                    +'},'
+//                    +'"latitude": 40.028914,'
+//                    +'"track_id": 28,'
+//                    +'"longitude": 116.356273,'
+//                    +'"createTime": "2015-06-09T16:41:35.000",'
+//                    +'"type": 3,'
+//                    +'"address": "默认供应商",'
+//                    +'"address_name": 1'
+//                    +'},'
+//                    +'{'
+//                    +'"supplier": {'
+//                    +'"name": "默认",'
+//                    +'"evaluation": 1,'
+//                    +'"address": "默认供应商",'
+//                    +'"confirm_score": 54178,'
+//                    +'"longitude": 116.368005,'
+//                    +'"mobile_number": "测试内容5q14",'
+//                    +'"type": "测试内容q1q6",'
+//                    +'"layoff": false,'
+//                    +'"contact_name": "默认供应商",'
+//                    +'"latitude": 39.980141,'
+//                    +'"service_score": 58210,'
+//                    +'"address_name": "测试内容i957",'
+//                    +'"rating": 3.5,'
+//                    +'"phone_number": "4000102766",'
+//                    +'"supplier_id": 999,'
+//                    +'"part_score": 68043,'
+//                    +'"price_score": 72211,'
+//                    +'"work_score": 26646,'
+//                    +'"time_score": 68268,'
+//                    +'"keeper_id": 1'
+//                    +'},'
+//                    +'"latitude": 40.057151,'
+//                    +'"track_id": 28,'
+//                    +'"longitude": 116.306884,'
+//                    +'"createTime": "2015-06-09T16:41:35.000",'
+//                    +'"type": 3,'
+//                    +'"address": "默认供应商",'
+//                    +'"address_name": 1'
+//                    +'}'
+//                    +']';
+//            data = t.parseJSON(raw_data);
+
+            var loaded = false, ready = false;
+
+            function init_lushu(callback) {
+                var map = new BMap.Map('map_view');
+                map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+
+                var myIcon = new BMap.Icon(getStore().get('keeper_avatar_img'), {
+                    width: 128,
+                    height: 128
+                }, {anchor: new BMap.Size(65, 128)});
+
+                var lushu = {};
+
+                lushu.gen_arr_pois = function (geo_array) {
+                    var gen_pois = [];
+                    t.each(geo_array, function (i, point) {
+                        gen_pois.push(new BMap.Point(point.longitude, point.latitude));
+                    });
+                    return gen_pois;
+                };
+
+                lushu.is_mod = function (geo_array) {
+                    return false;//TODO
+                };
+
+                lushu.update = function (geo_array) {
+                    if (this.is_mod(geo_array)) {
+                        map = new BMap.Map('map_view');
+                        map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+                        return this.create(geo_array);
+                    }
+                };
+
+                lushu.create_single = function (geo_array, speed) {
+                    var arrPois = geo_array;
+                    console.log(arrPois);
+                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
+
+                    return new BMapLib.LuShu(map, arrPois, {
+//                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
+                        speed: speed,
+                        icon: myIcon,
+                        //enableRotation:true,
+                        landmarkPois: [
+//                                    {lng: 116.314782, lat: 39.913508, html: '加油站', pauseTime: 2}
+                        ]
+                    });
+                };
+
+                lushu.create_util = function (lushu_cmp, this_pois, distance) {
+                    if (this_pois.length === 0) {
+                        this_pois.push(new BMap.Point(this_pois[0].lng, this_pois[0].lat));
+                    }
+                    var max_total_time = Math.max(3, parseInt((1 + (distance / 4500)).toFixed(0)));
+                    var speed = distance / max_total_time;
+                    var cmp = this.create_single(this_pois, speed);
+                    cmp.ycar_total_time = max_total_time * 1000;
+                    lushu_cmp.cmps.push(cmp);
+                };
+
+                lushu.create = function (geo_array) {
+                    var lushu_cmp = {
+                        cmps: [],
+                        now_cmp: null,
+                        timeout_task: null,
+                        start: function(i) {
+                            if (0 === i) {
+                                clearTimeout(this.timeout_task);
+                            }
+
+                            if (i == this.cmps.length) {
+                                return;
+                            }
+
+                            if (null !== this.now_cmp) {
+                                this.now_cmp.stop();
+                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800;"]').empty();
+                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400;"]').empty();
+                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300;"]').empty();
+                            }
+
+                            this.now_cmp = this.cmps[i];
+                            this.now_cmp.start();
+                            this.timeout_task = setTimeout(function() {
+                                lushu_cmp.start(i + 1);
+                            }, this.now_cmp.ycar_total_time);
+                        }
+                    };
+
+                    var distance = 0, this_pois = [], last_point = null, gen_pois = this.gen_arr_pois(geo_array);
+                    for (var i = gen_pois.length - 1; i >= 0; i--) {
+                        var point = gen_pois[i];
+                        if (!last_point) {
+                            this_pois.push(point);
+                            last_point = point;
+                            distance = 0;
+                        } else {
+                            var this_distance = (map.getDistance(last_point, point)).toFixed(0);
+                            if (this_distance < 1000) {
+                                distance += this_distance;
+                                this_pois.push(point);
+                                last_point = point;
+                            } else {
+                                this.create_util(lushu_cmp, this_pois, distance);
+                                this_pois = [];
+                                this_pois.push(point);
+                                distance = 0;
+                            }
+                        }
+                    }
+                    this.create_util(lushu_cmp, this_pois, distance);
+
+                    console.log(lushu_cmp);
+                    map.setViewport(gen_pois);
+                    return lushu_cmp;
+                };
+
+                callback(lushu);
+            }
+
+            getReq('/tracks?order_id=' + getReqParam()['order_id'], function (data) {
+                console.log(data);
+
+                getStore().set('track_data', data);
+
+                getReq('/order/' + getReqParam()['order_id'], function (data) {
+                    getStore().set('keeper_avatar_img', data['keeper_basics'][0]['avatar_img']);
+
+                    ready = true;
+                });
+
+            });
+
+            t('#car_tracks_btn').click(function () {
+                if (ready) {
+                    t('#car_tracks_btn').removeClass('my-header-not-selected');
+                    t('#car_tracks_btn').addClass('my-header-selected');
+                    t('#order_flow_btn').removeClass('my-header-selected');
+                    t('#order_flow_btn').addClass('my-header-not-selected');
+                    t('#car_tracks').css('display', 'block');
+                    t('#order_flow').css('display', 'none');
+
+                    if (!loaded) {
+                        t('#map_view').css('height', (t(window).height() - t('#run').height() - 80) + 'px');
+
+                        init_lushu(function (util) {
+
+                            var lushu_cmp = util.create(getStore().get('track_data'));
+                            //绑定事件
+                            t("#run").click(function () {
+                                lushu_cmp.start(0);
+                            });
+
+                            loaded = true;
+                        });
+                    }
+                }
+            });
+
+            t('#order_flow_btn').click(function () {
+                t('#order_flow_btn').removeClass('my-header-not-selected');
+                t('#order_flow_btn').addClass('my-header-selected');
+                t('#car_tracks_btn').removeClass('my-header-selected');
+                t('#car_tracks_btn').addClass('my-header-not-selected');
+                t('#order_flow').css('display', 'block');
+                t('#car_tracks').css('display', 'none');
+            });
+
+        });
+    }
+}(window.jQuery)</script>
+</body>
+</html>
