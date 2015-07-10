@@ -131,13 +131,13 @@
                     } else if ('normal' === platform['platform']) {
                         param['channel'] = 'alipay_wap';
                         param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/take_car_service_order_info.html?suc=true&order_id='+getReqParam()['order_id'],
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/take_car_service_order_info.html?order_id='+getReqParam()['order_id']
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_info.html?suc=true&order_id='+getReqParam()['order_id'],
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_info.html?order_id='+getReqParam()['order_id']
                         };
                     } else {
                         param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/take_car_service_order_info.html?suc=true&order_id='+getReqParam()['order_id'],
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/take_car_service_order_info.html?order_id='+getReqParam()['order_id']
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info.html?suc=true&order_id='+getReqParam()['order_id'],
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info.html?order_id='+getReqParam()['order_id']
                         };
                     }
                 });
