@@ -6,3 +6,5 @@ fis-cfgs
 node_modules
 h5-staging
 h5-production
+webapp/data.json
+webapp/platform.json
