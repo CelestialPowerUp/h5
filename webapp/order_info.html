@@ -77,6 +77,7 @@
 {{/each}}</script>
 
 <script type="text/x-handlebars-template" id="paid_tpl">{{#this}}
+{{#coupon}}
 <div class="am-g order-info-box">
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
         <div class="am-vertical-align-middle">优惠券</div>
@@ -85,11 +86,10 @@
         <div class="am-vertical-align-middle">-</div>
     </div>
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        {{#coupon}}
         <div class="am-vertical-align-middle">¥{{value}}</div>
-        {{/coupon}}
     </div>
 </div>
+{{/coupon}}
 <div class="am-g order-info-box">
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
         <div class="am-vertical-align-middle">应付金额</div>
@@ -249,7 +249,9 @@
             });
         } else {
             var order = getOrder();
-            order['coupon'] = {value:order['coupon_value']};
+            if (order['coupon_value'] > 0) {
+                order['coupon'] = {value:order['coupon_value']};
+            }
             parse_data(order);
             t('#submit_button').text('立即预约');
             t('#submit_button').css('display', 'block');
