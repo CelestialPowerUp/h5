@@ -1,0 +1,130 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的优惠劵</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+</head>
+<body class="body-background-color-gray">
+<div class="am-g transparent-top-fixed-div">
+    <div class="am-u-sm-8 coupons-top-div am-vertical-align">
+        <input type="text" id="coupon_number" class="my-coupons-rounded-input am-form-field am-vertical-align-middle"
+               placeholder="输入兑换码"/>
+    </div>
+    <div class="am-u-sm-4 coupons-top-div am-vertical-align">
+        <button id="coupon_convert"
+                class="am-btn am-btn-success am-btn-block new-bottom-button am-vertical-align-middle">兑换
+        </button>
+    </div>
+</div>
+<div id="coupons"></div>
+<script type="text/x-handlebars-template" id="coupons_list_tpl">
+    <ul class="am-list coupon-manager-list" style="margin-top: 150px;margin-bottom:30px;">
+        {{#each this}}
+        <li class="coupon-btn am-nbfc coupon-manager-line"
+            style="border: none;background-color: transparent;"
+            data-code="{{name}}" data-id="{{id}}" data-used="{{used}}">
+            <img src="{{bg_img}}" style="width: 100%;height: 159px;position:absolute;z-index: -1;">
+
+            <div class="coupon-number">号码: {{number}}</div>
+            <div class="coupon-name">{{name}}</div>
+            <div class="coupon-value">¥{{value}}</div>
+
+            <div class="coupon-status">{{status}}</div>
+            <div class="coupon-expire-label">有效时间</div>
+            <div class="coupon-expire">{{expired_time}}止</div>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/swiper.min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/router.js"></script>
+<script type="text/javascript">!function (t) {
+    if (t) {
+        t(function () {
+
+            route2coupon();
+
+//            var raw_data = '{"code":"00000","data":[{"id":25,"address":"北京市海淀区北三环中路77号院-27号楼北京市海淀区北三环中路77号院-27号楼","longitude":116.364142,"latitude":39.977895,"user_id":18,"name":"北京市海淀区北三环中路77号院-27号楼"},{"id":24,"address":"北京市西城区百万庄南街10号院","longitude":116.345098,"latitude":39.931795,"user_id":18,"name":"北京市西城区百万庄南街10号院"},{"id":23,"address":"北京市海淀区西村路7号院-2号楼","longitude":116.380949,"latitude":39.978662,"user_id":18,"name":"北京市海淀区西村路7号院-2号楼"},{"id":22,"address":"北京市海淀区京师路","longitude":116.373008,"latitude":39.96976,"user_id":18,"name":"北京市海淀区京师路"},{"id":18,"address":"北京市昌平区X026(中东路)","longitude":116.395888,"latitude":40.061047,"user_id":18,"name":"北京市昌平区X026(中东路)"},{"id":17,"address":"北京市丰台区丰台南路","longitude":116.340606,"latitude":39.827867,"user_id":18,"name":"北京市丰台区丰台南路"},{"id":14,"address":"北京市海淀区京师路","longitude":116.371571,"latitude":39.96976,"user_id":18,"name":"北京市海淀区京师路"}]}';
+//            var data = $.parseJSON(raw_data)['data'];
+
+            function load_coupons() {
+                getReq('coupons?user_id=' + getUser()['user_id'], function (data) {
+                    console.log(data);
+
+                    t.each(data, function (i, coupon) {
+                        if ("未使用" === coupon.status) {
+                            if (coupon.value < 50) {
+                                coupon.bg_img = './img/couponsbackground3.png';
+                            } else if (coupon.value < 100) {
+                                coupon.bg_img = './img/couponsbackground2.png';
+                            } else {
+                                coupon.bg_img = './img/couponsbackground1.png';
+                            }
+                            coupon.used = 'false';
+                        } else {
+                            coupon.bg_img = './img/couponsbackground4.png';
+                            coupon.used = 'true';
+                        }
+                        coupon.expired_time = coupon.expired_time.substr(0, coupon.expired_time.indexOf('T'));
+                    });
+
+                    var tpl = Handlebars.compile(t("#coupons_list_tpl").text());
+                    t('#coupons').empty().html(tpl(data));
+
+                    t('.coupon-btn').click(function (e) {
+                        if ('coupon_list' !== getStore().get('now_in') && 'false' === t(this).attr('data-used')) {
+                            var order = getOrder();
+                            order['coupon_id'] = t(this).attr('data-id');
+                            order['coupon_name'] = t(this).attr('data-code');
+                            updateOrder(order);
+                            window.location.href = './base_info.html?coupons=true';
+                        }
+                    });
+
+                });
+            }
+
+            load_coupons();
+
+            t('#coupon_convert').click(function (e) {
+                disable_button('coupon_convert');
+                var code = t('#coupon_number').val();
+                if (!code) {
+                    show_msg('请输入正确的兑换码');
+                    reset_button('coupon_convert');
+                }
+
+                postReq('coupons/conversion', {
+                    user_id: getUser()['user_id'],
+                    coupons: [{code: code}]
+                }, function (data) {
+                    load_coupons();
+                    reset_button('coupon_convert');
+                }, function (error) {
+                    show_msg(error['message']);
+                    reset_button('coupon_convert');
+                });
+            });
+
+        });
+    }
+}(window.jQuery);
+</script>
+</body>
+</html>

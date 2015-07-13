@@ -423,7 +423,8 @@ ul, li, div, span, input, img, a {
 }
 
 .baseinfo-form-locate-img {
-    margin-left: 30px;
+    /*margin-left: 30px;*/
+    height: 60%;
 }
 
 .baseinfo-fieldset {
@@ -465,6 +466,17 @@ ul, li, div, span, input, img, a {
     height: 50px;
     clear: both;
     margin: 0 5%;
+}
+
+#use_coupon>div {
+    width: 90%;
+    text-align: right;
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+#use_coupon>img {
+    height: 30%;
 }
 
 /* order flow */
@@ -1218,4 +1230,91 @@ ul, li, div, span, input, img, a {
 
 .swiper-container {
     height: 110px;
+}
+
+/* my coupons */
+.transparent-top-fixed-div {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    _position: absolute;
+    clear: both;
+    height: 130px;
+    background-color: transparent;
+}
+
+.coupons-top-div {
+    height: 130px;
+    padding: 10px;
+}
+
+.my-coupons-rounded-input {
+    border-radius: 8px;
+    border: 1px solid #CCCCCC;
+}
+
+.coupon-manager-line {
+    height: 159px;
+}
+
+.coupon-manager-list>li {
+    margin-bottom: 20px;
+}
+
+.coupon-number {
+    color: #FFFFFF;
+    font-size: 30px;
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 3.125%;
+}
+
+.coupon-name {
+    color: #FFFFFF;
+    font-size: 30px;
+    position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    left: 3.125%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.coupon-value {
+    color: #FFFFFF;
+    font-size: 50px;
+    position: absolute;
+    z-index: 1;
+    bottom: 10px;
+    right: 42.1875%;
+}
+
+.coupon-status {
+    color: #333333;
+    font-size: 30px;
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 65.625%;
+}
+
+.coupon-expire-label {
+    color: #666666;
+    font-size: 20px;
+    position: absolute;
+    z-index: 1;
+    bottom: 50px;
+    left: 65.625%;
+}
+
+.coupon-expire {
+    color: #333333;
+    font-size: 30px;
+    position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    left: 65.625%;
 }
