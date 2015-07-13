@@ -250,7 +250,7 @@
         } else {
             var order = getOrder();
             if (order['coupon_value'] > 0) {
-                order['coupon'] = {value:order['coupon_value']};
+                order['coupon'] = {value:order['coupon_value'].toFixed(2)};
             }
             parse_data(order);
             t('#submit_button').text('立即预约');
