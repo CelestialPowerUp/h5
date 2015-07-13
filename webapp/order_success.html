@@ -66,20 +66,6 @@
 <script type="text/javascript">!function (t) {
     if (t) {
         t(function () {
-//            alert(getUser()['open_id']);
-//            if (!getUser()['open_id']) {
-//                window.location.href = './open_id.html';
-//            }
-
-            var store = getStore();
-            store.set('inner', 'false');
-
-//            var platform = $.ajax({
-//                url: 'platform.json',
-//                cache: false,
-//                async: false,
-//                dataType: 'json'
-//            });
 
             console.log(getOrder());
             var order_info = getSuccessOrder();
@@ -103,19 +89,14 @@
                     amount: order_info['total_price'],
                     subject: "养爱车-" + order_info['order_type'],
                     body: "养爱车-" + order_info['order_type'],
-                    order_id: order_info['id'],
-                    channel: getStore().get('channel')
+                    order_id: order_info['id']
                 };
                 loadCfg('platform.json', function (platform) {
                     if ('wechat' === platform['platform']) {
+                        param['channel'] = 'wx_pub';
                         param['extra'] = { open_id: getStore().get('open_id') };
-                    } else if ('normal' === platform['platform']) {
-                        param['channel'] = 'alipay_wap';
-                        param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_success.html?suc=true',
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_success.html'
-                        };
                     } else {
+                        param['channel'] = 'alipay_wap';
                         param['extra'] = {
                             success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html?suc=true',
                             cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html'
