@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px, minimum-scale=0.1, maximum-scale=1.5, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
-    <title>首页</title>
+    <title>养爱车</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -24,64 +24,43 @@
 </head>
 <body>
 
-<header data-am-widget="header" class="home-header-logo">
-    <img src="img/logo.png"/>
-</header>
+<img id="to_show_user_win" src="img/user_logo4.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
 
-<div class="user-header">
-    <div class="am-g">
-        <div class="am-u-sm-6 home-header" id="to_show_user_win">
-            <img src="img/user_logo1.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
-        </div>
-        <div class="am-u-sm-6 home-header">
-            <!--<div class="download-div">-->
-                <!--<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">-->
-                    <!--<img src="img/download.png"/>-->
-                <!--</a>-->
-            <!--</div>-->
-        </div>
-    </div>
+<div id="user-win" class="am-offcanvas">
+    <div class="am-offcanvas-bar user-win-content">
+        <div class="left">
+            <img class="user-logo" src="img/user_logo2.png">
+            <div class="user-info" id="user_phone">000****0000</div>
 
-    <div id="user-win" class="am-offcanvas">
-        <div class="am-offcanvas-bar user-win-content">
-            <div class="left">
-                <div class="user-logo">
-                    <img src="img/user_logo2.png">
-                </div>
-                <div class="user-info" id="user_phone">000****0000</div>
-
-                <div class="menu-info">
-                    <ul class="am-list">
-                        <li><a href="./order_list.html" class="am-vertical-align">
-                            <img src="./img/order_icon.png" class="am-vertical-align-middle" style="margin-right: 10px;margin-left: 4px;"/>
-                            <span class="am-vertical-align-middle">我的订单</span>
-                        </a></li>
-                        <li><a href="./my_cars.html" class="am-vertical-align">
-                            <img src="./img/car_icon.png" class="am-vertical-align-middle">
-                            <span class="am-vertical-align-middle">我的车</span>
-                        </a></li>
-                        <li><a href="./my_address_manage.html" class="am-vertical-align">
-                            <img src="./img/address_icon.png" class="am-vertical-align-middle" style="margin-right: 11px;margin-left: 6px;">
-                            <span class="am-vertical-align-middle">我的地址</span>
-                        </a></li>
-                        <li><a href="./my_exam_reports.html" class="am-vertical-align">
-                            <img src="./img/export_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
-                            <span class="am-vertical-align-middle">检测报告单</span>
-                        </a></li>
-                    </ul>
-                </div>
-
+            <div class="menu-info">
+                <ul class="am-list">
+                    <li><a href="./order_list.html" class="am-vertical-align">
+                        <img src="./img/order_icon.png" class="am-vertical-align-middle" style="margin-right: 10px;margin-left: 4px;"/>
+                        <span class="am-vertical-align-middle">我的订单</span>
+                    </a></li>
+                    <li><a href="./my_cars.html" class="am-vertical-align">
+                        <img src="./img/car_icon.png" class="am-vertical-align-middle">
+                        <span class="am-vertical-align-middle">我的车</span>
+                    </a></li>
+                    <li><a href="./my_address_manage.html" class="am-vertical-align">
+                        <img src="./img/address_icon.png" class="am-vertical-align-middle" style="margin-right: 11px;margin-left: 6px;">
+                        <span class="am-vertical-align-middle">我的地址</span>
+                    </a></li>
+                    <li><a href="./my_exam_reports.html" class="am-vertical-align">
+                        <img src="./img/export_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
+                        <span class="am-vertical-align-middle">检测报告单</span>
+                    </a></li>
+                </ul>
             </div>
 
-            <div class="right">
-                <div class="close-icon" id="close-offcanvas">
-                    <img src="img/close_icon.png"/>
-                </div>
-            </div>
+            <a href="tel:400-0102-766" class="side-footer am-vertical-align">
+                <u class="am-vertical-align-middle">400-0102-766</u>
+            </a>
+
         </div>
+
     </div>
 </div>
-
 
 <ul class="am-avg-sm-2 home-boxes" id="service">
     <li class="box right"><a href="./butler_pick_service.html">
@@ -122,22 +101,18 @@
     </a></li>
 </ul>
 
-<footer data-am-widget="footer" class="home-footer">
-    <a href="tel:400-0102-766">
-        <img src="img/contact_phone.png"/>
-    </a>
-</footer>
 <script type="text/javascript">!function (t) {
     t(function () {
         console.log(navigator);
-        alert(navigator.appVersion);
+//        alert(navigator.appVersion);
 
-        t('.home-footer').css('top', (t(window).height() - 88) + 'px');
-        var content = t(window).height() - 92 - 88 - 90;
+        var content = t(window).height();
         t("#service").css("height", content + "px");
         t(".box").css("height", content / 3 + "px");
         var box_text_h = t('.box-text').height();
-        t('.box-div').css('margin-top', (content / 3 - box_text_h - 94) / 2 + 'px');
+        t('.box-div').css('margin-top', (content / 3 - box_text_h - 47) / 2 + 'px');
+
+        t('#to_show_user_win').css('top', (t(window).height() - 50 - 10) + 'px');
 
         getStore().set('now_in', 'home');
 
