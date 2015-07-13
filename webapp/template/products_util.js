@@ -64,10 +64,10 @@ function recal_products(product_dict, product_part_dict, products) {
         }
     });
     $('#total_price').html('¥' + now_total_price);
-    store.set('total_price', now_total_price);
+    store.set('real_total_price', now_total_price);
     if (products) {
         var order = getOrder();
-        order['total_price'] = now_total_price;
+        order['real_total_price'] = now_total_price;
         order['products'] = products;
         updateOrder(order);
     }
