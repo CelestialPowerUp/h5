@@ -82,11 +82,6 @@
 
                 t('.address-btn').css('left', '0px');
 
-                t.each(t('.delete-btn'), function(i, delete_btn) {
-                    var p_box = t(delete_btn).parents()[0];
-                    t(delete_btn).css('left', (640 - 140) + 'px');
-                });
-
                 function accept(i) {
 //                    return (i < -140) ? false : ((i > 0) ? false : i);
 //                    return i;
@@ -181,7 +176,7 @@
                     var address_btn = t(this).find('.address-btn').eq(0);
                     now_offset = t(address_btn).css('left');
                     now_offset = parseFloat(now_offset.substr(0, now_offset.indexOf('px')));
-                    if (now_offset < (0 - 640 / 2)) {
+                    if (now_offset < (0 - t(window).width() / 2)) {
                         postReq('addresses/delete', [t(this).attr('data-rel')], function (data) {
                             window.location.reload();
                         });
@@ -190,7 +185,7 @@
                             t('.address-btn').css('left', '0px');//所有地址归位
                         }
                         if ((startX - endX) > 0) {
-                            move(address_btn, now_offset, -140);
+                            move(address_btn, now_offset, -70);
                             console.log('fade in');
                         } else if ((endX - startX) > 0) {
                             move(address_btn, now_offset, 0);

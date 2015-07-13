@@ -903,7 +903,7 @@ ul, li, div, span, input, img, a {
 .address-manager-line {
     background-color: #f1f1f1;
     border-bottom: 1px solid #cccccc;
-    height: 120px;
+    height: 60px;
 }
 
 .address-manager-line:first-child {
@@ -912,8 +912,8 @@ ul, li, div, span, input, img, a {
 
 .address-manager-clickable {
     background-color: #FFFFFF;
-    width: 640px;
-    height: 120px;
+    width: 100%;
+    height: 60px;
     padding: 15px 0;
     position: absolute;
     z-index: 2;
@@ -929,15 +929,18 @@ ul, li, div, span, input, img, a {
 }
 
 .address-manager-deletable {
-    width: 140px;
-    height: 120px;
+    width: 70px;
+    height: 60px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    right: 0;
 }
 
 .address-manager-deletable-img {
-    margin-left: 51px;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
 }
 
 /* address getter */
