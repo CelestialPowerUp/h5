@@ -812,14 +812,18 @@ ul, li, div, span, input, img, a {
 }
 
 /* exam reports detail */
+.exam-reports-detail-list>li {
+    border-width: 0;
+}
+
 .exam-reports-detail-line {
     border-width: 0;
     margin-top: 30px;
 }
 
 .exam-reports-detail-left-box {
-    margin-left: 60px;
-    width: 50px;
+    margin-left: 15px;
+    width: 30px;
 }
 
 .exam-reports-detail-left-text-wrapper {
@@ -828,26 +832,26 @@ ul, li, div, span, input, img, a {
 
 .exam-reports-detail-left-text {
     color: #333333;
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 16px;
+    font-size: 16px;
     font-weight: lighter;
 }
 
 .exam-reports-detail-right-name-wrapper {
     text-align: left;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .exam-reports-detail-right-name {
     color: #333333;
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 16px;
+    font-size: 16px;
     font-weight: lighter;
 }
 
 .exam-reports-detail-right-comment-wrapper {
     text-align: left;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .exam-reports-detail-right-comment {
@@ -859,7 +863,7 @@ ul, li, div, span, input, img, a {
 
 /* exam reports */
 .exam-reports-line {
-    margin-top: 30px;
+    margin-top: 15px;
     border-width: 0;
     background-color: #ffffff;
     border-bottom: 1px solid #d0d0d0;
@@ -867,16 +871,16 @@ ul, li, div, span, input, img, a {
 }
 
 .exam-reports-left-box {
-    margin-top: 20px;
-    margin-left: 30px;
-    height: 120px;
+    padding-top: 10px;
+    margin-left: 15px;
+    height: 70px;
 }
 
 .exam-reports-left-line-1 {
     text-align: left;
     margin-bottom: 10px;
     color: #666666;
-    font-size: 26px;
+    font-size: 12px;
     font-weight: lighter;
     overflow: hidden;
     white-space: nowrap;
@@ -887,16 +891,16 @@ ul, li, div, span, input, img, a {
     text-overflow: ellipsis;
     text-align: left;
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: lighter;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .exam-reports-right-box {
-    margin-left: 60px;
-    width: 14px;
-    height: 140px;
+    margin-left: 30px;
+    width: 7px;
+    height: 70px;
 }
 
 /* address manager */

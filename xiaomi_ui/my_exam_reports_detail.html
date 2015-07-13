@@ -26,7 +26,7 @@
 <div id="unpassed" style="display: block;"></div>
 <div id="passed" style="display: none;"></div>
 <script type="text/x-handlebars-template" id="exam_reports_tpl">
-    <ul class="am-list">
+    <ul class="am-list exam-reports-detail-list">
         {{#each this}}
         <li class="am-nbfc exam-reports-detail-line">
             <div class="am-fl left exam-reports-detail-left-box">
@@ -41,7 +41,7 @@
                 <div data-am-widget="gallery" class="am-gallery am-gallery-default am-cf my-gallery" data-am-gallery="{ pureview: true }">
                     {{#each imgs}}
                     <a class="am-fl am-gallery-item">
-                        <img class="gallery-img" style="height: 80px;width: 80px;" src="{{thumbnail_url}}" data-rel="{{original_url}}" />
+                        <img class="gallery-img" style="height: 40px;width: 40px;" src="{{thumbnail_url}}" data-rel="{{original_url}}" />
                     </a>
                     {{/each}}
                 </div>
@@ -120,7 +120,7 @@
                 t("#unpassed").append(tpl(unpassed));
                 t("#passed").append(tpl(passed));
 
-                t('.right').css('width', (640 - 110 - 30) + 'px');
+                t('.right').css('width', (t(window).width() - 30 - 15 - 15) + 'px');
 
                 var module = t.AMUI['gallery'];
                 module && module.init && module.init();
