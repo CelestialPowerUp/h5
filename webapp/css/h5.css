@@ -788,6 +788,10 @@ ul, li, div, span, input, img, a {
     color: #333333;
 }
 
+.order-info-line-cell2:last-child div span {
+    font-size: 40px;
+}
+
 .order-info-title {
     margin: 10px 0 10px 30px;
     color: #7A7A7A;
@@ -833,6 +837,10 @@ ul, li, div, span, input, img, a {
 }
 
 /* exam reports detail */
+.exam-reports-detail-list>li {
+    border-width: 0;
+}
+
 .exam-reports-detail-line {
     border-width: 0;
     margin-top: 30px;
