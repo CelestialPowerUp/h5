@@ -41,7 +41,8 @@
                     </div>
                 </div>
                 <div class="am-u-sm-9 am-form-field-wrapper am-vertical-align">
-                    <input type="text" onclick="mySelect('contact_name');" class="am-form-field am-vertical-align-middle"
+                    <input type="text" onclick="mySelect('contact_name');"
+                           class="am-form-field am-vertical-align-middle"
                            name="contact_name" id="contact_name" placeholder="请输入联系人姓名">
                 </div>
             </li>
@@ -76,11 +77,25 @@
                     </div>
                 </div>
                 <div class="am-u-sm-9 am-form-field-wrapper am-vertical-align">
-                    <input type="text" onclick="mySelect('address');" class="am-form-field baseinfo-form-locate-input am-vertical-align-middle"
+                    <input type="text" onclick="mySelect('address');"
+                           class="am-form-field baseinfo-form-locate-input am-vertical-align-middle"
                            name="address" id="address" placeholder="限北京地区，获取中...">
-                    <div id="go_to_map" class="baseinfo-form-locate-img-wrapper am-vertical-align-middle am-vertical-align">
+
+                    <div id="go_to_map"
+                         class="baseinfo-form-locate-img-wrapper am-vertical-align-middle am-vertical-align">
                         <img src="./img/locate.png" alt="地图" class="baseinfo-form-locate-img am-vertical-align-middle"/>
                     </div>
+                </div>
+            </li>
+            <li class="am-g my-form-line">
+                <div class="am-u-sm-3 my-form-label-wrapper am-vertical-align">
+                    <div class="my-form-label am-vertical-align-middle">
+                        优惠券
+                    </div>
+                </div>
+                <div id="use_coupon" class="am-u-sm-9 am-form-field-wrapper am-vertical-align">
+                    <div class="my-form-label am-vertical-align-middle">0张可用</div>
+                    <img src="./img/right_arrow.png" alt="go" class="am-vertical-align-middle"/>
                 </div>
             </li>
             <li id="pay_way" class="am-g my-form-line">
@@ -90,10 +105,12 @@
                     </div>
                 </div>
                 <div class="am-u-sm-9 am-form-field-wrapper am-vertical-align" id="my-btn-group" data-rel="1">
-                    <button type="button" class="baseinfo-pay-btn baseinfo-pay-chosen am-vertical-align-middle" data-rel="1">
+                    <button type="button" class="baseinfo-pay-btn baseinfo-pay-chosen am-vertical-align-middle"
+                            data-rel="1">
                         在线支付
                     </button>
-                    <button type="button" class="baseinfo-pay-btn baseinfo-pay-chosen-not am-vertical-align-middle" data-rel="2">
+                    <button type="button" class="baseinfo-pay-btn baseinfo-pay-chosen-not am-vertical-align-middle"
+                            data-rel="2">
                         线下支付
                     </button>
                 </div>
@@ -312,6 +329,29 @@
                 }
             }
             console.log('address altered');
+
+            if (getReqParam()['coupons']) {
+                var order = getOrder()['coupon_name'];
+                t('#use_coupon').children('div').html(order);
+            } else {
+                getReq('coupons?user_id=' + getUser()['user_id'], function (data) {
+                    var len = 0;
+                    t.each(data, function (i, coupon) {
+                        if ("未使用" === coupon.status) {
+                            len += 1;
+                        }
+                    });
+
+                    t('#use_coupon').children('div').html(len + '张可用');
+                });
+                var order2 = getOrder();
+                order2['coupon_id'] = null;
+                updateOrder(order2);
+            }
+        });
+
+        t('#use_coupon').click(function (e) {
+            window.location.href = './my_coupons.html';
         });
     })
 }(window.jQuery);</script>

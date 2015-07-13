@@ -112,6 +112,8 @@ function after_login() {
         window.location.href = './my_address_manage.html';
     } else if (store.get('now_in') === 'exam_report') {
         window.location.href = './my_exam_reports.html';
+    } else if (store.get('now_in') === 'coupon_list') {
+        window.location.href = './my_coupons.html';
     } else {
         window.location.href = './car_list.html';
     }
@@ -121,5 +123,12 @@ function route2address() {
     var store = getStore();
     if (store.get('now_in') === 'home_wp' || store.get('now_in') === 'home') {
         store.set('now_in', 'address_list');
+    }
+}
+
+function route2coupon() {
+    var store = getStore();
+    if (store.get('now_in') === 'home_wp' || store.get('now_in') === 'home') {
+        store.set('now_in', 'coupon_list');
     }
 }
