@@ -771,7 +771,7 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-line-cell2 div {
-    color: #333333;
+    color: #FE7B2E;
     font-size: 30px;
 }
 
@@ -780,8 +780,8 @@ ul, li, div, span, input, img, a {
     margin-left: 30px;
 }
 
-.order-info-line-cell2:last-child div {
-    color: #FE7B2E;
+.order-info-line-cell2:first-child div {
+    color: #333333;
 }
 
 .order-info-line-cell2:last-child div div {
