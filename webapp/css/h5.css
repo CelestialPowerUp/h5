@@ -1318,3 +1318,10 @@ ul, li, div, span, input, img, a {
     bottom: 15px;
     left: 65.625%;
 }
+
+.coupon-selected {
+    position: absolute;
+    z-index: 2;
+    top: 15px;
+    right: 15px;
+}

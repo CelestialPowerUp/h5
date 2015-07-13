@@ -44,6 +44,10 @@
             <div class="coupon-status">{{status}}</div>
             <div class="coupon-expire-label">有效时间</div>
             <div class="coupon-expire">{{expired_time}}止</div>
+
+            {{#selected}}
+            <img class="coupon-selected" src="./img/hook.png"></img>
+            {{/selected}}
         </li>
         {{/each}}
     </ul>
@@ -66,8 +70,11 @@
             function load_coupons() {
                 getReq('coupons?user_id=' + getUser()['user_id'], function (data) {
                     console.log(data);
-
+                    var coupon_id = getOrder()['coupon_id'];
                     t.each(data, function (i, coupon) {
+                        if (coupon.id == coupon_id) {
+                            coupon.selected = true;
+                        }
                         if ("未使用" === coupon.status) {
                             if (coupon.value < 50) {
                                 coupon.bg_img = './img/couponsbackground3.png';
@@ -90,11 +97,18 @@
                     t('.coupon-btn').click(function (e) {
                         if ('coupon_list' !== getStore().get('now_in') && 'false' === t(this).attr('data-used')) {
                             var order = getOrder();
-                            order['coupon_id'] = t(this).attr('data-id');
-                            order['coupon_name'] = t(this).attr('data-code');
-                            order['coupon_value'] = parseFloat(t(this).attr('data-value'));
-                            updateOrder(order);
-                            window.location.href = './base_info.html?coupons=true';
+                            var seleted_id = t(this).attr('data-id');
+                            if (order['coupon_id'] === seleted_id) {
+                                order['coupon_id'] = null;
+                                updateOrder(order);
+                                window.location.href = './base_info.html';
+                            } else {
+                                order['coupon_id'] = seleted_id;
+                                order['coupon_name'] = t(this).attr('data-code');
+                                order['coupon_value'] = parseFloat(t(this).attr('data-value'));
+                                updateOrder(order);
+                                window.location.href = './base_info.html?coupons=true';
+                            }
                         }
                     });
 
