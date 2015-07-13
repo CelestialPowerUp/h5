@@ -382,55 +382,48 @@ ul, li, div, span, input, img, a {
 }
 
 .baseinfo-help-top {
-    font-size: 20px;
-    padding-left: 15px;
-    padding-top: 10px;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 5px;
 }
 
 .baseinfo-help-bottom {
-    font-size: 20px;
-    padding-left: 15px;
+    font-size: 14px;
+    padding-left: 10px;
     padding-top: 5px;
 }
 
 .baseinfo-form-locate-input {
-    width: 390px;
+    width: 85%;
 }
 
 .baseinfo-form-locate-img-wrapper {
-    width: 60px;
-    height: 88px;
+    width: 15%;
+    height: 48px;
     margin: 0;
     padding: 0;
-    color: #D3D4D3;
-}
-
-.baseinfo-form-locate-img {
-    margin-left: 30px;
-}
-
-.baseinfo-fieldset {
-    margin: 0;
-    padding: 0;
+    /*color: #D3D4D3;*/
     background-color: #FFFFFF;
 }
 
-.baseinfo-margin-top-2 {
-    margin-top: 2px;
+.baseinfo-form-locate-img {
+    margin-left: auto;
 }
 
 .baseinfo-pay-btn {
     white-space: nowrap;
-    height: 80px;
+    width: 40%;
+    height: 40px;
     border-radius: 8px;
     border-width: 0;
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
     margin-left: 10px;
+    padding: 0;
 }
 
 .baseinfo-pay-btn:last-child {
-    margin-left: 30px;
+    margin-left: 5%;
 }
 
 .baseinfo-pay-chosen {
@@ -667,13 +660,13 @@ ul, li, div, span, input, img, a {
 
 /* order info */
 .order-info-div {
-    margin: 15px 0 85px 0;
+    margin: 5px 0 60px 0;
 }
 
 .order-info-help {
     padding-left: 10px;
     padding-top: 5px;
-    font-size: 20px;
+    font-size: 12px;
     color: #FE7B2E;
 }
 
@@ -685,16 +678,17 @@ ul, li, div, span, input, img, a {
 
 .order-info-base-big {
     width: 580px;
-    margin: 28px 0 0 30px;
+    margin: 14px 0 0 15px;
     padding: 0;
     color: #666666;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-base {
-    width: 212px;
+    width: 33.3%;
+    height: 24px;
     color: #666666;
-    font-size: 30px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -703,8 +697,12 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-base:first-child {
-    width: 182px;
-    margin-left: 30px;
+    padding-left: 10px;
+}
+
+.order-info-base>img {
+    height: 80%;
+    margin-right: 3px;
 }
 
 .order-info-line-cell {
@@ -717,14 +715,18 @@ ul, li, div, span, input, img, a {
     text-overflow: ellipsis;
 }
 
+.order-info-line-cell {
+    width: 33%;
+    height: 50px;
+}
+
 .order-info-line-cell div {
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-line-cell:first-child {
-    width: 182px;
-    margin-left: 30px;
+    padding-left: 10px;
 }
 
 .order-info-line-cell:last-child div {
@@ -741,14 +743,18 @@ ul, li, div, span, input, img, a {
     text-overflow: ellipsis;
 }
 
+.order-info-line-cell2 {
+    width: 33%;
+    height: 50px;
+}
+
 .order-info-line-cell2 div {
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-line-cell2:first-child {
-    width: 182px;
-    margin-left: 30px;
+    padding-left: 10px;
 }
 
 .order-info-line-cell2:last-child div {
@@ -760,9 +766,9 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-title {
-    margin: 10px 0 10px 30px;
+    margin: 5px 0 5px 10px;
     color: #7A7A7A;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-title-empty {
@@ -772,7 +778,7 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-box {
-    font-size: 30px;
+    font-size: 16px;
 }
 
 /* order success */
@@ -781,26 +787,26 @@ ul, li, div, span, input, img, a {
 }
 
 .order-success-success-font {
-    width: 600px;
-    font-size: 40px;
+    width: 100%;
+    font-size: 20px;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 .order-success-success-info {
-    width: 600px;
-    font-size: 30px;
+    width: 100%;
+    font-size: 16px;
     text-align: center;
 }
 
 .order-success-help {
-    font-size: 20px;
+    font-size: 12px;
 }
 
 .order-success-img {
-    width: 120px;
-    height: 119px;
-    margin: 120px 260px 30px 260px;
+    width: 24%;
+    /*height: 60px;*/
+    margin: 60px 38% 15px 38%;
 }
 
 /* exam reports detail */
@@ -1114,8 +1120,8 @@ ul, li, div, span, input, img, a {
 }
 
 .am-form-field-wrapper {
-    padding: 0 30px 0 0;
-    height: 98px;
+    padding: 0 15px 0 0;
+    height: 48px;
 }
 
 .am-form-field {
@@ -1141,18 +1147,18 @@ ul, li, div, span, input, img, a {
 }
 
 .my-form-label-wrapper {
-    padding-left: 30px;
+    padding-left: 15px;
     padding-right: 0;
-    height: 98px;
+    height: 48px;
 }
 
 .my-form-label {
-    font-size: 30px;
-    width: 130px;
+    font-size: 16px;
+    /*width: 150px;*/
 }
 
 .my-form-line {
-    height: 100px;
+    height: 50px;
     border-bottom-width: 1px;
 }
 
