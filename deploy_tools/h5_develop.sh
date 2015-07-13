@@ -4,15 +4,15 @@ local_dir=".."
 config="develop"
 make_dir="h5-"$config
 wechat="wechat"
-xiaomi="xiaomi"
 alipay="alipay"
+xiaomi="xiaomi"
 normal="normal"
 rc="rc"
 mirc="mirc"
 
 PATH=$PATH:./libs/
 
-read -p "deploy wechat, xiaomi, alipay, normal, rc, mirc?(y/n): " deploy
+read -p "deploy wechat, alipay, xiaomi, normal, rc, mirc?(y/n): " deploy
 
 bash _make_h5.sh $local_dir $config $make_dir $wechat $alipay $xiaomi $normal $rc $mirc $deploy &&
 

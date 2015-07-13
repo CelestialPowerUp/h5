@@ -206,7 +206,7 @@
                 }
                 if (!phone_number.match(/^\d{11}$/)) {
                     show_msg("请输入正确的手机号码获取验证码");
-                    reset_button("login_button");
+                    reset_button("verify_button");
                     return;
                 }
                 getReq("sign_verify_code.json/" + phone_number, function (data) {
