@@ -103,14 +103,14 @@
 <script type="text/javascript">!function (t) {
     t(function () {
 
-        if (getReqParam()['suc']) {
+//        if (getReqParam()['suc']) {
             // 关闭支付窗
             loadCfg('platform.json', function (platform) {
                 if ('alipay' === platform['platform']) {
                     AlipayJSBridge.call('exitApp');
                 }
             });
-        }
+//        }
 
         $("#submit_button").click(function () {
             disable_button("submit_button");
