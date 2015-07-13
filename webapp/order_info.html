@@ -135,22 +135,17 @@
                     amount: order_info['total_price'],
                     subject: "养爱车-" + order_info['order_type'],
                     body: "养爱车-" + order_info['order_type'],
-                    order_id: order_info['id'],
-                    channel: getStore().get('channel')
+                    order_id: order_info['id']
                 };
                 loadCfg('platform.json', function (platform) {
                     if ('wechat' === platform['platform']) {
+                        param['channel'] = 'wx_pub';
                         param['extra'] = { open_id: getStore().get('open_id') };
-                    } else if ('normal' === platform['platform']) {
+                    } else {
                         param['channel'] = 'alipay_wap';
                         param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_info_suc.html?order_id='+getReqParam()['order_id'],
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_info.html?order_id='+getReqParam()['order_id']
-                        };
-                    } else {
-                        param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info_suc.html?order_id='+getReqParam()['order_id'],
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info.html?order_id='+getReqParam()['order_id']
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html?suc=true',
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html'
                         };
                     }
                 });
