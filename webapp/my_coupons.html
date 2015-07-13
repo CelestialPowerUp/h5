@@ -34,7 +34,7 @@
         {{#each this}}
         <li class="coupon-btn am-nbfc coupon-manager-line"
             style="border: none;background-color: transparent;"
-            data-code="{{name}}" data-id="{{id}}" data-used="{{used}}">
+            data-code="{{name}}" data-id="{{id}}" data-used="{{used}}" data-value="{{value}}">
             <img src="{{bg_img}}" style="width: 100%;height: 159px;position:absolute;z-index: -1;">
 
             <div class="coupon-number">号码: {{number}}</div>
@@ -92,6 +92,7 @@
                             var order = getOrder();
                             order['coupon_id'] = t(this).attr('data-id');
                             order['coupon_name'] = t(this).attr('data-code');
+                            order['coupon_value'] = parseFloat(t(this).attr('data-value'));
                             updateOrder(order);
                             window.location.href = './base_info.html?coupons=true';
                         }
