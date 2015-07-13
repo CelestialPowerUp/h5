@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
     <title>订单流程</title>
@@ -27,8 +27,8 @@
 <div id="car_tracks" style="display: none;">
     <div id="map_view" class="order-flow-map-view">
     </div>
-    <button id="run" class="am-btn am-btn-success new-bottom-button" style="width: 100%;">点击观看地理位置信息
-    </button>
+    <!--<button id="run" class="am-btn am-btn-success new-bottom-button" style="width: 100%;">点击观看地理位置信息-->
+    <!--</button>-->
 </div>
 <script type="text/x-handlebars-template" id="order_flow_tpl">
     <ul class="am-list margin-top-40">
@@ -55,7 +55,7 @@
                     {{#each items}}
                     {{#each pics}}
                     <a class="am-fl am-gallery-item order-flow-gallery-item">
-                        <img src="{{thumbnail_url}}" class="gallery-img" style="height: 80px;width: 80px;" data-rel="{{original_url}}"/>
+                        <img src="{{thumbnail_url}}" class="gallery-img" style="height: 40px;width: 40px;" data-rel="{{original_url}}"/>
                     </a>
                     {{/each}}
                     {{/each}}
@@ -71,6 +71,7 @@
 <script type="text/javascript" src="./js/amazeui.widgets.helper.min.js"></script>
 <script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./js/LuShu_min.js"></script>
+<script type="text/javascript" src="./js/MarkerManager_min.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script type="text/javascript" src="./js/router.js"></script>
 <script type="text/javascript">!function (t) {
@@ -131,8 +132,8 @@
                 var left_width = t('.left').eq(0).width();
                 t('.left').css('width', left_width + 'px');
                 t('.my-gallery').css('margin', '0');
-                t('.my-gallery').css('padding', '10px 0 0 0');
-                t('.my-gallery').css('width', (640 - 30 - left_width - 81 - 30) + 'px');
+                t('.my-gallery').css('padding', '5px 0 0 0');
+                t('.my-gallery').css('width', (t(window).width() - 15 - left_width - 41 - 15) + 'px');
 
                 t.each(t('.center'), function (i, c) {
                     function max(a, b) {
@@ -312,124 +313,223 @@
 //                    +']';
 //            data = t.parseJSON(raw_data);
 
-            var loaded = false, ready = false;
+//            function init_lushu(callback) {
+//                var map = new BMap.Map('map_view');
+//                map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+//
+////                var myIcon = new BMap.Icon(getStore().get('keeper_avatar_img'), {
+//                var myIcon = new BMap.Icon('./img/dian100.png', {
+//                    width: 31,
+//                    height: 31
+//                }, {anchor: new BMap.Size(15, 15)});
+//
+//                var lushu = {};
+//
+//                lushu.gen_arr_pois = function (geo_array) {
+//                    var gen_pois = [];
+//                    t.each(geo_array, function (i, point) {
+//                        gen_pois.push(new BMap.Point(point.longitude, point.latitude));
+//                    });
+//                    return gen_pois;
+//                };
+//
+//                lushu.is_mod = function (geo_array) {
+//                    return false;//TODO
+//                };
+//
+//                lushu.update = function (geo_array) {
+//                    if (this.is_mod(geo_array)) {
+//                        map = new BMap.Map('map_view');
+//                        map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+//                        return this.create(geo_array);
+//                    }
+//                };
+//
+//                lushu.create_single = function (geo_array, speed, max_total_time, lushu_cmp) {
+////                    var drv = new BMap.DrivingRoute('北京', {
+////                        onSearchComplete: function(res) {
+////                            if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+////                                console.log(geo_array);
+////                                var arrPois = res.getPlan(0).getRoute(0).getPath();
+////                                console.log(arrPois);
+////                                map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
+////
+////                                var cmp = new BMapLib.LuShu(map, arrPois, {
+//////                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
+////                                    speed: speed,
+////                                    icon: myIcon,
+////                                    //enableRotation:true,
+////                                    landmarkPois: [
+//////                                    {lng: 116.314782, lat: 39.913508, html: '加油站', pauseTime: 2}
+////                                    ]
+////                                });
+////
+////                                cmp.ycar_total_time = max_total_time * 1000;
+////                                lushu_cmp.cmps.push(cmp);
+////                            }
+////                        }
+////                    });
+////                    var waypoints = [];
+////                    for (var i = 1; i < geo_array.length - 1; i++) {
+////                        waypoints.push(geo_array[i]);
+////                    }
+////                    console.log(waypoints);
+//////                    drv.search(geo_array[0], geo_array[geo_array.length - 1], { waypoints: waypoints });
+////                    var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+////                    driving.search(geo_array[0], geo_array[geo_array.length - 1], { waypoints: waypoints });
+//                };
+//
+//                lushu.create_util = function (lushu_cmp, this_pois, distance) {
+//                    if (this_pois.length === 0) {
+//                        this_pois.push(new BMap.Point(this_pois[0].lng, this_pois[0].lat));
+//                    }
+//                    var max_total_time = Math.max(3, parseInt((1 + (distance / 4500)).toFixed(0)));
+//                    var speed = distance / max_total_time;
+//                    this.create_single(this_pois, speed, max_total_time, lushu_cmp);
+//                };
+//
+//                lushu.create = function (geo_array) {
+//                    var lushu_cmp = {
+//                        cmps: [],
+//                        now_cmp: null,
+//                        timeout_task: null,
+//                        start: function(i) {
+//                            if (0 === i) {
+//                                clearTimeout(this.timeout_task);
+//                            }
+//
+//                            if (i == this.cmps.length) {
+//                                return;
+//                            }
+//
+//                            if (null !== this.now_cmp) {
+//                                this.now_cmp.stop();
+//                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800;"]').empty();
+//                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400;"]').empty();
+//                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300;"]').empty();
+//                            }
+//
+//                            this.now_cmp = this.cmps[i];
+//                            this.now_cmp.start();
+//                            this.timeout_task = setTimeout(function() {
+//                                lushu_cmp.start(i + 1);
+//                            }, this.now_cmp.ycar_total_time);
+//                        }
+//                    };
+//
+//                    var distance = 0, this_pois = [], last_point = null, gen_pois = this.gen_arr_pois(geo_array);
+//                    for (var i = gen_pois.length - 1; i >= 0; i--) {
+//                        var point = gen_pois[i];
+//                        if (!last_point) {
+//                            this_pois.push(point);
+//                            last_point = point;
+//                            distance = 0;
+//                        } else {
+//                            var this_distance = (map.getDistance(last_point, point)).toFixed(0);
+//                            if (this_distance < 8000) {
+//                                distance += this_distance;
+//                                this_pois.push(point);
+//                                last_point = point;
+//                            } else {
+//                                this.create_util(lushu_cmp, this_pois, distance);
+//                                this_pois = [];
+//                                this_pois.push(point);
+//                                distance = 0;
+//                            }
+//                        }
+//                    }
+//                    this.create_util(lushu_cmp, this_pois, distance);
+//
+//                    console.log(lushu_cmp);
+//                    map.setViewport(gen_pois);
+//                    return lushu_cmp;
+//                };
+//
+//                callback(lushu);
+//            }
 
-            function init_lushu(callback) {
+
+            var ready = false, interval, mgr;
+            function init_markers(callback) {
+                if (interval) {
+                    clearInterval(interval);
+                    mgr.clearMarkers();
+                }
+
                 var map = new BMap.Map('map_view');
                 map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
 
-                var myIcon = new BMap.Icon(getStore().get('keeper_avatar_img'), {
-                    width: 128,
-                    height: 128
-                }, {anchor: new BMap.Size(65, 128)});
+                var gen_pois = [];
+                t.each(getStore().get('track_data'), function (i, point) {
+                    gen_pois.push(new BMap.Point(point.longitude, point.latitude));
+                });
 
-                var lushu = {};
+                map.setViewport(gen_pois);
 
-                lushu.gen_arr_pois = function (geo_array) {
-                    var gen_pois = [];
-                    t.each(geo_array, function (i, point) {
-                        gen_pois.push(new BMap.Point(point.longitude, point.latitude));
-                    });
-                    return gen_pois;
-                };
+                mgr = new BMapLib.MarkerManager(map,{
+                    maxZoom: 20, trackMarkers: true
+                });
 
-                lushu.is_mod = function (geo_array) {
-                    return false;//TODO
-                };
+                var loaded = false;
+                map.addEventListener("tilesloaded",function(){
+                    if (!loaded) {
 
-                lushu.update = function (geo_array) {
-                    if (this.is_mod(geo_array)) {
-                        map = new BMap.Map('map_view');
-                        map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
-                        return this.create(geo_array);
-                    }
-                };
-
-                lushu.create_single = function (geo_array, speed) {
-                    var arrPois = geo_array;
-                    console.log(arrPois);
-                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
-
-                    return new BMapLib.LuShu(map, arrPois, {
-//                        defaultContent: "<img src='"+ getStore().get('keeper_avatar_img') +"'>",
-                        speed: speed,
-                        icon: myIcon,
-                        //enableRotation:true,
-                        landmarkPois: [
-//                                    {lng: 116.314782, lat: 39.913508, html: '加油站', pauseTime: 2}
-                        ]
-                    });
-                };
-
-                lushu.create_util = function (lushu_cmp, this_pois, distance) {
-                    if (this_pois.length === 0) {
-                        this_pois.push(new BMap.Point(this_pois[0].lng, this_pois[0].lat));
-                    }
-                    var max_total_time = Math.max(3, parseInt((1 + (distance / 4500)).toFixed(0)));
-                    var speed = distance / max_total_time;
-                    var cmp = this.create_single(this_pois, speed);
-                    cmp.ycar_total_time = max_total_time * 1000;
-                    lushu_cmp.cmps.push(cmp);
-                };
-
-                lushu.create = function (geo_array) {
-                    var lushu_cmp = {
-                        cmps: [],
-                        now_cmp: null,
-                        timeout_task: null,
-                        start: function(i) {
-                            if (0 === i) {
-                                clearTimeout(this.timeout_task);
-                            }
-
-                            if (i == this.cmps.length) {
-                                return;
-                            }
-
-                            if (null !== this.now_cmp) {
-                                this.now_cmp.stop();
-                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800;"]').empty();
-                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400;"]').empty();
-                                t('div[style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300;"]').empty();
-                            }
-
-                            this.now_cmp = this.cmps[i];
-                            this.now_cmp.start();
-                            this.timeout_task = setTimeout(function() {
-                                lushu_cmp.start(i + 1);
-                            }, this.now_cmp.ycar_total_time);
+                        var icons = [], last = gen_pois.length, minus = 31 * 0.7 / gen_pois.length, index = gen_pois.length - 1, markers = [];
+                        for (var l = 0; l < last; l++) {
+                            icons.push(new BMap.Icon('./img/dian.png', {
+                                width: 31,
+                                height: 31
+                            }, {anchor: new BMap.Size(15, 15)}));
                         }
-                    };
-
-                    var distance = 0, this_pois = [], last_point = null, gen_pois = this.gen_arr_pois(geo_array);
-                    for (var i = gen_pois.length - 1; i >= 0; i--) {
-                        var point = gen_pois[i];
-                        if (!last_point) {
-                            this_pois.push(point);
-                            last_point = point;
-                            distance = 0;
-                        } else {
-                            var this_distance = (map.getDistance(last_point, point)).toFixed(0);
-                            if (this_distance < 1000) {
-                                distance += this_distance;
-                                this_pois.push(point);
-                                last_point = point;
+                        interval = setInterval(function () {
+                            var imgs = t('img[src="./img/dian.png"]');
+//                                    alert(imgs.length);
+                            var to_change_count = Math.min(last, markers.length), len = imgs.length;
+                            for (var i = 0; i < to_change_count + Math.min(index + 1, 0); i++) {
+                                var size = markers[len - 1 - i].size - minus;
+                                imgs.eq(len - 1 - i).css('width', size + 'px');
+                                imgs.eq(len - 1 - i).css('height', size + 'px');
+                                markers[len - 1 - i].size = size;
+                            }
+                            if (index > 0) {
+                                var marker = new BMap.Marker(gen_pois[index], {
+                                    icon: new BMap.Icon('./img/dian.png', {
+                                        width: 45,
+                                        height: 45
+                                    }, {anchor: new BMap.Size(22.5, 22.5)})
+                                });
+                                marker.size = 45;
+                                marker.disableDragging();
+                                marker.addEventListener('dragging', function(e) {
+                                    e.preventDefault();
+                                });
+                                markers.push(marker);
+                                mgr.addMarker(marker, 4, 20);
+                                mgr.showMarkers();
                             } else {
-                                this.create_util(lushu_cmp, this_pois, distance);
-                                this_pois = [];
-                                this_pois.push(point);
-                                distance = 0;
+                                var marker = new BMap.Marker(gen_pois[index], {
+                                    icon: new BMap.Icon('./img/car2.png', {
+                                        width: 111,
+                                        height: 126
+                                    }, {anchor: new BMap.Size(55, 126 - 32)})
+                                });
+                                marker.disableDragging();
+                                marker.addEventListener('dragging', function(e) {
+                                    e.preventDefault();
+                                });
+                                markers.push(marker);
+                                mgr.addMarker(marker, 4, 20);
+                                mgr.showMarkers();
                             }
-                        }
+                            index -= 1;
+                            if (index < 0) {
+                                clearInterval(interval);
+                            }
+                        }, 300);
+
+                        loaded = true;
                     }
-                    this.create_util(lushu_cmp, this_pois, distance);
-
-                    console.log(lushu_cmp);
-                    map.setViewport(gen_pois);
-                    return lushu_cmp;
-                };
-
-                callback(lushu);
+                });
             }
 
             getReq('/tracks?order_id=' + getReqParam()['order_id'], function (data) {
@@ -454,20 +554,25 @@
                     t('#car_tracks').css('display', 'block');
                     t('#order_flow').css('display', 'none');
 
-                    if (!loaded) {
-                        t('#map_view').css('height', (t(window).height() - t('#run').height() - 80) + 'px');
+                    t('#map_view').css('height', (t(window).height()/* - t('#run').height()*/ - 40) + 'px');
 
-                        init_lushu(function (util) {
+                    init_markers(/*function(mgr, gen_pois) {
+                     //绑定事件
+                     t("#run").click(function () {
 
-                            var lushu_cmp = util.create(getStore().get('track_data'));
-                            //绑定事件
-                            t("#run").click(function () {
-                                lushu_cmp.start(0);
-                            });
+                     });
+                     }*/);
 
-                            loaded = true;
-                        });
-                    }
+//                        init_lushu(function (util) {
+//
+//                            var lushu_cmp = util.create(getStore().get('track_data'));
+//                            //绑定事件
+//                            t("#run").click(function () {
+//                                lushu_cmp.start(0);
+//                            });
+//
+//                            loaded = true;
+//                        });
                 }
             });
 
