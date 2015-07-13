@@ -1045,13 +1045,13 @@ ul, li, div, span, input, img, a {
 
 .my-list-item {
     border-bottom: 1px solid #CCCCCC;
-    padding: 0 0 0 30px;
+    padding: 0 0 0 10px;
     background-color: #FFFFFF;
-    height: 90px;
+    height: 45px;
 }
 
 .my-list-height {
-    height: 90px;
+    height: 45px;
 }
 
 .my-list-item:first-child {
@@ -1063,18 +1063,18 @@ ul, li, div, span, input, img, a {
 }
 
 .my-list-set-hd-wrapper {
-    height: 66px;
-    margin-left: 30px;
+    height: 33px;
+    margin-left: 15px;
 }
 
 .my-list-set-hd-wrapper2 {
-    margin-left: 30px;
-    height: 60px;
+    margin-left: 15px;
+    height: 30px;
 }
 
 .my-list-set-hd {
-    font-size: 30px;
-    width: 610px;
+    font-size: 16px;
+    width: 100%;
     color: #666666;
     background-color: #f1f1f1;
 }
@@ -1089,17 +1089,17 @@ ul, li, div, span, input, img, a {
 
 .my-list-item-hd {
     color: #333333;
-    padding-left: 30px;
-    font-size: 30px;
+    padding-left: 15px;
+    font-size: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .my-list-item-hd2 {
-    width: 640px;
+    width: 100%;
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -1147,15 +1147,15 @@ ul, li, div, span, input, img, a {
 }
 
 .am-form-field-1of3 {
-    width: 116px;
+    width: 33%;
 }
 
 .am-form-field-2of3 {
-    width: 234px;
+    width: 66%;
 }
 
 .am-form-field-1of2 {
-    width: 175px;
+    width: 50%;
 }
 
 .my-form-label-wrapper {
