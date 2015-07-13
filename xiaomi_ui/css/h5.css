@@ -7,8 +7,8 @@ ul, li, div, span, input, img, a {
 
 /* all */
 #top {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     background-color: #cccccc;
     border-radius: 10px;
     padding: 0;
@@ -80,7 +80,7 @@ ul, li, div, span, input, img, a {
     _position: absolute;
     clear: both;
     margin: 0 5%;
-    height: 100px;
+    height: 50px;
 }
 
 .transparent-bottom-div {
@@ -90,7 +90,7 @@ ul, li, div, span, input, img, a {
     width: 100%;
     _position: absolute;
     clear: both;
-    height: 130px;
+    height: 65px;
     background-color: transparent;
 }
 
@@ -101,13 +101,13 @@ ul, li, div, span, input, img, a {
     width: 100%;
     _position: absolute;
     clear: both;
-    height: 260px;
+    height: 130px;
     background-color: transparent;
 }
 
 .normal-bottom-btn-div {
     width: 90%;
-    height: 90px;
+    height: 46px;
     clear: both;
     margin: 0 5%;
 }
@@ -119,20 +119,24 @@ ul, li, div, span, input, img, a {
 }
 
 .new-bottom-button {
-    height: 90px;
-    font-size: 40px;
+    height: 46px;
+    font-size: 20px;
     background-color: #0db603;
-    border-radius: 45px;
+    border-radius: 23px;
     border-color: #0db603;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .bottom-button-orange {
     background-color: #FF6600;
     border-radius: 8px;
     border-color: #FF6600;
-    font-size: 36px;
-    height: 90px;
+    font-size: 20px;
+    height: 46px;
     color: #FFFFFF;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .margin-bottom-50 {
@@ -147,15 +151,15 @@ ul, li, div, span, input, img, a {
 /* my simple header */
 .my-simple-2-divide-header {
     background-color: #f1f1f1;
-    height: 80px;
-    width: 640px;
+    height: 40px;
+    width: 100%;
 }
 
 .my-simple-2-divide-header-half {
-    margin-top: 25px;
+    margin-top: 5px;
     text-align: center;
     line-height: 30px;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: lighter;
 }
 
@@ -168,38 +172,15 @@ ul, li, div, span, input, img, a {
 }
 
 /* home */
-.home-header-logo {
-    background-color: #09BE00;
-    height: 92px;
-    text-align: center;
-}
-
-.home-header {
-    line-height: 90px;
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
-.home-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 88px;
-    text-align: center;
-    overflow: hidden;
-    background-color: #f1f1f1;
-    line-height: 80px;
-}
-
 .home-boxes {
-    width: 640px;
+    width: 100%;
 }
 
 .home-boxes .box {
-    line-height: 50px;
     text-align: center;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
+    line-height: 18px;
     transition: all .2s ease;
     border: 1px #c1c1c1;
 }
@@ -226,11 +207,8 @@ ul, li, div, span, input, img, a {
     border-top-style: solid;
 }
 
-.user-header {
-    height: 90px;
-    font-size: 24px;
-    background-color: #f1f1f1;
-    line-height: 90px;
+.box-div img {
+    height: 47px;
 }
 
 /* home with product */
@@ -300,76 +278,79 @@ ul, li, div, span, input, img, a {
     padding-top: 2px;
 }
 
-/* 侧边栏目 */
-.download-div {
-    float: right;
+/* side bar */
+#to_show_user_win {
+    position: fixed;
+    right: 10px;
+    width: 50px;
 }
 
-.user-win-content {
-    width: 640px;
+.am-offcanvas {
     background: rgba(51, 51, 51, 0.80);
 }
 
-.user-win-content div {
+.user-win-content {
+    width: 83.4375%;
+}
+
+.user-win-content>div {
     margin: 0;
     padding: 0;
     float: left;
 }
 
 .user-win-content .left {
-    width: 534px;
+    width: 100%;
     height: 100%;
     background-color: white;
 }
 
-.user-win-content .right {
-    width: 106px;
-    height: 100%;
-}
-
 .user-logo {
-    position: absolute;
-    top: 60px;
-    left: 217px;
+    width: 18.8%;
+    margin: 30px 40.6% 0 40.6%;
 }
 
 .user-info {
-    position: absolute;
-    top: 180px;
-    left: 199px;
+    width: 100%;
+    margin: 10px 0 0 0;
     color: #999999;
-    font-size: 24px;
+    font-size: 14px;
+    text-align: center;
 }
 
 .menu-info {
-    position: absolute;
-    top: 264px;
-    left: 30px;
-    width: 474px;
-    margin: 0 auto;
-    font-size: 30px;
+    width: 95%;
+    margin: 10px 2% 0 3%;
+    font-size: 18px;
     color: #333333;
 }
 
 .menu-info ul li a {
-    height: 100px;
+    height: 50px;
     padding: 0;
     color: #333333;
 }
 
-.menu-info ul li a img {
+.menu-info img {
     margin: 0;
 }
 
 .menu-info li a span {
-    font-size: 30px;
-    padding-left: 20px;
+    font-size: 16px;
+    padding-left: 10px;
 }
 
-.close-icon {
+.side-footer {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    bottom: 0;
+    width: 100%;
+    height: 33px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.side-footer u {
+   font-size: 10px;
 }
 
 /* product */
@@ -379,20 +360,20 @@ ul, li, div, span, input, img, a {
 }
 
 .product-bottom-div {
-    height: 130px;
-    padding: 10px 30px 10px 0;
+    height: 65px;
+    padding: 10px 15px 10px 0;
     background-color: #ffffff;
 }
 
 .product-total-text {
     color: #666666;
-    font-size: 30px;
-    margin-left: 30px;
+    font-size: 18px;
+    margin-left: 15px;
 }
 
 .product-currency-text {
     color: #ff5b00;
-    font-size: 45px;
+    font-size: 28px;
 }
 
 /* baseinfo */
@@ -401,55 +382,48 @@ ul, li, div, span, input, img, a {
 }
 
 .baseinfo-help-top {
-    font-size: 20px;
-    padding-left: 15px;
-    padding-top: 10px;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 5px;
 }
 
 .baseinfo-help-bottom {
-    font-size: 20px;
-    padding-left: 15px;
+    font-size: 14px;
+    padding-left: 10px;
     padding-top: 5px;
 }
 
 .baseinfo-form-locate-input {
-    width: 390px;
+    width: 85%;
 }
 
 .baseinfo-form-locate-img-wrapper {
-    width: 60px;
-    height: 88px;
+    width: 15%;
+    height: 48px;
     margin: 0;
     padding: 0;
-    color: #D3D4D3;
-}
-
-.baseinfo-form-locate-img {
-    margin-left: 30px;
-}
-
-.baseinfo-fieldset {
-    margin: 0;
-    padding: 0;
+    /*color: #D3D4D3;*/
     background-color: #FFFFFF;
 }
 
-.baseinfo-margin-top-2 {
-    margin-top: 2px;
+.baseinfo-form-locate-img {
+    margin-left: auto;
 }
 
 .baseinfo-pay-btn {
     white-space: nowrap;
-    height: 80px;
+    width: 40%;
+    height: 40px;
     border-radius: 8px;
     border-width: 0;
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
     margin-left: 10px;
+    padding: 0;
 }
 
 .baseinfo-pay-btn:last-child {
-    margin-left: 30px;
+    margin-left: 5%;
 }
 
 .baseinfo-pay-chosen {
@@ -471,20 +445,20 @@ ul, li, div, span, input, img, a {
 
 /* order flow */
 .order-flow-map-view {
-    width: 640px;
+    width: 100%;
     overflow: hidden;
 }
 
 .order-flow-box {
-    min-height: 100px;
+    min-height: 50px;
 }
 
 .margin-top-40 {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .margin-left-30 {
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 .text-align-right {
@@ -493,19 +467,19 @@ ul, li, div, span, input, img, a {
 
 .line {
     width: 1px;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
     background-color: #09be00;
 }
 
 .oval {
     display: block;
-    width: 21px;
-    height: 21px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
-    margin-top: 10px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
     border: 1px solid #09be00;
 }
 
@@ -515,26 +489,26 @@ ul, li, div, span, input, img, a {
 }
 
 .oval-double-fill {
-    width: 31px;
-    height: 31px;
-    margin-left: 25px;
-    margin-right: 25px;
+    width: 17px;
+    height: 17px;
+    margin-left: 12px;
+    margin-right: 12px;
     background-color: #09be00;
-    border: 6px solid #97E393;
+    border: 3px solid #97E393;
 }
 
 .margin-top-5 {
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 .height-5 {
-    height: 5px;
-    margin-bottom: -5px;
+    height: 3px;
+    margin-bottom: -3px;
 }
 
 .height-10 {
-    height: 10px;
-    margin-bottom: -10px;
+    height: 5px;
+    margin-bottom: -5px;
 }
 
 .another {
@@ -554,30 +528,30 @@ ul, li, div, span, input, img, a {
 }
 
 .order-flow-gallery-item:last-child {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .order-flow-time-text {
     color: #666666;
-    line-height: 40px;
-    font-size: 40px;
+    line-height: 20px;
+    font-size: 20px;
     font-weight: lighter;
-    padding-bottom: -10px;
+    padding-bottom: -5px;
 }
 
 .order-flow-date-text {
     color: #999999;
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 15px;
+    font-size: 15px;
     font-weight: lighter;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .order-flow-name-text {
-    line-height: 40px;
-    font-size: 40px;
+    line-height: 20px;
+    font-size: 20px;
     font-weight: lighter;
-    margin-bottom: 14px;
+    margin-bottom: 7px;
 }
 
 /* order list */
@@ -587,19 +561,19 @@ ul, li, div, span, input, img, a {
 
 .order-list-item-content0 {
     background-color: #FFFFFF;
-    padding-left: 30px;
-    height: 88px;
+    padding-left: 15px;
+    height: 44px;
 }
 
 .order-list-item-content {
     background-color: #FFFFFF;
-    font-size: 30px;
-    padding-left: 30px;
+    font-size: 16px;
+    padding-left: 15px;
 }
 
 .order-list-item-content2 {
-    width: 640px;
-    height: 90px;
+    width: 100%;
+    height: 45px;
 }
 
 .order-list-item-content2-width {
@@ -612,31 +586,32 @@ ul, li, div, span, input, img, a {
 
 .order-list-item-header {
     text-align: right;
-    width: 250px;
-    font-size: 30px;
+    width: 40%;
+    font-size: 16px;
+    padding-right: 15px;
 }
 
 .order-list-item-header:first-child {
     text-align: left;
-    width: 330px;
+    width: 60%;
 }
 
 .order-list-item-content-inner {
-    font-size: 30px;
+    font-size: 16px;
     margin: 0;
-    padding-bottom: 26px;
+    padding-bottom: 13px;
 }
 
 .order-list-item-content-inner div {
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-list-item-content-inner:first-child {
-    padding-top: 30px;
+    padding-top: 15px;
 }
 
 .order-list-item-content-inner:last-child {
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .order-list-item-pd {
@@ -650,12 +625,13 @@ ul, li, div, span, input, img, a {
 }
 
 .order-list-flow-btn {
-    height: 70px;
-    font-size: 30px;
+    height: 35px;
+    font-size: 14px;
     background-color: #FFFFFF;
     border-radius: 8px;
     color: #09be00;
     border-color: #09be00;
+    padding: 0;
 }
 
 /* login */
@@ -686,13 +662,13 @@ ul, li, div, span, input, img, a {
 
 /* order info */
 .order-info-div {
-    margin: 15px 0 85px 0;
+    margin: 5px 0 60px 0;
 }
 
 .order-info-help {
     padding-left: 10px;
     padding-top: 5px;
-    font-size: 20px;
+    font-size: 12px;
     color: #FE7B2E;
 }
 
@@ -704,16 +680,17 @@ ul, li, div, span, input, img, a {
 
 .order-info-base-big {
     width: 580px;
-    margin: 28px 0 0 30px;
+    margin: 14px 0 0 15px;
     padding: 0;
     color: #666666;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-base {
-    width: 212px;
+    width: 33.3%;
+    height: 24px;
     color: #666666;
-    font-size: 30px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -722,8 +699,12 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-base:first-child {
-    width: 182px;
-    margin-left: 30px;
+    padding-left: 10px;
+}
+
+.order-info-base>img {
+    height: 80%;
+    margin-right: 3px;
 }
 
 .order-info-line-cell {
@@ -736,14 +717,18 @@ ul, li, div, span, input, img, a {
     text-overflow: ellipsis;
 }
 
+.order-info-line-cell {
+    width: 33%;
+    height: 50px;
+}
+
 .order-info-line-cell div {
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-line-cell:first-child {
-    width: 182px;
-    margin-left: 30px;
+    padding-left: 10px;
 }
 
 .order-info-line-cell:last-child div {
@@ -760,14 +745,18 @@ ul, li, div, span, input, img, a {
     text-overflow: ellipsis;
 }
 
+.order-info-line-cell2 {
+    width: 33%;
+    height: 50px;
+}
+
 .order-info-line-cell2 div {
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-line-cell2:first-child {
-    width: 182px;
-    margin-left: 30px;
+    padding-left: 10px;
 }
 
 .order-info-line-cell2:last-child div {
@@ -779,9 +768,9 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-title {
-    margin: 10px 0 10px 30px;
+    margin: 5px 0 5px 10px;
     color: #7A7A7A;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .order-info-title-empty {
@@ -791,7 +780,7 @@ ul, li, div, span, input, img, a {
 }
 
 .order-info-box {
-    font-size: 30px;
+    font-size: 16px;
 }
 
 /* order success */
@@ -800,37 +789,41 @@ ul, li, div, span, input, img, a {
 }
 
 .order-success-success-font {
-    width: 600px;
-    font-size: 40px;
+    width: 100%;
+    font-size: 20px;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 .order-success-success-info {
-    width: 600px;
-    font-size: 30px;
+    width: 100%;
+    font-size: 16px;
     text-align: center;
 }
 
 .order-success-help {
-    font-size: 20px;
+    font-size: 12px;
 }
 
 .order-success-img {
-    width: 120px;
-    height: 119px;
-    margin: 120px 260px 30px 260px;
+    width: 24%;
+    /*height: 60px;*/
+    margin: 60px 38% 15px 38%;
 }
 
 /* exam reports detail */
+.exam-reports-detail-list>li {
+    border-width: 0;
+}
+
 .exam-reports-detail-line {
     border-width: 0;
     margin-top: 30px;
 }
 
 .exam-reports-detail-left-box {
-    margin-left: 60px;
-    width: 50px;
+    margin-left: 15px;
+    width: 30px;
 }
 
 .exam-reports-detail-left-text-wrapper {
@@ -839,26 +832,26 @@ ul, li, div, span, input, img, a {
 
 .exam-reports-detail-left-text {
     color: #333333;
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 16px;
+    font-size: 16px;
     font-weight: lighter;
 }
 
 .exam-reports-detail-right-name-wrapper {
     text-align: left;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .exam-reports-detail-right-name {
     color: #333333;
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 16px;
+    font-size: 16px;
     font-weight: lighter;
 }
 
 .exam-reports-detail-right-comment-wrapper {
     text-align: left;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .exam-reports-detail-right-comment {
@@ -870,7 +863,7 @@ ul, li, div, span, input, img, a {
 
 /* exam reports */
 .exam-reports-line {
-    margin-top: 30px;
+    margin-top: 15px;
     border-width: 0;
     background-color: #ffffff;
     border-bottom: 1px solid #d0d0d0;
@@ -878,16 +871,16 @@ ul, li, div, span, input, img, a {
 }
 
 .exam-reports-left-box {
-    margin-top: 20px;
-    margin-left: 30px;
-    height: 120px;
+    padding-top: 10px;
+    margin-left: 15px;
+    height: 70px;
 }
 
 .exam-reports-left-line-1 {
     text-align: left;
     margin-bottom: 10px;
     color: #666666;
-    font-size: 26px;
+    font-size: 12px;
     font-weight: lighter;
     overflow: hidden;
     white-space: nowrap;
@@ -898,23 +891,23 @@ ul, li, div, span, input, img, a {
     text-overflow: ellipsis;
     text-align: left;
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: lighter;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .exam-reports-right-box {
-    margin-left: 60px;
-    width: 14px;
-    height: 140px;
+    margin-left: 30px;
+    width: 7px;
+    height: 70px;
 }
 
 /* address manager */
 .address-manager-line {
     background-color: #f1f1f1;
     border-bottom: 1px solid #cccccc;
-    height: 120px;
+    height: 60px;
 }
 
 .address-manager-line:first-child {
@@ -923,32 +916,35 @@ ul, li, div, span, input, img, a {
 
 .address-manager-clickable {
     background-color: #FFFFFF;
-    width: 640px;
-    height: 120px;
+    width: 100%;
+    height: 60px;
     padding: 15px 0;
     position: absolute;
     z-index: 2;
 }
 
 .address-manager-clickable-text {
-    padding: 0 30px;
+    padding: 0 15px;
     color: #666666;
     line-height: 160%;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: lighter;
     text-overflow: ellipsis;
 }
 
 .address-manager-deletable {
-    width: 140px;
-    height: 120px;
+    width: 70px;
+    height: 60px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    right: 0;
 }
 
 .address-manager-deletable-img {
-    margin-left: 51px;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
 }
 
 /* address getter */
@@ -988,43 +984,46 @@ ul, li, div, span, input, img, a {
 
 /* car manager */
 .car-info {
-    padding-left: 30px;
+    padding-left: 15px;
     background-color: #ffffff;
-    width: 640px;
-    height: 120px;
+    width: 100%;
+    height: 60px;
     border-bottom: 1px solid #CCCCCC;
     border-top: 1px solid #CCCCCC;
 }
 
 .car-manager-clickable {
-    padding-left: 30px;
+    padding-left: 15px;
     background-color: #ffffff;
-    width: 640px;
-    height: 118px;
+    width: 100%;
+    height: 58px;
     position: absolute;
     z-index: 2;
 }
 
 .car-manager-deletable {
-    width: 140px;
-    height: 118px;
+    width: 70px;
+    height: 58px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    right: 0;
 }
 
 .car-manager-deletable-img {
-    margin-left: 51px;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
 }
 
 /* my list */
 .my-list {
-    margin-bottom: 120px;
+    margin-bottom: 60px;
     background-color: #f1f1f1;
 }
 
 .my-list li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: #f1f1f1;
 }
 
@@ -1033,11 +1032,11 @@ ul, li, div, span, input, img, a {
 }
 
 .my-list-line-content {
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 .my-list-line {
-    height: 120px;
+    height: 60px;
 }
 
 .my-car-choose-list {
@@ -1046,17 +1045,22 @@ ul, li, div, span, input, img, a {
 
 .my-list-item {
     border-bottom: 1px solid #CCCCCC;
-    padding: 0 0 0 30px;
+    padding: 0 0 0 10px;
     background-color: #FFFFFF;
-    height: 90px;
+    height: 45px;
 }
 
 .my-list-height {
-    height: 90px;
+    height: 45px;
 }
 
 .my-list-item:first-child {
     border-top: 1px solid #CCCCCC;
+}
+
+.am-list > li {
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .am-list > li > a {
@@ -1064,40 +1068,43 @@ ul, li, div, span, input, img, a {
 }
 
 .my-list-set-hd-wrapper {
-    height: 66px;
-    margin-left: 30px;
+    height: 33px;
+    margin-left: 10px;
 }
 
 .my-list-set-hd-wrapper2 {
-    margin-left: 30px;
-    height: 60px;
+    margin-left: 15px;
+    height: 30px;
 }
 
 .my-list-set-hd {
-    font-size: 30px;
-    width: 610px;
+    font-size: 16px;
+    width: 100%;
     color: #666666;
     background-color: #f1f1f1;
 }
 
+.my-thumb-icon-wrapper {
+    height: 60%;
+}
+
 .my-thumb-icon {
-    height: 70px;
-    width: 70px;
+    height: 100%;
 }
 
 .my-list-item-hd {
     color: #333333;
-    padding-left: 30px;
-    font-size: 30px;
+    padding-left: 15px;
+    font-size: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .my-list-item-hd2 {
-    width: 640px;
+    width: 100%;
     color: #333333;
-    font-size: 30px;
+    font-size: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -1118,54 +1125,57 @@ ul, li, div, span, input, img, a {
 }
 
 .am-list-item-hd {
-    font-size: 30px;
+    font-size: 15px;
     margin-bottom: 0;
 }
 
 .am-list-item-text {
-    font-size: 26px;
+    font-size: 11px;
+    /*overflow: hidden;*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
 }
 
 .am-form-field-wrapper {
-    padding: 0 30px 0 0;
-    height: 98px;
+    padding: 0 15px 0 0;
+    height: 48px;
 }
 
 .am-form-field {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 88px;
-    font-size: 30px;
+    height: 44px;
+    font-size: 16px;
     padding-left: 10px;
     border-width: 0;
 }
 
 .am-form-field-1of3 {
-    width: 116px;
+    width: 33%;
 }
 
 .am-form-field-2of3 {
-    width: 234px;
+    width: 66%;
 }
 
 .am-form-field-1of2 {
-    width: 175px;
+    width: 50%;
 }
 
 .my-form-label-wrapper {
-    padding-left: 30px;
+    padding-left: 15px;
     padding-right: 0;
-    height: 98px;
+    height: 48px;
 }
 
 .my-form-label {
-    font-size: 30px;
-    width: 130px;
+    font-size: 16px;
+    /*width: 150px;*/
 }
 
 .my-form-line {
-    height: 100px;
+    height: 50px;
     border-bottom-width: 1px;
 }
 
@@ -1175,11 +1185,11 @@ ul, li, div, span, input, img, a {
 
 /* choose product */
 .my-product-line {
-    height: 168px;
+    height: 83px;
 }
 
 .my-product-comment {
-    height: 130px;
+    height: 65px;
     border-width: 0;
     padding: 10px 30px;
     background-color: transparent;
@@ -1192,19 +1202,19 @@ ul, li, div, span, input, img, a {
 
 .my-product-line-content-label {
     color: #666666;
-    width: 90px;
-    margin-left: 30px;
+    width: 45px;
+    margin-left: 15px;
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .my-product-line-content-button {
-    width: 200px;
-    height: 104px;
+    width: 100px;
+    height: 52px;
     margin-top: 3px;
-    margin-left: 24px;
+    margin-left: 12px;
     border-radius: 8px;
-    font-size: 30px;
+    font-size: 16px;
     text-align: center;
     background-color: #FFFFFF;
     border: 1px solid #cccccc;
@@ -1219,5 +1229,5 @@ ul, li, div, span, input, img, a {
 }
 
 .swiper-container {
-    height: 110px;
+    height: 55px;
 }

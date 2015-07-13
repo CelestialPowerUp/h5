@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html >
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.1, maximum-scale=1.5, user-scalable=no" />
+    <title></title>
+</head>
+<body>
+<script type="text/javascript" src="./js/doT.js"></script>
+<script type="text/javascript">
+    var html = '';
+
+    var vertical_line = doT.template('<div style="margin: {{=it.mt}} 0 0 0;width: 100%;height: 1px;background-color: #007aff;z-index: 1;position: absolute;left: 0;top: 0;"></div>');
+
+    for (var i = 17; i < 1000; i += 17) {
+        html += vertical_line({mt: i + 'px'});
+    }
+
+    var horizontal_line = doT.template('<div style="margin: 0 0 0 {{it.ml}};width: 1px;height: 100%;background-color: #007aff;z-index: 2;position: absolute;left: 0;top: 0;"></div>');
+
+    for (var j = 17; j < 640; j += 17) {
+        html += horizontal_line({ml: j + 'px'});
+    }
+
+    document.body.innerHTML = html;
+
+</script>
+</body>
+</html>

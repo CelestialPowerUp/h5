@@ -1,0 +1,99 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>车辆列表</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+
+</head>
+<body class="body-background-color-gray">
+<div class="new-bottom-button-div">
+    <a href="./car_choose.html">
+        <button class="am-btn am-btn-success am-btn-block new-bottom-button">
+            <!--<i class="am-icon-plus"></i>-->
+            添加一款车型
+        </button>
+    </a>
+</div>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/router.js"></script>
+<script type="text/javascript">
+    var item = {};
+    var item_click_handler = function (car_id) {
+
+        var order = getOrder();
+        order.car_id = car_id;
+        var car = item[car_id];
+        order.car_model_type = car.model_type;
+        order.car_number = stripscript(car.licence.province + car.licence.number);
+        updateOrder(order);
+
+        getStore().set("car_info", {img_url: car.brand_img_url.thumbnail_url, car_number: stripscript(car.licence.province + car.licence.number), model: car.model});
+        route();
+    };
+</script>
+<script type="text/x-handlebars-template" id="carinfo_list_tpl">
+    <ul class="am-list my-list">
+        {{#each this}}
+        <!--缩略图在标题左边-->
+        <li class="my-list-line" onclick="item_click_handler({{car_id}})">
+            <div class="carinfo-btn am-vertical-align car-manager-clickable" data-rel="{{car_id}}">
+                <div class="am-vertical-align-middle my-thumb-icon-wrapper">
+                    <img src="{{img_url}}" class="my-thumb-icon">
+                </div>
+                <div class="my-list-line-content am-vertical-align-middle">
+                    <h3 class="am-list-item-hd">{{{car_number}}}</h3>
+                    <div class="am-list-item-text fixed-width-content">{{{model}}}</div>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/javascript">!function (t) {
+    t(function () {
+
+//        var raw_data = '';
+//        var data = $.parseJSON(raw_data);
+
+        getReq('cars.json?car_user_id=' + getUser()['user_id'], function (data) {
+            var tmpl_data = [];
+            item = {};
+            for (var i = 0; i < data.length; i++) {
+                var view_data = {};
+                view_data.car_id = data[i].id;
+                view_data.car_model_type = data[i].model_type;
+                view_data.img_url = data[i].brand_img_url.thumbnail_url;
+                view_data.car_number = stripscript(data[i].licence.province + data[i].licence.number);
+                view_data.model = data[i].model;
+                tmpl_data.push(view_data);
+                item[view_data.car_id] = data[i];
+            }
+            console.log(tmpl_data);
+
+            var tpl = Handlebars.compile(t("#carinfo_list_tpl").text());
+            t('body').prepend(tpl(tmpl_data));
+            var base_ui = t('.car-manager-clickable').eq(0);
+            var base_ui2 = base_ui.children('.my-list-line-content').eq(0);
+            t('body').children().eq(0).find('.fixed-width-content').css('width', (t(window).width()
+                    - base_ui.css('padding-left').match(/\d*/) * 2 - base_ui.height() * 0.6
+                    - base_ui2.css('margin-left').match(/\d*/)) + 'px');
+
+        });
+
+    });
+}(window.jQuery);</script>
+</body>
+</html><!-- Cached page generated on Thu Apr 09 2015 02:58:25 GMT+0000 (UTC) -->
