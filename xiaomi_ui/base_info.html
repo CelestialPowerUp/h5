@@ -83,6 +83,17 @@
                     </div>
                 </div>
             </li>
+            <li class="am-g my-form-line">
+                <div class="am-u-sm-3 my-form-label-wrapper am-vertical-align">
+                    <div class="my-form-label am-vertical-align-middle">
+                        优惠券
+                    </div>
+                </div>
+                <div id="use_coupon" class="am-u-sm-9 am-form-field-wrapper am-vertical-align">
+                    <div class="my-form-label am-vertical-align-middle">0张可用</div>
+                    <img src="./img/right_arrow.png" alt="go" class="am-vertical-align-middle"/>
+                </div>
+            </li>
             <li id="pay_way" class="am-g my-form-line">
                 <div class="am-u-sm-3 my-form-label-wrapper am-vertical-align">
                     <div class="my-form-label am-vertical-align-middle">
@@ -190,6 +201,9 @@
 
             save_from_data();
             if ('确定' === submitText) {
+                var order = getOrder();
+                order['total_price'] = Math.max(0, order['real_total_price'] - order['coupon_value'].toFixed(2)).toFixed(2);
+                updateOrder(order);
                 window.location.href = './order_info.html';
             } else {
                 disable_button("submit_button");
@@ -312,6 +326,30 @@
                 }
             }
             console.log('address altered');
+
+            if (getReqParam()['coupons']) {
+                var order = getOrder()['coupon_name'];
+                t('#use_coupon').children('div').html(order);
+            } else {
+                getReq('coupons?user_id=' + getUser()['user_id'], function (data) {
+                    var len = 0;
+                    t.each(data, function (i, coupon) {
+                        if ("未使用" === coupon.status) {
+                            len += 1;
+                        }
+                    });
+
+                    t('#use_coupon').children('div').html(len + '张可用');
+                });
+                var order2 = getOrder();
+                order2['coupon_id'] = null;
+                order2['coupon_value'] = 0;
+                updateOrder(order2);
+            }
+        });
+
+        t('#use_coupon').click(function (e) {
+            window.location.href = './my_coupons.html';
         });
     })
 }(window.jQuery);</script>

@@ -46,6 +46,10 @@
                         <img src="./img/address_icon.png" class="am-vertical-align-middle" style="margin-right: 11px;margin-left: 6px;">
                         <span class="am-vertical-align-middle">我的地址</span>
                     </a></li>
+                    <li><a href="./my_coupons.html" class="am-vertical-align">
+                        <img src="./img/coupon_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
+                        <span class="am-vertical-align-middle">我的优惠券</span>
+                    </a></li>
                     <li><a href="./my_exam_reports.html" class="am-vertical-align">
                         <img src="./img/export_icon.png" class="am-vertical-align-middle" style="margin-right: 6px;margin-left: 3px;">
                         <span class="am-vertical-align-middle">检测报告单</span>
@@ -100,11 +104,8 @@
         </div>
     </a></li>
 </ul>
-
 <script type="text/javascript">!function (t) {
     t(function () {
-        console.log(navigator);
-//        alert(navigator.appVersion);
 
         var content = t(window).height();
         t("#service").css("height", content + "px");
@@ -132,10 +133,6 @@
             window.history.replaceState(null, null, "./home.html");
         }).on('open.offcanvas.amui', function () {
             window.history.replaceState(null, null, "./home.html?back=true");
-        });
-
-        t('#close-offcanvas').click(function () {
-            t('#user-win').offCanvas('close');
         });
 
         t('#to_show_user_win').click(function () {
