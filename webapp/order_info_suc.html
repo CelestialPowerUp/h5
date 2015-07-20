@@ -46,10 +46,6 @@
 
     </div>
 </div>
-<!--<div class="new-bottom-button-div">-->
-    <!--<button type="button" id="submit_button" style="display: none;"-->
-            <!--class="am-btn am-btn-success am-btn-block new-bottom-button"></button>-->
-<!--</div>-->
 
 <script type="text/x-handlebars-template" id="user_info_tpl">{{#this}}
 <div class="am-g">
@@ -116,14 +112,11 @@
 <script type="text/javascript">!function (t) {
     t(function () {
 
-//        if (getReqParam()['suc']) {
-            // 关闭支付窗
-            loadCfg('platform.json', function (platform) {
-                if ('alipay' === platform['platform']) {
-                    AlipayJSBridge.call('exitApp');
-                }
-            });
-//        }
+        loadCfg('platform.json', function (platform) {
+            if ('alipay' === platform['platform']) {
+                AlipayJSBridge.call('exitApp');
+            }
+        });
 
         $("#submit_button").click(function () {
             disable_button("submit_button");
@@ -234,13 +227,6 @@
                 order.location = order.client_basic.location;
                 parse_data(order);
                 getStore().set('display_order', order);
-
-//                var platform = $.ajax({
-//                    url: 'platform.json',
-//                    cache: false,
-//                    async: false,
-//                    dataType: 'json'
-//                });
 
                 if (1 === order['pay_mode'] && !order['paid'] && order['total_price'] > 0) {
                     t('#submit_button').text('立即付款');

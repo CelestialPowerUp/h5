@@ -77,13 +77,26 @@
 {{/each}}</script>
 
 <script type="text/x-handlebars-template" id="paid_tpl">{{#this}}
+{{#coupon}}
+<div class="am-g order-info-box">
+    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
+        <div class="am-vertical-align-middle">优惠券</div>
+    </div>
+    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align" style="text-align: right;">
+        <div class="am-vertical-align-middle">-</div>
+    </div>
+    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
+        <div class="am-vertical-align-middle">¥{{value}}</div>
+    </div>
+</div>
+{{/coupon}}
 <div class="am-g order-info-box">
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
         <div class="am-vertical-align-middle">应付金额</div>
     </div>
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align"></div>
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">¥{{total_price}}</div>
+        <div class="am-vertical-align-middle"><span>¥{{total_price}}</span></div>
     </div>
 </div>
 {{/this}}</script>
@@ -122,22 +135,17 @@
                     amount: order_info['total_price'],
                     subject: "养爱车-" + order_info['order_type'],
                     body: "养爱车-" + order_info['order_type'],
-                    order_id: order_info['id'],
-                    channel: getStore().get('channel')
+                    order_id: order_info['id']
                 };
                 loadCfg('platform.json', function (platform) {
                     if ('wechat' === platform['platform']) {
+                        param['channel'] = 'wx_pub';
                         param['extra'] = { open_id: getStore().get('open_id') };
-                    } else if ('normal' === platform['platform']) {
+                    } else {
                         param['channel'] = 'alipay_wap';
                         param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_info_suc.html?order_id='+getReqParam()['order_id'],
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + 'normal/order_info.html?order_id='+getReqParam()['order_id']
-                        };
-                    } else {
-                        param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info_suc.html?order_id='+getReqParam()['order_id'],
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info.html?order_id='+getReqParam()['order_id']
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html?suc=true',
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html'
                         };
                     }
                 });
@@ -236,6 +244,9 @@
             });
         } else {
             var order = getOrder();
+            if (order['coupon_value'] > 0) {
+                order['coupon'] = {value:order['coupon_value'].toFixed(2)};
+            }
             parse_data(order);
             t('#submit_button').text('立即预约');
             t('#submit_button').css('display', 'block');
