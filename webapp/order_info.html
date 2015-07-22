@@ -116,15 +116,6 @@
 <script type="text/javascript">!function (t) {
     t(function () {
 
-        if (getReqParam()['suc']) {
-            // 关闭支付窗
-            loadCfg('platform.json', function (platform) {
-                if ('alipay' === platform['platform']) {
-                    AlipayJSBridge.call('exitApp');
-                }
-            });
-        }
-
         $("#submit_button").click(function () {
             disable_button("submit_button");
 
@@ -144,12 +135,17 @@
                     } else {
                         param['channel'] = 'alipay_wap';
                         param['extra'] = {
-                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html?suc=true',
-                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_success.html'
+                            success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info_suc.html?order_id=' + getReqParam()['order_id'],
+                            cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform['platform'] + '/order_info.html?order_id=' + getReqParam()['order_id']
                         };
                     }
                 });
                 postChargeReq('charge', param, function (charge) {
+
+                    if ('alipay_wap' === param['channel']) {
+                        before_order_success();
+                    }
+
                     pingpp.createPayment(charge, function (result, error) {
                         if (result == "success") {
                             // 微信公众账号支付的结果会在这里返回
@@ -193,6 +189,9 @@
                 postReq("/v2/api/order/create", formdata, function (data) {
 //                clearOrder();
                     updateSuccessOrder(data);
+
+                    before_order_success();
+
                     window.location.href = './order_success.html';
                 }, function (data) {
                     reset_button("submit_button");
@@ -229,13 +228,6 @@
                 order.location = order.client_basic.location;
                 parse_data(order);
                 getStore().set('display_order', order);
-
-//                var platform = $.ajax({
-//                    url: 'platform.json',
-//                    cache: false,
-//                    async: false,
-//                    dataType: 'json'
-//                });
 
                 if (1 === order['pay_mode'] && !order['paid'] && order['total_price'] > 0) {
                     t('#submit_button').text('立即付款');
