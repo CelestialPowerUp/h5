@@ -200,24 +200,33 @@
             }
 
             save_from_data();
+
+            var order = getOrder();
+
+            if (1 !== order['pay_mode'] && null !== order['coupon_id'] && undefined !== order['coupon_id']) {
+                show_msg('只有线上支付可以享受优惠券哦');
+                return;
+            }
+
             if ('确定' === submitText) {
-                var order = getOrder();
                 order['total_price'] = Math.max(0, order['real_total_price'] - order['coupon_value'].toFixed(2)).toFixed(2);
                 updateOrder(order);
                 window.location.href = './order_info.html';
             } else {
                 disable_button("submit_button");
-                var formdata = getOrder();
                 var user = getUser();
-                formdata.user_id = user.user_id;
-                formdata.peer_source = loadCfg('platform.json', function (platform) {
+                order.user_id = user.user_id;
+                order.peer_source = loadCfg('platform.json', function (platform) {
                     return conditionalReturn(platform);
                 });
-                formdata.total_price = null;
+                order.total_price = null;
 
-                postReq("/v2/api/order/create", formdata, function (order_data) {
+                postReq("/v2/api/order/create", order, function (order_data) {
 //                    clearOrder();
                     updateSuccessOrder(order_data);
+
+                    before_order_success();
+
                     window.location.href = './order_success.html';
                 }, function (data) {
                     reset_button("submit_button");

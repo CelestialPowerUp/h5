@@ -77,15 +77,15 @@
                         }
                         if ("未使用" === coupon.status) {
                             if (coupon.value < 50) {
-                                coupon.bg_img = './img/couponsbackground3.png';
+                                coupon.bg_img = 'http://baseimg.yangaiche.com/couponsbackground3.png';
                             } else if (coupon.value < 100) {
-                                coupon.bg_img = './img/couponsbackground2.png';
+                                coupon.bg_img = 'http://baseimg.yangaiche.com/couponsbackground2.png';
                             } else {
-                                coupon.bg_img = './img/couponsbackground1.png';
+                                coupon.bg_img = 'http://baseimg.yangaiche.com/couponsbackground1.png';
                             }
                             coupon.used = 'false';
                         } else {
-                            coupon.bg_img = './img/couponsbackground4.png';
+                            coupon.bg_img = 'http://baseimg.yangaiche.com/couponsbackground4.png';
                             coupon.used = 'true';
                         }
                         coupon.expired_time = coupon.expired_time.substr(0, coupon.expired_time.indexOf('T'));
