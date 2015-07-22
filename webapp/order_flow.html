@@ -474,15 +474,13 @@
                 map.addEventListener("tilesloaded",function(){
                     if (!loaded) {
 
-                        var icons = [], last = gen_pois.length, minus = 31 * 0.7 / gen_pois.length, index = gen_pois.length - 1, markers = [];
-                        for (var l = 0; l < last; l++) {
-                            icons.push(new BMap.Icon('./img/dian.png', {
-                                width: 31,
-                                height: 31
-                            }, {anchor: new BMap.Size(15, 15)}));
-                        }
+                        var last = gen_pois.length, minus = 31 * 0.7 / gen_pois.length, index = gen_pois.length - 1, markers = [];
+                        var icon = new BMap.Icon('http://baseimg.yangaiche.com/dian.png', {
+                            width: 45,
+                            height: 45
+                        }, {anchor: new BMap.Size(22.5, 22.5)});
                         interval = setInterval(function () {
-                            var imgs = t('img[src="./img/dian.png"]');
+                            var imgs = t('img[src="http://baseimg.yangaiche.com/dian.png"]');
 //                                    alert(imgs.length);
                             var to_change_count = Math.min(last, markers.length), len = imgs.length;
                             for (var i = 0; i < to_change_count + Math.min(index + 1, 0); i++) {
@@ -493,10 +491,7 @@
                             }
                             if (index > 0) {
                                 var marker = new BMap.Marker(gen_pois[index], {
-                                    icon: new BMap.Icon('./img/dian.png', {
-                                        width: 45,
-                                        height: 45
-                                    }, {anchor: new BMap.Size(22.5, 22.5)})
+                                    icon: icon
                                 });
                                 marker.size = 45;
                                 marker.disableDragging();
@@ -508,7 +503,7 @@
                                 mgr.showMarkers();
                             } else {
                                 var marker = new BMap.Marker(gen_pois[index], {
-                                    icon: new BMap.Icon('./img/car2.png', {
+                                    icon: new BMap.Icon('http://baseimg.yangaiche.com/car2.png', {
                                         width: 111,
                                         height: 126
                                     }, {anchor: new BMap.Size(55, 126 - 32)})
@@ -537,11 +532,7 @@
 
                 getStore().set('track_data', data);
 
-                getReq('/order/' + getReqParam()['order_id'], function (data) {
-                    getStore().set('keeper_avatar_img', data['keeper_basics'][0]['avatar_img']);
-
-                    ready = true;
-                });
+                ready = true;
 
             });
 
