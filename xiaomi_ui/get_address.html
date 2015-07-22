@@ -140,7 +140,7 @@
                 user_id: getUser()['user_id']
             };
             postReq('address/create', param, function(data) {
-                window.location.href = './my_address_manage.html';
+                go_back_to_reload();
             });
         });
 

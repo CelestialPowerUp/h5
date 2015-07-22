@@ -126,7 +126,7 @@
         $("#locate_button").click(function () {
             location_info = location_info || {};
             location_info['name'] = location_info['name'] || '';
-            location_info['address'] = location_info['address'] || $('#search_input').val();
+            location_info['address'] = $('#search_input').val();
 
             if ('' === location_info['address']) {
                 show_msg('地址不能为空');
@@ -140,7 +140,7 @@
                 user_id: getUser()['user_id']
             };
             postReq('address/create', param, function(data) {
-                window.location.href = './my_address_manage.html';
+                go_back_to_reload();
             });
         });
 

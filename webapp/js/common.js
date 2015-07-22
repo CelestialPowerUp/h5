@@ -447,3 +447,15 @@ function before_order_success() {
         window.history.replaceState(null, null, "./home.html");
     }
 }
+
+function go_back_to_reload() {
+    getStore().set('to_reload', 'T');
+    window.history.back();
+}
+
+function check_reload_cmd() {
+    if ('T' === getStore().get('to_reload')) {
+        getStore().remove('to_reload');
+        window.location.reload();
+    }
+}

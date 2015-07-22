@@ -51,6 +51,8 @@
     if (t) {
         t(function () {
 
+            check_reload_cmd();
+
             route2address();
 
 //            var raw_data = '{"code":"00000","data":[{"id":25,"address":"北京市海淀区北三环中路77号院-27号楼北京市海淀区北三环中路77号院-27号楼","longitude":116.364142,"latitude":39.977895,"user_id":18,"name":"北京市海淀区北三环中路77号院-27号楼"},{"id":24,"address":"北京市西城区百万庄南街10号院","longitude":116.345098,"latitude":39.931795,"user_id":18,"name":"北京市西城区百万庄南街10号院"},{"id":23,"address":"北京市海淀区西村路7号院-2号楼","longitude":116.380949,"latitude":39.978662,"user_id":18,"name":"北京市海淀区西村路7号院-2号楼"},{"id":22,"address":"北京市海淀区京师路","longitude":116.373008,"latitude":39.96976,"user_id":18,"name":"北京市海淀区京师路"},{"id":18,"address":"北京市昌平区X026(中东路)","longitude":116.395888,"latitude":40.061047,"user_id":18,"name":"北京市昌平区X026(中东路)"},{"id":17,"address":"北京市丰台区丰台南路","longitude":116.340606,"latitude":39.827867,"user_id":18,"name":"北京市丰台区丰台南路"},{"id":14,"address":"北京市海淀区京师路","longitude":116.371571,"latitude":39.96976,"user_id":18,"name":"北京市海淀区京师路"}]}';
@@ -70,7 +72,7 @@
                         location_info['name'] = t(this).attr('data-name');
                         location_info['address'] = t(this).find('span').eq(0).text();
                         updateLocation(location_info);
-                        window.location.href = './base_info.html';
+                        go_back_to_reload();
                     }
                 });
 

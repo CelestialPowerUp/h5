@@ -101,13 +101,13 @@
                             if (order['coupon_id'] === seleted_id) {
                                 order['coupon_id'] = null;
                                 updateOrder(order);
-                                window.location.href = './base_info.html';
+                                go_back_to_reload();
                             } else {
                                 order['coupon_id'] = seleted_id;
                                 order['coupon_name'] = t(this).attr('data-code');
                                 order['coupon_value'] = parseFloat(t(this).attr('data-value'));
                                 updateOrder(order);
-                                window.location.href = './base_info.html?coupons=true';
+                                go_back_to_reload();
                             }
                         }
                     });
