@@ -34,7 +34,7 @@
         {{#each this}}
         <li class="coupon-btn am-nbfc coupon-manager-line"
             style="border: none;background-color: transparent;"
-            data-code="{{name}}" data-id="{{id}}" data-used="{{used}}" data-value="{{value}}" data-type="{{coupon_type}}">
+            data-name="{{name}}" data-id="{{id}}" data-used="{{used}}" data-value="{{value}}" data-type="{{coupon_type}}">
             <img src="{{bg_img}}" style="width: 100%;height: 159px;position:absolute;z-index: -1;">
 
             <div class="coupon-number">号码: {{number}}</div>
@@ -91,7 +91,7 @@
                             coupon.used = 'true';
                         }
                         coupon.expired_time = coupon.expired_time.substr(0, coupon.expired_time.indexOf('T'));
-                        if ('' === coupon['coupon_type']) {//TODO
+                        if ('coupon_type_1' === coupon['coupon_type']) {//TODO
                             coupon.showvalue = {value: coupon.value};
                         }
                     });
@@ -110,6 +110,7 @@
                                 updateOrder(order);
                                 go_back_to_reload();
                             } else {
+                                var coupon_name = t(this).attr('data-name');
                                 postReq('order_preview', {
                                     car_model_type: order['car_id'],
                                     coupon_id: seleted_id,
@@ -117,14 +118,14 @@
                                     user_id: getUser()['user_id']
                                 }, function(data) {
                                     order['coupon_id'] = seleted_id;
-                                    order['coupon_name'] = t(this).attr('data-code');
+                                    order['coupon_name'] = coupon_name;
                                     order['coupon_value'] = data['free_price'];
                                     order['total_price'] = data['total_price'];
+                                    updateOrder(order);
+                                    go_back_to_reload();
                                 }, function(error) {
                                     show_msg(error['message']);
                                 });
-                                updateOrder(order);
-                                go_back_to_reload();
                             }
                         }
                     });

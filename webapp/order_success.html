@@ -68,6 +68,7 @@
         t(function () {
 
             console.log(getOrder());
+            clearOrder();
             var order_info = getSuccessOrder();
 
             if (1 === order_info['pay_mode'] && !order_info['paid'] && order_info['total_price'] > 0) {
@@ -82,11 +83,11 @@
 
             console.log(order_info);
             var info_template = Handlebars.compile(t("#info-tpl").html());
+            order_info.total_price = order_info.total_price.toFixed(2);
             t("#info_view").html(info_template(order_info));
 
             t('#pay_button').click(function () {
                 var param = {
-                    amount: order_info['total_price'],
                     subject: "养爱车-" + order_info['order_type'],
                     body: "养爱车-" + order_info['order_type'],
                     order_id: order_info['id']

@@ -91,7 +91,7 @@
                             coupon.used = 'true';
                         }
                         coupon.expired_time = coupon.expired_time.substr(0, coupon.expired_time.indexOf('T'));
-                        if (false/*coupon.type == 1*/) {//TODO
+                        if ('coupon_type_1' === coupon['coupon_type']) {
                             coupon.showvalue = {value: coupon.value};
                         }
                     });
@@ -110,21 +110,22 @@
                                 updateOrder(order);
                                 go_back_to_reload();
                             } else {
+                                var coupon_name = t(this).attr('data-name');
                                 postReq('order_preview', {
-                                    car_model_id: order['car_id'],
+                                    car_model_type: order['car_id'],
                                     coupon_id: seleted_id,
                                     products: order['products'],
                                     user_id: getUser()['user_id']
                                 }, function(data) {
                                     order['coupon_id'] = seleted_id;
-                                    order['coupon_name'] = t(this).attr('data-code');
+                                    order['coupon_name'] = coupon_name;
                                     order['coupon_value'] = data['free_price'];
                                     order['total_price'] = data['total_price'];
+                                    updateOrder(order);
+                                    go_back_to_reload();
                                 }, function(error) {
                                     show_msg(error['message']);
                                 });
-                                updateOrder(order);
-                                go_back_to_reload();
                             }
                         }
                     });

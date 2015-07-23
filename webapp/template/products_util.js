@@ -40,7 +40,7 @@ var simple_after = function (param) {
         total_price += product_price(p);
     });
 
-    $('#total_price').html('¥' + total_price);
+    $('#total_price').html('¥' + total_price.toFixed(2));
     var order = getOrder();
     order['products'] = products;
     updateOrder(order);
