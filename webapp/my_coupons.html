@@ -111,7 +111,7 @@
                                 go_back_to_reload();
                             } else {
                                 postReq('order_preview', {
-                                    car_model_id: order['car_id'],
+                                    car_model_type: order['car_id'],
                                     coupon_id: seleted_id,
                                     products: order['products'],
                                     user_id: getUser()['user_id']
