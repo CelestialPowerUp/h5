@@ -71,7 +71,7 @@
         <div class="am-vertical-align-middle">X {{unit_count}}</div>
     </div>
     <div class="am-u-sm-4 order-info-line-cell am-vertical-align">
-        <div class="am-vertical-align-middle">¥{{price}}</div>
+        <div class="am-vertical-align-middle">¥{{total_price}}</div>
     </div>
 </div>
 {{/each}}</script>
@@ -80,7 +80,7 @@
 {{#coupon}}
 <div class="am-g order-info-box">
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">优惠券</div>
+        <div class="am-vertical-align-middle">已优惠价格</div>
     </div>
     <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align" style="text-align: right;">
         <div class="am-vertical-align-middle">-</div>
@@ -225,6 +225,9 @@
                 order.contact_name = order.client_basic.name;
                 order.phone_number = order.client_basic.phone_number;
                 order.location = order.client_basic.location;
+                if (order['coupon_price'] > 0) {
+                    order['coupon'] = {value:order['coupon_price'].toFixed(2)};
+                }
                 parse_data(order);
                 getStore().set('display_order', order);
 
@@ -237,6 +240,8 @@
             var order = getOrder();
             if (order['coupon_value'] > 0) {
                 order['coupon'] = {value:order['coupon_value'].toFixed(2)};
+            } else {
+                order['total_price'] = order['real_total_price'];
             }
             parse_data(order);
             t('#submit_button').text('立即预约');

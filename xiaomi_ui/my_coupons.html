@@ -111,6 +111,7 @@
                                 go_back_to_reload();
                             } else {
                                 var coupon_name = t(this).attr('data-name');
+                                var coupon_type = t(this).attr('data-type');
                                 postReq('order_preview', {
                                     car_model_type: order['car_id'],
                                     coupon_id: seleted_id,
@@ -119,6 +120,7 @@
                                 }, function(data) {
                                     order['coupon_id'] = seleted_id;
                                     order['coupon_name'] = coupon_name;
+                                    order['coupon_type'] = coupon_type;
                                     order['coupon_value'] = data['free_price'];
                                     order['total_price'] = data['total_price'];
                                     updateOrder(order);
