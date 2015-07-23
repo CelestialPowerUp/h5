@@ -74,6 +74,8 @@
         link = window.location.href;
     }
 
+    link = encodeURIComponent(window.location.href.split('#')[0]);
+
     getReq('wechat_js_sdk_config.json?url=' + link + '&situation=' + external_sale_situation, function(data){
         /*
          * 注意：
