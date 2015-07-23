@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2015/5/20.
  */
-var api_root = "/v1/api/", dev = '';
+var api_root = "/v1/api/", dev = '', external_sale_situation = 'test';
 
 !function() {
     var obj = $.ajax({
@@ -16,6 +16,8 @@ var api_root = "/v1/api/", dev = '';
         dev = '/develop';
     } else if ('staging' === obj.responseJSON['thisis']) {
         dev = '/staging';
+    } else {
+        external_sale_situation = 'production';
     }
 }();
 

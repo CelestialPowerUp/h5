@@ -66,14 +66,7 @@
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
-    var situation = loadCfg('data.json', function(enviroment) {
-        if ('dev' === enviroment['thisis'] || 'staging' === enviroment['thisis']) {
-            return "test";
-        } else {
-            return "production";
-        }
-    });
-    getReq('wechat_js_sdk_config.json?url=' + window.location.href + '&situation=' + situation, function(data){
+    getReq('wechat_js_sdk_config.json?url=' + window.location.href + '&situation=' + external_sale_situation, function(data){
         /*
          * 注意：
          * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
@@ -85,7 +78,7 @@
          * 邮件主题：【微信JS-SDK反馈】具体问题
          * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
          */
-        data.debug = true;
+        data.debug = false;
         data.jsApiList = [
             'checkJsApi',
             'onMenuShareTimeline',
@@ -123,7 +116,7 @@
             'openCard'
         ];
         data.timestamp = parseInt(data.timestamp);
-        alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         wx.config(data);
         /*
          * 注意：
@@ -139,7 +132,7 @@
         wx.ready(function () {
             var shareData = {
                 title: '养爱车',
-                desc: '洗车加打蜡，只要19.9元',
+                desc: '洗车加打蜡, 为何只要19.9元?',
                 link: window.location.href,
                 imgUrl: 'http://baseimg.yangaiche.com/logo.png'
             };
@@ -148,7 +141,7 @@
         });
 
         wx.error(function (res) {
-            alert(res.errMsg);
+            console.log(res.errMsg);
         });
     }, function(error){
         show_msg(error['message']);
