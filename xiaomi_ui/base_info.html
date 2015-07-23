@@ -341,7 +341,7 @@
             if (null !== order['coupon_id'] && undefined !== order['coupon_id']) {
                 t('#use_coupon').children('div').html(order['coupon_name']);
                 postReq('order_preview', {
-                    car_model_type: order['car_id'],
+                    car_model_type: order['car_model_type'],
                     coupon_id: order['coupon_id'],
                     products: order['products'],
                     user_id: getUser()['user_id']
