@@ -127,6 +127,8 @@
 <script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript">!function (t) {
     t(function () {
+        check_reload_cmd();
+
         console.log(getOrder());
 
         t('#contact_name').bind('mouseup', function (event) {
@@ -204,12 +206,11 @@
             var order = getOrder();
 
             if (1 !== order['pay_mode'] && null !== order['coupon_id'] && undefined !== order['coupon_id']) {
-                show_msg('只有线上支付可以享受优惠券哦');
+                show_msg('只有在线支付可以享受优惠券哦');
                 return;
             }
 
             if ('确定' === submitText) {
-                order['total_price'] = Math.max(0, order['real_total_price'] - order['coupon_value'].toFixed(2)).toFixed(2);
                 updateOrder(order);
                 window.location.href = './order_info.html';
             } else {

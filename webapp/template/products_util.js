@@ -63,8 +63,8 @@ function recal_products(product_dict, product_part_dict, products) {
             now_total_price = now_total_price + product_price(p);
         }
     });
-    $('#total_price').html('¥' + now_total_price);
-    store.set('real_total_price', now_total_price);
+    $('#total_price').html('¥' + now_total_price.toFixed(2));
+    store.set('real_total_price', now_total_price.toFixed(2));
     if (products) {
         var order = getOrder();
         order['real_total_price'] = now_total_price;
