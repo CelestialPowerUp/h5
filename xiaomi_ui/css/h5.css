@@ -1107,6 +1107,10 @@ ul, li, div, span, input, img, a {
     height: 100%;
 }
 
+.my-right-icon {
+    width: 7px;
+}
+
 .my-list-item-hd {
     color: #333333;
     padding-left: 15px;
