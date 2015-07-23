@@ -34,12 +34,14 @@
         {{#each this}}
         <li class="coupon-btn am-nbfc coupon-manager-line"
             style="border: none;background-color: transparent;"
-            data-code="{{name}}" data-id="{{id}}" data-used="{{used}}" data-value="{{value}}">
+            data-code="{{name}}" data-id="{{id}}" data-used="{{used}}" data-value="{{value}}" data-type="{{coupon_type}}">
             <img src="{{bg_img}}" style="width: 100%;height: 159px;position:absolute;z-index: -1;">
 
             <div class="coupon-number">号码: {{number}}</div>
             <div class="coupon-name">{{name}}</div>
+            {{#showvalue}}
             <div class="coupon-value">¥{{value}}</div>
+            {{/showvalue}}
 
             <div class="coupon-status">{{status}}</div>
             <div class="coupon-expire-label">有效时间</div>
@@ -89,6 +91,9 @@
                             coupon.used = 'true';
                         }
                         coupon.expired_time = coupon.expired_time.substr(0, coupon.expired_time.indexOf('T'));
+                        if ('' === coupon['coupon_type']) {//TODO
+                            coupon.showvalue = {value: coupon.value};
+                        }
                     });
 
                     var tpl = Handlebars.compile(t("#coupons_list_tpl").text());
@@ -100,12 +105,24 @@
                             var seleted_id = t(this).attr('data-id');
                             if (order['coupon_id'] === seleted_id) {
                                 order['coupon_id'] = null;
+                                order['coupon_name'] = null;
+                                order['coupon_value'] = 0;
                                 updateOrder(order);
                                 go_back_to_reload();
                             } else {
-                                order['coupon_id'] = seleted_id;
-                                order['coupon_name'] = t(this).attr('data-code');
-                                order['coupon_value'] = parseFloat(t(this).attr('data-value'));
+                                postReq('order_preview', {
+                                    car_model_id: order['car_id'],
+                                    coupon_id: seleted_id,
+                                    products: order['products'],
+                                    user_id: getUser()['user_id']
+                                }, function(data) {
+                                    order['coupon_id'] = seleted_id;
+                                    order['coupon_name'] = t(this).attr('data-code');
+                                    order['coupon_value'] = data['free_price'];
+                                    order['total_price'] = data['total_price'];
+                                }, function(error) {
+                                    show_msg(error['message']);
+                                });
                                 updateOrder(order);
                                 go_back_to_reload();
                             }

@@ -217,7 +217,6 @@
             }
 
             if ('确定' === submitText) {
-                order['total_price'] = Math.max(0, order['real_total_price'] - order['coupon_value'].toFixed(2)).toFixed(2);
                 updateOrder(order);
                 window.location.href = './order_info.html';
             } else {
