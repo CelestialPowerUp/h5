@@ -66,7 +66,15 @@
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
-    getReq('wechat_js_sdk_config.json?url=' + window.location.href + '&situation=' + external_sale_situation, function(data){
+
+    var end = window.location.href.indexOf('&from='), link;
+    if (end > -1) {
+        link = window.location.href.substring(0, end);
+    } else {
+        link = window.location.href;
+    }
+
+    getReq('wechat_js_sdk_config.json?url=' + link + '&situation=' + external_sale_situation, function(data){
         /*
          * 注意：
          * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
@@ -133,7 +141,7 @@
             var shareData = {
                 title: '养爱车',
                 desc: '洗车加打蜡, 为何只要19.9元?',
-                link: window.location.href,
+                link: link,
                 imgUrl: 'http://baseimg.yangaiche.com/logo.png'
             };
             wx.onMenuShareAppMessage(shareData);
