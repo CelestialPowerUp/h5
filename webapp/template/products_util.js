@@ -58,6 +58,7 @@ function recal_products(product_dict, product_part_dict, products) {
         if (p) {
             if (products) {
                 p['part_type'] = product_part_dict[p['product_type']];
+                p['total_price'] = product_price(p);
                 products.push(p);
             }
             now_total_price = now_total_price + product_price(p);
