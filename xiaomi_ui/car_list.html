@@ -58,7 +58,7 @@
                     <div class="am-list-item-text fixed-width-content">{{{model}}}</div>
                 </div>
                 <div class="am-vertical-align-middle">
-                    <img src="http://baseimg.yangaiche.com/right_arrow.png">
+                    <img src="http://baseimg.yangaiche.com/right_arrow.png" class="my-right-icon">
                 </div>
             </div>
         </li>
@@ -92,7 +92,7 @@
             var base_ui2 = base_ui.children('.my-list-line-content').eq(0);
             t('body').children().eq(0).find('.fixed-width-content').css('width', (t(window).width()
                     - base_ui.css('padding-left').match(/\d*/) * 2 - base_ui.height() * 0.6
-                    - base_ui2.css('margin-left').match(/\d*/) - 14) + 'px');
+                    - base_ui2.css('margin-left').match(/\d*/) - 7) + 'px');
 
         });
 
