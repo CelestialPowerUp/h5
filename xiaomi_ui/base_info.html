@@ -337,9 +337,9 @@
             }
             console.log('address altered');
 
-            if (getReqParam()['coupons']) {
-                var order = getOrder()['coupon_name'];
-                t('#use_coupon').children('div').html(order);
+            var order = getOrder();
+            if (null !== order['coupon_id'] && undefined !== order['coupon_id']) {
+                t('#use_coupon').children('div').html(order['coupon_name']);
             } else {
                 getReq('coupons?user_id=' + getUser()['user_id'], function (data) {
                     var len = 0;
@@ -351,10 +351,9 @@
 
                     t('#use_coupon').children('div').html(len + '张可用');
                 });
-                var order2 = getOrder();
-                order2['coupon_id'] = null;
-                order2['coupon_value'] = 0;
-                updateOrder(order2);
+                order['coupon_id'] = null;
+                order['coupon_value'] = 0;
+                updateOrder(order);
             }
         });
 

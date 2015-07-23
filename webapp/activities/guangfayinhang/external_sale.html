@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="../pubcss/amazeui.min.css">
     <style>
         .msg_info {
             position: absolute;
@@ -23,9 +23,9 @@
 </head>
 <body style="background-color: #f1f1f1;">
 <p class="am-form-help msg_info" id="msg" style="padding-left: 10px;padding-top: 5px;"></p>
-<img src="./img/external_sale_page_ele_1.png" style="margin: 28px 64px 0 64px;">
-<img src="./img/external_sale_page_ele_2.png" style="margin: 24px 36px 0 36px;">
-<img src="./img/external_sale_page_ele_3.png" style="margin: 24px 115px 0 115px;">
+<img src="img/external_sale_guangfayinhang_page_ele_1.png" style="margin: 28px 95px 0 95px;">
+<img src="img/external_sale_guangfayinhang_page_ele_2.png" style="margin: 24px 36px 0 36px;">
+<img src="../pubimg/external_sale_page_ele_3.png" style="margin: 24px 115px 0 115px;">
 <input id="phone" type="tel" class="am-form-field"
        style="margin: 16px 40px;font-size: 30px;color: #666666;border-radius: 8px;width: 560px;height: 86px;"
        placeholder="您的手机号">
@@ -43,28 +43,126 @@
         style="margin: 24px 40px 24px 40px;background-color: #ff6600;color: #ffffff;font-size: 30px;border-radius: 8px;width: 560px;height: 88px;">
     马上领取
 </button>
-<img src="./img/external_sale_page_ele_4.png" style="margin: 0 36px;">
-<img src="./img/external_sale_page_ele_5.png" style="margin: 24px 36px;">
-<img src="./img/external_sale_page_ele_6.png" style="margin: 0 36px;">
-<img src="./img/external_sale_page_ele_7.png" style="margin: 24px 36px;">
-<img src="./img/external_sale_page_ele_8.png" style="margin: 0 191px;">
+<img src="../pubimg/external_sale_page_ele_4.png" style="margin: 0 36px;">
+<img src="img/external_sale_guangfayinhang_page_ele_5.png" style="margin: 24px 36px;">
+<img src="../pubimg/external_sale_page_ele_6.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_7.png" style="margin: 24px 36px;">
+<img src="../pubimg/external_sale_page_ele_8.png" style="margin: 0 191px;">
 <br>
-<a class="am-vertical-align" href="tel:400-0102-766" style="height: 40px;">
-    <img src="./img/external_sale_page_phone_icon.png">
-    <span class="am-vertical-align-middle" style="font-size: 36px;font-family: Arial;color: #666666;"><u>400-0102-766</u></span>
+<a href="tel:400-0102-766" id="contact-us">
+    <img src="../pubimg/external_sale_page_phone_icon.png">
+    <div class="am-vertical-align" style="height: 40px;display: inline-block;">
+        <span class="am-vertical-align-middle" style="font-size: 36px;font-family: Arial;color: #666666;"><u>400-0102-766</u></span>
+    </div>
 </a>
-<img src="./img/external_sale_page_ele_16.png" style="margin: 24px 36px 0 36px;">
-<img src="./img/external_sale_page_ele_17.png" style="margin: 0 36px;">
-<img src="./img/external_sale_page_ele_18.png" style="margin: 0 36px;">
-<img src="./img/external_sale_page_ele_19.png" style="margin: 0 36px;">
-<img src="./img/external_sale_page_ele_20.png" style="margin: 0 36px;">
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/amazeui.min.js"></script>
-<script type="text/javascript" src="./js/common.js"></script>
+<img src="../pubimg/external_sale_page_ele_16.png" style="margin: 24px 36px 0 36px;">
+<img src="../pubimg/external_sale_page_ele_17.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_18.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_19.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_20.png" style="margin: 0 36px;">
+<script type="text/javascript" src="../pubjs/jquery.min.js"></script>
+<script type="text/javascript" src="../pubjs/amazeui.min.js"></script>
+<script type="text/javascript" src="../pubjs/common.js"></script>
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+
+    var end = window.location.href.indexOf('&from='), link;
+    if (end > -1) {
+        link = window.location.href.substring(0, end);
+    } else {
+        link = window.location.href;
+    }
+
+    link = encodeURIComponent(window.location.href.split('#')[0]);
+
+    getReq('wechat_js_sdk_config.json?url=' + link + '&situation=' + external_sale_situation, function(data){
+        /*
+         * 注意：
+         * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+         * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+         * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+         *
+         * 开发中遇到问题详见文档“附录5-常见错误及解决办法”解决，如仍未能解决可通过以下渠道反馈：
+         * 邮箱地址：weixin-open@qq.com
+         * 邮件主题：【微信JS-SDK反馈】具体问题
+         * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
+         */
+        data.debug = false;
+        data.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ];
+        data.timestamp = parseInt(data.timestamp);
+        console.log(JSON.stringify(data));
+        wx.config(data);
+        /*
+         * 注意：
+         * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+         * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+         * 3. 完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+         *
+         * 如有问题请通过以下渠道反馈：
+         * 邮箱地址：weixin-open@qq.com
+         * 邮件主题：【微信JS-SDK反馈】具体问题
+         * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
+         */
+        wx.ready(function () {
+            var shareData = {
+                title: '养爱车',
+                desc: '洗车加打蜡, 为何只要19.9元?',
+                link: decodeURIComponent(link),
+                imgUrl: 'http://baseimg.yangaiche.com/logo.png'
+            };
+            wx.onMenuShareAppMessage(shareData);
+            wx.onMenuShareTimeline(shareData);
+        });
+
+        wx.error(function (res) {
+            console.log(res.errMsg);
+        });
+    }, function(error){
+        show_msg(error['message']);
+    });
+</script>
 <script type="text/javascript">!function (t) {
     if (t) {
         t(function () {
-              //////location v ///////
+
+
+            //////location v ///////
             // 获取位置坐标
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position){
@@ -72,18 +170,19 @@
                 var lat=position.coords.latitude;
                 var lon=position.coords.longitude;
 
-
                 getStore().set('lat', lat);
                 getStore().set('lon', lon);
 
-
                 },function(error){
-                  switch(error.code) {
+                switch(error.code) {
                         case error.PERMISSION_DENIED:
                         console.log("您拒绝了我们访问您的位置");
                         break;
                         case error.POSITION_UNAVAILABLE:
+                            {
+                                alert('位置信息不可用');
                           console.log("位置信息不可用");
+                            }
                         break;
                         case error.TIMEOUT:
                           console.log("定位超时");
@@ -93,17 +192,17 @@
                         break;
                     }
 
-                                            
                 });
             }
 
+           
             //////location ^ ///////
-            
+
             t('body').on('touchstart', function () {
             });
 
-            var tel_link = t('a[class="am-vertical-align"]');
-            tel_link.css('margin-left', ((t(window).width() - tel_link.width()) / 2) + 'px');
+            var tel_link = t('#contact-us');
+            tel_link.css('margin-left', ((640 - tel_link.width()) / 2) + 'px');
 
             var is_weixin = function isWeiXin(){
                 var ua = window.navigator.userAgent.toLowerCase();
@@ -111,12 +210,14 @@
             }();
 
             function pay(id) {
-                getStore().set('activity_record_id', id);
-                getStore().set('subject', '养爱车-9.9元 洗车+打蜡');
-                getStore().set('success_url', '/external_sale_pay_success.html');
-                getStore().set('cancel_url', '/external_sale_pay_fail.html');
 
-                window.location.href = './external_sale_pay.html';
+                getStore().set('activity_record_id', id);
+                getStore().set('subject', '养爱车-19.9元 洗车+打蜡+上门接车');
+                getStore().set('success_url', '/activities/3/external_sale_pay_success.html');
+                getStore().set('cancel_url', '/activities/3/external_sale_pay_fail.html');
+
+                window.location.href = '../../external_sale_pay.html';
+
             }
 
             function create_order(){
@@ -238,5 +339,6 @@
         });
     }
 }(window.jQuery)</script>
+<script type="text/javascript" src="http://js.tongji.linezing.com/3599107/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3599107/tongji.gif"/></a></noscript>
 </body>
 </html>
