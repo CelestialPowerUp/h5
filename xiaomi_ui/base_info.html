@@ -368,6 +368,7 @@
                 updateOrder(order);
             }, function(error) {
                 order['coupon_id'] = null;
+                updateOrder(order);
                 show_msg(error['message']);
             });
         });
