@@ -32,7 +32,7 @@ fi
 if [ ${deploy:1:1} == 'y' ]; then
     mkdir -p $1/$3/$5 &&
     before_xiaomi $1 &&
-    fis release -com -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$5"-conf.js" -d $1/$3/$5 -D &&
+    fis release -com -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$5"-conf.js" -d $1/$3/$5 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$5/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$5 $1/$3/$5
 fi
