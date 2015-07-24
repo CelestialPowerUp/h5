@@ -102,7 +102,7 @@
                     t('.coupon-btn').click(function (e) {
                         if ('coupon_list' !== getStore().get('now_in') && 'false' === t(this).attr('data-used')) {
                             var order = getOrder();
-                            var seleted_id = t(this).attr('data-id');
+                            var seleted_id = parseInt(t(this).attr('data-id'));
                             if (order['coupon_id'] === seleted_id) {
                                 order['coupon_id'] = null;
                                 order['coupon_name'] = null;
