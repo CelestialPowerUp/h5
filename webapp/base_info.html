@@ -217,8 +217,22 @@
             }
 
             if ('确定' === submitText) {
-                updateOrder(order);
-                window.location.href = './order_info.html';
+                postReq('order_preview', {
+                    car_model_type: order['car_model_type'],
+                    coupon_id: order['coupon_id'],
+                    products: order['products'],
+                    user_id: getUser()['user_id']
+                }, function(data) {
+                    order['coupon_value'] = data['free_price'];
+                    order['total_price'] = data['total_price'];
+                    updateOrder(order);
+
+                    window.location.href = './order_info.html';
+                }, function(error) {
+                    order['coupon_id'] = null;
+                    updateOrder(order);
+                    show_msg(error['message']);
+                });
             } else {
                 disable_button("submit_button");
                 var user = getUser();
