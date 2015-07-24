@@ -65,6 +65,7 @@
 
                 var products = [], total_price = 0, product_dict = {}, product_part_dict = {};
                 t.each(param['ret_data']['required_products'] ? param['ret_data']['required_products'] : [], function (i, p) {
+                    p['total_price'] = product_price(p);
                     products.push(p);
                     total_price += product_price(p);
                 });
