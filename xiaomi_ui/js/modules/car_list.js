@@ -24,7 +24,11 @@
 
             var tpl = Handlebars.compile(t("#carinfo_list_tpl").text());
             t('body').prepend(tpl(tmpl_data));
-            t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30 - 14) + 'px');
+            var base_ui = t('.car-manager-clickable').eq(0);
+            var base_ui2 = base_ui.children('.my-list-line-content').eq(0);
+            t('body').children().eq(0).find('.fixed-width-content').css('width', (t(window).width()
+                - base_ui.css('padding-left').match(/\d*/) * 2 - base_ui.height() * 0.6
+                - base_ui2.css('margin-left').match(/\d*/) - 7) + 'px');
 
         });
 

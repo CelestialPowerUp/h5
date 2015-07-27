@@ -39,33 +39,6 @@
 <script type="text/javascript" src="./js/handlebars.min.js"></script>
 <script type="text/javascript" src="./js/amazeui.min.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
-<script>!function (t) {
-    if (t) {
-
-        t(function () {
-
-            var category = getReqParam()['category'];
-            getReq('meta_cars.json?category_type=' + category, function (data) {
-                console.log(data);
-
-                var model2info = {};
-                t.each(data, function (i, o) {
-                    if (o['producer'].trim() === '无差别') {
-                        o['producer'] = '';
-                    }
-                    model2info[o['model_type']] = o;
-                });
-                console.log(model2info);
-                getStore().set('model2info', model2info);
-
-                var tpl = Handlebars.compile(t("#car_list_tpl").text());
-                t('#scroller').prepend(tpl(data));
-            }, function (error) {
-                alert("请求服务器错误，" + error['message']);
-            });
-        });
-
-    }
-}(window.jQuery);</script>
+<script type="text/javascript" src="./js/modules/car_choose3.js"></script>
 </body>
-</html><!-- Cached page generated on Thu Apr 09 2015 02:58:25 GMT+0000 (UTC) -->
+</html>

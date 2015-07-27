@@ -26,7 +26,11 @@
 
             var tpl = Handlebars.compile(t("#carinfo_list_tpl").text());
             t('body').prepend(tpl(tmpl_data));
-            t('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30) + 'px');
+            var base_ui = t('.car-manager-clickable').eq(0);
+            var base_ui2 = base_ui.children('.my-list-line-content').eq(0);
+            t('body').children().eq(0).find('.fixed-width-content').css('width', (t(window).width()
+                - base_ui.css('padding-left').match(/\d*/) * 2 - base_ui.height() * 0.6
+                - base_ui2.css('margin-left').match(/\d*/)) + 'px');
 
             t('.carinfo-btn').click(function (e) {
                 var car = item[t(this).attr('data-rel')];
@@ -41,10 +45,6 @@
                 postReq('cars/delete', [t(this).attr('data-rel')], function(data) {
                     window.location.reload();
                 });
-            });
-
-            t.each(t('.delete-btn'), function(i, delete_btn) {
-                t(delete_btn).css('left', (640 - 140) + 'px');
             });
 
             var accepted = false, startX, now_offset, is_moving = false, interval, last_intention_target, last_intention;//true for left, false for right
@@ -141,7 +141,7 @@
                 var carinfo_btn = t(this).find('.carinfo-btn').eq(0);
                 now_offset = t(carinfo_btn).css('left');
                 now_offset = parseFloat(now_offset.substr(0, now_offset.indexOf('px')));
-                if (now_offset < (0 - 640 / 2)) {
+                if (now_offset < (0 - t(window).width() / 2)) {
                     postReq('cars/delete', [t(this).attr('data-rel')], function (data) {
                         window.location.reload();
                     });
@@ -150,7 +150,7 @@
                         t('.carinfo-btn').css('left', '0px');//所有地址归位
                     }
                     if ((startX - endX) > 0) {
-                        move(carinfo_btn, now_offset, -140);
+                        move(carinfo_btn, now_offset, -70);
                         console.log('fade in');
                     } else if ((endX - startX) > 0) {
                         move(carinfo_btn, now_offset, 0);

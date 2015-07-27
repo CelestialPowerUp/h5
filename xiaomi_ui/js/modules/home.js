@@ -8,9 +8,9 @@
         t("#service").css("height", content + "px");
         t(".box").css("height", content / 3 + "px");
         var box_text_h = t('.box-text').height();
-        t('.box-div').css('margin-top', (content / 3 - box_text_h - 94) / 2 + 'px');
+        t('.box-div').css('margin-top', (content / 3 - box_text_h - 47) / 2 + 'px');
 
-        t('#to_show_user_win').css('top', (t(window).height() - 100 - 20) + 'px');
+        t('#to_show_user_win').css('top', (t(window).height() - 50 - 10) + 'px');
 
         getStore().set('now_in', 'home');
 

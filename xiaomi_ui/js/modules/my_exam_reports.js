@@ -20,7 +20,7 @@
                 var tpl = Handlebars.compile(t("#exam_reports_tpl").text());
                 t("body").append(tpl(data));
 
-                var width_of_left = (640 - 14 - 30 - 30 - 60);
+                var width_of_left = (t(window).width() - 7 - 15 - 15 - 30);
                 t('.left').css('width', width_of_left + 'px');
                 t('.left').find('div').css('width', width_of_left + 'px');
 

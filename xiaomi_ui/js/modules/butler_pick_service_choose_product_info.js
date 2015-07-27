@@ -12,7 +12,11 @@
             console.log([store.get('car_info')]);
 
             template('./template/carInfo.html', 'body', 'prepend', [store.get('car_info')], null, null, function () {
-                t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30) + 'px');
+                var base_ui = t('.car-info').eq(0);
+                var base_ui2 = base_ui.children('.my-list-line-content').eq(0);
+                t('body').children().eq(0).find('.fixed-width-content').css('width', (t(window).width()
+                    - base_ui.css('padding-left').match(/\d*/) * 2 - base_ui.height() * 0.6
+                    - base_ui2.css('margin-left').match(/\d*/)) + 'px');
             });
 
             load_products(get_service_type_from_router(), order['car_model_type'], null, null, function (param) {
@@ -37,14 +41,17 @@
 
 //                console.log(param['ret_data']['optional_products']);
                 template('./template/carProducts.html', '#products', 'full-fill', param['ret_data']['optional_products'], null, null, function () {
-                    t('#products').css('margin-bottom', '260px');
+                    t('#products').css('margin-bottom', '130px');
 
                     var swipers = t('.swiper-container');
-                    var max_length = t(window).width() - 30 - 90 - 30;
+                    var base_ui = t('.my-product-line-content-label').eq(0);
+                    var max_length = t(window).width() - base_ui.width() - base_ui.css('margin-left').match(/\d*/) * 2;
                     t.each(param['ret_data']['optional_products'], function (i, ps) {
                         var length = ps['products'].length;
-                        var len = length * 200 + (length - 1) * 24;
-                        swipers.eq(i).find('.swiper-slide').css('width', len);
+                        var base_ui_btn = swipers.eq(i).find('.my-product-line-content-button').eq(length - 1);
+                        var len = length * base_ui_btn.css('width').match(/\d*/) + (length - 1) * base_ui_btn.css('margin-left').match(/\d*/);
+
+                        swipers.eq(i).find('.swiper-slide').css('width', len + 'px');
                         if (len > max_length) {
                             len = max_length;
                         }
@@ -67,7 +74,7 @@
                         });
                     });
 
-                    t('#products').find('.swiper-scrollbar').css('margin', '0 0 105px -3px');
+                    t('#products').find('.swiper-scrollbar').css('margin', '0 0 50px -3px');
                     t('#products').find('.swiper-scrollbar').css('height', '1px');
 
                     t.each(t('.my-btn-group'), function (i, btn_group) {

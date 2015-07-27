@@ -59,8 +59,8 @@
                 var left_width = t('.left').eq(0).width();
                 t('.left').css('width', left_width + 'px');
                 t('.my-gallery').css('margin', '0');
-                t('.my-gallery').css('padding', '10px 0 0 0');
-                t('.my-gallery').css('width', (640 - 30 - left_width - 81 - 30) + 'px');
+                t('.my-gallery').css('padding', '5px 0 0 0');
+                t('.my-gallery').css('width', (t(window).width() - 15 - left_width - 41 - 15) + 'px');
 
                 t.each(t('.center'), function (i, c) {
                     function max(a, b) {
@@ -111,9 +111,9 @@
 
                         var last = gen_pois.length, minus = 31 * 0.7 / gen_pois.length, index = gen_pois.length - 1, markers = [];
                         var icon = new BMap.Icon('http://baseimg.yangaiche.com/dian.png', {
-                            width: 45,
-                            height: 45
-                        }, {anchor: new BMap.Size(22.5, 22.5)});
+                            width: 22,
+                            height: 22
+                        }, {anchor: new BMap.Size(11, 11)});
                         interval = setInterval(function () {
                             var imgs = t('img[src="http://baseimg.yangaiche.com/dian.png"]');
 //                                    alert(imgs.length);
@@ -180,7 +180,7 @@
                     t('#car_tracks').css('display', 'block');
                     t('#order_flow').css('display', 'none');
 
-                    t('#map_view').css('height', (t(window).height()/* - t('#run').height()*/ - 80) + 'px');
+                    t('#map_view').css('height', (t(window).height()/* - t('#run').height()*/ - 40) + 'px');
 
                     init_markers();
                 }
