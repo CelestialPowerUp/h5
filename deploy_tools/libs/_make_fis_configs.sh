@@ -17,12 +17,14 @@ enviroment_file_name="data.json"
 str_platform=$(ls $dir/platform/ | sort)
 arr_platform=(${str_platform// / })
 
+tpl=$(cat $dir/deploy_tools/fis-conf.js)
+
 for i in ${arr_enviroment[@]} 
 do
     domain=$(jq '.domain' $dir/$enviroment_dir_name/$i/$enviroment_file_name)
     len=${#domain}
     for j in ${arr_platform[@]} 
 	do
-	    echo "fis.config.merge({ roadmap : { domain : "${domain:0:len-1}"/"$j"\" } });fis.config.set('modules.optimizer.js', 'uglify-js');fis.config.set('settings.optimizer.uglify-js', {mangle: {except: 'exports, module, require, define'}});" > $dir/$fis_cfg_dir/"fis-"$i"-"$j"-conf.js"
+	    echo "fis.config.merge({ roadmap : { domain : "${domain:0:len-1}"/"$j"\" } });"tpl > $dir/$fis_cfg_dir/"fis-"$i"-"$j"-conf.js"
 	done
 done
