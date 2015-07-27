@@ -1,6 +1,20 @@
 /**
  * Created by caols on 7/27/15.
  */
+var item = {};
+var item_click_handler = function (car_id) {
+
+    var order = getOrder();
+    order.car_id = car_id;
+    var car = item[car_id];
+    order.car_model_type = car.model_type;
+    order.car_number = stripscript(car.licence.province + car.licence.number);
+    updateOrder(order);
+
+    getStore().set("car_info", {img_url: car.brand_img_url.thumbnail_url, car_number: stripscript(car.licence.province + car.licence.number), model: car.model});
+    route();
+};
+
 !function (t) {
     t(function () {
 
