@@ -23,6 +23,6 @@ do
     len=${#domain}
     for j in ${arr_platform[@]} 
 	do
-	    echo "fis.config.merge({ roadmap : { domain : "${domain:0:len-1}"/"$j"\" } });fis.config.set('modules.optimizer.js', 'uglify-js');" > $dir/$fis_cfg_dir/"fis-"$i"-"$j"-conf.js"
+	    echo "fis.config.merge({ roadmap : { domain : "${domain:0:len-1}"/"$j"\" } });fis.config.set('modules.optimizer.js', 'uglify-js');fis.config.set('settings.optimizer.uglify-js', {mangle: {except: 'exports, module, require, define'}});" > $dir/$fis_cfg_dir/"fis-"$i"-"$j"-conf.js"
 	done
 done
