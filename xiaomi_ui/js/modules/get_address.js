@@ -87,7 +87,7 @@
             }
 
             var param = {
-                address_name: location_info['name'],
+                name: location_info['name'],
                 address: location_info['address'],
                 longitude: location_info['longitude'],
                 latitude: location_info['latitude'],
