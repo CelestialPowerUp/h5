@@ -1,5 +1,5 @@
 /* normalize */
-ul, li, div, span, input, img, a {
+ul, li, div, span, input, img, a, dl, dt, dd, dt+dd {
     margin: 0;
     padding: 0;
     border: 0 none;
@@ -468,14 +468,14 @@ ul, li, div, span, input, img, a {
     margin: 0 5%;
 }
 
-#use_coupon>div {
+#use_coupon > div {
     width: 90%;
     text-align: right;
     font-size: 30px;
     padding-right: 10px;
 }
 
-#use_coupon>img {
+#use_coupon > img {
     height: 30%;
 }
 
@@ -837,7 +837,7 @@ ul, li, div, span, input, img, a {
 }
 
 /* exam reports detail */
-.exam-reports-detail-list>li {
+.exam-reports-detail-list > li {
     border-width: 0;
 }
 
@@ -1266,7 +1266,7 @@ ul, li, div, span, input, img, a {
     height: 159px;
 }
 
-.coupon-manager-list>li {
+.coupon-manager-list > li {
     margin-bottom: 20px;
 }
 
@@ -1332,4 +1332,77 @@ ul, li, div, span, input, img, a {
     z-index: 2;
     top: 15px;
     right: 15px;
+}
+
+/* 商城首页 */
+#store-body #header #header-trans #banner #services #products {
+    width: 100%;
+    background-color: #f1f1f1;
+}
+
+#services {
+    list-style-type: none;
+}
+
+#services li {
+    width: 33.3%;
+    height: 170px;
+    float: left;
+    background: #FFF;
+}
+
+.border-left-right {
+    border-right: solid 1px #CCC;
+    border-left: solid 1px #CCC;
+}
+
+.border-bottom {
+    border-bottom: solid 1px #CCC;
+}
+
+#services li a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#services li a img {
+    display: block;
+    margin: 30px auto 0;
+}
+
+#services li a span {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+#products {
+    display: block;
+}
+
+#products dt {
+    margin-top: 20px;
+    width: 100%;
+    height: 60px;
+    text-indent: 20px;
+    line-height: 60px;
+    color: #FFF;
+    background: #333;
+}
+
+#products dt div {
+    display: inline-block;
+    height: 30px;
+    width: 10px;
+    line-height: 60px;
+    background: #09be00;
+}
+
+#products dd {
+    width: 50%;
+    height: 290px;
+    float: left;
 }
