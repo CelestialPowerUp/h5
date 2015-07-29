@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no;"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
     <title>养爱车</title>
@@ -74,58 +74,100 @@
     </div>
 </div>
 
-<div id="banner"></div>
+<div class="home-page-wrapper">
+    <div id="banner"></div>
 
-<ul id="services">
-    <li class="border-bottom">
-        <a href="#">
-            <img src="./img/1.png" />
-            <span>保养维修</span>
-        </a>
-    </li>
-    <li class="border-bottom border-left-right">
-        <a href="#">
-            <img src="./img/2.png" />
-            <span>汽车美容</span>
-        </a>
-    </li>
-    <li class="border-bottom">
-        <a href="#">
-            <img src="./img/3.png" />
-            <span>保险续保</span>
-        </a>
-    </li>
-    <li class="border-bottom">
-        <a href="#">
-            <img src="./img/4.png" />
-            <span>管家检测</span>
-        </a>
-    </li>
-    <li class="border-bottom border-left-right">
-        <a href="#">
-            <img src="./img/5.png" />
-            <span>代办定损</span>
-        </a>
-    </li>
-    <li class="border-bottom">
-        <a href="#">
-            <img src="./img/6.png" />
-            <span>紧急救援</span>
-        </a>
-    </li>
-</ul>
+    <ul id="services">
+        <li class="border-bottom">
+            <a href="#">
+                <img src="./img/1.png" />
+                <span>保养维修</span>
+            </a>
+        </li>
+        <li class="border-bottom border-left-right">
+            <a href="#">
+                <img src="./img/2.png" />
+                <span>汽车美容</span>
+            </a>
+        </li>
+        <li class="border-bottom">
+            <a href="#">
+                <img src="./img/3.png" />
+                <span>保险续保</span>
+            </a>
+        </li>
+        <li class="border-bottom">
+            <a href="#">
+                <img src="./img/4.png" />
+                <span>管家检测</span>
+            </a>
+        </li>
+        <li class="border-bottom border-left-right">
+            <a href="#">
+                <img src="./img/5.png" />
+                <span>代办定损</span>
+            </a>
+        </li>
+        <li class="border-bottom">
+            <a href="#">
+                <img src="./img/6.png" />
+                <span>紧急救援</span>
+            </a>
+        </li>
+    </ul>
 
-<dl id="products">
-    <dt><div></div>超值特惠产品</dt>
-    <!--<dd>用来计算的仪器 ... ...</dd>-->
-    <!--<dd>显示器</dd>-->
-    <!--<dd>以视觉方式显示信息的装置 ... ...</dd>-->
-    <dt><div></div>线下活动专享</dt>
-    <!--<dd>用来计算的仪器 ... ...</dd>-->
-    <!--<dd>显示器</dd>-->
-    <!--<dd>以视觉方式显示信息的装置 ... ...</dd>-->
-</dl>
+    <div class="am-vertical-align products-title"><img class="am-vertical-align-middle" src="./img/vline.png" /><span class="am-vertical-align-middle">超值特惠产品</span></div>
 
+    <ul id="online-products" class="home-page-products">
+        <li class="odd"><div>
+            <div><img src="http://dummyimage.com/290x196"/></div>
+            <div class="home-page-products-text home-page-products-title">汽车打蜡</div>
+            <div class="home-page-products-text home-page-products-price">
+                <span>¥120</span>
+                <span><del>¥120</del></span>
+            </div>
+        </div></li>
+        <li class="even"><div>
+            <div><img src="http://dummyimage.com/580x394"/></div>
+            <div class="home-page-products-text home-page-products-title">汽车打蜡</div>
+            <div class="home-page-products-text home-page-products-price">
+                <span>¥120</span>
+                <span><del>¥120</del></span>
+            </div>
+        </div></li>
+    </ul>
+
+    <div class="am-vertical-align products-title"><img class="am-vertical-align-middle" src="./img/vline.png" /><span class="am-vertical-align-middle">线下活动专享</span></div>
+
+    <ul id="offline-products" class="home-page-products">
+        <li class="odd"><div>
+            <div><img src="http://dummyimage.com/580x394"/></div>
+            <div class="home-page-products-text home-page-products-title">汽车打蜡</div>
+            <div class="home-page-products-text home-page-products-price">
+                <span>¥120</span>
+                <span><del>¥120</del></span>
+            </div>
+        </div></li>
+        <li class="even"><div>
+            <div><img src="http://dummyimage.com/580x394"/></div>
+            <div class="home-page-products-text home-page-products-title">汽车打蜡</div>
+            <div class="home-page-products-text home-page-products-price">
+                <span>¥120</span>
+                <span><del>¥120</del></span>
+            </div>
+        </div></li>
+    </ul>
+
+</div>
+
+<footer id="footer">
+    <img src="./img/guanbi.png" />
+    <img src="./img/logo3.png" />
+    <span>下载养爱车客户端让养车管家找到你</span>
+    <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">下载APP</a>
+</footer>
+
+<script type="text/javascript" src="./js/display/home_store.js"></script>
 <script type="text/javascript" src="./js/modules/home_store.js"></script>
 </body>
 </html>

@@ -5,8 +5,6 @@
     if (t) {
         t(function () {
 
-            t('#to_show_user_win').css('top', (t(window).height() - 100 - 20) + 'px');
-
             getStore().set('now_in', 'home_store');
 
             function reset_phone() {
