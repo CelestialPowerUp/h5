@@ -285,7 +285,9 @@ body {
 /* side bar */
 #to_show_user_win {
     position: fixed;
+    z-index: 1;
     right: 10px;
+    bottom: 10px;
     width: 50px;
 }
 
@@ -1396,25 +1398,30 @@ body {
 
 #services li a img {
     display: block;
-    margin: 30px auto 0;
+    height: 32px;
+    margin: 15px auto 0;
 }
 
 #services li a span {
     display: block;
     text-align: center;
-    margin-top: 20px;
-    font-size: 24px;
+    margin-top: 10px;
+    font-size: 12px;
     color: #333;
 }
 
 .products-title {
-    padding-left: 20px;
+    padding-left: 10px;
     background: #ffffff;
 }
 
+.products-title img {
+    height: 15px;
+}
+
 .products-title span {
-    padding-left: 12px;
-    font-size: 24px;
+    padding-left: 6px;
+    font-size: 12px;
     color: #666;
 }
 
@@ -1428,11 +1435,11 @@ body {
 }
 
 .home-page-products > .odd {
-    padding: 20px 10px 0 20px;
+    padding: 10px 5px 0 10px;
 }
 
 .home-page-products > .even {
-    padding: 20px 20px 0 10px;
+    padding: 10px 10px 0 5px;
 }
 
 .home-page-products li a {
@@ -1443,9 +1450,9 @@ body {
 
 .home-page-products li a div {
     width: 100%;
-    font-size: 28px;
+    font-size: 14px;
     color: #333;
-    text-indent: 10px;
+    text-indent: 5px;
 }
 
 .home-page-products li a div:first-child {
@@ -1458,12 +1465,12 @@ body {
 }
 
 .home-page-products li a div span {
-    font-size: 18px;
+    font-size: 9px;
     color: #999;
 }
 
 .home-page-products li a div span:first-child {
-    font-size: 28px;
+    font-size: 14px;
     color: #FF6600;
 }
 
@@ -1521,7 +1528,7 @@ body {
 
 .home-page-wrapper {
     background: #f1f1f1;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 /* store item */
@@ -1537,90 +1544,94 @@ body {
 
 #store-item-wrapper hr {
     color: #CCC;
-    margin: 0 20px;
+    margin: 0 10px;
 }
 
 #store-item-brief-intro {
     display: block;
-    height: 156px;
+    height: 78px;
 }
 
 #store-item-go-to-detail {
-    width: 74px;
+    width: 37px;
     float: right;
-    height: 156px;
-    line-height: 156px;
+    height: 78px;
+    line-height: 78px;
     text-align: center;
+}
+
+#store-item-go-to-detail img {
+    width: 7px;
 }
 
 #store-item-brief-intro #store-item-brief-intro-text-wrapper {
     float: right;
-    height: 156px;
+    height: 78px;
 }
 
 #store-item-brief-intro #store-item-brief-intro-text-wrapper span {
     display: block;
-    font-size: 34px;
-    line-height: 54px;
+    font-size: 17px;
+    line-height: 27px;
     color: #333;
-    margin-top: 14px;
-    margin-left: 30px;
+    margin-top: 7px;
+    margin-left: 15px;
 }
 
 #store-item-brief-intro #store-item-brief-intro-text-wrapper #store-item-brief-intro-text {
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 13px;
+    line-height: 19px;
     color: #666;
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 #store-item-price {
-    height: 120px;
+    height: 60px;
 }
 
 #store-item-price div {
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 #store-item-price div:first-child {
-    margin-left: 30px;
-    margin-top: 26px;
+    margin-left: 15px;
+    margin-top: 13px;
 }
 
 #store-item-price div span {
-    font-size: 24px;
-    line-height: 56px;
+    font-size: 12px;
+    line-height: 28px;
     color: #999;
 }
 
 #store-item-price div:first-child span {
-    font-size: 40px;
-    line-height: 40px;
+    font-size: 20px;
+    line-height: 20px;
     color: #FF6600;
 }
 
 #store-item-price div:first-child span:first-child {
-    font-size: 30px;
+    font-size: 15px;
 }
 
 #store-item-price div:first-child span:last-child {
-    margin-left: 16px;
+    margin-left: 8px;
 }
 
 #store-service-flow {
-    height: 266px;
-    padding-left: 30px;
-    margin-top: 14px;
-    margin-bottom: 90px;
+    height: 133px;
+    padding-left: 15px;
+    margin-top: 7px;
+    margin-bottom: 45px;
     overflow: hidden;
 }
 
 #store-service-flow > div {
-    font-size: 30px;
-    line-height: 30px;
+    font-size: 15px;
+    line-height: 15px;
     color: #333;
-    margin-top: 26px;
-    margin-bottom: 11px;
+    margin-top: 13px;
+    margin-bottom: 5.5px;
 }
 
 #store-service-flow ul {
@@ -1628,37 +1639,37 @@ body {
 }
 
 #store-service-flow ul li {
-    height: 48px;
-    font-size: 26px;
+    height: 24px;
+    font-size: 13px;
     color: #333;
-    line-height: 48px;
+    line-height: 24px;
 }
 
 #store-item-footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 90px;
+    height: 45px;
     background: rgba(0, 0, 0, 0.9);
 }
 
 #store-item-footer a {
     display: block;
     float: left;
-    width: 200px;
+    width: 100px;
     background: transparent;
 }
 
 #store-item-footer a img {
     display: block;
-    margin: 17px auto 0 auto;
+    margin: 8.5px auto 0 auto;
 }
 
 #store-item-footer a span {
     display: block;
     width: 100%;
-    font-size: 20px;
-    line-height: 36px;
+    font-size: 10px;
+    line-height: 18px;
     text-align: center;
     color: #FFF;
     margin: 0 auto;
