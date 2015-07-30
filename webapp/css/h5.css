@@ -5,6 +5,10 @@ ul, li, div, span, input, img, a, p {
     border: 0 none;
 }
 
+body {
+    background: #f1f1f1;
+}
+
 /* all */
 #top {
     width: 100px;
@@ -1420,8 +1424,6 @@ ul, li, div, span, input, img, a, p {
     display: block;
     width: 100%;
     background: #FFF;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
 .home-page-products li a div {
@@ -1438,8 +1440,6 @@ ul, li, div, span, input, img, a, p {
 
 .home-page-products li a div:first-child img {
     width: 100%;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
 .home-page-products li a div span {
