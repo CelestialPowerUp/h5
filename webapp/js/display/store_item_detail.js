@@ -10,9 +10,9 @@
             getReq('/v2/api/store/ware/detail.json?ware_id=' + getReqParam()['ware_id'], function(data) {
 
                 var wrapper_width = device_width - 40;
-                data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/'+ wrapper_width +'/h/'+(wrapper_width / 16 * 9)+'/interlace/1';
+                data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/'+ parseInt(wrapper_width) +'/h/'+parseInt(wrapper_width / 16 * 9)+'/interlace/1';
                 t.each(data['introduction_imgs'], function(i, img) {
-                    img['raw_url'] = img['raw_url'] + '?imageView2/3/w/'+ wrapper_width +'/h/'+(wrapper_width / 16 * 9)+'/interlace/1';
+                    img['raw_url'] = img['raw_url'] + '?imageView2/3/w/'+ parseInt(wrapper_width) +'/h/'+parseInt(wrapper_width / 16 * 9)+'/interlace/1';
                 });
 
                 var tpl = Handlebars.compile(t("#store_item_detail_tpl").text());
