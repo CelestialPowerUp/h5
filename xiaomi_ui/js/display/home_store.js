@@ -26,7 +26,7 @@
                         } else {
                             wl.odd_or_even = 'even';
                         }
-                        wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/3/w/'+square+'/h/'+img_height+'/interlace/1';
+                        wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/3/w/'+parseInt(square)+'/h/'+parseInt(img_height)+'/interlace/1';
                     });
                 });
 
