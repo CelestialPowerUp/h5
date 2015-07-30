@@ -1610,6 +1610,10 @@ body {
     color: #FF6600;
 }
 
+#store-item-price div:first-child img {
+    width: 60px;
+}
+
 #store-item-price div:first-child span:first-child {
     font-size: 15px;
 }
@@ -1645,6 +1649,10 @@ body {
     line-height: 24px;
 }
 
+#store-service-flow ul li img {
+    width: 14px;
+}
+
 #store-item-footer {
     position: fixed;
     bottom: 0;
@@ -1662,6 +1670,7 @@ body {
 
 #store-item-footer a img {
     display: block;
+    width: 19px;
     margin: 8.5px auto 0 auto;
 }
 
@@ -1677,10 +1686,10 @@ body {
 
 #store-item-footer div {
     float: left;
-    height: 90px;
-    line-height: 90px;
+    height: 45px;
+    line-height: 45px;
     color: #FFFFFF;
-    font-size: 34px;
+    font-size: 17px;
     text-align: center;
     background: #FF6600;
 }
@@ -1703,10 +1712,10 @@ body {
     width: 100%;
     position: absolute;
     z-index: 1;
-    height: 66px;
-    font-size: 34px;
-    line-height: 66px;
-    text-indent: 20px;
+    height: 33px;
+    font-size: 17px;
+    line-height: 33px;
+    text-indent: 10px;
     color: #FFF;
     background: rgba(0, 0, 0, 0.3);
 }
