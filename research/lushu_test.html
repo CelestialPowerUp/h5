@@ -1,0 +1,114 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>地理信息位置</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body style="background-color: #f1f1f1">
+<div id="map_view" style="width: 100%;height:480px;overflow: hidden;"></div>
+<button id="run">run</button>
+<button id="stop">stop</button>
+<button id="pause">pause</button>
+<button id="hide">hide infoWindow</button>
+<button id="show">show infoWindow</button>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
+<script type="text/javascript" src="../webapp/js/LuShu_min.js"></script>
+<script type="text/javascript">!function (t) {
+    if (t) {
+        t(function () {
+
+            //t('#map_view').html('hello world!');
+            var map = new BMap.Map('map_view');
+            map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+
+//            var pointA = new BMap.Point(106.486654,29.490295);  // 创建点坐标A--大渡口区
+//            var pointB = new BMap.Point(106.581515,29.615467);  // 创建点坐标B--江北区
+//            alert('从大渡口区到江北区的距离是：'+(map.getDistance(pointA,pointB)).toFixed(0)+' 米。');  //获取两点距离,保留小数点后两位
+
+            var lushu;
+            var myIcon = new BMap.Icon("http://api.map.baidu.com/lbsapi/cloud/cms/Mario.png", {
+                width: 128,
+                height: 128
+            }, {anchor: new BMap.Size(65, 128)});
+            var drv = new BMap.DrivingRoute('北京', {
+                onSearchComplete: function (res) {
+                    if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+                        var arrPois = res.getPlan(0).getRoute(0).getPath();
+
+                        console.log(arrPois[0].__proto__);
+                        console.log(arrPois[0].__proto__.toString());
+
+                        console.log(arrPois);
+                        var start = {}, mid = {}, end = {};
+                        start.__proto__ = arrPois[0].__proto__;
+                        start.lng = 116.403894;
+                        start.lat = 39.914064;
+                        mid.__proto__ = arrPois[0].__proto__;
+                        mid.lng = 116.37042;
+                        mid.lat = 39.951776;
+                        end.__proto__ = arrPois[0].__proto__;
+                        end.lng = 116.306884;
+                        end.lat = 40.057151;
+                        arrPois = [start, mid, end];
+                        console.log(arrPois);
+                        map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#000'}));
+                        map.setViewport(arrPois);
+
+                        lushu = new BMapLib.LuShu(map, arrPois, {
+                            defaultContent: "从天安门到百度大厦",
+                            speed: 4500,
+                            icon: myIcon,
+                            //enableRotation:true,
+                            landmarkPois: [
+                                {lng: mid.lng, lat: mid.lat, html: '高速公路收费<div><img src="http://map.baidu.com/img/logo-map.gif"/></div>', pauseTime: 2}//,
+//                                {
+//                                    lng: 116.315391,
+//                                    lat: 39.964429,
+//                                    html: '高速公路收费<div><img src="http://map.baidu.com/img/logo-map.gif"/></div>',
+//                                    pauseTime: 3
+//                                },
+//                                {
+//                                    lng: 116.381476,
+//                                    lat: 39.974073,
+//                                    html: '肯德基早餐<div><img src="http://ishouji.baidu.com/resource/images/map/show_pic04.gif"/></div>',
+//                                    pauseTime: 2
+//                                }
+                            ]
+                        });
+                    }
+                }
+            });
+            drv.search('天安门', '百度大厦');
+//            drv.search('天安门', '天安门');
+
+            //绑定事件
+            t("#run").click(function () {
+                lushu.start();
+            });
+            t("#stop").click(function () {
+                lushu.stop();
+            });
+            t("#pause").click(function () {
+                lushu.pause();
+            });
+            t("#hide").click(function () {
+                lushu.hideInfoWindow();
+            });
+            t("#show").click(function () {
+                lushu.showInfoWindow();
+            });
+        });
+    }
+}(window.jQuery);</script>
+</body>
+</html>
