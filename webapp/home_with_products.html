@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no;"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
     <title>养爱车</title>
@@ -17,12 +17,8 @@
     <link rel="stylesheet" href="./css/amazeui.min.css">
     <link rel="stylesheet" href="./css/h5.css">
 
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/amazeui.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
-
 </head>
-<body id="bd" class="body-background-color-gray">
+<body id="store-body">
 
 <img id="to_show_user_win" src="img/user_logo4.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
 
@@ -74,119 +70,102 @@
     </div>
 </div>
 
-<ul class="am-avg-sm-3 home-with-products-boxes" id="service">
-    <li class="box"><a href="./butler_pick_service.html">
-        <div><img src="img/baoyangweixiu.png"/><span>保养维修</span></div>
-    </a></li>
-    <li class="box"><a href="./car_beauty_service.html">
-        <div><img src="img/qichemeirong.png"/><span>汽车美容</span></div>
-    </a></li>
-    <li class="box"><a href="./renewal_service.html">
-        <div><img src="img/baoxianxuxian.png"/><span>保险续险</span></div>
-    </a></li>
-    <li class="box"><a href="./home_testing_service.html">
-        <div><img src="img/guanjiajiance.png"/><span>管家检测</span></div>
-    </a></li>
-    <li class="box"><a href="./set_loss_service.html">
-        <div><img src="img/daibandingshun.png"/><span>代办定损</span></div>
-    </a></li>
-    <li class="box"><a href="./emergency_rescue_service.html">
-        <div><img src="img/jingjijiuyuan.png"/><span>紧急救援</span></div>
-    </a></li>
-</ul>
+<div class="home-page-wrapper">
+    <div id="banner">
+        <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}' data-am-flexslider="{playAfterPaused: 8000}">
+            <ul class="am-slides">
+                <li>
+                    <a href="http://pay.yangaiche.com/normal/activities/3/external_sale.html?code=yac150716">
+                        <img src="./img/banner1.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mp.weixin.qq.com/s?__biz=MzA4Mzc1NzEzMw==&mid=206642480&idx=1&sn=2bf61e4297de1db5f15d016d4301456e#rd">
+                        <img src="./img/banner2.png">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-<div class="home-with-products-label">
-    精品套餐
+    <ul id="services">
+        <li class="border-bottom">
+            <a href="./butler_pick_service.html">
+                <img src="./img/1.png" />
+                <span>保养维修</span>
+            </a>
+        </li>
+        <li class="border-bottom border-left-right">
+            <a href="./car_beauty_service.html">
+                <img src="./img/2.png" />
+                <span>汽车美容</span>
+            </a>
+        </li>
+        <li class="border-bottom">
+            <a href="./renewal_service.html">
+                <img src="./img/3.png" />
+                <span>保险续保</span>
+            </a>
+        </li>
+        <li class="border-bottom">
+            <a href="./home_testing_service.html">
+                <img src="./img/4.png" />
+                <span>管家检测</span>
+            </a>
+        </li>
+        <li class="border-bottom border-left-right">
+            <a href="./set_loss_service.html">
+                <img src="./img/5.png" />
+                <span>代办定损</span>
+            </a>
+        </li>
+        <li class="border-bottom">
+            <a href="./emergency_rescue_service.html">
+                <img src="./img/6.png" />
+                <span>紧急救援</span>
+            </a>
+        </li>
+    </ul>
+
 </div>
 
-<ul class="am-avg-sm-2 product-boxes">
-    <li class="box right">
-        <a href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOtwo1RZIk0LlI1bs8GOVRbu4&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-            <div><img src="img/product_1.png"/></div>
-        </a>
-    </li>
-    <li class="box">
-        <a href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt3oAibXRI6Lsga_oDWqkVpk&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-            <div><img src="img/product_2.png"/></div>
-        </a>
-    </li>
-</ul>
+<!--<footer id="footer">-->
+    <!--<img id="footer_close" src="./img/guanbi.png" />-->
+    <!--<img src="./img/logo3.png" />-->
+    <!--<span>下载养爱车客户端让养车管家找到你</span>-->
+    <!--<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">下载APP</a>-->
+<!--</footer>-->
 
+<script type="text/x-handlebars-template" id="home_store_list_tpl">
+    {{#each this}}
+    <div class="am-vertical-align products-title"><img class="am-vertical-align-middle" src="./img/vline.png" />
+        <span class="am-vertical-align-middle">{{ware_type_name}}</span>
+    </div>
 
-<div class="home-with-products-label">
-    线上产品
-</div>
+    <ul class="home-page-products">
+        {{#each ware_list}}
+        <li class="{{odd_or_even}}">
+            <a href="./store_item_page.html?ware_id={{ware_id}}">
+                {{#cover_img}}
+                <div><img src="{{raw_url}}"/></div>
+                {{/cover_img}}
+                <div class="home-page-products-text home-page-products-title">{{ware_name}}</div>
+                <div class="home-page-products-text home-page-products-price">
+                    <span>¥{{ware_mark_price}}</span>
+                    <span><del>¥{{ware_full_price}}</del></span>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/each}}
+</script>
 
-<ul class="am-avg-sm-2 product-boxes">
-    <li class="box right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOtxS5xLbEQrZOH2KjwBpi3fc&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_3.png"/></div>
-    </a></li>
-    <li class="box"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOtwtAenZJJ8ufqTVocdLZVz0&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_4.png"/></div>
-    </a></li>
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt1Kq7Qv0mfyIwPOyV60G7d4&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_5.png"/></div>
-    </a></li>
-    <li class="box top"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt6K3bH6TxLvoSVEWJVgU8YA&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_6.png"/></div>
-    </a></li>
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt_0bmg90i6q2aYn8CDV0Wyo&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_7.png"/></div>
-    </a></li>
-    <li class="box top"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt5OHHrvVPNadLw5HI7TVLu8&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_8.png"/></div>
-    </a></li>
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt9faLMH3eXVhVTD3IMusyG4&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_9.png"/></div>
-    </a></li>
-    <li class="box top"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOtxYwnU3TkATgV_FQ4msl60s&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_10.png"/></div>
-    </a></li>
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt7jRiL5H8RGVck0vxhhh9qk&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_11.png"/></div>
-    </a></li>
-    <li class="box top"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt5FEttEqrHL71R_8JLgjr-s&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_12.png"/></div>
-    </a></li>
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt9LpBgYixCDBFE4xivURAs4&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_16.png"/></div>
-    </a></li>
-</ul>
-
-<div class="home-with-products-label">
-    线下产品
-</div>
-
-<ul class="am-avg-sm-2 product-boxes">
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOtzznfumOUs_FHqdnsOMXZf0&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_13.png"/></div>
-    </a></li>
-    <li class="box top"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOty6ciwUQcK1EhXjadNekA48&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_14.png"/></div>
-    </a></li>
-    <li class="box top right"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOt6PFNtXn2xzrG9J_hK-e39U&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_15.png"/></div>
-    </a></li>
-    <li class="box top"><a
-            href="http://mp.weixin.qq.com/bizmall/malldetail?id=&pid=pTWbOtzVbwVNsyENyuN2J6737ot0&biz=MzA4Mzc1NzEzMw==&scene=&action=show_detail&showwxpaytitle=1#wechat_redirect">
-        <div><img src="img/product_17.png"/></div>
-    </a></li>
-</ul>
-
-<script type="text/javascript" src="./js/modules/home_with_products.js"></script>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/display/home_store.js"></script>
+<script type="text/javascript" src="./js/modules/home_store.js"></script>
 </body>
 </html>

@@ -277,7 +277,7 @@ ul, li, div, span, input, img, a, p {
     position: fixed;
     z-index: 1;
     right: 20px;
-    bottom: 140px;
+    bottom: 20px;
 }
 
 .am-offcanvas {
@@ -1506,7 +1506,7 @@ ul, li, div, span, input, img, a, p {
 
 .home-page-wrapper {
     background: #f1f1f1;
-    padding-bottom: 140px;
+    padding-bottom: 20px;
 }
 
 /* store item */

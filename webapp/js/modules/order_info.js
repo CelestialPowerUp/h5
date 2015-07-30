@@ -95,7 +95,7 @@
             t("#user_info_view").html(template(order_info));
 
             var product_template = Handlebars.compile(t("#product_info_tpl").html());
-            t("#products_view").html(product_template(order_info.ware_products || order_info.products));
+            t("#products_view").html(product_template(order_info.products));
 
             var paid_template = Handlebars.compile(t("#paid_tpl").html());
             t("#paid_view").html(paid_template(order_info));
@@ -128,8 +128,6 @@
             var order = getOrder();
             if (order['coupon_value'] > 0) {
                 order['coupon'] = {value:order['coupon_value'].toFixed(2)};
-            } else {
-                order['total_price'] = order['real_total_price'];
             }
             parse_data(order);
             t('#submit_button').text('立即预约');

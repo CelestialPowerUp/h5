@@ -65,10 +65,10 @@ function recal_products(product_dict, product_part_dict, products) {
         }
     });
     $('#total_price').html('¥' + now_total_price.toFixed(2));
-    store.set('real_total_price', now_total_price.toFixed(2));
+    store.set('total_price', now_total_price.toFixed(2));
     if (products) {
         var order = getOrder();
-        order['real_total_price'] = now_total_price;
+        order['total_price'] = now_total_price;
         order['products'] = products;
         updateOrder(order);
     }

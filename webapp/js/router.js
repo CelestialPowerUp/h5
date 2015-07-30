@@ -34,19 +34,19 @@ function vehicle_exam() {
 
 function route() {
     var now_in = getStore().get('now_in');
-    if ('butler_pick' == now_in) {
+    if ('butler_pick' === now_in) {
         window.location.href = './butler_pick_service_choose_product.html';
-    } else if ('car_beauty' == now_in) {
+    } else if ('car_beauty' === now_in) {
         window.location.href = './car_beauty_service_product_info.html';
-    } else if ('renewal' == now_in) {
+    } else if ('renewal' === now_in) {
         window.location.href = './renewal_service_product_info.html';
-    } else if ('home_testing' == now_in) {
+    } else if ('home_testing' === now_in) {
         window.location.href = './home_testing_service_product_info.html';
-    } else if ('set_loss' == now_in) {
+    } else if ('set_loss' === now_in) {
         window.location.href = './set_loss_service_product_info.html';
-    } else if ('vehicle_exam' == now_in) {
+    } else if ('vehicle_exam' === now_in) {
         window.location.href = './vehicle_exam_service_product_info.html';
-    } else if ('home_store' == now_in) {
+    } else if ('home_store' === now_in || 'home_wp' === now_in || 'home' === now_in) {
         window.location.href = './base_info.html';
     }
 }
@@ -54,7 +54,7 @@ function route() {
 function route2() {
     var store = getStore();
     var now_in = store.get('now_in');
-    if ('butler_pick' == now_in) {
+    if ('butler_pick' === now_in) {
         store.set('submit_text', '确定');
     } else {
         store.set('submit_text', '立即预约');
@@ -65,17 +65,17 @@ function route2() {
 function get_service_type_from_router() {
     var store = getStore();
     var now_in = store.get('now_in');
-    if ('butler_pick' == now_in) {
+    if ('butler_pick' === now_in) {
         return 1;
-    } else if ('car_beauty' == now_in) {
+    } else if ('car_beauty' === now_in) {
         return 2;
-    } else if ('renewal' == now_in) {
+    } else if ('renewal' === now_in) {
         return 3;
-    } else if ('home_testing' == now_in) {
+    } else if ('home_testing' === now_in) {
         return 4;
-    } else if ('set_loss' == now_in) {
+    } else if ('set_loss' === now_in) {
         return 5;
-    } else if ('vehicle_exam' == now_in) {
+    } else if ('vehicle_exam' === now_in) {
         return 13;
     }
 }
@@ -83,19 +83,19 @@ function get_service_type_from_router() {
 function get_service_type_from_router2() {
     var store = getStore();
     var now_in = store.get('now_in');
-    if ('butler_pick' == now_in) {
+    if ('butler_pick' === now_in) {
         return '保养维修';
-    } else if ('car_beauty' == now_in) {
+    } else if ('car_beauty' === now_in) {
         return '汽车美容';
-    } else if ('renewal' == now_in) {
+    } else if ('renewal' === now_in) {
         return '保险续保';
-    } else if ('home_testing' == now_in) {
+    } else if ('home_testing' === now_in) {
         return '管家检测';
-    } else if ('set_loss' == now_in) {
+    } else if ('set_loss' === now_in) {
         return '管家定损';
-    } else if ('vehicle_exam' == now_in) {
+    } else if ('vehicle_exam' === now_in) {
         return '管家验车';
-    } else if ('home_store' == now_in) {
+    } else if ('home_store' === now_in) {
         return '商城商品';
     }
 }
