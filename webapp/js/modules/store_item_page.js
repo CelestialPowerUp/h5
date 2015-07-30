@@ -15,9 +15,9 @@
                 });
                 updateOrder(order);
 
-                store.set('submit_text', '确定');
+                getStore().set('submit_text', '确定');
 
-                window.location.href = './base_info.html';
+                window.location.href = './car_list.html';
 
             });
 
