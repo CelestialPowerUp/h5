@@ -46,6 +46,8 @@ function route() {
         window.location.href = './set_loss_service_product_info.html';
     } else if ('vehicle_exam' == now_in) {
         window.location.href = './vehicle_exam_service_product_info.html';
+    } else if ('home_store' == now_in) {
+        window.location.href = './base_info.html';
     }
 }
 
@@ -93,6 +95,8 @@ function get_service_type_from_router2() {
         return '管家定损';
     } else if ('vehicle_exam' == now_in) {
         return '管家验车';
+    } else if ('home_store' == now_in) {
+        return '商城商品';
     }
 }
 
@@ -114,6 +118,8 @@ function after_login() {
         window.location.href = './my_exam_reports.html';
     } else if (store.get('now_in') === 'coupon_list') {
         window.location.href = './my_coupons.html';
+    } else if (store.get('now_in') === 'home_store') {
+        window.location.href = './home_store.html?back=true';
     } else {
         window.location.href = './car_list.html';
     }

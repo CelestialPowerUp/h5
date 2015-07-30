@@ -11,6 +11,8 @@
 
             getReq('/v2/store/ware_detail?ware_id=' + getReqParam()['ware_id'], function(data) {
 
+                getStore().set('store_item_spec', data);
+
                 var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
                 t('body').prepend(tpl(data));
 

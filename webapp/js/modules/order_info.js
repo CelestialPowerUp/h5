@@ -95,7 +95,7 @@
             t("#user_info_view").html(template(order_info));
 
             var product_template = Handlebars.compile(t("#product_info_tpl").html());
-            t("#products_view").html(product_template(order_info.products));
+            t("#products_view").html(product_template(order_info.ware_products || order_info.products));
 
             var paid_template = Handlebars.compile(t("#paid_tpl").html());
             t("#paid_view").html(paid_template(order_info));
