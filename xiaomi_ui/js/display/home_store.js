@@ -14,7 +14,7 @@
 
             getReq('/v2/api/store/home_ware_list.json', function(data) {
 
-                var square = t(window).width() / 2 - 30;
+                var square = t(window).width() / 2 - 15;
                 console.log(square);
                 var img_height = (square / 290 * 196);
                 console.log(img_height);
