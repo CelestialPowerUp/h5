@@ -24,7 +24,7 @@ deploy=${10}
 
 if [ ${deploy:0:1} == 'y' ]; then
     mkdir -p $1/$3/$4 &&
-    fis release -com -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$4"-conf.js" -d $1/$3/$4 -D &&
+    fis release -comp -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$4"-conf.js" -d $1/$3/$4 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$4/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$4 $1/$3/$4
 fi
@@ -32,7 +32,7 @@ fi
 if [ ${deploy:1:1} == 'y' ]; then
     mkdir -p $1/$3/$5 &&
     before_xiaomi $1 &&
-    fis release -com -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$5"-conf.js" -d $1/$3/$5 -D &&
+    fis release -comp -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$5"-conf.js" -d $1/$3/$5 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$5/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$5 $1/$3/$5
 fi
@@ -40,21 +40,21 @@ fi
 if [ ${deploy:2:1} == 'y' ]; then
     mkdir -p $1/$3/$6 &&
     before_xiaomi $1 &&
-    fis release -com -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$6"-conf.js" -d $1/$3/$6 -D &&
+    fis release -comp -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$6"-conf.js" -d $1/$3/$6 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$6/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$6 $1/$3/$6
 fi
 
 if [ ${deploy:3:1} == 'y' ]; then
     mkdir -p $1/$3/$7 &&
-    fis release -com -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$7"-conf.js" -d $1/$3/$7 -D &&
+    fis release -comp -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$7"-conf.js" -d $1/$3/$7 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$7/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$7 $1/$3/$7
 fi
 
 if [ ${deploy:4:1} == 'y' ]; then
     mkdir -p $1/$3/$8 &&
-    fis release -com -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$8"-conf.js" -d $1/$3/$8 -D &&
+    fis release -comp -r $1/webapp/ -f $1/"fis-cfgs"/"fis-"$2"-"$8"-conf.js" -d $1/$3/$8 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$8/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$8 $1/$3/$8
 fi
@@ -62,7 +62,7 @@ fi
 if [ ${deploy:5:1} == 'y' ]; then
     mkdir -p $1/$3/$9 &&
     before_xiaomi $1 &&
-    fis release -com -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$9"-conf.js" -d $1/$3/$9 -D &&
+    fis release -comp -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-"$9"-conf.js" -d $1/$3/$9 -D &&
     cp -a $1/webapp/js/openid/* $1/$3/$9/js/openid &&
     bash _cp_json.sh $1/enviroment/$2 $1/platform/$9 $1/$3/$9
 fi
