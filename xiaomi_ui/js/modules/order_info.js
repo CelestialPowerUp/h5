@@ -128,8 +128,6 @@
             var order = getOrder();
             if (order['coupon_value'] > 0) {
                 order['coupon'] = {value:order['coupon_value'].toFixed(2)};
-            } else {
-                order['total_price'] = order['real_total_price'];
             }
             parse_data(order);
             t('#submit_button').text('立即预约');
