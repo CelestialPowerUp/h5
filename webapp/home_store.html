@@ -127,35 +127,6 @@
         </li>
     </ul>
 
-    <!--<div class="am-vertical-align products-title"><img class="am-vertical-align-middle" src="./img/vline.png" /><span class="am-vertical-align-middle">线下活动专享</span></div>-->
-
-    <!--<ul class="home-page-products">-->
-        <!--<li class="odd"><div>-->
-            <!--<div><img src="http://dummyimage.com/580x394"/></div>-->
-            <!--<div class="home-page-products-text home-page-products-title">汽车打蜡</div>-->
-            <!--<div class="home-page-products-text home-page-products-price">-->
-                <!--<span>¥120</span>-->
-                <!--<span><del>¥120</del></span>-->
-            <!--</div>-->
-        <!--</div></li>-->
-        <!--<li class="even"><div>-->
-            <!--<div><img src="http://dummyimage.com/580x394"/></div>-->
-            <!--<div class="home-page-products-text home-page-products-title">汽车打蜡</div>-->
-            <!--<div class="home-page-products-text home-page-products-price">-->
-                <!--<span>¥120</span>-->
-                <!--<span><del>¥120</del></span>-->
-            <!--</div>-->
-        <!--</div></li>-->
-        <!--<li class="odd"><div>-->
-            <!--<div><img src="http://dummyimage.com/580x394"/></div>-->
-            <!--<div class="home-page-products-text home-page-products-title">汽车打蜡</div>-->
-            <!--<div class="home-page-products-text home-page-products-price">-->
-                <!--<span>¥120</span>-->
-                <!--<span><del>¥120</del></span>-->
-            <!--</div>-->
-        <!--</div></li>-->
-    <!--</ul>-->
-
 </div>
 
 <footer id="footer">
@@ -174,7 +145,7 @@
     <ul class="home-page-products">
         {{#each ware_list}}
         <li class="{{odd_or_even}}">
-            <div>
+            <a href="./store_item_page.html?ware_id={{ware_id}}">
                 {{#cover_img}}
                 <div><img src="{{raw_url}}"/></div>
                 {{/cover_img}}
@@ -183,7 +154,7 @@
                     <span>¥{{ware_mark_price}}</span>
                     <span><del>¥{{ware_full_price}}</del></span>
                 </div>
-            </div>
+            </a>
         </li>
         {{/each}}
     </ul>

@@ -1408,37 +1408,38 @@ ul, li, div, span, input, img, a, p {
     padding: 20px 20px 0 10px;
 }
 
-.home-page-products li > div {
+.home-page-products li a {
+    display: block;
     width: 100%;
     background: #FFF;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
-.home-page-products li div div {
+.home-page-products li a div {
     width: 100%;
     font-size: 28px;
     color: #333;
     text-indent: 10px;
 }
 
-.home-page-products li div div:first-child {
+.home-page-products li a div:first-child {
     text-indent: 0;
     overflow: hidden;
 }
 
-.home-page-products li div div:first-child img {
+.home-page-products li a div:first-child img {
     width: 100%;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
-.home-page-products li div div span {
+.home-page-products li a div span {
     font-size: 18px;
     color: #999;
 }
 
-.home-page-products li div div span:first-child {
+.home-page-products li a div span:first-child {
     font-size: 28px;
     color: #FF6600;
 }
@@ -1666,6 +1667,7 @@ ul, li, div, span, input, img, a, p {
 }
 
 #store-item-detail-img div {
+    width: 100%;
     position: absolute;
     z-index: 1;
     height: 66px;
@@ -1673,9 +1675,9 @@ ul, li, div, span, input, img, a, p {
     line-height: 66px;
     text-indent: 20px;
     color: #FFF;
-    background: rgba(255, 102, 0, 0.6);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 #store-item-detail-wrapper img {
-
+    width: 100%;
 }

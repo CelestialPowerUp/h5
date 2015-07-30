@@ -17,19 +17,15 @@
     <link rel="stylesheet" href="./css/amazeui.min.css">
     <link rel="stylesheet" href="./css/h5.css">
 
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/amazeui.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
-
 </head>
 <body class="body-background-color-gray">
 
 <script type="text/x-handlebars-template" id="store_item_detail_tpl">
-    {{this}}
+    {{#this}}
     <div id="store-item-detail-wrapper">
 
         <div id="store-item-detail-img">
-            {{cover_img}}
+            {{#cover_img}}
             <img src="{{raw_url}}" />
             {{/cover_img}}
             <div>{{ware_name}}</div>
@@ -42,6 +38,10 @@
     {{/this}}
 </script>
 
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
 <script type="text/javascript" src="./js/display/store_item_detail.js"></script>
 <script type="text/javascript" src="./js/modules/store_item_detail.js"></script>
 </body>

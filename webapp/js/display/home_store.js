@@ -31,7 +31,7 @@
                     product_title.css('height', (device_width / 640 * 60) + 'px');
                     product_title.css('margin-top', (device_width / 640 * 20) + 'px');
 
-                    var square_wrapper = t('.home-page-products li div');
+                    var square_wrapper = t('.home-page-products li a');
                     var square = square_wrapper.eq(0).width();
                     square_wrapper.css('height', square + 'px');
                     console.log(square);
@@ -42,7 +42,7 @@
                     var text_wrapper = t('.home-page-products-text');
                     text_wrapper.css('height', text_height + 'px');
                     text_wrapper.css('line-height', text_height + 'px');
-                    var image_wrapper = t('.home-page-products li div div:first-child');
+                    var image_wrapper = t('.home-page-products li a div:first-child');
                     image_wrapper.css('height', img_height + 'px');
                     var margin = (square / 290 * 9);
                     t('.home-page-products-title').css('margin-top', margin + 'px');
