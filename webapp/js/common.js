@@ -82,12 +82,22 @@ var getHashParam = function() {
     return theRequest;
 };
 
+var get_real_url = function (url) {
+    var real_url = api_root + url;
+    if (url.indexOf('v2') >= 0) {
+        real_url = url;
+    }
+    return dev + real_url;
+};
+
 var getReq = function (url, callBack, failureBack) {
+    var real_url = get_real_url(url);
+
     $.ajax({
         type: "GET",
         dataType: "json",
         timeout: 45 * 1000,
-        url: dev + api_root + url,
+        url: real_url,
         beforeSend: default_header,
         success: function (data) {
             if (data && data['code'] == '00000') {
@@ -113,17 +123,14 @@ var getTemplate = function (url, callBack) {
 };
 
 var postReq = function (url, param, callBack, failureBack) {
-    var real_url = api_root + url;
-    if (url.indexOf('v2') >= 0) {
-        real_url = url;
-    }
+    var real_url = get_real_url(url);
 
     $.ajax({
         type: "POST",
         dataType: "json",
         contentType: "application/json",
         timeout: 45 * 1000,
-        url: dev + real_url,
+        url: real_url,
         data: JSON.stringify(param),
         beforeSend: default_header,
         success: function (data) {

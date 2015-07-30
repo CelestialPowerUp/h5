@@ -29,6 +29,10 @@
                 window.history.replaceState(null, null, "./home_store.html?back=true");
             });
 
+            t('#footer_close').click(function(e) {
+                t('#footer').css('display', 'none');
+            });
+
         });
     }
 }(window.jQuery);
