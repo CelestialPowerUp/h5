@@ -444,15 +444,13 @@ function get_host() {
 }
 
 function before_order_success() {
-    var is_weixin = function isWeiXin(){
-        var ua = window.navigator.userAgent.toLowerCase();
-        return ua.match(/MicroMessenger/i);
-    }();
-    if (is_weixin) {
-        window.history.replaceState(null, null, "./home_with_products.html");
-    } else {
-        window.history.replaceState(null, null, "./home.html");
-    }
+    loadCfg('platform.json', function (platform) {
+        if ('wechat' === platform['platform']) {
+            window.history.replaceState(null, null, "./home_with_products.html");
+        } else {
+            window.history.replaceState(null, null, "./home.html");
+        }
+    });
 }
 
 function go_back_to_reload() {
