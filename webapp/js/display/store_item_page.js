@@ -13,6 +13,8 @@
 
                 getStore().set('store_item_spec', data);
 
+                data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/'+ parseInt(device_width) +'/h/'+parseInt(device_width / 16 * 9)+'/interlace/1';
+
                 var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
                 t('body').prepend(tpl(data));
 

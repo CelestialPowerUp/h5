@@ -30,7 +30,7 @@
                 postChargeReq('charge', param, function (charge) {
 
                     if ('alipay_wap' === param['channel']) {
-                        before_order_success();
+                        set_back_to_home();
                     }
 
                     pingpp.createPayment(charge, function (result, error) {
@@ -77,7 +77,7 @@
 //                clearOrder();
                     updateSuccessOrder(data);
 
-                    before_order_success();
+                    set_back_to_home();
 
                     window.location.href = './order_success.html';
                 }, function (data) {

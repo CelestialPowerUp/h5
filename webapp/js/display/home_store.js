@@ -31,6 +31,7 @@
                         } else {
                             wl.odd_or_even = 'even';
                         }
+                        wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/3/w/'+parseInt(square)+'/h/'+parseInt(img_height)+'/interlace/1';
                     });
                 });
                 data.splice(to_move_index, 1);
@@ -45,11 +46,7 @@
                     product_title.css('margin-top', (device_width / 640 * 20) + 'px');
 
                     var square_wrapper = t('.home-page-products li a');
-                    var square = square_wrapper.eq(0).width();
                     square_wrapper.css('height', square + 'px');
-                    console.log(square);
-                    var img_height = (square / 290 * 196);
-                    console.log(img_height);
                     var text_height = (square / 290 * 38);
                     console.log(text_height);
                     var text_wrapper = t('.home-page-products-text');
