@@ -1,6 +1,9 @@
 /**
  * Created by caols on 7/27/15.
  */
+
+before_order_success();
+
 var host = get_host();
 
 var script_url;
