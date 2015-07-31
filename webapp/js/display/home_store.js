@@ -19,7 +19,12 @@
                 var img_height = (square / 290 * 196);
                 console.log(img_height);
 
+                var to_move_index = null, to_append_data = null;
                 t.each(data, function(i, d) {
+                    if (d['ware_type_name'].match(/线下/)) {
+                        to_move_index = i;
+                        to_append_data = d;
+                    }
                     t.each(d['ware_list'], function(j, wl) {
                         if (j % 2 === 0) {
                             wl.odd_or_even = 'odd';
@@ -29,6 +34,8 @@
                         wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/3/w/'+parseInt(square)+'/h/'+parseInt(img_height)+'/interlace/1';
                     });
                 });
+                data.splice(to_move_index, 1);
+                data.push(to_append_data);
 
                 var tpl = Handlebars.compile(t("#home_store_list_tpl").text());
                 t('.home-page-wrapper').append(tpl(data));
