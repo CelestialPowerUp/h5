@@ -116,7 +116,7 @@
 //                    clearOrder();
                     updateSuccessOrder(order_data);
 
-                    before_order_success();
+                    set_back_to_home();
 
                     window.location.href = './order_success.html';
                 }, function (data) {

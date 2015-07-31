@@ -443,7 +443,7 @@ function get_host() {
     return window.location.host + '%2Fh5%2F';
 }
 
-function before_order_success() {
+function set_back_to_home() {
     loadCfg('platform.json', function (platform) {
         if ('wechat' === platform['platform']) {
             window.history.replaceState(null, null, "./home_with_products.html");

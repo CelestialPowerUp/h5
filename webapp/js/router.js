@@ -101,6 +101,7 @@ function get_service_type_from_router2() {
 }
 
 function after_login() {
+    set_back_to_home();
     var store = getStore();
     if (store.get('now_in') === 'order_list') {
         window.location.href = './order_list.html';
