@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2015/5/20.
  */
-var api_root = "/v1/api/", dev = '', external_sale_situation = 'test';
+var domain = '', api_root = "/v1/api/", dev = '', external_sale_situation = 'test';
 
 !function() {
     var obj = $.ajax({
@@ -19,6 +19,12 @@ var api_root = "/v1/api/", dev = '', external_sale_situation = 'test';
     } else {
         external_sale_situation = 'production';
     }
+    loadCfg('platform.json', function (platform) {
+        if ('rc' === platform['platform']) {
+            domain = 'http://dev.yangaiche.com';
+            dev = '/develop';
+        }
+    });
 }();
 
 var default_header = function (request) {
@@ -71,7 +77,7 @@ var getReq = function (url, callBack, failureBack) {
         type: "GET",
         dataType: "json",
         timeout: 45 * 1000,
-        url: dev + api_root + url,
+        url: domain + dev + api_root + url,
         beforeSend: default_header,
         success: function (data) {
             if (data && data['code'] == '00000') {
@@ -107,7 +113,7 @@ var postReq = function (url, param, callBack, failureBack) {
         dataType: "json",
         contentType: "application/json",
         timeout: 45 * 1000,
-        url: dev + real_url,
+        url: domain + dev + real_url,
         data: JSON.stringify(param),
         beforeSend: default_header,
         success: function (data) {
@@ -135,7 +141,7 @@ var postChargeReq = function (url, param, callBack, failureBack) {
         dataType: "text",
         contentType: "application/json",
         timeout: 45 * 1000,
-        url: dev + api_root + url,
+        url: domain + dev + api_root + url,
         data: JSON.stringify(param),
         beforeSend: default_header,
         success: function (data) {
