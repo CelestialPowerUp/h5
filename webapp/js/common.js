@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2015/5/20.
  */
-var api_root = "/v1/api/", dev = '';
+var domain = '', api_root = "/v1/api/", dev = '';
 
 !function() {
     var obj = $.ajax({
@@ -17,6 +17,12 @@ var api_root = "/v1/api/", dev = '';
     } else if ('staging' === obj.responseJSON['thisis']) {
         dev = '/staging';
     }
+    loadCfg('platform.json', function (platform) {
+        if ('rc' === platform['platform']) {
+            domain = 'http://dev.yangaiche.com';
+            dev = '/develop';
+        }
+    });
 }();
 
 var default_header = function (request) {
@@ -87,7 +93,7 @@ var get_real_url = function (url) {
     if (url.indexOf('v2') >= 0) {
         real_url = url;
     }
-    return dev + real_url;
+    return domain + dev + real_url;
 };
 
 var getReq = function (url, callBack, failureBack) {
@@ -153,12 +159,14 @@ var postReq = function (url, param, callBack, failureBack) {
 };
 
 var postChargeReq = function (url, param, callBack, failureBack) {
+    var real_url = get_real_url(url);
+
     $.ajax({
         type: "POST",
         dataType: "text",
         contentType: "application/json",
         timeout: 45 * 1000,
-        url: dev + api_root + url,
+        url: real_url,
         data: JSON.stringify(param),
         beforeSend: default_header,
         success: function (data) {
