@@ -19,7 +19,8 @@ var domain = '', api_root = "/v1/api/", dev = '';
     }
     loadCfg('platform.json', function (platform) {
         if ('rc' === platform['platform']) {
-            domain = '/java/dev';
+            domain = 'http://dev.yangaiche.com';
+            dev = '/develop';
         }
     });
 }();

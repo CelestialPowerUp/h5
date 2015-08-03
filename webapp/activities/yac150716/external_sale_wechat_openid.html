@@ -11,8 +11,16 @@
 <script type="text/javascript">
     var host = get_host();
 
-    var situation = "production";
-    var appId = 'wxb78dc0eb87da0df9';
+    var situation = "test";
+    var appId = loadCfg('data.json', function(enviroment) {
+        if ('dev' === enviroment['thisis'] || 'staging' === enviroment['thisis']) {
+            situation = "test";
+            return 'wx6569a515e0c3e346';
+        } else {
+            situation = "production";
+            return 'wxb78dc0eb87da0df9';
+        }
+    });
 
     var platform = loadCfg('platform.json', function(platform) {
         return platform['platform'];
