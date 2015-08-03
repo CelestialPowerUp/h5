@@ -21,7 +21,7 @@ var domain = '', api_root = "/v1/api/", dev = '', external_sale_situation = 'tes
     }
     loadCfg('platform.json', function (platform) {
         if ('rc' === platform['platform']) {
-            domain = 'http://dev.yangaiche.com';
+            domain = '/java/rc';
             dev = '/develop';
         }
     });
