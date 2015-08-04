@@ -5,7 +5,7 @@
     if (t) {
         t(function () {
 
-            getStore().set('now_in', 'home_store');
+            getStore().set('now_in', 'home');
 
             function reset_phone() {
                 var user_phone = getUser()['phone'];
