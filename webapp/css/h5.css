@@ -1354,6 +1354,10 @@ body {
     background: #f1f1f1;
 }
 
+#banner img {
+    width: 100%;
+}
+
 #services {
     list-style-type: none;
 }
