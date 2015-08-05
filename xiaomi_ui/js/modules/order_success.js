@@ -82,6 +82,12 @@
                     }
                 });
             });
+
+            loadCfg('platform.json', function (platform) {
+                if ('xiaomi' === platform['platform'] || 'mirc' === platform['platform']) {
+                    t('#close_button').css('display', 'none');
+                }
+            });
         });
     }
 }(window.jQuery);
