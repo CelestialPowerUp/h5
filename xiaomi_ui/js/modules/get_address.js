@@ -80,10 +80,11 @@
         $("#locate_button").click(function () {
             location_info = location_info || {};
             location_info['name'] = location_info['name'] || '';
-            location_info['address'] = $('#search_input').val();
+            location_info['address'] = $('#search_input').val() || location_info['address'];
 
-            if ('' === location_info['address']) {
+            if (location_info['address'].match(/^\s*$/)) {
                 show_msg('地址不能为空');
+                return;
             }
 
             var param = {
