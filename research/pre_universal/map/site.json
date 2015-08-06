@@ -1,3 +1,29 @@
 {
-
+  "browser": [
+    {
+      "type": "yangaiche",
+      "userAgent": "yangaiche",
+      "moduleRoot": "yangaiche"
+    },
+    {
+      "type": "weixin",
+      "userAgent": "micromessenger",
+      "moduleRoot": "weixin"
+    },
+    {
+      "type": "alipay",
+      "userAgent": "miuiyellowpage",
+      "moduleRoot": "yangaiche"
+    },
+    {
+      "type": "xiaomi",
+      "userAgent": "miuiyellowpage",
+      "moduleRoot": "yangaiche"
+    },
+    {
+      "type": "normal",
+      "userAgent": "",
+      "moduleRoot": "yangaiche"
+    }
+  ]
 }
