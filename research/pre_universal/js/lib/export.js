@@ -48,20 +48,24 @@
 
     window[lib_name](load, function () {
         return function (url) {
-            $.cachedScript(url)
-                .done(function (script, textStatus, jqxhr) {
-                    console.log(script); // Script returned
-                    console.log(textStatus); // Success
-                    console.log(jqxhr.status); // 200
-                    console.log("Load was performed.");
-                })
-                .fail(function (jqxhr, settings, exception) {
-                    console.error(jqxhr);
-                    console.error(settings);
-                    console.error(exception);
-
-                    console.error("Triggered ajaxError handler.");
-                });
+            //$.cachedScript(url)
+            //    .done(function (script, textStatus, jqxhr) {
+            //        console.log(script); // Script returned
+            //        console.log(textStatus); // Success
+            //        console.log(jqxhr.status); // 200
+            //        console.log("Load was performed.");
+            //    })
+            //    .fail(function (jqxhr, settings, exception) {
+            //        console.error(jqxhr);
+            //        console.error(settings);
+            //        console.error(exception);
+            //
+            //        console.error("Triggered ajaxError handler.");
+            //    });
+            var head = document.getElementsByTagName('head')[0], script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            head.appendChild(script);
         };
     });
 

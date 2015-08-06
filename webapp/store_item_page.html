@@ -30,6 +30,10 @@
     </ul>
 </div>
 
+<div id="store-item-comments">
+
+</div>
+
 <footer id="store-item-footer">
     <a href="tel:400-0102-766">
         <img src="./img/kefu.png" />
@@ -65,6 +69,38 @@
         </div>
     </div>
     {{/this}}
+</script>
+
+<script type="text/x-handlebars-template" id="store_item_comment_tpl">
+    <div>用户评价</div>
+    <ul>
+        {{#each this}}
+        <li>
+            <hr>
+            <div>
+                <div class="comment-corner comment-user">{{comment_user_name}}</div>
+                <div class="comment-corner comment-time">{{create_time}}</div>
+            </div>
+            <p>{{comment_text}}</p>
+            <div>
+                <div class="comment-corner comment-service am-vertical-align">
+                    <img class="am-vertical-align-middle" src="./img/store_car.png" />
+                    <span class="am-vertical-align-middle">服务:</span>
+                    {{#each order_rating}}
+                    <img class="am-vertical-align-middle" src="./img/star.png" />
+                    {{/each}}
+                </div>
+                <div class="comment-corner comment-keeper am-vertical-align">
+                    <img class="am-vertical-align-middle" src="./img/store_keeper.png" />
+                    <span class="am-vertical-align-middle">管家:</span>
+                    {{#each keeper_rating}}
+                    <img class="am-vertical-align-middle" src="./img/star.png" />
+                    {{/each}}
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
 </script>
 
 <script type="text/javascript" src="./js/jquery.min.js"></script>

@@ -1519,7 +1519,7 @@ body {
     width: 100%;
 }
 
-#store-item-wrapper, #store-item-brief-intro, #store-item-price, #store-service-flow {
+#store-item-wrapper, #store-item-brief-intro, #store-item-price, #store-service-flow, #store-item-comments {
     width: 100%;
     background: #FFF;
 }
@@ -1600,7 +1600,6 @@ body {
     height: 266px;
     padding-left: 30px;
     margin-top: 14px;
-    margin-bottom: 90px;
     overflow: hidden;
 }
 
@@ -1661,6 +1660,73 @@ body {
     font-size: 34px;
     text-align: center;
     background: #FF6600;
+}
+
+#store-item-comments {
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 90px;
+}
+
+#store-item-comments>div {
+    height: 80px;
+    font-size: 30px;
+    color: #333;
+    line-height: 80px;
+    text-indent: 20px;
+}
+
+#store-item-comments ul li {
+    /*background: #555;*/
+}
+
+#store-item-comments ul li hr {
+    clear: both;
+    color: #CCC;
+    margin: 0 20px;
+}
+
+#store-item-comments p {
+    clear: both;
+    display: block;
+    font-size: 26px;
+    color: #333;
+    line-height: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.comment-corner {
+    height: 70px;
+    font-size: 24px;
+    color: #666;
+    line-height: 70px;
+}
+
+.comment-user {
+    float: left;
+    margin-left: 20px;
+}
+
+.comment-time {
+    float: right;
+    color: #999;
+    margin-right: 20px;
+}
+
+.comment-corner span {
+    font-size: 24px;
+    color: #666;
+}
+
+.comment-service {
+    float: left;
+    margin-left: 20px;
+}
+
+.comment-keeper {
+    float: right;
+    margin-right: 20px;
 }
 
 /* store item detail */
