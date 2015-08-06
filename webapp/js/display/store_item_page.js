@@ -39,7 +39,7 @@
                     product_ids += wp['product_id'];
                 });
 
-                getReq('v2/api/order/customer_comment/list.json?product_ids=' + product_ids, function(comment_data) {
+                getReq('/v2/api/order/customer_comment/list.json?product_ids=' + product_ids, function(comment_data) {
                     t.each(comment_data, function(i, d) {
                         d['order_rating'] = make_array(d['order_rating']);
                         d['keeper_rating'] = make_array(d['keeper_rating']);
