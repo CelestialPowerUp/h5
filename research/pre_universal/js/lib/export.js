@@ -1,43 +1,30 @@
-/**
- * Created by caols on 8/5/15.
- */
+// lib objects
+var yangaiche;
+
+// default modules
+var local_storage = 'local_storage';
+var load = 'load';
+var browser_type = 'browser_type';
+
 !function ($) {
-
-    $.cachedScript = function (url, options) {
-        // Allow user to set any option except for dataType, cache, and url
-        options = $.extend(options || {}, {
-            dataType: "script",
-            cache: true,
-            url: url
-        });
-
-        // Use $.ajax() since it is more flexible than $.getScript
-        // Return the jqXHR object so we can chain callbacks
-        return $.ajax(options);
-    };
 
     function exist(callback) {
         return callback !== undefined && callback !== null;
     }
 
-    var lib_name = 'yangaiche';
-    var runtime_obj = 'yangaiche_obj';
-    var local_storage = 'local_storage';
-    var load = 'load';
-
-    window[runtime_obj] = {};
-    window[lib_name] = function (name, callback, params) {
+    var runtime_obj = {};
+    yangaiche = function (name, callback, params) {
         if (exist(callback)) {
-            window[runtime_obj][name] = callback(params);
+            runtime_obj[name] = callback(params);
         }
-        if (exist(window[runtime_obj][name])) {
-            return window[runtime_obj][name];
+        if (exist(runtime_obj[name])) {
+            return runtime_obj[name];
         } else {
-            console.error(lib_name + ' can not be done with "' + name + '" & "' + callback + '" & "' + params + '" ');
+            console.error('yangaiche can not be done with "' + name + '" & "' + callback + '" & "' + params + '" ');
         }
     };
 
-    window[lib_name](local_storage, function () {
+    yangaiche(local_storage, function () {
         var store = $.AMUI.store;
         if (!store.enabled) {
             console.error('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
@@ -46,49 +33,60 @@
         return store;
     });
 
-    window[lib_name](load, function () {
+    if (![].includes) {
+        Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
+            'use strict';
+            var O = Object(this);
+            var len = parseInt(O.length) || 0;
+            if (len === 0) {
+                return false;
+            }
+            var n = parseInt(arguments[1]) || 0;
+            var k;
+            if (n >= 0) {
+                k = n;
+            } else {
+                k = len + n;
+                if (k < 0) {k = 0;}
+            }
+            var currentElement;
+            while (k < len) {
+                currentElement = O[k];
+                if (searchElement === currentElement ||
+                    (searchElement !== searchElement && currentElement !== currentElement)) {
+                    return true;
+                }
+                k++;
+            }
+            return false;
+        };
+    }
+
+    yangaiche(load, function () {
+        var loaded = [];
         return function (url) {
-            //$.cachedScript(url)
-            //    .done(function (script, textStatus, jqxhr) {
-            //        console.log(script); // Script returned
-            //        console.log(textStatus); // Success
-            //        console.log(jqxhr.status); // 200
-            //        console.log("Load was performed.");
-            //    })
-            //    .fail(function (jqxhr, settings, exception) {
-            //        console.error(jqxhr);
-            //        console.error(settings);
-            //        console.error(exception);
-            //
-            //        console.error("Triggered ajaxError handler.");
-            //    });
-            var head = document.getElementsByTagName('head')[0], script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = url;
-            head.appendChild(script);
+            if (!loaded.includes(url)) {
+                var head = document.getElementsByTagName('head')[0], script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+                head.appendChild(script);
+                loaded.push(url);
+            }
         };
     });
 
-    //window[lib_name](browser_type, function () {
-    //    return function (url) {
-    //        $.cachedScript(url)
-    //            .done(function (script, textStatus, jqxhr) {
-    //                console.log(script); // Script returned
-    //                console.log(textStatus); // Success
-    //                console.log(jqxhr.status); // 200
-    //                console.log("Load was performed.");
-    //            })
-    //            .fail(function (jqxhr, settings, exception) {
-    //                console.error(jqxhr);
-    //                console.error(settings);
-    //                console.error(exception);
-    //
-    //                console.error("Triggered ajaxError handler.");
-    //            });
-    //    };
-    //});
+    yangaiche(browser_type, function () {
+        var type = null;
+        return function () {
+            if (!type) {
+                var ua = window.navigator.userAgent.toLowerCase();
+                return ua;
+            }
+        };
+    });
 
     window.location.href.replace(/\/.*\/(.*?)\.html/, function (sth, filename) {
-        window[runtime_obj][load]('./js/default/' + filename + '.js');
+        yangaiche(load)('./js/default/' + filename + '.js');
+        alert(yangaiche(browser_type)());
     });
 }(window.jQuery);
