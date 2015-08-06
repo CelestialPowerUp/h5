@@ -3,5 +3,5 @@
  */
 !function(exportor, runtime) {
     runtime['local_storage'].set('a', 'a is b.');
-    alert(runtime['local_storage'].get('a'));
+    console.log(runtime['local_storage'].get('a'));
 } (window.yangaiche, window.yangaiche_obj);
