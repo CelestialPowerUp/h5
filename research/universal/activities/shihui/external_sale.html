@@ -1,0 +1,250 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>养爱车</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../pubcss/amazeui.min.css">
+    <style>
+        .msg_info {
+            position: absolute;
+            bottom: 50px;
+            margin: 0 auto;
+            color: #FE7B2E;
+        }
+    </style>
+</head>
+<body style="background-color: #f1f1f1;">
+<p class="am-form-help msg_info" id="msg" style="padding-left: 10px;padding-top: 5px;"></p>
+<img src="img/external_sale_shihui_page_ele_1.png" style="margin: 28px 95px 0 95px;">
+<img src="img/external_sale_shihui_page_ele_2.png" style="margin: 24px 36px 0 36px;">
+<img src="../pubimg/external_sale_page_ele_3.png" style="margin: 24px 115px 0 115px;">
+<input id="phone" type="tel" class="am-form-field"
+       style="margin: 16px 40px;font-size: 30px;color: #666666;border-radius: 8px;width: 560px;height: 86px;"
+       placeholder="您的手机号">
+
+<div class="am-cf" style="margin: 0 40px;">
+    <input id="verify_code" type="tel" class="am-form-field am-fl"
+           style="margin-right: 16px;font-size: 30px;color: #666666;border-radius: 8px;width: 328px;height: 86px;"
+           placeholder="验证码">
+    <button id="verify_button" type="button" class="am-btn am-fl"
+            style="background-color: #f4d5c1;color: #ff6600;font-size: 30px;border-radius: 8px;width: 214px;height: 86px;">
+        获取验证码
+    </button>
+</div>
+<button id="login_button" type="button" class="am-btn"
+        style="margin: 24px 40px 24px 40px;background-color: #ff6600;color: #ffffff;font-size: 30px;border-radius: 8px;width: 560px;height: 88px;">
+    马上领取
+</button>
+<img src="../pubimg/external_sale_page_ele_4.png" style="margin: 0 36px;">
+<img src="img/external_sale_shihui_page_ele_5.png" style="margin: 24px 36px;">
+<img src="../pubimg/external_sale_page_ele_6.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_7.png" style="margin: 24px 36px;">
+<img src="../pubimg/external_sale_page_ele_8.png" style="margin: 0 191px;">
+<br>
+<a href="tel:400-0102-766" id="contact-us">
+    <img src="../pubimg/external_sale_page_phone_icon.png">
+    <div class="am-vertical-align" style="height: 40px;display: inline-block;">
+        <span class="am-vertical-align-middle" style="font-size: 36px;font-family: Arial;color: #666666;"><u>400-0102-766</u></span>
+    </div>
+</a>
+<img src="../pubimg/external_sale_page_ele_16.png" style="margin: 24px 36px 0 36px;">
+<img src="../pubimg/external_sale_page_ele_17.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_18.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_19.png" style="margin: 0 36px;">
+<img src="../pubimg/external_sale_page_ele_20.png" style="margin: 0 36px;">
+<script type="text/javascript" src="../pubjs/jquery.min.js"></script>
+<script type="text/javascript" src="../pubjs/amazeui.min.js"></script>
+<script type="text/javascript" src="../pubjs/common.js"></script>
+<script type="text/javascript">!function (t) {
+    if (t) {
+        t(function () {
+
+
+            //////location v ///////
+            // 获取位置坐标
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+         
+                var lat=position.coords.latitude;
+                var lon=position.coords.longitude;
+
+                getStore().set('lat', lat);
+                getStore().set('lon', lon);
+
+                },function(error){
+                switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                        console.log("您拒绝了我们访问您的位置");
+                        break;
+                        case error.POSITION_UNAVAILABLE:
+                            {
+                                alert('位置信息不可用');
+                          console.log("位置信息不可用");
+                            }
+                        break;
+                        case error.TIMEOUT:
+                          console.log("定位超时");
+                        break;
+                        case error.UNKNOWN_ERROR:
+                        console.log("发生未知错误");
+                        break;
+                    }
+
+                });
+            }
+
+           
+            //////location ^ ///////
+
+            t('body').on('touchstart', function () {
+            });
+
+            var tel_link = t('#contact-us');
+            tel_link.css('margin-left', ((640 - tel_link.width()) / 2) + 'px');
+
+            var is_weixin = function isWeiXin(){
+                var ua = window.navigator.userAgent.toLowerCase();
+                return ua.match(/MicroMessenger/i);
+            }();
+
+            function pay(id) {
+
+                getStore().set('activity_record_id', id);
+                getStore().set('subject', '养爱车-19.9元 洗车+打蜡+上门接车');
+                getStore().set('success_url', '/activities/3/external_sale_pay_success.html');
+                getStore().set('cancel_url', '/activities/3/external_sale_pay_fail.html');
+
+                window.location.href = '../../external_sale_pay.html';
+
+            }
+
+            function create_order(){
+
+                //TODO 下单
+                postReq('activity_record/create', { activity_code: getStore().get('external_sale_activity_code') }, function (data) {
+                    //TODO
+
+                    pay(data['activity_record_id']);
+
+
+                }, function(data) {
+                    var cation = './external_sale_youre_late.html';
+                    if ('20101' === data['code']) {
+                        alert("验证信息失败,请尝试刷新重试");
+                    }
+                    if('20102' === data['code']){
+                        cation = './external_sale_you_areadydone.html';
+                    }
+                    window.location.href = cation;
+                    reset_button("login_button");
+                });
+            }
+
+            function to_pay() {
+
+                var store = getStore();
+
+                //入口
+                var param = {phone: store.get('external_sale_phone_number'), verify_code: store.get('external_sale_verify_code'), sign_origin: "dida_activity"};
+                postReq("car_user/sign_up.json", param, function (data) {
+
+                    updateUser(data);
+
+                    create_order();
+
+                }, function (data) {
+                    reset_button("login_button");
+                    show_msg(data['message'])
+                });
+            }
+
+            if (getReqParam()['topay']) {
+                t('body').css('display', 'none');
+                to_pay();
+            } else {
+
+                // 检查是否过期
+                var activity_code = getReqParam()['code'];
+                getReq('activity/is_valid?code=' + activity_code, function (data) {
+                    if (data['code'] === activity_code) {
+                        if (data['status'] === false) {
+                            window.location.href = './external_sale_youre_late.html';
+                        }
+                    }
+                    getStore().set('external_sale_activity_code', activity_code);
+                },function(data){
+                    window.location.href = './external_sale_youre_late.html';
+                });
+
+            }
+
+            var start_timer_controll = function (value) {
+                if (typeof(t("#verify_button")) === 'undefined') {
+                    return;
+                }
+                t("#verify_button").text(value);
+                if (value === 0) {
+                    t("#verify_button").text("获取验证码");
+                    reset_button("verify_button");
+                    return;
+                }
+                setTimeout(function () {
+                    return start_timer_controll(value - 1);
+                }, 1000);
+            };
+
+            t("#verify_button").click(function () {
+                disable_button("verify_button");
+                var phone_number = t("#phone").val();
+                if (phone_number === "") {
+                    show_msg("请输入手机号码获取验证码");
+                    reset_button("verify_button");
+                    return;
+                }
+                if (!phone_number.match(/^\d{11}$/)) {
+                    show_msg("请输入正确的手机号码获取验证码");
+                    reset_button("verify_button");
+                    return;
+                }
+                getReq("sign_verify_code.json/" + phone_number, function (data) {
+                    start_timer_controll(60);
+                }, function (data) {
+                    reset_button("verify_button");
+                    show_msg(data['message'])
+                });
+            });
+
+            t("#login_button").click(function () {
+                disable_button("login_button");
+                var phone_number = t("#phone").val();
+                var verify_code = t("#verify_code").val();
+                if (phone_number === "" || verify_code === "") {
+                    show_msg("手机号码与验证码均不能为空");
+                    reset_button("login_button");
+                    return;
+                }
+
+                var store = getStore();
+                store.set('external_sale_phone_number', phone_number);
+                store.set('external_sale_verify_code', verify_code);
+
+                if (is_weixin && !store.get('external_sale_wechat_openid')) {
+                    window.location.href = './external_sale_wechat_openid.html';
+                } else {
+                    to_pay();
+                }
+            });
+        });
+    }
+}(window.jQuery)</script>
+<script type="text/javascript" src="http://js.tongji.linezing.com/3599107/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3599107/tongji.gif"/></a></noscript>
+</body>
+</html>
