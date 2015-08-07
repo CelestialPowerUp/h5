@@ -39,15 +39,17 @@
                     product_ids += wp['product_id'];
                 });
 
-                getReq('/v2/api/order/customer_comment/list.json?product_ids=' + product_ids, function(comment_data) {
+                getReq('/v2/api/order/service_comment_list.json?product_ids=' + product_ids, function(comment_data) {
                     t.each(comment_data, function(i, d) {
                         d['order_rating'] = make_array(d['order_rating']);
                         d['keeper_rating'] = make_array(d['keeper_rating']);
                         d['create_time'] = d['create_time'].substr(0, (4+2+1+2+1));
                     });
 
-                    var tpl = Handlebars.compile(t("#store_item_comment_tpl").text());
-                    t('#store-item-comments').empty().html(tpl(comment_data));
+                    if (comment_data.length > 0) {
+                        var tpl = Handlebars.compile(t("#store_item_comment_tpl").text());
+                        t('#store-item-comments').empty().html(tpl(comment_data));
+                    }
 
                     var total_height = 0;
                     t.each(t('#store-item-comments ul li'), function(i, l) {

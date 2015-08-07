@@ -642,13 +642,21 @@ body {
 }
 
 .order-list-flow-btn {
+    float: right;
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 0 auto;
     height: 35px;
     font-size: 14px;
     background-color: #FFFFFF;
     border-radius: 8px;
     color: #09be00;
     border-color: #09be00;
-    padding: 0;
+}
+
+.gray_button {
+    color: #666;
+    border-color: #666;
 }
 
 /* login */
@@ -1630,7 +1638,6 @@ body {
     height: 133px;
     padding-left: 15px;
     margin-top: 7px;
-    margin-bottom: 45px;
     overflow: hidden;
 }
 
@@ -1698,6 +1705,81 @@ body {
     background: #FF6600;
 }
 
+#store-item-comments {
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 45px;
+}
+
+#store-item-comments > div {
+    height: 40px;
+    font-size: 15px;
+    color: #333;
+    line-height: 40px;
+    text-indent: 10px;
+}
+
+#store-item-comments ul li {
+    /*background: #555;*/
+}
+
+#store-item-comments ul li hr {
+    clear: both;
+    color: #CCC;
+    margin: 0 10px;
+}
+
+#store-item-comments p {
+    clear: both;
+    display: block;
+    font-size: 13px;
+    color: #333;
+    line-height: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.comment-corner {
+    height: 35px;
+    font-size: 12px;
+    color: #666;
+    line-height: 35px;
+}
+
+.comment-user {
+    float: left;
+    margin-left: 10px;
+}
+
+.comment-time {
+    float: right;
+    color: #999;
+    margin-right: 10px;
+}
+
+.comment-corner span {
+    font-size: 12px;
+    color: #666;
+}
+
+.comment-service {
+    float: left;
+    margin-left: 10px;
+}
+
+.comment-service img {
+    width: 13px;
+}
+
+.comment-keeper {
+    float: right;
+    margin-right: 10px;
+}
+
+.comment-keeper img {
+    width: 13px;
+}
+
 /* store item detail */
 
 #store-item-detail-wrapper {
@@ -1726,4 +1808,51 @@ body {
 
 #store-item-detail-wrapper img {
     width: 100%;
+}
+
+/* order comment */
+.order-comment-header {
+    width: 100%;
+    height: 7px;
+    background: #f1f1f1;
+}
+
+.order-comment-rate {
+    width: 100%;
+    height: 85px;
+    padding: 11px 10px;
+}
+
+.star-group {
+    width: 100%;
+    height: 31px;
+}
+
+.star-group span {
+    font-size: 14px;
+    color: #333;
+    margin-right: 8px;
+}
+
+.star-group img {
+    margin-right: 5px;
+    width: 16px;
+}
+
+.order-comment-text {
+    margin: 0 10px 20px 10px;
+}
+
+.order-comment-text textarea {
+    width: 100%;
+    height: 75px;
+    padding: 15px 10px;
+    font-size: 12px;
+    color: #999;
+    border: 1px solid #ccc;
+    -webkit-appearance: none;
+}
+
+.order-comment-button-div {
+    margin: 0 10px 20px 10px;
 }
