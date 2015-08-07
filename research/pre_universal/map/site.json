@@ -12,18 +12,18 @@
     },
     {
       "type": "alipay",
-      "userAgent": "miuiyellowpage",
-      "moduleRoot": "yangaiche"
+      "userAgent": "alipayclient",
+      "moduleRoot": "alipay"
     },
     {
       "type": "xiaomi",
       "userAgent": "miuiyellowpage",
-      "moduleRoot": "yangaiche"
+      "moduleRoot": "xiaomi"
     },
     {
       "type": "normal",
       "userAgent": "",
-      "moduleRoot": "yangaiche"
+      "moduleRoot": "normal"
     }
   ]
 }
