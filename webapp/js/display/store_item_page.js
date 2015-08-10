@@ -39,8 +39,10 @@
                     product_ids += wp['product_id'];
                 });
 
-                getReq('/v2/api/order/service_comment_list.json?product_ids=' + product_ids, function(comment_data) {
-                    t.each(comment_data, function(i, d) {
+                var page = 1, total_page = 0, page_size = 10;
+
+                getReq('/v2/api/order/service_comment_list.json?page='+page+'&page_size='+page_size+'&product_ids=' + product_ids, function(comment_data) {
+                    t.each(comment_data['items'], function(i, d) {
                         d['order_rating'] = make_array(d['service_rating']);
                         d['keeper_rating'] = make_array(d['keeper_rating']);
                         d['create_time'] = d['create_time'].substr(0, (4+2+1+2+1));
@@ -48,7 +50,51 @@
 
                     if (comment_data.length > 0) {
                         var tpl = Handlebars.compile(t("#store_item_comment_tpl").text());
-                        t('#store-item-comments').empty().html(tpl(comment_data));
+                        t('#store-item-comments').empty().html(tpl(comment_data['items']));
+
+                        var startY;
+                        page = parseInt(comment_data['cur_page']) + 1;
+                        total_page = parseInt(comment_data['total_page']);
+
+                        t('body').hammer().on('panstart', function(e) {
+                            startY = e['gesture']['pointers'][0]['pageY'];
+                        });
+
+                        t('body').hammer().on('panend', function(e) {
+                            var endY = e['gesture']['pointers'][0]['pageY'];
+                            if (endY > startY) {
+                                getReq('/v2/api/order/service_comment_list.json?total_page='+total_page+'&page='+page+'&page_size='+page_size+'&product_ids=' + product_ids, function(comment_data) {
+                                    t.each(comment_data, function(i, d) {
+                                        d['order_rating'] = make_array(d['service_rating']);
+                                        d['keeper_rating'] = make_array(d['keeper_rating']);
+                                        d['create_time'] = d['create_time'].substr(0, (4+2+1+2+1));
+                                    });
+
+                                    if (comment_data.length > 0) {
+                                        var tpl = Handlebars.compile(t("#store_item_comment_tpl").text());
+                                        t('#store-item-comments').empty().html(tpl(comment_data));
+
+                                        page = parseInt(comment_data['cur_page']) + 1;
+                                        total_page = parseInt(comment_data['total_page']);
+                                    } else {
+                                        show_msg('没有更多评论了! ');
+                                        return;
+                                    }
+
+                                    var total_height = 0;
+                                    t.each(t('#store-item-comments ul li'), function(i, l) {
+                                        var list = t(l);
+                                        var height = (list.children('p').eq(0).height() + 70 * 2);
+                                        total_height += height;
+                                        list.css('height', height + 'px');
+                                    });
+                                    t('#store-item-comments ul').height(total_height);
+                                }, function(error) {
+                                    show_msg(error['message']);
+                                });
+                            }
+                            startY = 36500;
+                        });
                     }
 
                     var total_height = 0;
