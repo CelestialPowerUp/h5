@@ -17,7 +17,7 @@ yangaiche(ls.location.touch, function() {
         var order = yangaiche(ls.order.touch);
         var location = order[ls.location.location_info];
         if (!yangaiche(sys.exist)(location)) {
-            // TODO : 似乎不需要加一个空数组在这里
+            // TODO : 似乎不需要加一个空对象在订单对象里
             return {};
         }
         return location;

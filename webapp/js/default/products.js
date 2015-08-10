@@ -22,7 +22,7 @@ yangaiche(ls.products.touch, function() {
         var order = yangaiche(ls.order.touch);
         var products = order[ls.products.products_info];
         if (!yangaiche(sys.exist)(products)) {
-            // TODO : 似乎不需要加一个空数组在这里
+            // TODO : 似乎不需要加一个空数组在订单对象里
             return [];
         }
         return products;
