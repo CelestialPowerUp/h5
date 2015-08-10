@@ -44,7 +44,7 @@ yangaiche(sys.load_module, function () {
     var browser = yangaiche(sys.browser_type);
     console.log(browser);
     return function (name) {
-        yangaiche(sys.load)('./js/' + browser.module_root + '/' + name + '.js');
+        yangaiche(sys.load)('./js/' + browser.module_root + '/' + name + '.js', {});
     };
 });
 
@@ -52,6 +52,6 @@ yangaiche(sys.load_default_module, function () {
     var browser = yangaiche(sys.browser_type);
     console.log(browser);
     return function (name) {
-        yangaiche(sys.load)('./js/default/' + name + '.js');
+        yangaiche(sys.load)('./js/default/' + name + '.js', {});
     };
 });
