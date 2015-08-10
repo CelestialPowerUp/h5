@@ -2,6 +2,7 @@ yangaiche(sys.load_default_module)('repository', {});
 
 ls.order = {
     touch: 'order_touch',
+    set: 'order_set',
     update: 'order_update',
     clear: 'order_clear',
     order_info: 'order_info'
@@ -19,10 +20,18 @@ yangaiche(ls.order.touch, function () {
     };
 });
 
-yangaiche(ls.order.update, function () {
+yangaiche(ls.order.set, function () {
     return function (order) {
         yangaiche(sys.local_storage).set(ls.order.order_info, order);
     };
+});
+
+yangaiche(ls.order.update, function () {
+    return function(callback) {
+        var order = yangaiche(ls.order.touch)();
+        callback(order);
+        yangaiche(ls.order.set)(order);
+    }
 });
 
 yangaiche(ls.order.clear, function () {
