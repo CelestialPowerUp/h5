@@ -1,15 +1,17 @@
-yangaiche()
+yangaiche(sys.load_default_module)('repository', {});
+yangaiche(sys.load_default_module)('user', {});
 
-var http = {
+app.http = {
     get_host: 'get_host',
     get_request: 'get_request',
     post_request: 'post_request',
     post_charge_request: 'post_charge_request'
 };
 
-yangaiche(http.get_host, function () {
+yangaiche(app.http.get_host, function () {
     return function () {
         var host;
+        // TODO : data.json是否也可以带上md5签名。
         var thisis = $.ajax({
             url: 'data.json',
             cache: true,
@@ -34,21 +36,18 @@ yangaiche(http.get_host, function () {
 var timeout = 45 * 1000;
 
 function get_real_url(url) {
-    return yangaiche(http.get_host) + url;
+    return yangaiche(app.http.get_host) + url;
 }
 
 function default_header(request) {
     request.setRequestHeader("Accept-Encoding", 'gzip');
-    request.setRequestHeader("API-Client-Device-Type", loadCfg('platform.json', function (platform) {
-        return conditionalReturn(platform);
-    }));
-    var user = getStore().get("user_info");
-    if (typeof(user) !== 'undefined' && user !== null) {
+    request.setRequestHeader("API-Client-Device-Type", yangaiche(sys.browser_type));
+    yangaiche(ls.user.module_name).if_exist(function(user) {
         request.setRequestHeader("API-Access-Token", user.token);
-    }
+    });
 }
 
-yangaiche(http.get_request, function () {
+yangaiche(app.http.get_request, function () {
     return function (url, callBack, failureBack) {
         var real_url = get_real_url(url);
 
@@ -70,14 +69,14 @@ yangaiche(http.get_request, function () {
                     }
                 }
             },
-            error: function (xhr, status, error) {
+            error: function (xhr, status) {
                 console.log("服务器失败 status : " + status);
             }
         });
     };
 });
 
-yangaiche(http.post_request, function () {
+yangaiche(app.http.post_request, function () {
     return function (url, param, callBack, failureBack) {
         var real_url = get_real_url(url);
 
@@ -102,14 +101,14 @@ yangaiche(http.post_request, function () {
                     }
                 }
             },
-            error: function (xhr, status, error) {
+            error: function (xhr, status) {
                 console.log("服务器失败 status : " + status);
             }
         });
     };
 });
 
-yangaiche(http.post_charge_request, function () {
+yangaiche(app.http.post_charge_request, function () {
     return function (url, param, callBack, failureBack) {
         var real_url = get_real_url(url);
 
