@@ -5,7 +5,8 @@ var yangaiche;
 var sys = {
     exist: 'exist',
     local_storage: 'local_storage',
-    load: 'load'
+    load: 'load',
+    $: '$'
 };
 
 function exist(obj) {
@@ -27,7 +28,7 @@ yangaiche = function (name, callback, params) {
     }
 };
 
-yangaiche(sys.exist, function() {
+yangaiche(sys.exist, function () {
     return exist;
 });
 
@@ -71,42 +72,46 @@ if (![].includes) {
     };
 }
 
-jQuery.cachedScript = function (url, options) {
+yangaiche(sys.$, function () {
+    jQuery.cachedScript = function (url, options) {
 
-    // Allow user to set any option except for dataType, cache, and url
-    options = $.extend(options || {}, {
-        dataType: "script",
-        cache: true,
-        url: url
-    });
+        // Allow user to set any option except for dataType, cache, and url
+        options = $.extend(options || {}, {
+            dataType: "script",
+            cache: true,
+            url: url
+        });
 
-    // Use $.ajax() since it is more flexible than $.getScript
-    // Return the jqXHR object so we can chain callbacks
-    return jQuery.ajax(options);
-};
+        // Use $.ajax() since it is more flexible than $.getScript
+        // Return the jqXHR object so we can chain callbacks
+        return jQuery.ajax(options);
+    };
+
+    return jQuery;
+});
 
 yangaiche(sys.load, function () {
     var loaded = [];
     return function (url, enable_sync_mode) {
         if (!loaded.includes(url)) {
             if (exist(enable_sync_mode)) {
-                console.log('start sync mode ['+url+']');
-                jQuery.cachedScript(url, {async: false})
+                console.log('start sync mode [' + url + ']');
+                yangaiche(sys.$).cachedScript(url, {async: false})
                     .done(function () {
                         loaded.push(url);
                     })
                     .fail(function () {
                     });
-                console.log('end sync mode ['+url+']');
+                console.log('end sync mode [' + url + ']');
             } else {
-                console.log('start async mode ['+url+']');
-                jQuery.cachedScript(url, {async: true})
+                console.log('start async mode [' + url + ']');
+                yangaiche(sys.$).cachedScript(url, {async: true})
                     .done(function () {
                         loaded.push(url);
                     })
                     .fail(function () {
                     });
-                console.log('end async mode ['+url+']');
+                console.log('end async mode [' + url + ']');
             }
         }
     };
