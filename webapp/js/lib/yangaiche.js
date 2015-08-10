@@ -3,6 +3,7 @@ var yangaiche;
 
 // default modules
 var sys = {
+    exist: 'exist',
     local_storage: 'local_storage',
     load: 'load'
 };
@@ -25,6 +26,10 @@ yangaiche = function (name, callback, params) {
         console.error('yangaiche can not be done with "' + name + '" & "' + callback + '" & "' + params + '" ');
     }
 };
+
+yangaiche(sys.exist, function() {
+    return exist;
+});
 
 yangaiche(sys.local_storage, function () {
     var store = $.AMUI.store;
