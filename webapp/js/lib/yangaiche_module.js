@@ -1,6 +1,7 @@
 sys.site_config = 'site_config';
 sys.browser_type = 'browser_type';
 sys.load_module = 'load_module';
+sys.load_default_module = 'load_default_module';
 
 yangaiche(sys.site_config, function () {
     var site_config = null;
@@ -44,5 +45,13 @@ yangaiche(sys.load_module, function () {
     console.log(browser);
     return function (name) {
         yangaiche(sys.load)('./js/' + browser.module_root + '/' + name + '.js');
+    };
+});
+
+yangaiche(sys.load_default_module, function () {
+    var browser = yangaiche(sys.browser_type);
+    console.log(browser);
+    return function (name) {
+        yangaiche(sys.load)('./js/default/' + name + '.js');
     };
 });
