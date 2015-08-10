@@ -9,7 +9,7 @@ var sys = {
 };
 
 function exist(obj) {
-    return obj !== undefined && obj !== null;
+    return typeof obj !== 'undefined' && obj !== null;
 }
 
 var runtime_obj = {};
