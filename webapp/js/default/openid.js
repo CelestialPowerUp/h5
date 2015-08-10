@@ -5,6 +5,7 @@ ls.openid = {
     login_by_opencode: 'login_by_opencode',
     before_login: 'before_login',
     after_login: 'after_login',
+    
     open_id: 'open_id',
     page_before_login: 'page_before_login'
 };
