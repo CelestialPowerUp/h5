@@ -41,7 +41,7 @@
 
                 getReq('/v2/api/order/service_comment_list.json?product_ids=' + product_ids, function(comment_data) {
                     t.each(comment_data, function(i, d) {
-                        d['order_rating'] = make_array(d['order_rating']);
+                        d['order_rating'] = make_array(d['service_rating']);
                         d['keeper_rating'] = make_array(d['keeper_rating']);
                         d['create_time'] = d['create_time'].substr(0, (4+2+1+2+1));
                     });
