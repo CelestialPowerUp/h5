@@ -1,0 +1,68 @@
+<!doctype html><!--[if lte IE 9]>
+<html class="lte9 no-js m"><![endif]--><!--[if gt IE 9]><!-->
+<html class="no-js m"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640px, user-scalable=no;">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit">
+    <title>下单成功</title>
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./css/amazeui.min.css">
+    <link rel="stylesheet" href="./css/h5.css">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/handlebars.min.js"></script>
+    <script type="text/javascript" src="./js/amazeui.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://a.alipayobjects.com/u/ecmng/js/201410/3fzyLyZl9J.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/router.js"></script>
+</head>
+<body class="body-background-color-gray">
+<div class="order-success-div" id="info_view">
+    <!--基本信息-->
+
+</div>
+
+<div class="normal-bottom-btn-div">
+    <button type="button" id="pay_button" class="am-btn am-btn-success am-btn-block new-bottom-button" style="display: none;">
+        支付
+    </button>
+    <button type="button" id="close_button" class="am-btn am-btn-success am-btn-block new-bottom-button">
+        关闭
+    </button>
+</div>
+
+<script type="text/x-handlebars-template" id="info-tpl">{{#this}}
+<img src="img/success.png" class="order-success-img">
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <div class="auto-center order-success-success-font">恭喜您，下单成功</div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <div class="auto-center order-success-success-info">
+            <hr data-am-widget="divider" class="am-divider am-divider-default"/>
+            订单号：{{number}}
+        </div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <div class="auto-center order-success-success-info">
+            <div>未付金额：¥<span id="total_price">{{total_price}}</span></div>
+            <hr data-am-widget="divider" class="am-divider am-divider-default" style="margin: 5px 0px;"/>
+            <p class="am-form-help order-success-help">稍后我们的客服会与你联系</p>
+        </div>
+    </div>
+</div>
+{{/this}}</script>
+<script type="text/javascript" src="./js/pingpp_pay.js"></script>
+<script type="text/javascript" src="./js/modules/order_success.js"></script>
+</body>
+</html>

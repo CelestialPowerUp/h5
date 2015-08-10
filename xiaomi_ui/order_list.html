@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="renderer" content="webkit">
+    <meta name="renderer" content="webkit">     <meta name="format-detection" content="telephone=no">
     <title>订单列表</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -59,15 +59,13 @@
         </div>
     </div>
     <hr data-am-widget="divider" class="am-divider am-divider-default hr-pd margin-0"/>
-    <div class="am-g order-list-item-content2 body-background-color-white am-vertical-align">
-        <div class="am-vertical-align-middle order-list-item-content2-width">
-            <div class="am-u-sm-8"></div>
-            <div class="am-u-sm-4 order-list-item-content2-right-padding">
-                <button onclick="order_flow('{{id}}');" class="am-btn am-btn-success am-btn-block order-list-flow-btn">
-                    订单流程
-                </button>
-            </div>
-        </div>
+    <div class="order-list-item-content2 body-background-color-white">
+        <button data-rel="{{id}}" class="am-btn am-btn-success order-list-flow-btn order-comment-btn {{gray_button}}">
+            评价
+        </button>
+        <button onclick="order_flow('{{id}}');" class="am-btn am-btn-success order-list-flow-btn">
+            订单流程
+        </button>
     </div>
 </div>
 {{/each}}</script>

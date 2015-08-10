@@ -1,6 +1,8 @@
 /**
  * Created by caols on 7/27/15.
  */
+check_reload_cmd();
+
 var save_now_location = function() {
     getStore().set('now_scroll_top', document.body.scrollTop);
 };
@@ -30,6 +32,9 @@ var init_data = function () {
             item.total_price = data[i].total_price;
             item.place_time = format_time(data[i].place_time);
             item.status = data[i].status;
+            if (data[i].client_feedback['if_feedback_committed'] || data[i]['order_status_key'] !== 'complete') {
+                item.gray_button = 'gray_button';
+            }
             items.push(item);
         }
         console.log(items);
@@ -41,6 +46,13 @@ var init_data = function () {
             getStore().remove('now_scroll_top');
         }
 
-        //bind_openid();
+        $('.order-comment-btn').bind('click', function() {
+            if ($(this).hasClass('gray_button')) {
+                return;
+            }
+
+            save_now_location();
+            window.location.href = './order_comment.html?order_id='+$(this).attr('data-rel');
+        });
     });
 };

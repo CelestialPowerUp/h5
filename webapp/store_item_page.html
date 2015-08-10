@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no;"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="renderer" content="webkit">
+    <meta name="renderer" content="webkit">     <meta name="format-detection" content="telephone=no">
     <title>商品详情</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,6 +28,10 @@
         <li><img src="./img/3_.png" />车管家按时接车并完成服务项目</li>
         <li><img src="./img/4_.png" />车管家按约定按时还车</li>
     </ul>
+</div>
+
+<div id="store-item-comments">
+
 </div>
 
 <footer id="store-item-footer">
@@ -65,6 +69,38 @@
         </div>
     </div>
     {{/this}}
+</script>
+
+<script type="text/x-handlebars-template" id="store_item_comment_tpl">
+    <div>用户评价</div>
+    <ul>
+        {{#each this}}
+        <li>
+            <hr>
+            <div>
+                <div class="comment-corner comment-user">{{comment_user_name}}</div>
+                <div class="comment-corner comment-time">{{create_time}}</div>
+            </div>
+            <p>{{comment_text}}</p>
+            <div>
+                <div class="comment-corner comment-service am-vertical-align">
+                    <img class="am-vertical-align-middle" src="./img/store_car.png" />
+                    <span class="am-vertical-align-middle">服务:</span>
+                    {{#each order_rating}}
+                    <img class="am-vertical-align-middle" src="./img/star.png" />
+                    {{/each}}
+                </div>
+                <div class="comment-corner comment-keeper am-vertical-align">
+                    <img class="am-vertical-align-middle" src="./img/store_keeper.png" />
+                    <span class="am-vertical-align-middle">管家:</span>
+                    {{#each keeper_rating}}
+                    <img class="am-vertical-align-middle" src="./img/star.png" />
+                    {{/each}}
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
 </script>
 
 <script type="text/javascript" src="./js/jquery.min.js"></script>
