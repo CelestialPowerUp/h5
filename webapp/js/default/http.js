@@ -1,5 +1,6 @@
 yangaiche(sys.load_default_module)('repository', {});
 yangaiche(sys.load_default_module)('user', {});
+yangaiche(sys.load_default_module)('openid', {});
 
 app.http = {
     get_host: 'get_host',
@@ -61,7 +62,7 @@ yangaiche(app.http.get_request, function () {
                 if (data && data['code'] == '00000') {
                     callBack(data['data']);
                 } else if (data && data['code'] === '20007') {
-
+                    yangaiche(ls.openid.login_by_opencode)();
                 } else {
                     console.log(data['message']);
                     if (failureBack) {
