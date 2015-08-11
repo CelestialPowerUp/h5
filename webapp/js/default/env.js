@@ -21,7 +21,7 @@ yangaiche(app.env.get, function() {
 yangaiche(app.env.do_sth, function() {
 	return function(sth, params) {
 		sth[yangaiche(app.env.get)](params);
-	}
+	};
 });
 
 yangaiche(app.env.get_host, function () {
