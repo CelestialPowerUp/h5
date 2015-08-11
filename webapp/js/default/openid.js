@@ -3,7 +3,7 @@ yangaiche(ls.load_default_module)('back', {});
 
 ls.openid = {
     login_by_opencode: 'login_by_opencode',
-    before_login: 'before_login',
+    show_login_win: 'show_login_win',
     after_login: 'after_login',
     
     open_id: 'open_id',
@@ -19,10 +19,11 @@ yangaiche(ls.openid.login_by_opencode, function () {
     };
 });
 
-yangaiche(ls.openid.before_login, function () {
+yangaiche(ls.openid.show_login_win, function () {
     return function () {
         var url = yangaiche(sys.local_storage).get(ls.openid.page_before_login);
         window.history.replaceState(null, null, url);
+        window.location.href = "./login.html";
     };
 });
 

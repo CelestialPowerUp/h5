@@ -33,9 +33,9 @@ if (reqParam['code']) {
         yangaiche(ls.user.set)(data);
         yangaiche(ls.openid.after_login)(-3);
     }, function (data) {
-        getStore().set("open_id", data.data);
+        yangaiche(sys.local_storage).set(ls.openid.open_id, data.data);
         if (data && data['code'] == '10007') {
-            show_login_win();
+            yangaiche(ls.openid.show_login_win)();
         }
     });
     app.open_id_init.to_snsapi = false;
