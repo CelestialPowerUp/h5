@@ -8,9 +8,13 @@ ls.back = {
 };
 
 yangaiche(ls.back.go_back_to_reload, function () {
-    return function () {
+    return function (num) {
         yangaiche(sys.local_storage).set(ls.back.to_reload, ls.back.to_reload_value);
-        window.history.back();
+        if (yangaiche(sys.exist)(num) && typeof num === 'number' && num < 0) {
+            window.history.go(num);
+        } else {
+            window.history.back();
+        }
     };
 });
 
