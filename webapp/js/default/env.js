@@ -1,7 +1,7 @@
 yangaiche(sys.load_default_module)('repository', {});
 
 app.env = {
-	get: 'get_env'
+	get: 'get_env',
 	do_sth: 'do_sth_by_env'
 };
 
@@ -13,7 +13,7 @@ yangaiche(app.env.get, function() {
 	        async: false,
 	        dataType: 'json'
 	    });
-	    return cfg.thisis;
+	    return cfg['responseJSON']['thisis'];
 	}();
 });
 

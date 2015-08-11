@@ -1,49 +1,73 @@
 yangaiche(sys.load_default_module)('repository', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('openid', {});
+yangaiche(sys.load_default_module)('env', {});
 
 app.http = {
     get_host: 'get_host',
+    get_api_root: 'get_api_root',
     get_request: 'get_request',
     post_request: 'post_request',
     post_charge_request: 'post_charge_request'
 };
 
 yangaiche(app.http.get_host, function () {
+    // 如需转义，请使用encodeURIComponent方法，对应的方法是decodeURIComponent
     return function () {
-        var host;
-        // TODO : data.json是否也可以带上md5签名。
-        var thisis = $.ajax({
-            url: 'data.json',
-            cache: true,
-            async: false,
-            dataType: 'json'
+        var host = null;
+
+        yangaiche(app.env.do_sth)({
+            dev: function() {
+                host = 'dev.yangaiche.com/developer/';
+            },
+            staging: function() {
+                host = 'dev.yangaiche.com/stage/';
+            },
+            product: function() {
+                host = 'pay.yangaiche.com/';
+            }
         });
-        if ('dev' === thisis['responseJSON']['thisis']) {
-            host = 'dev.yangaiche.com%2Fdeveloper%2F';
-        } else if ('staging' === thisis['responseJSON']['thisis']) {
-            host = 'dev.yangaiche.com%2Fstage%2F';
-        } else {
-            host = 'pay.yangaiche.com%2F';
-        }
+
         if (host.indexOf(window.location.host) >= 0) {
             return host;
         }
-        host = window.location.host + '%2Fh5%2F';
+
+        host = window.location.host + '/h5/';
         return host;
+    }();
+});
+
+yangaiche(app.http.get_api_root, function() {
+    return function () {
+        var api_root = '';
+
+        yangaiche(app.env.do_sth)({
+            dev: function() {
+                api_root = '/develop';
+            },
+            staging: function() {
+                api_root = '/staging';
+            },
+            product: function() {
+                api_root = '';
+            }
+        });
+
+        return api_root;
     }();
 });
 
 var timeout = 45 * 1000;
 
 function get_real_url(url) {
-    return yangaiche(app.http.get_host) + url;
+    // 所有Ajax后端服务请求都需要'/'开头
+    return yangaiche(app.http.get_api_root) + url;
 }
 
 function default_header(request) {
     request.setRequestHeader("Accept-Encoding", 'gzip');
     request.setRequestHeader("API-Client-Device-Type", yangaiche(sys.browser_type));
-    yangaiche(ls.user.module_name).if_exist(function(user) {
+    yangaiche(ls.user.if_exist)(function(user) {
         request.setRequestHeader("API-Access-Token", user.token);
     });
 }
