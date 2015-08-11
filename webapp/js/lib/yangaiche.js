@@ -92,15 +92,20 @@ yangaiche(sys.$, function () {
 
 yangaiche(sys.load, function () {
     var loaded = [];
+    // 两个特性：1. 同步异步加载的标示是第二个参数，存在就是同步，不存在就是异步；也就是随便传个{}代表要同步加载。
+    // 2. 对于同步加载，可以返回true代表加载成功，false代表加载失败；对于异步加载，总是返回null；可以使用sys.exist判断为null。
     return function (url, enable_sync_mode) {
         if (!loaded.includes(url)) {
+            var result = null;
             if (exist(enable_sync_mode)) {
                 console.log('start sync mode [' + url + ']');
                 yangaiche(sys.$).cachedScript(url, {async: false})
                     .done(function () {
                         loaded.push(url);
+                        result = true;
                     })
-                    .fail(function () {
+                    .fail(function (jqxhr) {
+                        result = jqxhr.status === 404 ? false : null;
                     });
                 console.log('end sync mode [' + url + ']');
             } else {
@@ -113,6 +118,7 @@ yangaiche(sys.load, function () {
                     });
                 console.log('end async mode [' + url + ']');
             }
+            return result;
         }
     };
 });
