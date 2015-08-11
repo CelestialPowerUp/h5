@@ -70,9 +70,16 @@
                     t('#store-item-comments ul').height(total_height);
                 }
 
+                var active = true;
+
                 function load_more() {
+                    var progress = $.AMUI.progress;
+                    progress.start();
+                    active = false;
                     getReq('/v2/api/order/service_comment/page_list.json?total_size=' + total_size + '&page=' + page + '&page_size=' + page_size + '&product_ids=' + product_ids, function (comment_data) {
                         load_suc(comment_data);
+                        progress.done();
+                        active = true;
                     }, function (error) {
                         show_msg(error['message']);
                     });
@@ -81,16 +88,18 @@
                 getReq('/v2/api/order/service_comment/page_list.json?page=' + page + '&page_size=' + page_size + '&product_ids=' + product_ids, function (comment_data) {
                     load_suc(comment_data, function () {
                         t("body").hammer().on('panend', function () {
-                            var $this = t(this),
-                                viewH = t(window).height(),//可见高度
-                                contentH = $this.get(0).scrollHeight,//内容高度
-                                scrollTop = $this.scrollTop();//滚动高度
-                            if (scrollTop / (contentH - viewH) >= 0.95) { //快到达底部时,加载新内容
-                                // 这里加载数据..
-                                if (real_total_size === total_size) {
-                                    show_msg('没有更多评论了! ');
-                                } else {
-                                    setTimeout(load_more, 1);
+                            if (active) {
+                                var $this = t(this),
+                                    viewH = t(window).height(),//可见高度
+                                    contentH = $this.get(0).scrollHeight,//内容高度
+                                    scrollTop = $this.scrollTop();//滚动高度
+                                if (scrollTop / (contentH - viewH) >= 0.95) { //快到达底部时,加载新内容
+                                    // 这里加载数据..
+                                    if (real_total_size === total_size) {
+                                        show_msg('没有更多评论了! ');
+                                    } else {
+                                        setTimeout(load_more, 1);
+                                    }
                                 }
                             }
                         });
