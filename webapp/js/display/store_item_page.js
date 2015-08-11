@@ -41,7 +41,7 @@
 
                 var page = 1, total_page = 0, page_size = 10;
 
-                getReq('/v2/api/order/service_comment_list.json?page='+page+'&page_size='+page_size+'&product_ids=' + product_ids, function(comment_data) {
+                getReq('/v2/api/order/service_comment/page_list.json?page='+page+'&page_size='+page_size+'&product_ids=' + product_ids, function(comment_data) {
                     t.each(comment_data['items'], function(i, d) {
                         d['order_rating'] = make_array(d['service_rating']);
                         d['keeper_rating'] = make_array(d['keeper_rating']);
@@ -63,7 +63,7 @@
                         t('body').hammer().on('panend', function(e) {
                             var endY = e['gesture']['pointers'][0]['pageY'];
                             if (endY > startY) {
-                                getReq('/v2/api/order/service_comment_list.json?total_page='+total_page+'&page='+page+'&page_size='+page_size+'&product_ids=' + product_ids, function(comment_data) {
+                                getReq('/v2/api/order/service_comment/page_list.json?total_page='+total_page+'&page='+page+'&page_size='+page_size+'&product_ids=' + product_ids, function(comment_data) {
                                     t.each(comment_data, function(i, d) {
                                         d['order_rating'] = make_array(d['service_rating']);
                                         d['keeper_rating'] = make_array(d['keeper_rating']);
