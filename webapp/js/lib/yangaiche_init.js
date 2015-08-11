@@ -1,4 +1,4 @@
-yangaiche(sys.load)('./js/lib/yangaiche_module.js', {});
+yangaiche(sys.load)('js/lib/yangaiche_module.js', {});
 yangaiche(sys.load_default_module)('viewport', {});
 
 yangaiche(app.viewport.set)();
