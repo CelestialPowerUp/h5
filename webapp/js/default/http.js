@@ -12,7 +12,9 @@ app.http = {
 
 yangaiche(app.http.get_api_root, function() {
     return function () {
-        var api_root = '';
+        var api_root = '', fn = function() {
+            api_root = '';
+        };
 
         yangaiche(app.env.do_sth)({
             dev: function() {
@@ -21,9 +23,8 @@ yangaiche(app.http.get_api_root, function() {
             staging: function() {
                 api_root = '/staging';
             },
-            product: function() {
-                api_root = '';
-            }
+            product: fn,
+            local: fn
         });
 
         return api_root;

@@ -117,7 +117,7 @@ yangaiche(sys.load, function () {
         var exist = yangaiche(sys.exist);
         var enable_sync_mode_flag = exist(enable_sync_mode);
         if (exist(map)) {
-            if (exist(map[url]['uri'])) {
+            if (exist(map[url])) {
                 url = map[url]['uri'];
             } else {
                 return enable_sync_mode_flag ? false : null;
