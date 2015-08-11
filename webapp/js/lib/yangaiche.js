@@ -138,4 +138,4 @@ yangaiche(sys.load, function () {
     };
 });
 
-yangaiche(sys.load)('./js/lib/yangaiche_init.js');
+yangaiche(sys.load)('js/lib/yangaiche_init.js');
