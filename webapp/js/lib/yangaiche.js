@@ -6,7 +6,8 @@ var sys = {
     exist: 'exist',
     local_storage: 'local_storage',
     load: 'load',
-    $: '$'
+    $: '$',
+    init: 'init'
 };
 
 function exist(obj) {
@@ -88,6 +89,13 @@ yangaiche(sys.$, function () {
     };
 
     return jQuery;
+});
+
+yangaiche(sys.init, function() {
+    return function(callback) {
+        var $ = yangaiche(sys.$);
+        $(callback($));
+    };
 });
 
 yangaiche(sys.load, function () {
