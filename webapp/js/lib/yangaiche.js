@@ -112,9 +112,10 @@ yangaiche(sys.load, function () {
     return function (url, enable_sync_mode) {
         if (!loaded.includes(url)) {
             var result = null;
+            var uri = map[url]['uri'];
             if (exist(enable_sync_mode)) {
-                console.log('start sync mode [' + map[url] + ']');
-                yangaiche(sys.$).cachedScript(map[url], {async: false})
+                console.log('start sync mode [' + uri + ']');
+                yangaiche(sys.$).cachedScript(uri, {async: false})
                     .done(function () {
                         loaded.push(url);
                         result = true;
@@ -122,16 +123,16 @@ yangaiche(sys.load, function () {
                     .fail(function (jqxhr) {
                         result = jqxhr.status === 404 ? false : null;
                     });
-                console.log('end sync mode [' + map[url] + ']');
+                console.log('end sync mode [' + uri + ']');
             } else {
-                console.log('start async mode [' + map[url] + ']');
-                yangaiche(sys.$).cachedScript(map[url], {async: true})
+                console.log('start async mode [' + uri + ']');
+                yangaiche(sys.$).cachedScript(uri, {async: true})
                     .done(function () {
                         loaded.push(url);
                     })
                     .fail(function () {
                     });
-                console.log('end async mode [' + map[url] + ']');
+                console.log('end async mode [' + uri + ']');
             }
             return result;
         }
