@@ -4,38 +4,11 @@ yangaiche(sys.load_default_module)('openid', {});
 yangaiche(sys.load_default_module)('env', {});
 
 app.http = {
-    get_host: 'get_host',
     get_api_root: 'get_api_root',
     get_request: 'get_request',
     post_request: 'post_request',
     post_charge_request: 'post_charge_request'
 };
-
-yangaiche(app.http.get_host, function () {
-    // 如需转义，请使用encodeURIComponent方法，对应的方法是decodeURIComponent
-    return function () {
-        var host = null;
-
-        yangaiche(app.env.do_sth)({
-            dev: function() {
-                host = 'dev.yangaiche.com/developer/';
-            },
-            staging: function() {
-                host = 'dev.yangaiche.com/stage/';
-            },
-            product: function() {
-                host = 'pay.yangaiche.com/';
-            }
-        });
-
-        if (host.indexOf(window.location.host) >= 0) {
-            return host;
-        }
-
-        host = window.location.host + '/h5/';
-        return host;
-    }();
-});
 
 yangaiche(app.http.get_api_root, function() {
     return function () {
