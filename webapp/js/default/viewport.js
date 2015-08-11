@@ -6,10 +6,10 @@ app.viewport = {
 
 yangaiche(app.viewport.set, function () {
     function get_initial_scale() {
-        return 640 / window.screen.availWidth;
+        return window.screen.availWidth / 640;
     }
 
     return function () {
-        document.head.write('<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no;">');
+        yangaiche(sys.$)('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no;">');
     };
 });
