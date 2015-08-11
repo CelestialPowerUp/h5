@@ -215,7 +215,7 @@ var arrToJson = function (arr) {
 var getStore = function () {
     var store = $.AMUI.store;
     if (!store.enabled) {
-        console.log('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
+        alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
         return null;
     }
     return store
