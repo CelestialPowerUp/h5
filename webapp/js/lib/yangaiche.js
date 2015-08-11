@@ -101,7 +101,7 @@ yangaiche(sys.init, function() {
 yangaiche(sys.load, function () {
     var loaded = [];
     var map = $.ajax({
-        url: './map/env.json',
+        url: './map.json',
         cache: false,
         async: false,
         dataType: 'json'
