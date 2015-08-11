@@ -10,6 +10,6 @@ yangaiche(app.viewport.set, function () {
     }
 
     return function () {
-        yangaiche(sys.$)('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no;">');
+        yangaiche(sys.$)('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no">');
     };
 });
