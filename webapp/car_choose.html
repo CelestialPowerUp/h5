@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px, user-scalable=no;">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="renderer" content="webkit">     <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no">
     <title>添加车辆</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,33 +19,33 @@
 <div id="scroller"></div>
 
 <script type="text/x-handlebars-template" id="brand_list_tpl">
-{{#each this}}
-<div>
+    {{#each this}}
+    <div>
 
-    <div class="my-list-set-hd-wrapper am-vertical-align">
-        <div class="my-list-set-hd am-vertical-align-middle">
-            {{{section}}}
+        <div class="my-list-set-hd-wrapper am-vertical-align">
+            <div class="my-list-set-hd am-vertical-align-middle">
+                {{{section}}}
+            </div>
         </div>
-    </div>
 
-    <ul class="am-list my-car-choose-list">
-        {{#each main}}
-        <li class="my-list-item">
-            <a href="./car_choose2.html?brand={{brand_type}}">
-                <div class="my-list-height am-vertical-align">
-                    <div class="am-vertical-align-middle">
-                        <img class="my-thumb-icon" src="{{img_url}}" alt="我是汽车图标"/>
+        <ul class="am-list my-car-choose-list">
+            {{#each main}}
+            <li class="my-list-item">
+                <a href="./car_choose2.html?brand={{brand_type}}">
+                    <div class="my-list-height am-vertical-align">
+                        <div class="am-vertical-align-middle">
+                            <img class="my-thumb-icon" src="{{img_url}}" alt="我是汽车图标"/>
+                        </div>
+                        <div class="my-list-item-hd am-vertical-align-middle">
+                            {{{brand_name}}}
+                        </div>
                     </div>
-                    <div class="my-list-item-hd am-vertical-align-middle">
-                        {{{brand_name}}}
-                    </div>
-                </div>
-            </a>
-        </li>
-        {{/each}}
-    </ul>
-</div>
-{{/each}}
+                </a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/each}}
 </script>
 
 <script type="text/javascript" src="./js/lib/jquery.min.js"></script>
