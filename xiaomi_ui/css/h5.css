@@ -1856,3 +1856,14 @@ body {
 .order-comment-button-div {
     margin: 0 10px 20px 10px;
 }
+
+/* nprogress */
+#nprogress .nprogress-bar {
+    height: 5px;
+    bottom: 45px;
+    top: auto;
+}
+
+#nprogress .nprogress-peg {
+    display: none;
+}
