@@ -1,13 +1,9 @@
-yangaiche(sys.load_default_module)('repository', {});
 yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('user', {});
+yangaiche(sys.load_default_module)('duplicate_submission', {});
 
 yangaiche(sys.init)(function(t) {
-    t('#phone').on('click', function() {
-        t(this).focus();
-    });
-
     var user_mobile = yangaiche(sys.local_storage).get(ls.user.user_phone);
     if (yangaiche(sys.exist)(user_mobile)) {
         t('#phone').val(user_mobile);
@@ -43,7 +39,7 @@ yangaiche(sys.init)(function(t) {
             show_msg("请输入正确的手机号码获取验证码");
             return;
         }
-        yangaiche(app.http.get_request)("sign_verify_code.json/" + phone_number, function (data) {
+        yangaiche(app.http.get_request)("/v1/api/sign_verify_code.json/" + phone_number, function (data) {
             disable_button("#verify_button");
             start_timer_controll(60);
         }, function (data) {
@@ -62,7 +58,7 @@ yangaiche(sys.init)(function(t) {
             return;
         }
         var param = {phone: phone_number, verify_code: verify_code, sign_origin: yangaiche(sys.browser_type).type};
-        yangaiche(app.http.post_request)("car_user/sign_up.json", param, function (data) {
+        yangaiche(app.http.post_request)("/v1/api/car_user/sign_up.json", param, function (data) {
             yangaiche(ls.user.set)(data);
             yangaiche(ls.openid.bind)();
             yangaiche(ls.openid.after_login)();

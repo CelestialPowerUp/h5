@@ -29,7 +29,7 @@ app.open_id_init.reqParam = yangaiche(app.url_parameter);
 app.open_id_init.to_snsapi = true;
 if (reqParam['code']) {
     // TODO : get还是post啦?
-    yangaiche(app.http.get_request)("/v1/api/login_by_wx_code.json?code=" + app.open_id_init.reqParam['code'] + "&situation=" + app.open_id_init.situation, {}, function (data) {
+    yangaiche(app.http.post_request)("/v1/api/login_by_wx_code.json?code=" + app.open_id_init.reqParam['code'] + "&situation=" + app.open_id_init.situation, {}, function (data) {
         yangaiche(ls.user.set)(data);
         yangaiche(ls.openid.after_login)(-3);
     }, function (data) {
