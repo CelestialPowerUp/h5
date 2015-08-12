@@ -1,6 +1,8 @@
 yangaiche(sys.load_default_module)('repository', {});
 yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('show_msg', {});
+yangaiche(sys.load_default_module)('user', {});
+yangaiche(sys.load_default_module)('parameter', {});
 
 yangaiche(sys.init)(function(t) {
     var device_width = t(window).width();
@@ -16,9 +18,7 @@ yangaiche(sys.init)(function(t) {
     yangaiche(app.http.get_request)('/v2/api/store/home_ware_list.json', function(data) {
 
         var square = t(window).width() / 2 - 30;
-        console.log(square);
         var img_height = (square / 290 * 196);
-        console.log(img_height);
 
         var to_move_index = null, to_append_data = null;
         t.each(data, function(i, d) {
@@ -41,31 +41,54 @@ yangaiche(sys.init)(function(t) {
         var tpl = Handlebars.compile(t("#home_store_list_tpl").text());
         t('.home-page-wrapper').append(tpl(data));
 
-        !function() {
-            var product_title = t('.products-title');
-            product_title.css('height', (device_width / 640 * 60) + 'px');
-            product_title.css('margin-top', (device_width / 640 * 20) + 'px');
+        var product_title = t('.products-title');
+        product_title.css('height', (device_width / 640 * 60) + 'px');
+        product_title.css('margin-top', (device_width / 640 * 20) + 'px');
 
-            var square_wrapper = t('.home-page-products li a');
-            square_wrapper.css('height', square + 'px');
-            var text_height = (square / 290 * 38);
-            console.log(text_height);
-            var text_wrapper = t('.home-page-products-text');
-            text_wrapper.css('height', text_height + 'px');
-            text_wrapper.css('line-height', text_height + 'px');
-            var image_wrapper = t('.home-page-products li a div:first-child');
-            image_wrapper.css('height', img_height + 'px');
-            var margin = (square / 290 * 9);
-            t('.home-page-products-title').css('margin-top', margin + 'px');
-            t('.home-page-products-price').css('margin-down', margin + 'px');
+        var square_wrapper = t('.home-page-products li a');
+        square_wrapper.css('height', square + 'px');
+        var text_height = (square / 290 * 38);
+        var text_wrapper = t('.home-page-products-text');
+        text_wrapper.css('height', text_height + 'px');
+        text_wrapper.css('line-height', text_height + 'px');
+        var image_wrapper = t('.home-page-products li a div:first-child');
+        image_wrapper.css('height', img_height + 'px');
+        var margin = (square / 290 * 9);
+        t('.home-page-products-title').css('margin-top', margin + 'px');
+        t('.home-page-products-price').css('margin-down', margin + 'px');
 
-            t.each(t('.home-page-products'), function(i, l) {
-                var list = t(l);
-                list.css('height', (parseInt((list.children('li').length + 1) / 2) * (square + 20)) + 'px');
-            });
-        } ();
+        t.each(t('.home-page-products'), function(i, l) {
+            var list = t(l);
+            list.css('height', (parseInt((list.children('li').length + 1) / 2) * (square + 20)) + 'px');
+        });
 
     }, function(error) {
         yangaiche(app.show_msg.show)(error['message']);
+    });
+
+    function reset_phone() {
+        var user_phone = yangaiche(ls.user.touch)[ls.user.user_phone];
+        if (11 === user_phone.length) {
+            t('#user_phone').html(user_phone.substr(0, 3) + '****' + user_phone.substr(7, 4));
+        }
+    }
+
+    if (yangaiche(app.url_parameter)['back']) {
+        t('#user-win').offCanvas('open');
+        reset_phone();
+    }
+
+    t('#to_show_user_win').click(function () {
+        reset_phone();
+    });
+
+    t('#user-win').on('close.offcanvas.amui', function () {
+        window.history.replaceState(null, null, "./store.html");
+    }).on('open.offcanvas.amui', function () {
+        window.history.replaceState(null, null, "./store.html?back=true");
+    });
+
+    t('#footer_close').click(function(e) {
+        t('#footer').css('display', 'none');
     });
 });

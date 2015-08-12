@@ -5,7 +5,9 @@ ls.user = {
     if_exist: 'if_user_exist',
     set: 'user_set',
     touch: 'user_touch',
-    user_info: 'user_info'
+
+    user_info: 'user_info',
+    user_phone: 'phone'
 };
 
 yangaiche(ls.user.if_exist, function () {
