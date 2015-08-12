@@ -220,7 +220,7 @@ yangaiche(sys.init)(function(t) {
     if (exist(order['coupon_id'])) {
         t('#use_coupon').children('div').html(order['coupon_name']);
     } else {
-        getReq('/v1/api/coupons?user_id=' + getUser()['user_id'], function (data) {
+        getReq('/v1/api/coupons?user_id=' + user['user_id'], function (data) {
             var len = 0;
             t.each(data, function (i, coupon) {
                 if ("未使用" === coupon.status) {
@@ -235,7 +235,7 @@ yangaiche(sys.init)(function(t) {
         set_order(order);
     }
 
-    postReq('order_preview', {
+    postReq('/v1/api/order_preview', {
         car_model_type: order['car_model_type'],
         coupon_id: order['coupon_id'],
         products: order['products'],
