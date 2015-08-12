@@ -12,6 +12,9 @@ cp -a $1/webapp/* $1/tmp/ &&
 cp -a $1/enviroment/$2/* $1/tmp/map/ &&
 echo "done.." &&
 
+if [ -e $1/$3 ]; then
+    rm -rf $1/$3/
+fi
 mkdir -p $1/$3 &&
 fis release -comp -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-conf.js" -d $1/$3 -D &&
 
