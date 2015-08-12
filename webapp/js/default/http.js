@@ -39,8 +39,8 @@ function get_real_url(url) {
 }
 
 function default_header(request) {
-    request.setRequestHeader("Accept-Encoding", 'gzip');
-    request.setRequestHeader("API-Client-Device-Type", yangaiche(sys.browser_type));
+    //request.setRequestHeader("Accept-Encoding", 'gzip');
+    request.setRequestHeader("API-Client-Device-Type", yangaiche(sys.browser_type).type);
     yangaiche(ls.user.if_exist)(function(user) {
         request.setRequestHeader("API-Access-Token", user.token);
     });
