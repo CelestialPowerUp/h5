@@ -9,7 +9,7 @@ ls.location = {
 };
 
 yangaiche(ls.location.map, function() {
-
+    return {};
 });
 
 yangaiche(ls.location.touch, function() {
@@ -27,7 +27,7 @@ yangaiche(ls.location.touch, function() {
 yangaiche(ls.location.set, function() {
     return function (location) {
         yangaiche(ls.order.update)(function(order) {
-            order[ls.location.location_info] = location;
+            order[ls.location.location_info] = location || order[ls.location.location_info];
         });
     };
 });

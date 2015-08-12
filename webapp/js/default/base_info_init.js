@@ -62,9 +62,10 @@ yangaiche(sys.init)(function(t) {
     t('#submit_button').html(submitText);
 
     var order = yangaiche(ls.order.touch)(), user = yangaiche(ls.user.touch);
+    yangaiche(app.form.from_obj)(order);
 
     function preview_order() {
-        postReq('order_preview', {
+        postReq('/v1/api/order_preview', {
             car_model_type: order['car_model_type'],
             coupon_id: order['coupon_id'],
             products: order['products'],
@@ -131,8 +132,6 @@ yangaiche(sys.init)(function(t) {
         window.location.href = './my_address_manage.html';
     });
 
-    yangaiche(app.form.from_obj)(order);
-
     var auto_get_location = function () {
         disable_button('#submit_button');
 
@@ -165,7 +164,7 @@ yangaiche(sys.init)(function(t) {
     };
 
     //获取接车时间
-    getReq("time_segments.json?service_type=keeper", function (data) {
+    getReq("/v1/api/time_segments.json?service_type=keeper", function (data) {
         var time_data = [];
 
         for (var a = 0; a < data.length; a++) {
@@ -189,6 +188,8 @@ yangaiche(sys.init)(function(t) {
         };
         selectApicktime();
         t("#pick_time_info").change(selectApicktime);
+    }, function(error) {
+        show_msg(error['message']);
     });
 
     if (t("#phone_number").val() === "") {
@@ -219,7 +220,7 @@ yangaiche(sys.init)(function(t) {
     if (exist(order['coupon_id'])) {
         t('#use_coupon').children('div').html(order['coupon_name']);
     } else {
-        getReq('coupons?user_id=' + getUser()['user_id'], function (data) {
+        getReq('/v1/api/coupons?user_id=' + getUser()['user_id'], function (data) {
             var len = 0;
             t.each(data, function (i, coupon) {
                 if ("未使用" === coupon.status) {

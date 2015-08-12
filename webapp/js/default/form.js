@@ -19,13 +19,13 @@ yangaiche(app.form.from_obj, function () {
     var t = yangaiche(sys.$), exist = yangaiche(sys.exist);
     return function(obj) {
         for (var key in Object.keys(obj)) {
-            if (typeof(data[key]) === 'function') {
+            if (typeof(obj[key]) === 'function') {
                 continue;
             }
             var tag = t('#' + key);
             if (exist(tag)) {
-                tag.val(data[key]);
+                tag.val(obj[key]);
             }
         }
-    }
+    };
 });
