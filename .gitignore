@@ -10,3 +10,5 @@ h5-production
 */platform.json
 */activities/*/data.json
 */activities/*/platform.json
+webapp/map/env.json
+h5-local
