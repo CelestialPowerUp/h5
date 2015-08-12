@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <script type="text/javascript" src="./js/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/lib/amazeui.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
-</head>
-<body>
-<script type="text/javascript">
+yangaiche(sys.load_default_module)('repository', {});
+yangaiche(sys.load_default_module)('env', {});
+
+yangaiche(sys.init)(function(t) {
 //    var bought_time = new Date().toString().replace('年', '-').replace('月', '-').replace('日 GMT+8', 'T'), y = 0, m = 0;
 //    alert(bought_time);
 //    bought_time.replace(/(\d{4})-(\d+)-\d{2}/g, function(a, year, month) {
@@ -30,12 +23,10 @@
 
 //    alert(window.navigator.userAgent.toLowerCase());
 
-    var store = getStore();
+    var store = yangaiche(sys.local_storage);
     store.clear();
     alert('已清空本地存储');
-//
-//    var host = get_host();
-//    alert(host.replace(/%2F/g, '/'));
-</script>
-</body>
-</html>
+
+    var host = yangaiche(app.env.get_host);
+    alert(host);
+});
