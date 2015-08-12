@@ -29,7 +29,7 @@
     <ul class="am-list my-list">
         {{#each this}}
         <!--缩略图在标题左边-->
-        <li class="my-list-line" onclick="item_click_handler({{car_id}})">
+        <li class="my-list-line" data-rel="{{car_id}}">
             <div class="carinfo-btn am-vertical-align car-manager-clickable" data-rel="{{car_id}}">
                 <div class="am-vertical-align-middle">
                     <img src="{{img_url}}" class="my-thumb-icon">

@@ -7,6 +7,7 @@ ls.user = {
     touch: 'user_touch',
 
     user_info: 'user_info',
+    user_id: 'user_id',
     user_phone: 'phone'
 };
 

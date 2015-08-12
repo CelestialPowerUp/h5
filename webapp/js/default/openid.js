@@ -1,10 +1,12 @@
 yangaiche(sys.load_default_module)('repository', {});
 yangaiche(sys.load_default_module)('back', {});
 yangaiche(sys.load_default_module)('env', {});
+yangaiche(sys.load_default_module)('http', {});
 
 ls.openid = {
     login_by_opencode: 'login_by_opencode',
     show_login_win: 'show_login_win',
+    bind: 'bind_openid',
     after_login: 'after_login',
     get_redirect_uri: 'get_redirect_uri',
     
@@ -17,8 +19,8 @@ ls.openid = {
 
 yangaiche(ls.openid.login_by_opencode, function () {
     return function () {
-        var now_page = window.location.href;
-        yangaiche(sys.local_storage).set(ls.openid.page_before_login, now_page);
+        var url = window.location.href;
+        yangaiche(sys.local_storage).set(ls.openid.page_before_login, url);
         window.history.replaceState(null, null, url);
         window.location.href = "./open_id.html";
     };
@@ -29,6 +31,25 @@ yangaiche(ls.openid.show_login_win, function () {
         var url = yangaiche(sys.local_storage).get(ls.openid.page_before_login);
         window.history.replaceState(null, null, url);
         window.location.href = "./login.html";
+    };
+});
+
+yangaiche(ls.openid.bind, function () {
+    return function () {
+        var open_id = yangaiche(sys.local_storage).get(ls.openid.open_id);
+        if (!yangaiche(sys.exist)(open_id)) {
+            return false;
+        }
+
+        var param = {
+            openid: open_id,
+            open_type: yangaiche(sys.browser_type).type
+        };
+        yangaiche(app.http.post_request)('/v1/api/openid_bind.json', param, function () {
+            console.log('绑定openID成功');
+        }, function (data) {
+            console.log('绑定openID失败: ' + data['message']);
+        });
     };
 });
 

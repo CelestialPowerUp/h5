@@ -2,6 +2,7 @@ yangaiche(sys.load_default_module)('repository', {});
 
 app.show_msg = {
     show: 'show_msg',
+
     html: '{{#this}}<div id="{{msg}}" style="width: 100%; height: 50px; font-size: 22px; line-height: 25px; margin-left: 20px;">{{msg}}</div>{{/this}}'
 };
 
