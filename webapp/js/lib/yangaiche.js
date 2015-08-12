@@ -73,6 +73,38 @@ if (![].includes) {
     };
 }
 
+if (![].remove) {
+    Array.prototype.remove = function (searchElement /*, fromIndex*/) {
+        'use strict';
+        var O = Object(this);
+        var len = parseInt(O.length) || 0;
+        if (len === 0) {
+            return true;
+        }
+        var n = parseInt(arguments[1]) || 0;
+        var k;
+        if (n >= 0) {
+            k = n;
+        } else {
+            k = len + n;
+            if (k < 0) {
+                k = 0;
+            }
+        }
+        var currentElement;
+        while (k < len) {
+            currentElement = O[k];
+            if (searchElement === currentElement ||
+                (searchElement !== searchElement && currentElement !== currentElement)) {
+                O.splice(k, 1);
+                return true;
+            }
+            k++;
+        }
+        return true;
+    };
+}
+
 yangaiche(sys.$, function () {
     jQuery.cachedScript = function (url, options) {
 
@@ -91,8 +123,8 @@ yangaiche(sys.$, function () {
     return jQuery;
 });
 
-yangaiche(sys.init, function() {
-    return function(callback) {
+yangaiche(sys.init, function () {
+    return function (callback) {
         var $ = yangaiche(sys.$);
         $(callback($));
     };
@@ -100,6 +132,8 @@ yangaiche(sys.init, function() {
 
 yangaiche(sys.load, function () {
     var loaded = [];
+    console.log(loaded);
+
     var map = $.ajax({
         url: './map.json',
         cache: false,
@@ -124,25 +158,32 @@ yangaiche(sys.load, function () {
             }
         }
         if (!loaded.includes(url)) {
+            loaded.push(url);
             var result = null;
             if (enable_sync_mode_flag) {
                 console.log('start sync mode [' + url + ']');
                 yangaiche(sys.$).cachedScript(url, {async: false})
                     .done(function () {
-                        loaded.push(url);
                         result = true;
                     })
                     .fail(function (jqxhr) {
-                        result = jqxhr.status === 404 ? false : null;
+                        var err404 = jqxhr.status === 404;
+                        if (err404) {
+                            loaded.remove(url);
+                        }
+                        result = err404 ? false : null;
                     });
                 console.log('end sync mode [' + url + ']');
             } else {
                 console.log('start async mode [' + url + ']');
                 yangaiche(sys.$).cachedScript(url, {async: true})
                     .done(function () {
-                        loaded.push(url);
                     })
-                    .fail(function () {
+                    .fail(function (jqxhr) {
+                        var err404 = jqxhr.status === 404;
+                        if (err404) {
+                            loaded.remove(url);
+                        }
                     });
                 console.log('end async mode [' + url + ']');
             }

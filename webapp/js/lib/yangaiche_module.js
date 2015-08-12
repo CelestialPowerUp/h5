@@ -46,9 +46,7 @@ yangaiche(sys.load_module, function () {
         var result = yangaiche(sys.load)('js/' + browser.module_root + '/' + name + '.js', {});
         if (yangaiche(sys.exist)(result) && !result) {
             result = yangaiche(sys.load_default_module)(name);
-            if (yangaiche(sys.exist)(result) && !result) {
-                throw '没有页面启动脚本';
-            }
+            console.error(result);
         }
     };
 });
