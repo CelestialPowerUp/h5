@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no;"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="renderer" content="webkit">     <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no">
     <title>商品详情</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,10 +23,10 @@
 <div id="store-service-flow">
     <div>服务流程</div>
     <ul>
-        <li><img src="./img/1_.png" />购买过程需填写姓名手机号</li>
-        <li><img src="./img/2_.png" />下单后客服会回访您，确认服务时间及项目</li>
-        <li><img src="./img/3_.png" />车管家按时接车并完成服务项目</li>
-        <li><img src="./img/4_.png" />车管家按约定按时还车</li>
+        <li><img src="./img/1_.png"/>购买过程需填写姓名手机号</li>
+        <li><img src="./img/2_.png"/>下单后客服会回访您，确认服务时间及项目</li>
+        <li><img src="./img/3_.png"/>车管家按时接车并完成服务项目</li>
+        <li><img src="./img/4_.png"/>车管家按约定按时还车</li>
     </ul>
 </div>
 
@@ -37,16 +37,17 @@
 
 <footer id="store-item-footer">
     <a href="tel:400-0102-766">
-        <img src="./img/kefu.png" />
+        <img src="./img/kefu.png"/>
         <span>客服</span>
     </a>
+
     <div id="submit">立即购买</div>
 </footer>
 
 <script type="text/x-handlebars-template" id="store_item_page_tpl">
     {{#this}}
     {{#cover_img}}
-    <img class="store-item-img" src="{{raw_url}}" />
+    <img class="store-item-img" src="{{raw_url}}"/>
     {{/cover_img}}
 
     <div id="store-item-wrapper">
@@ -54,6 +55,7 @@
             <div id="store-item-go-to-detail"><img src="./img/right_arrow.png"/></div>
             <div id="store-item-brief-intro-text-wrapper">
                 <span>{{ware_name}}</span>
+
                 <div id="store-item-brief-intro-text">{{brief_introduction}}</div>
             </div>
         </a>
@@ -62,7 +64,7 @@
 
         <div id="store-item-price">
             <div>
-                <span>现价: ¥ </span><span>{{ware_mark_price}}</span><span><img src="./img/xianshiyouhui.png" /></span>
+                <span>现价: ¥ </span><span>{{ware_mark_price}}</span><span><img src="./img/xianshiyouhui.png"/></span>
             </div>
             <div>
                 <span>市场价: <del>¥{{ware_full_price}}</del></span>
@@ -81,19 +83,20 @@
             <div class="comment-corner comment-time">{{create_time}}</div>
         </div>
         <p>{{comment_text}}</p>
+
         <div>
             <div class="comment-corner comment-service am-vertical-align">
-                <img class="am-vertical-align-middle" src="./img/store_car.png" />
+                <img class="am-vertical-align-middle" src="./img/store_car.png"/>
                 <span class="am-vertical-align-middle">服务:</span>
                 {{#each order_rating}}
-                <img class="am-vertical-align-middle" src="./img/star.png" />
+                <img class="am-vertical-align-middle" src="./img/star.png"/>
                 {{/each}}
             </div>
             <div class="comment-corner comment-keeper am-vertical-align">
-                <img class="am-vertical-align-middle" src="./img/store_keeper.png" />
+                <img class="am-vertical-align-middle" src="./img/store_keeper.png"/>
                 <span class="am-vertical-align-middle">管家:</span>
                 {{#each keeper_rating}}
-                <img class="am-vertical-align-middle" src="./img/star.png" />
+                <img class="am-vertical-align-middle" src="./img/star.png"/>
                 {{/each}}
             </div>
         </div>
@@ -101,11 +104,9 @@
     {{/each}}
 </script>
 
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/handlebars.min.js"></script>
-<script type="text/javascript" src="./js/amazeui.min.js"></script>
-<script type="text/javascript" src="./js/common.js"></script>
-<script type="text/javascript" src="./js/display/store_item_page.js"></script>
-<script type="text/javascript" src="./js/modules/store_item_page.js"></script>
+<script type="text/javascript" src="./js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="./js/lib/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/lib/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/lib/yangaiche.js"></script>
 </body>
 </html>

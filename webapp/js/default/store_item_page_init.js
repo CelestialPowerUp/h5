@@ -21,7 +21,7 @@ yangaiche(sys.init)(function(t) {
     }
 
     var getReq = yangaiche(app.http.get_request), show_msg = yangaiche(app.show_msg.show);
-    var page = 1, total_size = 0, real_total_size = 0, page_size = 2, active = true;
+    var page = 1, total_size = 0, real_total_size = 0, page_size = 2, active = true, product_ids = '';
     var store_item = null;
 
     function load_suc(data, callback) {
@@ -68,7 +68,6 @@ yangaiche(sys.init)(function(t) {
     }
 
     function load_comments(data) {
-        var product_ids = '';
         t.each(data['ware_products'], function (i, wp) {
             if (i !== 0) {
                 product_ids += ',';
