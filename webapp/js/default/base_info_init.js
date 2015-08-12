@@ -61,7 +61,7 @@ yangaiche(sys.init)(function(t) {
     var submitText = yangaiche(sys.local_storage).get(key.submit_button.submit_text_key);
     t('#submit_button').html(submitText);
 
-    var order = yangaiche(ls.order.touch)(), user = yangaiche(ls.user.touch);
+    var order = yangaiche(ls.order.touch)(), user = yangaiche(ls.user.touch)();
     yangaiche(app.form.from_obj)(order);
 
     function preview_order() {
@@ -192,11 +192,11 @@ yangaiche(sys.init)(function(t) {
         show_msg(error['message']);
     });
 
-    if (t("#phone_number").val() === "") {
+    if (!t("#phone_number").val()) {
         t("#phone_number").val(user[ls.user.user_phone]);
     }
 
-    if (t("#contact_name").val() === "") {
+    if (!t("#contact_name").val()) {
         var user_real_name = yangaiche(sys.local_storage).get(ls.openid.user_real_name);
         if (user[ls.user.user_name] && user[ls.user.user_name] !== '') {
             t("#contact_name").val(user.name);

@@ -24,7 +24,7 @@ yangaiche(app.form.from_obj, function () {
             }
             var tag = t('#' + key);
             if (exist(tag)) {
-                tag.val(obj[key]);
+                tag.val(obj[key] || tag.val());
             }
         }
     };
