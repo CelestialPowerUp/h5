@@ -6,12 +6,14 @@ app.show_msg = {
 };
 
 yangaiche(app.show_msg.show, function () {
-    var tpl = Handlebars.compile(app.show_msg.html);
+    //var tpl = Handlebars.compile(app.show_msg.html);
     return function (msg) {
-        // TODO : id可以为中文么，待验证。
-        yangaiche(sys.$)('body').prepend(tpl({msg: msg}));
-        setTimeout(function () {
-            $('#' + msg).remove();
-        }, 3000);
+        //// TODO : id可以为中文么，待验证。
+        //yangaiche(sys.$)('body').prepend(tpl({msg: msg}));
+        //setTimeout(function () {
+        //    $('#' + msg).remove();
+        //}, 3000);
+        // id用msg来设置，会冲突。
+        alert(msg);
     };
 });
