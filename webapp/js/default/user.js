@@ -8,6 +8,7 @@ ls.user = {
 
     user_info: 'user_info',
     user_id: 'user_id',
+    user_name: 'name',
     user_phone: 'phone'
 };
 

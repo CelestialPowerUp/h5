@@ -3,6 +3,8 @@ yangaiche(sys.load_default_module)('repository', {});
 ls.back = {
     go_back_to_reload: 'go_back_to_reload',
     check_reload_cmd: 'check_reload_cmd',
+    set_back_to_store: 'set_back_to_store',
+
     to_reload: 'to_reload',
     to_reload_value: 'T'
 };
@@ -25,5 +27,12 @@ yangaiche(ls.back.check_reload_cmd, function () {
             storage.remove(ls.back.to_reload);
             window.location.reload();
         }
+    };
+});
+
+yangaiche(ls.back.set_back_to_store, function() {
+    return function(url) {
+        window.history.replaceState(null, null, "./store.html");
+        window.location.href = url;
     };
 });

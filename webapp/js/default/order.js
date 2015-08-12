@@ -4,6 +4,7 @@ ls.order = {
     touch: 'order_touch',
     set: 'order_set',
     update: 'order_update',
+    form_obj: 'order_form_obj',
     clear: 'order_clear',
 
     order_info: 'order_info'
@@ -32,6 +33,19 @@ yangaiche(ls.order.update, function () {
         var order = yangaiche(ls.order.touch)();
         callback(order);
         yangaiche(ls.order.set)(order);
+    }
+});
+
+yangaiche(ls.order.form_obj, function () {
+    return function(obj) {
+        yangaiche(ls.order.update)(function(order) {
+            for (var key in Object.keys(obj)) {
+                if (typeof(obj[key]) === 'function') {
+                    continue;
+                }
+                order[key] = obj[key] || order[key];
+            }
+        });
     }
 });
 

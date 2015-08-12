@@ -129,7 +129,7 @@ yangaiche(sys.init)(function(t) {
             });
         });
 
-        yangaiche(sys.local_storage).set('submit_text', '确定');
+        yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
 
         window.location.href = './car_list.html';
     });
