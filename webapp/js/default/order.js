@@ -5,6 +5,7 @@ ls.order = {
     set: 'order_set',
     update: 'order_update',
     clear: 'order_clear',
+
     order_info: 'order_info'
 };
 
