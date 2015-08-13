@@ -1,38 +1,22 @@
 yangaiche(sys.load_default_module)('user', {});
-yangaiche(sys.load_default_module)('env', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('http', {});
+yangaiche(sys.load_module)('pay_param', {});
 
 app.pay = {
     get_param: 'get_param',
-    do: 'to_pay'
+    do: 'to_pay',
+    to_pay_type_info: 'to_pay_type_info'
 };
 
 yangaiche(app.pay.get_param, function() {
-    function fn1(param) {
-        param.channel = 'wx_pub';
-        param.extra = { open_id: yangaiche(sys.local_storage).get(ls.openid.open_id) || yangaiche(ls.user.touch)()[ls.user.openid] };
-    }
-    function fn2(param, success_url, cancel_url) {
-        param.channel = 'alipay_wap';
-        param.extra = {
-            success_url: yangaiche(app.env.get_host) + success_url,
-            cancel_url: yangaiche(app.env.get_host) + cancel_url
-        };
-    }
     return function(order, success_url, cancel_url) {
         var param = {
-            subject: "???-" + order['order_type'],
-            body: "???-" + order['order_type'],
+            subject: "养爱车-" + order['order_type'],
+            body: "养爱车-" + order['order_type'],
             order_id: order['id']
         };
-        yangaiche(app.env.do_sth_by_browser)({
-            weixin: fn1(param),
-            yangaiche: fn2(param, success_url, cancel_url),
-            alipay: fn2(param, success_url, cancel_url),
-            xiaomi: fn2(param, success_url, cancel_url),
-            normal: fn2(param, success_url, cancel_url)
-        });
+        yangaiche(app.pay.get_extra_param)(param, success_url, cancel_url);
         return param;
     };
 });
@@ -40,34 +24,32 @@ yangaiche(app.pay.get_param, function() {
 yangaiche(app.pay.do, function() {
     return function(param) {
         yangaiche(app.http.post_charge_request)('/v1/api/charge', param, function (charge) {
-            pingpp.createPayment(charge, function (result, error) {
+            pingpp.createPayment(charge, function (result) {
                 if (result == "success") {
-                    // ?????????????????
-                    function fn() {
-                    }
-                    yangaiche(app.env.do_sth_by_browser)({
-                        weixin: function () {
-                            wx.closeWindow();
-                        },
-                        alipay: function () {
-                            AlipayJSBridge.call('exitApp');
-                        },
-                        xiaomi: fn,
-                        normal: fn,
-                        yangaiche: fn
-                    });
+                    yangaiche(sys.load_module)('pay_success', {});
                 } else if (result == "fail") {
-                    // charge ??????????????????????
                     reset_button("#submit_button");
-                    show_msg("????");
+                    show_msg("支付失败");
                 } else if (result == "cancel") {
-                    // ????????????
                     reset_button("#submit_button");
-                    show_msg('??????');
+                    show_msg('您已取消支付');
                 }
             });
         }, function (error) {
             show_msg(error);
         });
+    };
+});
+
+yangaiche(app.pay.to_pay_type_info, function() {
+    return function(order) {
+        if (!yangaiche(sys.exist)(order['pay_mode'])) {
+            return "线下支付";
+        }
+        if (1 === order['pay_mode']) {
+            return '在线支付';
+        } else if (2 === order['pay_mode']) {
+            return '线下支付';
+        }
     };
 });

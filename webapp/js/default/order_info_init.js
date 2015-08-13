@@ -9,12 +9,11 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.init)(function (t) {
     var disable_button = yangaiche(app.ds.disable_button),
         reset_button = yangaiche(app.ds.reset_button),
+        getReq = yangaiche(app.http.get_request),
         postReq = yangaiche(app.http.post_request),
-        postChargeReq = yangaiche(app.http.post_charge_request),
         show_msg = yangaiche(app.show_msg.show);
 
     var parse_data = function (order) {
-        console.log(order);
         var template = Handlebars.compile(t("#user_info_tpl").html());
         t("#user_info_view").html(template(order));
 
@@ -24,14 +23,14 @@ yangaiche(sys.init)(function (t) {
         var paid_template = Handlebars.compile(t("#paid_tpl").html());
         t("#paid_view").html(paid_template(order));
 
-        order.pay_type_info = getPayTypeInfo(order);
+        order.pay_type_info = yangaiche(app.pay.to_pay_type_info)(order);
         var paid_type_template = Handlebars.compile(t("#paid_type_tpl").html());
         t("#paid_type_view").html(paid_type_template(order));
     };
 
     var reqParams = yangaiche(app.url_parameter);
     if (yangaiche(sys.exist)(reqParams['order_id'])) {//有参数，查看页面
-        getReq("orders.json?order_id=" + reqParams['order_id'], function (order) {
+        getReq("/v1/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
             order.car_number = order.car.licence.province + order.car.licence.number;
             order.contact_name = order.client_basic.name;
             order.phone_number = order.client_basic.phone_number;
@@ -58,7 +57,7 @@ yangaiche(sys.init)(function (t) {
             });
         });
     } else {
-        var order = yangaiche(ls.order.touch)();
+        var order = yangaiche(ls.order.touch)(), user = yangaiche(ls.user.touch)();
         if (order['coupon_value'] > 0) {
             order['coupon'] = {value: order['coupon_value'].toFixed(2)};
         }

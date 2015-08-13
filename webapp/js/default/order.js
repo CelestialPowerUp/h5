@@ -29,7 +29,7 @@ yangaiche(ls.order.set, function () {
 });
 
 yangaiche(ls.order.update, function () {
-    return function(callback) {
+    return function (callback) {
         var order = yangaiche(ls.order.touch)();
         callback(order);
         yangaiche(ls.order.set)(order);
@@ -37,13 +37,22 @@ yangaiche(ls.order.update, function () {
 });
 
 yangaiche(ls.order.form_obj, function () {
-    return function(obj) {
-        yangaiche(ls.order.update)(function(order) {
-            for (var key in Object.keys(obj)) {
-                if (typeof(obj[key]) === 'function') {
+    return function (obj) {
+        yangaiche(ls.order.update)(function (order) {
+            var keys = Object.keys(obj);
+            for (var i = 0; i < keys.length; i++) {
+                if (typeof(obj[keys[i]]) === 'function') {
                     continue;
                 }
-                order[key] = obj[key] || order[key];
+                if (keys[i] === 'address' && yangaiche(sys.exist)(obj[keys[i]]) && obj[keys[i]] !== '') {
+                    order['location'] = order['location'] || { address: obj['address'] };
+                    continue;
+                }
+                if (keys[i] === 'pay_mode' && yangaiche(sys.exist)(obj[keys[i]]) && obj[keys[i]] !== '') {
+                    order['pay_mode'] = parseInt(obj['pay_mode']) || order['pay_mode'];
+                    continue;
+                }
+                order[keys[i]] = obj[keys[i]] || order[keys[i]];
             }
         });
     }

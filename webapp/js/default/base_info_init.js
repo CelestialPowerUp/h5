@@ -38,6 +38,7 @@ yangaiche(sys.init)(function(t) {
         }
 
         t(group_p).attr('data-rel', local_rel);
+        t('input[name="pay_mode"]').val(local_rel);
 
         t(group_p).find('button').removeClass('baseinfo-pay-chosen');
         t(group_p).find('button').addClass('baseinfo-pay-chosen-not');
@@ -61,10 +62,9 @@ yangaiche(sys.init)(function(t) {
     var submitText = yangaiche(sys.local_storage).get(key.submit_button.submit_text_key);
     t('#submit_button').html(submitText);
 
-    var order = yangaiche(ls.order.touch)(), user = yangaiche(ls.user.touch)();
-    yangaiche(app.form.from_obj)(order);
+    var user = yangaiche(ls.user.touch)();
 
-    function preview_order() {
+    function preview_order(order, go_flag) {
         postReq('/v1/api/order_preview', {
             car_model_type: order['car_model_type'],
             coupon_id: order['coupon_id'],
@@ -75,7 +75,9 @@ yangaiche(sys.init)(function(t) {
             order['total_price'] = data['total_price'];
             set_order(order);
 
-            window.location.href = './order_info.html';
+            if (yangaiche(sys.exist)(go_flag)) {
+                window.location.href = './order_info.html';
+            }
         }, function (error) {
             order['coupon_id'] = null;
             set_order(order);
@@ -104,13 +106,14 @@ yangaiche(sys.init)(function(t) {
 
         save_from_data();
 
+        var order = yangaiche(ls.order.touch)();
         if (1 !== order['pay_mode'] && yangaiche(sys.exist)(order['coupon_id'])) {
             show_msg('只有在线支付可以享受优惠券哦');
             return;
         }
 
         if (key.submit_button.submit_text_value1 === submitText) {
-            preview_order();
+            preview_order(order, {});
         } else {
             disable_button('#submit_button');
             order.user_id = user.user_id;
@@ -163,6 +166,56 @@ yangaiche(sys.init)(function(t) {
         }, {enableHighAccuracy: true});
     };
 
+    var order_to_form = function (order) {
+        // order to form
+        yangaiche(app.form.from_obj)(order);
+
+        if (!t("#phone_number").val()) {
+            t("#phone_number").val(user[ls.user.user_phone]);
+        }
+
+        if (!t("#contact_name").val()) {
+            var user_real_name = yangaiche(sys.local_storage).get(ls.openid.user_real_name);
+            if (user[ls.user.user_name] && user[ls.user.user_name] !== '') {
+                t("#contact_name").val(user.name);
+            } else if (yangaiche(sys.exist)(user_real_name)) {
+                t("#contact_name").val(user_real_name);
+            }
+        }
+
+        var address_info = yangaiche(ls.location.touch)(), exist = yangaiche(sys.exist);
+        if ((!exist(address_info.name) || address_info.name === "") && (!exist(address_info.address) || address_info.address === "")) {
+            auto_get_location();
+        } else {
+            t('#address').attr('placeholder', '限北京地区，请输入...');
+            if ('' !== address_info.address) {
+                t("#address").val(address_info.address.replace(/(^\s*)|(\s*$)/g, ''));
+            } else {
+                t("#address").val(address_info.name.replace(/(^\s*)|(\s*$)/g, ''));
+            }
+        }
+
+        if (exist(order['coupon_id'])) {
+            t('#use_coupon').children('div').html(order['coupon_name']);
+        } else {
+            getReq('/v1/api/coupons?user_id=' + user['user_id'], function (data) {
+                var len = 0;
+                t.each(data, function (i, coupon) {
+                    if ("未使用" === coupon.status) {
+                        len += 1;
+                    }
+                });
+
+                t('#use_coupon').children('div').html(len + '张可用');
+            });
+            order['coupon_id'] = null;
+            order['coupon_value'] = 0;
+            set_order(order);
+        }
+
+        preview_order(order);
+    };
+
     //获取接车时间
     getReq("/v1/api/time_segments.json?service_type=keeper", function (data) {
         var time_data = [];
@@ -188,65 +241,9 @@ yangaiche(sys.init)(function(t) {
         };
         selectApicktime();
         t("#pick_time_info").change(selectApicktime);
+
+        order_to_form(yangaiche(ls.order.touch)());
     }, function(error) {
-        show_msg(error['message']);
-    });
-
-    if (!t("#phone_number").val()) {
-        t("#phone_number").val(user[ls.user.user_phone]);
-    }
-
-    if (!t("#contact_name").val()) {
-        var user_real_name = yangaiche(sys.local_storage).get(ls.openid.user_real_name);
-        if (user[ls.user.user_name] && user[ls.user.user_name] !== '') {
-            t("#contact_name").val(user.name);
-        } else if (yangaiche(sys.exist)(user_real_name)) {
-            t("#contact_name").val(user_real_name);
-        }
-    }
-
-    var address_info = yangaiche(ls.location.touch), exist = yangaiche(sys.exist);
-    if ((!exist(address_info.name) || address_info.name === "") && (!exist(address_info.address) || address_info.address === "")) {
-        auto_get_location();
-    } else {
-        t('#address').attr('placeholder', '限北京地区，请输入...');
-        if ('' !== address_info.address) {
-            t("#address").val(address_info.address.replace(/(^\s*)|(\s*$)/g, ''));
-        } else {
-            t("#address").val(address_info.name.replace(/(^\s*)|(\s*$)/g, ''));
-        }
-    }
-
-    if (exist(order['coupon_id'])) {
-        t('#use_coupon').children('div').html(order['coupon_name']);
-    } else {
-        getReq('/v1/api/coupons?user_id=' + user['user_id'], function (data) {
-            var len = 0;
-            t.each(data, function (i, coupon) {
-                if ("未使用" === coupon.status) {
-                    len += 1;
-                }
-            });
-
-            t('#use_coupon').children('div').html(len + '张可用');
-        });
-        order['coupon_id'] = null;
-        order['coupon_value'] = 0;
-        set_order(order);
-    }
-
-    postReq('/v1/api/order_preview', {
-        car_model_type: order['car_model_type'],
-        coupon_id: order['coupon_id'],
-        products: order['products'],
-        user_id: user[ls.user.user_id]
-    }, function(data) {
-        order['coupon_value'] = data['free_price'];
-        order['total_price'] = data['total_price'];
-        set_order(order);
-    }, function(error) {
-        order['coupon_id'] = null;
-        set_order(order);
         show_msg(error['message']);
     });
 
