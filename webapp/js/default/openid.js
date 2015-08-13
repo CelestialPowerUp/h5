@@ -55,7 +55,14 @@ yangaiche(ls.openid.bind, function () {
 
 yangaiche(ls.openid.after_login, function () {
     return function (num) {
-        yangaiche(ls.back.go_back_to_reload)(num);
+        // num为true时，为openid自动登录后跳转。
+        if (yangaiche(sys.exist)(num) && num) {
+            var url = yangaiche(sys.local_storage).get(ls.openid.page_before_login);
+            window.history.replaceState(null, null, url);
+            window.location.href = url;
+        } else {
+            yangaiche(ls.back.go_back_to_reload)(num);
+        }
     };
 });
 

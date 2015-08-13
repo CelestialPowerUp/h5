@@ -13,7 +13,7 @@ app.open_id_init.to_snsapi = true;
 if (app.open_id_init.reqParam['auth_code']) {
     yangaiche(app.http.post_request)("/v1/api/login_by_alipay_code.json?code=" + app.open_id_init.reqParam['auth_code'], {}, function (data) {
         yangaiche(ls.user.set)(data);
-        yangaiche(ls.openid.after_login)(-3);
+        yangaiche(ls.openid.after_login)(true);
     }, function (data) {
         var json = yangaiche(sys.$).parseJSON(data.data);
         var storage = yangaiche(sys.local_storage);

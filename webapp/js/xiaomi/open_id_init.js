@@ -32,7 +32,7 @@ app.open_id_init.accessToken = app.open_id_init.reqParam['access_token'];//Â∞èÁ±
 if (app.open_id_init.accessToken/* && macKey*/) {
     yangaiche(app.http.post_request)("/v1/api/login_by_xiaomi_openid.json?code=" + app.open_id_init.accessToken + "&situation=" + app.open_id_init.situation, {}, function (data) {
         yangaiche(ls.user.set)(data);
-        yangaiche(ls.openid.after_login)(-3);
+        yangaiche(ls.openid.after_login)(true);
     }, function (data) {
         yangaiche(sys.local_storage).set(ls.openid.open_id, data.data);
         if (data && data['code'] == '10007') {

@@ -31,7 +31,7 @@ if (app.open_id_init.reqParam['code']) {
     // TODO : get还是post啦?
     yangaiche(app.http.post_request)("/v1/api/login_by_wx_code.json?code=" + app.open_id_init.reqParam['code'] + "&situation=" + app.open_id_init.situation, {}, function (data) {
         yangaiche(ls.user.set)(data);
-        yangaiche(ls.openid.after_login)(-3);
+        yangaiche(ls.openid.after_login)(true);
     }, function (data) {
         yangaiche(sys.local_storage).set(ls.openid.open_id, data.data);
         if (data && data['code'] == '10007') {
