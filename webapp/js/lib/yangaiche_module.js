@@ -43,16 +43,14 @@ yangaiche(sys.browser_type, function () {
 yangaiche(sys.load_module, function () {
     var browser = yangaiche(sys.browser_type);
     return function (name) {
-        var result = yangaiche(sys.load)('js/' + browser.module_root + '/' + name + '.js', {});
-        if (yangaiche(sys.exist)(result) && !result) {
-            result = yangaiche(sys.load_default_module)(name);
-            console.error(result);
-        }
+        yangaiche(sys.load)('js/' + browser.module_root + '/' + name + '.js', true, function() {
+            yangaiche(sys.load_default_module)(name);
+        });
     };
 });
 
 yangaiche(sys.load_default_module, function () {
     return function (name) {
-        return yangaiche(sys.load)('js/default/' + name + '.js', {});
+        return yangaiche(sys.load)('js/default/' + name + '.js', true);
     };
 });
