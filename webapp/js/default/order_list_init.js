@@ -8,6 +8,12 @@ yangaiche(sys.init)(function (t) {
         storage.set(now_scroll_top, document.body.scrollTop);
     };
 
+    var progress = $.AMUI.progress;
+    progress.start();
+    progress.inc(0.5);
+    t('#nprogress .nprogress-bar').css('bottom', 'auto');
+    t('#nprogress .nprogress-bar').css('top', '0');
+
     yangaiche(app.http.get_request)("/v1/api/orders.json?user_id=" + yangaiche(ls.user.touch)()[ls.user.user_id], function (data) {
         var items = [];
         for (var i = 0; i < data.length; i++) {
@@ -53,5 +59,7 @@ yangaiche(sys.init)(function (t) {
             save_now_location();
             window.location.href = './order_info.html?order_id=' + t(this).attr('data-rel');
         });
+
+        progress.done();
     });
 });
