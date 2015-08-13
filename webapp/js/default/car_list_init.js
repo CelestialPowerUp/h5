@@ -4,6 +4,12 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('format', {});
 
 yangaiche(sys.init)(function(t) {
+    var progress = $.AMUI.progress;
+    progress.start();
+    progress.inc(0.5);
+    t('#nprogress .nprogress-bar').css('bottom', 'auto');
+    t('#nprogress .nprogress-bar').css('top', '0');
+
     var items = {};
 
     yangaiche(app.http.get_request)('/v1/api/cars.json?car_user_id=' + yangaiche(ls.user.touch)()[ls.user.user_id], function (data) {
@@ -37,5 +43,7 @@ yangaiche(sys.init)(function(t) {
 
             window.location.href = './base_info.html';
         });
+
+        progress.done();
     });
 });
