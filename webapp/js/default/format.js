@@ -1,6 +1,7 @@
 
 app.format = {
-    time: 'format_time'
+    time: 'format_time',
+    stripscript: 'stripscript'
 };
 
 yangaiche(app.format.time, function() {
@@ -25,5 +26,16 @@ yangaiche(app.format.time, function() {
         //var milliseconds = data.getUTCMilliseconds();
         time = year + "/" + paddedBits(month) + "/" + paddedBits(day) + " " + paddedBits(hours) + ":" + paddedBits(minutes);
         return time;
+    };
+});
+
+yangaiche(app.format.stripscript, function() {
+    return function(s) {
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“'。，、？]")
+        var rs = "";
+        for (var i = 0; i < s.length; i++) {
+            rs = rs + s.substr(i, 1).replace(pattern, '');
+        }
+        return rs;
     };
 });

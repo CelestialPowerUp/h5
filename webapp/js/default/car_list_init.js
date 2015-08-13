@@ -1,18 +1,10 @@
 yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('order', {});
+yangaiche(sys.load_default_module)('format', {});
 
 yangaiche(sys.init)(function(t) {
     var items = {};
-
-    function stripscript(s) {
-        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“'。，、？]")
-        var rs = "";
-        for (var i = 0; i < s.length; i++) {
-            rs = rs + s.substr(i, 1).replace(pattern, '');
-        }
-        return rs;
-    }
 
     yangaiche(app.http.get_request)('/v1/api/cars.json?car_user_id=' + yangaiche(ls.user.touch)()[ls.user.user_id], function (data) {
         var tpl_data = [];
@@ -21,7 +13,7 @@ yangaiche(sys.init)(function(t) {
             view_data.car_id = data[i]['id'];
             view_data.car_model_type = data[i]['model_type'];
             view_data.img_url = data[i]['brand_img_url']['thumbnail_url'];
-            view_data.car_number = stripscript(data[i]['licence']['province'] + data[i]['licence']['number']);
+            view_data.car_number = yangaiche(app.format.stripscript)(data[i]['licence']['province'] + data[i]['licence']['number']);
             view_data.model = data[i]['model'];
             tpl_data.push(view_data);
             items[view_data.car_id] = view_data;
