@@ -937,8 +937,11 @@ body {
 }
 
 /* address manager */
-.address-manager-line {
+.address-list>li {
     background-color: #f1f1f1;
+}
+
+.address-manager-line {
     border-bottom: 1px solid #cccccc;
     height: 120px;
 }
