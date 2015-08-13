@@ -111,7 +111,7 @@ yangaiche(sys.$, function () {
         // Allow user to set any option except for dataType, cache, and url
         options = $.extend(options || {}, {
             dataType: "script",
-            cache: false,
+            cache: true,
             url: url
         });
 
@@ -147,9 +147,9 @@ yangaiche(sys.load, function () {
     }
     // 两个特性：1. 同步异步加载的标示是第二个参数，存在就是同步，不存在就是异步；也就是随便传个{}代表要同步加载。
     // 2. 对于同步加载，可以返回true代表加载成功，false代表加载失败；对于异步加载，总是返回null；可以使用sys.exist判断为null。
-    return function (url, enable_sync_mode, err404_callback) {
+    return function (url, enable_sync_mode) {
         var exist = yangaiche(sys.exist);
-        var enable_sync_mode_flag = exist(enable_sync_mode) && enable_sync_mode;
+        var enable_sync_mode_flag = exist(enable_sync_mode);
         if (exist(map)) {
             if (exist(map[url])) {
                 url = map[url]['uri'];
@@ -171,9 +171,7 @@ yangaiche(sys.load, function () {
                         if (err404) {
                             loaded.remove(url);
                         }
-                        if (yangaiche(sys.exist)(err404_callback)) {
-                            err404_callback();
-                        }
+                        result = err404 ? false : null;
                     });
                 console.log('end sync mode [' + url + ']');
             } else {
