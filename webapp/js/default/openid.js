@@ -61,6 +61,6 @@ yangaiche(ls.openid.after_login, function () {
 
 yangaiche(ls.openid.get_redirect_uri, function () {
     return function () {
-        return 'http://' + yangaiche(app.env.get_host) + 'open_id.html';
+        return yangaiche(app.env.get_host) + 'open_id.html';
     }();
 });
