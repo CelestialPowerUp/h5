@@ -67,7 +67,7 @@ yangaiche(sys.init)(function(t) {
     });
 
     function reset_phone() {
-        var user_phone = yangaiche(ls.user.touch)[ls.user.user_phone];
+        var user_phone = yangaiche(ls.user.touch)()[ls.user.user_phone];
         if (11 === user_phone.length) {
             t('#user_phone').html(user_phone.substr(0, 3) + '****' + user_phone.substr(7, 4));
         }

@@ -36,7 +36,7 @@
         <div class="order-list-item-header am-vertical-align-middle">状态：<span class="color_red">{{status}}</span></div>
     </div>
     <hr data-am-widget="divider" class="am-divider am-divider-default hr-pd" style="margin: 0px;"/>
-    <div class="am-g am-g-pd order-list-item-content" onclick="item_click_handler('{{id}}')">
+    <div class="am-g am-g-pd order-list-item-content" data-rel="{{id}}">
         <div class="am-u-sm-12">
             <div class="am-g order-list-item-content-inner">
                 <div class="am-u-sm-5 order-list-item-pd">创建时间</div>
@@ -58,7 +58,7 @@
         <button data-rel="{{id}}" class="am-btn am-btn-success order-list-flow-btn order-comment-btn {{gray_button}}">
             评价
         </button>
-        <button onclick="order_flow('{{id}}');" class="am-btn am-btn-success order-list-flow-btn">
+        <button data-rel="{{id}}" class="am-btn am-btn-success order-list-flow-btn order-flow-btn">
             订单流程
         </button>
     </div>
