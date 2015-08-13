@@ -3,21 +3,23 @@ yangaiche(sys.load_default_module)('duplicate_submission');
 yangaiche(sys.load_default_module)('show_msg');
 yangaiche(sys.load_default_module)('back');
 yangaiche(sys.load_default_module)('user');
+yangaiche(sys.load_default_module)('viewport');
 
 yangaiche(sys.init)(function(t) {
+    yangaiche(app.viewport.replace)(1.0);
+
     var show_msg = yangaiche(app.show_msg.show);
 
     t('#map_view').css('height', (t(window).height() - t('header').height()) + 'px');
 
     var location_info = {};
-    console.log(location_info);
     var map = new BMap.Map('map_view');
     var point = new BMap.Point(116.404, 39.915);
     map.centerAndZoom(point, 15);
     map.enableScrollWheelZoom(true);
-    /*var marker = new BMap.Marker(point);  // 创建标注
-     map.addOverlay(marker);               // 将标注添加到地图中
-     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画*/
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);               // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
     map.panTo(point);
 
     var top_right_navigation = new BMap.NavigationControl({
@@ -27,27 +29,6 @@ yangaiche(sys.init)(function(t) {
     map.addControl(top_right_navigation);
 
     var geolocationControl = new BMap.GeolocationControl({offset: new BMap.Size(15, 65), enableAutoLocation: true});
-
-    geolocationControl.addEventListener("locationSuccess", function (e) {
-        // 定位成功事件
-        var address = '';
-        address += e.addressComponent.city;
-        address += e.addressComponent.district;
-        address += e.addressComponent.street;
-        address += e.addressComponent.streetNumber;
-        location_info.name = e.addressComponent.city;
-        location_info.address = address;
-        location_info.latitude = e.point.lat;
-        location_info.longitude = e.point.lng;
-        location_info.point = e.point;
-        updateLocationInfo();
-    });
-    geolocationControl.addEventListener("locationError", function (e) {
-        // 定位失败事件
-        show_msg(e.message);
-    });
-    map.addControl(geolocationControl);
-
     var updateLocationInfo = function () {
         map.clearOverlays();    //清除地图上所有覆盖物
         var cpoint = new BMap.Point(location_info.longitude, location_info.latitude);
@@ -69,8 +50,29 @@ yangaiche(sys.init)(function(t) {
         map.addOverlay(marker);   //添加标注
     };
 
+    geolocationControl.addEventListener("locationSuccess", function (e) {
+        // 定位成功事件
+        console.log(e);
+        var address = '';
+        address += e.addressComponent.city;
+        address += e.addressComponent.district;
+        address += e.addressComponent.street;
+        address += e.addressComponent.streetNumber;
+        location_info.name = e.addressComponent.city;
+        location_info.address = address;
+        location_info.latitude = e.point.lat;
+        location_info.longitude = e.point.lng;
+        location_info.point = e.point;
+        updateLocationInfo();
+    });
+    geolocationControl.addEventListener("locationError", function (e) {
+        // 定位失败事件
+        show_msg(e.message);
+    });
+    map.addControl(geolocationControl);
+
     function initAddressInfo() {
-        if (location_info.address === "") {
+        if (!yangaiche(sys.exist)(location_info.address) || location_info.address === "") {
             geolocationControl.location();
         } else {
             updateLocationInfo();
@@ -78,34 +80,6 @@ yangaiche(sys.init)(function(t) {
     }
 
     setTimeout(initAddressInfo, 2000);
-    //$("#search_input").val("dasds");
-    //initAddressInfo();
-
-    $("#locate_button").click(function () {
-        location_info = location_info || {};
-        location_info['name'] = location_info['name'] || '';
-        location_info['address'] = $('#search_input').val() || location_info['address'];
-
-        if (location_info['address'].match(/^\s*$/)) {
-            show_msg('地址不能为空');
-            return;
-        }
-
-        var param = {
-            name: location_info['name'],
-            address: location_info['address'],
-            longitude: location_info['longitude'],
-            latitude: location_info['latitude'],
-            user_id: yangaiche(ls.user.touch)()['user_id']
-        };
-        yangaiche(app.http.post_request)('/v1/api/address/create', param, function(data) {
-            yangaiche(ls.back.go_back_to_reload)();
-        });
-    });
-
-    /*$("#search_button").click(function(){
-     $("#search_input").val();
-     });*/
 
     var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
         {
@@ -114,7 +88,7 @@ yangaiche(sys.init)(function(t) {
         });
 
     ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-        var str = "";
+        var str = '';
         var _value = e.fromitem.value;
         var value = "";
         if (e.fromitem.index > -1) {
@@ -128,20 +102,10 @@ yangaiche(sys.init)(function(t) {
             value = _value.province + _value.city + _value.district + _value.street + _value.business;
         }
         str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-        $("#searchResultPanel").innerHTML = str;
+        t("#searchResultPanel").innerHTML = str;
     });
 
-    var myValue;
-    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-        var _value = e.item.value;
-        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-        $("#searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
-        setPlace();
-        yangaiche(app.ds.disable_button)('#locate_button');
-    });
-
-    function setPlace() {
+    function setPlace(myValue) {
         location_info = {};
         function myFun() {
             var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
@@ -160,4 +124,33 @@ yangaiche(sys.init)(function(t) {
         });
         local.search(myValue);
     }
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value, myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        t("#searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace(myValue);
+        yangaiche(app.ds.disable_button)('#locate_button');
+    });
+
+    t("#locate_button").click(function () {
+        location_info = location_info || {};
+        location_info['name'] = location_info['name'] || '';
+        location_info['address'] = t('#search_input').val() || location_info['address'];
+
+        if (location_info['address'].match(/^\s*$/)) {
+            show_msg('地址不能为空');
+            return;
+        }
+
+        var param = {
+            name: location_info['name'],
+            address: location_info['address'],
+            longitude: location_info['longitude'],
+            latitude: location_info['latitude'],
+            user_id: yangaiche(ls.user.touch)()['user_id']
+        };
+        yangaiche(app.http.post_request)('/v1/api/address/create', param, function(data) {
+            yangaiche(ls.back.go_back_to_reload)();
+        });
+    });
 });
