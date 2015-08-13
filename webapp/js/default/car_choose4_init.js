@@ -4,6 +4,7 @@ yangaiche(sys.load_default_module)('parameter');
 yangaiche(sys.load_default_module)('template');
 yangaiche(sys.load_default_module)('format');
 yangaiche(sys.load_default_module)('back');
+yangaiche(sys.load_default_module)('user');
 
 yangaiche(sys.init)(function(t) {
     var storage = yangaiche(sys.local_storage), reqParams = yangaiche(app.url_parameter), car_model_type = null, o = null;
@@ -147,9 +148,8 @@ yangaiche(sys.init)(function(t) {
 
         miles = t('#miles').val();
 
-        var user = getUser();
         var param = [{
-            user_id: user['user_id'],
+            user_id: yangaiche(ls.user.touch)['user_id'],
             miles: miles,
             bought_time: year + '-' + month + '-01T01:01:0.0Z',
             licence: {
