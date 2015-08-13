@@ -50,8 +50,8 @@ yangaiche(sys.init)(function (t) {
                 disable_button("#submit_button");
 
                 var param = yangaiche(app.pay.get_param)(order,
-                    '/order_info_suc.html?order_id=' + yangaiche(app.url_parameter)['order_id'],
-                    '/order_info.html?order_id=' + yangaiche(app.url_parameter)['order_id']);
+                    'order_info_suc.html?order_id=' + yangaiche(app.url_parameter)['order_id'],
+                    'order_info.html?order_id=' + yangaiche(app.url_parameter)['order_id']);
 
                 yangaiche(app.pay.do)(param);
             });
