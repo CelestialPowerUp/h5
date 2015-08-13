@@ -120,6 +120,8 @@ yangaiche(sys.init)(function(t) {
             return true;
         }
 
+        yangaiche(ls.order.clear)();
+
         yangaiche(ls.order.update)(function(order) {
             order['products'] = store_item['ware_products'];
             t.each(order['products'], function(i, wp) {
