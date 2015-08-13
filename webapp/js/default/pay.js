@@ -1,6 +1,8 @@
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('http', {});
+yangaiche(sys.load_default_module)('show_msg', {});
+yangaiche(sys.load_default_module)('duplicate_submission', {});
 
 app.pay = {
     get_param: 'get_param',
@@ -23,6 +25,8 @@ yangaiche(app.pay.get_param, function() {
 });
 
 yangaiche(app.pay.do, function() {
+    var reset_button = yangaiche(app.ds.reset_button),
+        show_msg = yangaiche(app.show_msg.show);
     return function(param, success_callback, debug_flag) {
         yangaiche(app.http.post_charge_request)('/v1/api/charge', param, function (charge) {
             pingpp.createPayment(charge, function (result, error) {
