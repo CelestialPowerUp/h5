@@ -3,6 +3,7 @@ yangaiche(sys.load_default_module)('show_msg');
 yangaiche(sys.load_default_module)('parameter');
 yangaiche(sys.load_default_module)('template');
 yangaiche(sys.load_default_module)('format');
+yangaiche(sys.load_default_module)('back');
 
 yangaiche(sys.init)(function(t) {
     var storage = yangaiche(sys.local_storage), reqParams = yangaiche(app.url_parameter), car_model_type = null, o = null;
@@ -164,9 +165,9 @@ yangaiche(sys.init)(function(t) {
         }
         yangaiche(app.http.post_request)('/v1/api/cars/update.json', param, function () {
             if (yangaiche(sys.exist)(reqParams['update']) && reqParams['update']) {
-                window.history.back();
+                yangaiche(ls.back.go_back_to_reload)();
             } else if (yangaiche(sys.exist)(reqParams['cmt'])) {
-                window.history.go(-4);
+                yangaiche(ls.back.go_back_to_reload)(-4);
             }
         }, function () {
             yangaiche(app.show_msg.show)("AJAX ERROR");

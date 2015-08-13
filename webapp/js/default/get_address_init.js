@@ -149,7 +149,7 @@ yangaiche(sys.init)(function(t) {
             latitude: location_info['latitude'],
             user_id: yangaiche(ls.user.touch)()['user_id']
         };
-        yangaiche(app.http.post_request)('/v1/api/address/create', param, function(data) {
+        yangaiche(app.http.post_request)('/v1/api/address/create', param, function() {
             yangaiche(ls.back.go_back_to_reload)();
         });
     });
