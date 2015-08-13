@@ -1,7 +1,6 @@
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('http', {});
-yangaiche(sys.load_module)('pay_param', {});
 
 app.pay = {
     get_param: 'get_param',
@@ -10,6 +9,8 @@ app.pay = {
 };
 
 yangaiche(app.pay.get_param, function() {
+    // 加载方法所需模块
+    yangaiche(sys.load_module)('pay_param', {});
     return function(order, success_url, cancel_url) {
         var param = {
             subject: "养爱车-" + order['order_type'],
@@ -22,14 +23,26 @@ yangaiche(app.pay.get_param, function() {
 });
 
 yangaiche(app.pay.do, function() {
-    return function(param) {
+    return function(param, success_callback, debug_flag) {
         yangaiche(app.http.post_charge_request)('/v1/api/charge', param, function (charge) {
-            pingpp.createPayment(charge, function (result) {
+            pingpp.createPayment(charge, function (result, error) {
                 if (result == "success") {
-                    yangaiche(sys.load_module)('pay_success', {});
+                    yangaiche(sys.load_module)('close_app', {});
+                    if (yangaiche(sys.exist)(success_callback)) {
+                        success_callback();
+                    }
                 } else if (result == "fail") {
                     reset_button("#submit_button");
                     show_msg("支付失败");
+                    if (yangaiche(sys.exist)(debug_flag)) {
+                        var keys = Object.keys(error);
+                        for (var i = 0; i < keys.length; i++) {
+                            if('function' !== typeof(error[keys[i]])) {
+                                alert(keys[i] + ' : ' + error[keys[i]]);
+                            }
+                        }
+                        alert('finished alert error');
+                    }
                 } else if (result == "cancel") {
                     reset_button("#submit_button");
                     show_msg('您已取消支付');
