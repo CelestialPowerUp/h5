@@ -149,9 +149,9 @@ yangaiche(sys.init)(function(t) {
         miles = t('#miles').val();
 
         var param = [{
-            user_id: yangaiche(ls.user.touch)['user_id'],
+            user_id: yangaiche(ls.user.touch)()[ls.user.user_id],
             miles: miles,
-            bought_time: year + '-' + month + '-01T01:01:0.0Z',
+            bought_time: year + '-' + month + '-01T01:01:01.0Z',
             licence: {
                 number: number,
                 province: province
