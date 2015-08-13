@@ -53,12 +53,12 @@
                 <div data-am-widget="gallery" class="am-gallery am-gallery-default am-cf my-gallery"
                      data-am-gallery="{ pureview: true }">
                     {{#each items}}
-                    {{#each pics}}
-                    <a class="am-fl am-gallery-item order-flow-gallery-item">
-                        <img src="{{thumbnail_url}}" class="gallery-img" style="height: 80px;width: 80px;"
-                             data-rel="{{original_url}}"/>
-                    </a>
-                    {{/each}}
+                        {{#each pics}}
+                        <a class="am-fl am-gallery-item order-flow-gallery-item">
+                            <img src="{{thumbnail_url}}" class="gallery-img" style="height: 80px;width: 80px;"
+                                 data-rel="{{original_url}}"/>
+                        </a>
+                        {{/each}}
                     {{/each}}
                 </div>
             </div>
@@ -71,6 +71,7 @@
 <script type="text/javascript" src="./js/lib/handlebars.min.js"></script>
 <script type="text/javascript" src="./js/lib/amazeui.min.js"></script>
 <script type="text/javascript" src="./js/lib/amazeui.widgets.helper.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./js/lib/LuShu_min.js"></script>
 <script type="text/javascript" src="./js/lib/MarkerManager_min.js"></script>
 <script type="text/javascript" src="./js/lib/yangaiche.js"></script>
