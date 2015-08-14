@@ -45,19 +45,19 @@ yangaiche(sys.init)(function (t) {
             }
 
             save_now_location();
-            window.location.href = './order_comment.html?order_id=' + t(this).attr('data-rel');
+            yangaiche(ls.back.set_back_to_self)('order_comment.html?order_id=' + t(this).attr('data-rel'));
         });
 
         t('.order-flow-btn').bind('click', function () {
 
             save_now_location();
-            window.location.href = './order_flow.html?order_id=' + t(this).attr('data-rel');
+            yangaiche(ls.back.set_back_to_self)('order_flow.html?order_id=' + t(this).attr('data-rel'));
         });
 
         t('.order-list-item-content').bind('click', function () {
 
             save_now_location();
-            window.location.href = './order_info.html?order_id=' + t(this).attr('data-rel');
+            yangaiche(ls.back.set_back_to_self)('order_info.html?order_id=' + t(this).attr('data-rel'));
         });
 
         progress.done();

@@ -76,7 +76,7 @@ yangaiche(sys.init)(function(t) {
             set_order(order);
 
             if (yangaiche(sys.exist)(go_flag)) {
-                window.location.href = './order_info.html';
+                yangaiche(ls.back.set_back_to_self)('order_info.html');
             }
         }, function (error) {
             order['coupon_id'] = null;
@@ -122,7 +122,7 @@ yangaiche(sys.init)(function(t) {
 
             postReq("/v2/api/order/create", order, function (order_data) {
                 set_order(order_data);
-                yangaiche(ls.back.set_back_to_store)('./order_success.html');
+                yangaiche(ls.back.set_back_to_store)('order_success.html');
             }, function (data) {
                 reset_button('#submit_button');
                 show_msg("下单失败:" + data['message']);
@@ -132,7 +132,7 @@ yangaiche(sys.init)(function(t) {
 
     t("#go_to_map").click(function () {
         save_from_data();
-        window.location.href = './my_address_manage.html';
+        yangaiche(ls.back.set_back_to_self)('my_address_manage.html');
     });
 
     var auto_get_location = function () {
@@ -248,6 +248,6 @@ yangaiche(sys.init)(function(t) {
     });
 
     t('#use_coupon').click(function () {
-        window.location.href = './my_coupons.html';
+        yangaiche(ls.back.set_back_to_self)('my_coupons.html');
     });
 });

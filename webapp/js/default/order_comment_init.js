@@ -28,7 +28,7 @@ yangaiche(sys.init)(function(t) {
             order_id: yangaiche(app.url_parameter)['order_id']
         }, function(data) {
             if (data['if_feedback_committed']) {
-                yangaiche(ls.back.go_back_to_reload)();
+                yangaiche(ls.back.set_back_to_his)('order_list.html');
             } else {
                 show_msg('提交评价失败!');
             }

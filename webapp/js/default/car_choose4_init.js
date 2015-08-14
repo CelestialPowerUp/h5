@@ -136,8 +136,8 @@ yangaiche(sys.init)(function(t) {
     }
 
     t('#submit_btn').unbind('click');
-    t('#submit_btn').bind('click', function (e) {
-        var miles, year, month, number, province, re;
+    t('#submit_btn').bind('click', function () {
+        var miles, year, month, number, province;
 
         province = t('#province').val();
 
@@ -160,14 +160,16 @@ yangaiche(sys.init)(function(t) {
             number: number,
             province: province
         }];
+
         if (yangaiche(sys.exist)(reqParams['update']) && reqParams['update']) {
             param[0]['id'] = o['id'];
         }
+
         yangaiche(app.http.post_request)('/v1/api/cars/update.json', param, function () {
             if (yangaiche(sys.exist)(reqParams['update']) && reqParams['update']) {
-                yangaiche(ls.back.go_back_to_reload)();
+                yangaiche(ls.back.set_back_to_his)('my_cars.html');
             } else if (yangaiche(sys.exist)(reqParams['cmt'])) {
-                yangaiche(ls.back.go_back_to_reload)(-4);
+                yangaiche(ls.back.set_back_to_his)(yangaiche(ls.back.get_parent_of)('car_choose.html'));
             }
         }, function () {
             yangaiche(app.show_msg.show)("AJAX ERROR");

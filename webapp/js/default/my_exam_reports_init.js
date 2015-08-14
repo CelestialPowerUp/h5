@@ -18,7 +18,7 @@ yangaiche(sys.init)(function (t) {
 
         t('.report-btn').click(function (e) {
             var id = t(this).attr('data-rel');
-            window.location.href = './my_exam_reports_detail.html?id=' + id;
+            yangaiche(ls.back.set_back_to_self)('my_exam_reports_detail.html?id=' + id);
         });
 
     });

@@ -22,7 +22,7 @@ yangaiche(ls.openid.login_by_opencode, function () {
         var url = window.location.href;
         yangaiche(sys.local_storage).set(ls.openid.page_before_login, url);
         window.history.replaceState(null, null, url);
-        window.location.href = "./open_id.html";
+        yangaiche(ls.back.set_back_to_self)('open_id.html');
     };
 });
 
@@ -30,7 +30,7 @@ yangaiche(ls.openid.show_login_win, function () {
     return function () {
         var url = yangaiche(sys.local_storage).get(ls.openid.page_before_login);
         window.history.replaceState(null, null, url);
-        window.location.href = "./login.html";
+        yangaiche(ls.back.set_back_to_self)('login.html');
     };
 });
 
@@ -56,13 +56,7 @@ yangaiche(ls.openid.bind, function () {
 yangaiche(ls.openid.after_login, function () {
     return function (num) {
         // num为true时，为openid自动登录后跳转。
-        if (yangaiche(sys.exist)(num) && num) {
-            var url = yangaiche(sys.local_storage).get(ls.openid.page_before_login);
-            window.history.replaceState(null, null, url);
-            window.location.href = url;
-        } else {
-            yangaiche(ls.back.go_back_to_reload)(num);
-        }
+        yangaiche(ls.back.set_back_to_his)(yangaiche(ls.back.get_parent_of)('open_id.html'));
     };
 });
 

@@ -150,7 +150,7 @@ yangaiche(sys.init)(function(t) {
             user_id: yangaiche(ls.user.touch)()['user_id']
         };
         yangaiche(app.http.post_request)('/v1/api/address/create', param, function() {
-            yangaiche(ls.back.go_back_to_reload)();
+            yangaiche(ls.back.set_back_to_his)('my_address_manage.html');
         });
     });
 });

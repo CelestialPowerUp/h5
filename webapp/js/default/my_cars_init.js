@@ -37,7 +37,7 @@ yangaiche(sys.init)(function(t) {
             var car = item[t(this).attr('data-rel')];
             yangaiche(sys.local_storage).set("car_info_m", car);
 
-            window.location.href = './car_choose4.html?update=true';
+            yangaiche(ls.back.set_back_to_self)('car_choose4.html?update=true');
         });
 
         t('.carinfo-btn').css('left', '0px');

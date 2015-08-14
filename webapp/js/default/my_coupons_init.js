@@ -54,7 +54,7 @@ yangaiche(sys.init)(function(t) {
                         order['coupon_name'] = null;
                         order['coupon_value'] = 0;
                         updateOrder(order);
-                        set_back_to_his('./base_info.html');
+                        set_back_to_his('base_info.html');
                     } else {
                         var coupon_name = t(this).attr('data-name');
                         var coupon_type = t(this).attr('data-type');
@@ -70,7 +70,7 @@ yangaiche(sys.init)(function(t) {
                             order['coupon_value'] = data['free_price'];
                             order['total_price'] = data['total_price'];
                             updateOrder(order);
-                            set_back_to_his('./base_info.html');
+                            set_back_to_his('base_info.html');
                         }, function(error) {
                             show_msg(error['message']);
                         });

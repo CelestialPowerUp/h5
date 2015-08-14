@@ -134,6 +134,6 @@ yangaiche(sys.init)(function(t) {
 
         yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
 
-        window.location.href = './car_list.html';
+        yangaiche(ls.back.set_back_to_self)('car_list.html');
     });
 });

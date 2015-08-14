@@ -41,7 +41,7 @@ yangaiche(sys.init)(function(t) {
 
             yangaiche(sys.local_storage).set("car_info", {img_url: car.img_url, car_number: car.car_number, model: car.model});
 
-            window.location.href = './base_info.html';
+            yangaiche(ls.back.set_back_to_self)('base_info.html');
         });
 
         progress.done();
