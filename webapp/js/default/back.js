@@ -9,10 +9,8 @@ ls.back = {
 };
 
 yangaiche(ls.back.set_back_to, function() {
-    var host = yangaiche(app.env.get_host),
-        storage = yangaiche(sys.local_storage);
+    var storage = yangaiche(sys.local_storage);
     return function(url, back_to) {
-        url = host + url;
         storage.set(url, back_to);
         window.history.replaceState(null, null, back_to);
         window.location.href = url;
@@ -20,15 +18,14 @@ yangaiche(ls.back.set_back_to, function() {
 });
 
 yangaiche(ls.back.set_back_to_store, function() {
-    var host = yangaiche(app.env.get_host);
     return function(url) {
-        yangaiche(ls.back.set_back_to)(url, host + 'store.html');
+        yangaiche(ls.back.set_back_to)(url, 'store.html');
     };
 });
 
 yangaiche(ls.back.set_back_to_self, function() {
     return function(url) {
-        yangaiche(ls.back.set_back_to)(url, window.location.href);
+        yangaiche(ls.back.set_back_to)(url, window.location.href.match(/\/.*\/(.*?\.html)/));
     };
 });
 
@@ -40,9 +37,8 @@ yangaiche(ls.back.set_back_to_his, function() {
 });
 
 yangaiche(ls.back.get_parent_of, function() {
-    var host = yangaiche(app.env.get_host),
-        storage = yangaiche(sys.local_storage);
+    var storage = yangaiche(sys.local_storage);
     return function(url) {
-        return storage.get(host + url);
+        return storage.get(url);
     };
 });
