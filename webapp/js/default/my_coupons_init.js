@@ -12,7 +12,7 @@ yangaiche(sys.init)(function(t) {
         disable_button = yangaiche(app.ds.disable_button),
         reset_button = yangaiche(app.ds.reset_button),
         user = yangaiche(ls.user.touch)(),
-        go_back_to_reload = yangaiche(ls.back.go_back_to_reload),
+        set_back_to_his = yangaiche(ls.back.set_back_to_his),
         updateOrder = yangaiche(ls.order.set);
 
     function load_coupons() {
@@ -54,7 +54,7 @@ yangaiche(sys.init)(function(t) {
                         order['coupon_name'] = null;
                         order['coupon_value'] = 0;
                         updateOrder(order);
-                        go_back_to_reload();
+                        set_back_to_his('./base_info.html');
                     } else {
                         var coupon_name = t(this).attr('data-name');
                         var coupon_type = t(this).attr('data-type');
@@ -70,7 +70,7 @@ yangaiche(sys.init)(function(t) {
                             order['coupon_value'] = data['free_price'];
                             order['total_price'] = data['total_price'];
                             updateOrder(order);
-                            go_back_to_reload();
+                            set_back_to_his('./base_info.html');
                         }, function(error) {
                             show_msg(error['message']);
                         });
