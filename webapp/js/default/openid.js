@@ -54,9 +54,13 @@ yangaiche(ls.openid.bind, function () {
 });
 
 yangaiche(ls.openid.after_login, function () {
-    return function (num) {
-        // num为true时，为openid自动登录后跳转。
-        yangaiche(ls.back.set_back_to_his)(yangaiche(ls.back.get_parent_of)('open_id.html'));
+    return function () {
+        var referer = yangaiche(ls.back.get_parent_of)('open_id.html');
+        if (yangaiche(sys.exist)(referer)) {
+            yangaiche(ls.back.set_back_to_his)(referer);
+        } else {
+            yangaiche(ls.back.set_back_to)('store.html', null);
+        }
     };
 });
 
