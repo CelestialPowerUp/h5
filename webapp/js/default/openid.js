@@ -57,7 +57,7 @@ yangaiche(ls.openid.after_login, function () {
     return function () {
         var referer = yangaiche(ls.back.get_parent_of)('open_id.html');
         if (yangaiche(sys.exist)(referer)) {
-            yangaiche(ls.back.set_back_to_his)(referer);
+            yangaiche(ls.back.set_back_to_store)(referer);
         } else {
             yangaiche(ls.back.set_back_to)('store.html', null);
         }
