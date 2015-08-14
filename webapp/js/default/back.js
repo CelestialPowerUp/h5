@@ -39,6 +39,11 @@ yangaiche(ls.back.set_back_to_his, function() {
 yangaiche(ls.back.get_parent_of, function() {
     var storage = yangaiche(sys.local_storage);
     return function(url) {
-        return storage.get(url);
+        var referer = storage.get(url);
+        if (yangaiche(sys.exist)(referer)) {
+            return referer;
+        } else {
+            return null;
+        }
     };
 });
