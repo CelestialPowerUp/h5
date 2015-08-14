@@ -46,31 +46,20 @@
 
 <script type="text/x-handlebars-template" id="store_item_page_tpl">
     {{#this}}
-    {{#cover_img}}
-    <img class="store-item-img" src="{{raw_url}}"/>
-    {{/cover_img}}
+        {{#cover_img}}
+        <img class="store-item-img" src="{{raw_url}}"/>
+        {{/cover_img}}
 
-    <div id="store-item-wrapper">
-        <a href="./store_item_detail.html?ware_id={{ware_id}}" id="store-item-brief-intro">
-            <div id="store-item-go-to-detail"><img src="./img/right_arrow.png"/></div>
-            <div id="store-item-brief-intro-text-wrapper">
-                <span>{{ware_name}}</span>
-
-                <div id="store-item-brief-intro-text">{{brief_introduction}}</div>
-            </div>
-        </a>
-
-        <hr>
-
-        <div id="store-item-price">
-            <div>
-                <span>现价: ¥ </span><span>{{ware_mark_price}}</span><span><img src="./img/xianshiyouhui.png"/></span>
-            </div>
-            <div>
-                <span>市场价: <del>¥{{ware_full_price}}</del></span>
-            </div>
+        <div id="store-item-wrapper">
+            <a href="./store_item_detail.html?ware_id={{ware_id}}" id="store-item-brief-intro">
+                <div id="store-item-go-to-detail"><img src="./img/right_arrow.png"/></div>
+                <div id="store-item-brief-intro-text-wrapper">
+                    <span>{{ware_name}}</span>
+                    <div id="store-item-brief-intro-text">{{brief_introduction}}</div>
+                    <span>¥</span><span>{{ware_mark_price}}</span>
+                </div>
+            </a>
         </div>
-    </div>
     {{/this}}
 </script>
 
