@@ -3,6 +3,7 @@ yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('order', {});
+yangaiche(sys.load_default_module)('products', {});
 
 yangaiche(sys.init)(function(t) {
     var device_width = t(window).width();
@@ -122,12 +123,12 @@ yangaiche(sys.init)(function(t) {
 
         yangaiche(ls.order.clear)();
 
-        yangaiche(ls.order.update)(function(order) {
-            order['products'] = store_item['ware_products'];
-            t.each(order['products'], function(i, wp) {
+        yangaiche(ls.products.update)(function(products) {
+            t.each(store_item['ware_products'], function(i, wp) {
                 wp['total_price'] = wp['product_price'];
                 wp['product_type'] = wp['product_id'];
                 wp['unit_count'] = 1;
+                products.push(wp);
             });
         });
 

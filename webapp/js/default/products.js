@@ -5,6 +5,7 @@ ls.products = {
     touch: 'products_touch',
     set: 'products_set',
     update: 'products_update',
+
     products_info: 'products'
 };
 
