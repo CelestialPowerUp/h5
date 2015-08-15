@@ -6,11 +6,16 @@ ul, li, div, span, input, img, a, p {
 }
 
 body {
+    width: 640px;
     background: #f1f1f1;
+    overflow-x: hidden;
 }
 
 @media screen and (min-width: 1150px) {
     body {
+        width: 640px;
+        background: #f1f1f1;
+        overflow-x: hidden;
         padding-left: calc(100vw - 100%);
     }
 }
@@ -86,10 +91,10 @@ body {
     z-index: 999;
     position: fixed;
     bottom: 0;
-    width: 90%;
+    width: 640px;
     _position: absolute;
     clear: both;
-    margin: 0 5%;
+    padding: 0 20px;
     height: 100px;
 }
 
