@@ -14,11 +14,87 @@
 
     <link rel="dns-prefetch" href="http://baseimg.yangaiche.com/">
 
-    <link rel="stylesheet" href="./css/amazeui.min.css">
-    <link rel="stylesheet" href="./css/h5.css">
+    <style type="text/css">
+        #to_show_user_win {
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            z-index: 1;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        /* 轮播指示点颜色 */
+        .am-slider-a1 .am-control-nav li a {
+            background: #FFF;
+        }
+
+        .am-slider-a1 .am-control-nav li a.am-active {
+            background: #09be00;
+        }
+
+        /*  */
+        #home-page-wrapper #banner #services {
+            width: 640px;
+            background: #f1f1f1;
+        }
+
+        #home-page-wrapper {
+            padding-bottom: 20px;
+        }
+
+        #banner img {
+            width: 640px;
+        }
+
+        /* 六宫格 */
+        #services {
+            height: 426px;
+            list-style-type: none;
+        }
+
+        #services li {
+            width: 213px;
+            height: 213px;
+            float: left;
+            background: #FFF;
+        }
+
+        .border-left-right {
+            border-right: solid 1px #CCC;
+            border-left: solid 1px #CCC;
+        }
+
+        .border-bottom {
+            border-bottom: solid 1px #CCC;
+        }
+
+        #services li a {
+            display: block;
+            width: 213px;
+            height: 213px;
+            overflow: hidden;
+        }
+
+        #services li a img {
+            display: block;
+            width: 52px;
+            height: 64px;
+            margin: 50px auto 0;
+        }
+
+        #services li a span {
+            display: block;
+            width: 213px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
 
 </head>
-<body id="store-body">
+<body>
 
 <img id="to_show_user_win" src="img/user_logo4.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
 
@@ -74,7 +150,7 @@
     </div>
 </div>
 
-<div class="home-page-wrapper">
+<div id="home-page-wrapper">
     <div id="banner">
         <!--<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}' data-am-flexslider="{playAfterPaused: 8000}">-->
         <!--<ul class="am-slides">-->
@@ -142,7 +218,8 @@
 
 <script type="text/x-handlebars-template" id="home_store_list_tpl">
     {{#each this}}
-    <div class="am-vertical-align products-title"><img class="am-vertical-align-middle" src="./img/vline.png"/>
+    <div class="am-vertical-align products-title">
+        <img class="am-vertical-align-middle" src="./img/vline.png"/>
         <span class="am-vertical-align-middle">{{ware_type_name}}</span>
     </div>
 
@@ -153,8 +230,8 @@
                 {{#cover_img}}
                 <div><img src="{{raw_url}}"/></div>
                 {{/cover_img}}
-                <div class="home-page-products-text home-page-products-title">{{ware_name}}</div>
-                <div class="home-page-products-text home-page-products-price">
+                <div class="home-page-products-title">{{ware_name}}</div>
+                <div class="home-page-products-price">
                     <span>¥{{ware_mark_price}}</span>
                     <span><del>¥{{ware_full_price}}</del></span>
                 </div>
@@ -171,3 +248,5 @@
 <script type="text/javascript" src="./js/lib/yangaiche.js"></script>
 </body>
 </html>
+<link rel="stylesheet" href="./css/amazeui.min.css">
+<link rel="stylesheet" href="./css/h5.css">
