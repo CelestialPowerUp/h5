@@ -31,7 +31,7 @@ yangaiche(sys.init)(function(t) {
         t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30 - 14) + 'px');
 
         t('li').click(function() {
-            var $this = t(this), key = $this.attr('data-rel'), car = items[parseInt(key)];
+            var $this = t(this), car_id = $this.attr('data-rel'), car = items[parseInt(car_id)];
 
             yangaiche(ls.order.update)(function(order) {
                 order.car_id = car.car_id;
@@ -39,9 +39,16 @@ yangaiche(sys.init)(function(t) {
                 order.car_number = car.car_number;
             });
 
-            yangaiche(sys.local_storage).set("car_info", {img_url: car.img_url, car_number: car.car_number, model: car.model});
+            var storage = yangaiche(sys.local_storage);
+            storage.set("car_info", {img_url: car.img_url, car_number: car.car_number, model: car.model});
 
-            yangaiche(ls.back.set_back_to_self)('base_info.html');
+            var goto = storage.get(key.goto.car_list);
+            if (yangaiche(sys.exist)(goto)) {
+                yangaiche(ls.back.set_back_to_self)(goto);
+            } else {
+                var url = yangaiche(ls.back.get_parent_of)('car_list.html');
+                yangaiche(ls.back.set_back_to_his)(url);
+            }
         });
 
         progress.done();

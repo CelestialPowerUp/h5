@@ -6,5 +6,8 @@ var key = {
         submit_text_value1: '确定',
         submit_text_value2: '立即付款',
         submit_text_value3: '立即预约'
+    },
+    goto: {
+        car_list: 'car_list_goto'
     }
 };
