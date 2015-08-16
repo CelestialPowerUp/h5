@@ -3,6 +3,8 @@ yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('parameter', {});
+yangaiche(sys.load_default_module)('order', {});
+yangaiche(sys.load_default_module)('back', {});
 
 yangaiche(sys.init)(function(t) {
 
@@ -35,6 +37,14 @@ yangaiche(sys.init)(function(t) {
         t.each(t('.home-page-products'), function(i, l) {
             var list = t(l);
             list.css('height', ((list.children().length + 1) / 2 * 310) + 'px');
+        });
+
+        t('.home-page-products li').click(function() {
+            yangaiche(ls.order.clear)();
+
+            var ware_id = t(this).attr('data-rel');
+
+            yangaiche(ls.back.set_back_to_self)('store_item_page.html?ware_id=' + ware_id);
         });
 
     }, function(error) {

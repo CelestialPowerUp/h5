@@ -225,8 +225,8 @@
 
     <ul class="home-page-products">
         {{#each ware_list}}
-        <li class="{{odd_or_even}}">
-            <a href="./store_item_page.html?ware_id={{ware_id}}">
+        <li class="{{odd_or_even}}" data-rel="{{ware_id}}">
+            <div>
                 {{#cover_img}}
                 <div><img src="{{raw_url}}"/></div>
                 {{/cover_img}}
@@ -235,7 +235,7 @@
                     <span>¥{{ware_mark_price}}</span>
                     <span><del>¥{{ware_full_price}}</del></span>
                 </div>
-            </a>
+            </div>
         </li>
         {{/each}}
     </ul>

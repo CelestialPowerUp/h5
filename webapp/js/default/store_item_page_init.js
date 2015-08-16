@@ -118,8 +118,6 @@ yangaiche(sys.init)(function(t) {
             return true;
         }
 
-        yangaiche(ls.order.clear)();
-
         yangaiche(ls.products.update)(function(products) {
             t.each(store_item['ware_products'], function(i, wp) {
                 wp['total_price'] = wp['product_price'];
