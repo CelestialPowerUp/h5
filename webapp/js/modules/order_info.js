@@ -4,6 +4,11 @@
 !function (t) {
     t(function () {
 
+        if (!getStore().get('open_id')) {
+            getStore().set('open_id_back', './order_info.html');
+            window.location.href = './open_id.html';
+        }
+
         $("#submit_button").click(function () {
             disable_button("submit_button");
 
