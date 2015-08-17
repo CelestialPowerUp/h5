@@ -11,12 +11,12 @@
 
             console.log([store.get('car_info')]);
 
-            template('./template/carInfo.html', 'body', 'prepend', [store.get('car_info')], null, null, function () {
-                t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30) + 'px');
-            });
+            var tpl = Handlebars.compile(yangaiche(app.tpl.load)('template/editCarInfo.html'));
+            t('body').prepend(tpl([yangaiche(sys.local_storage)(key.car.info)]));
+
+            t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30) + 'px');
 
             load_products(get_service_type_from_router(), order['car_model_type'], null, null, function (param) {
-//                console.log(param['ret_data']);
 
                 var products = [], total_price = 0, product_dict = {}, product_part_dict = {};
                 t.each(param['ret_data']['required_products'] ? param['ret_data']['required_products'] : [], function (i, p) {
