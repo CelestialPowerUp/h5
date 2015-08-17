@@ -5,12 +5,17 @@
     if (t) {
         t(function () {
 
-            if (!getStore().get('open_id')) {
-                retry('open_id', 30, function() {
-                    getStore().set('open_id_back', './order_success.html');
-                    window.location.href = './open_id.html';
-                });
-            }
+            loadCfg('platform.json', function (platform) {
+                if ('wechat' === platform['platform']) {
+                    if (!getStore().get('open_id')) {
+                        retry('open_id', 30, function () {
+                            getStore().set('open_id_back', './order_success.html');
+                            window.location.href = './open_id.html';
+                        });
+                    }
+                }
+            });
+
 
             console.log(getOrder());
             clearOrder();

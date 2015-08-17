@@ -4,12 +4,16 @@
 !function (t) {
     t(function () {
 
-        if (!getStore().get('open_id')) {
-            retry('open_id', 30, function() {
-                getStore().set('open_id_back', window.location.href.match(/\/.*\/(.*?\.html\?order_id=\d*)/)[1]);
-                window.location.href = './open_id.html';
-            });
-        }
+        loadCfg('platform.json', function (platform) {
+            if ('wechat' === platform['platform']) {
+                if (!getStore().get('open_id')) {
+                    retry('open_id', 30, function() {
+                        getStore().set('open_id_back', window.location.href.match(/\/.*\/(.*?\.html\?order_id=\d*)/)[1]);
+                        window.location.href = './open_id.html';
+                    });
+                }
+            }
+        });
 
         $("#submit_button").click(function () {
             disable_button("submit_button");
