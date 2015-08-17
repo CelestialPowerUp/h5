@@ -21,6 +21,7 @@ if (reqParam['code']) {
         updateUser(data);
         if (open_id_back) {
             getStore().remove('open_id_back');
+            window.history.replaceState(null, null, 'home_with_products.html');
             window.location.href = open_id_back;
         } else {
             after_login();
@@ -29,6 +30,7 @@ if (reqParam['code']) {
         getStore().set("open_id",data.data);
         if (open_id_back) {
             getStore().remove('open_id_back');
+            window.history.replaceState(null, null, 'home_with_products.html');
             window.location.href = open_id_back;
         } else {
             if(data && data['code'] == '10007'){
