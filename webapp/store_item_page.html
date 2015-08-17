@@ -21,17 +21,17 @@
 <body class="body-background-color-gray">
 
 <div id="store-item-supplier">
-    修理厂&nbsp;&nbsp;&nbsp;&nbsp;ABCD
+    <span>修理厂</span><span>ABCD</span>
 </div>
 
 <div id="store-item-car-choose">
     <div class="store-item-detail"><img src="./img/right_arrow.png"/></div>
-    选择车辆
+    <span>选择车辆</span>
 </div>
 
 <div id="store-item-service-type">
     <div class="store-item-detail"><img src="./img/right_arrow.png"/></div>
-    选择服务方式
+    <span>选择服务方式</span>
 </div>
 
 <div id="store-service-flow">
@@ -50,13 +50,41 @@
     <ul></ul>
 </div>
 
+<div id="popup" style="display: none">
+    <div class="store-item-cover"></div>
+    <div class="service-type-choose-wrapper">
+        <div class="service-type-price-wrapper">
+            <span id="item_price"></span>
+            <span id="item_title"></span>
+            <div>已选择&nbsp;&nbsp;“<span id="car_model"></span>”</div>
+        </div>
+        <hr>
+        <div class="am-vertical-align" id="my-btn-group" data-rel="1">
+            <button type="button" class="service-type-choose service-type-choose-chosen am-vertical-align-middle"
+                    data-rel="1">
+                管家接车
+            </button>
+            <button type="button" class="service-type-choose service-type-choose-chosen-not am-vertical-align-middle"
+                    data-rel="2">
+                线下自助
+            </button>
+        </div>
+        <div class="normal-bottom-btn-div">
+            <button type="button" id="submit_btn" class="am-btn am-btn-danger bottom-button-orange" style="width: 100%;">去结算</button>
+        </div>
+    </div>
+    <div class="store-item-image-cover">
+        <img id="item_image_cover">
+    </div>
+</div>
+
 <footer id="store-item-footer">
     <a href="tel:400-0102-766">
         <img src="./img/kefu.png"/>
         <span>客服</span>
     </a>
 
-    <div id="submit">立即购买</div>
+    <div id="ready_submit">立即购买</div>
 </footer>
 
 <script type="text/x-handlebars-template" id="store_item_page_tpl">

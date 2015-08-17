@@ -5,7 +5,7 @@ yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
 
-yangaiche(sys.init)(function(t) {
+yangaiche(sys.init)(function (t) {
     var device_width = t(window).width();
     console.log('device width: ' + device_width);
 
@@ -103,6 +103,10 @@ yangaiche(sys.init)(function(t) {
 
         store_item = data;
 
+        t('#item_price').text('¥' + data['ware_mark_price']);
+        t('#item_title').text(data['ware_name']);
+        t('#item_image_cover').attr('src', data['cover_img']['raw_url'] + '?imageView2/3/w/180/h/180/interlace/1');
+
         data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
 
         var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
@@ -113,13 +117,13 @@ yangaiche(sys.init)(function(t) {
         show_msg(error['message']);
     });
 
-    t('#submit').click(function() {
+    t('#submit_btn').click(function () {
         if (!yangaiche(sys.exist)(store_item)) {
             return true;
         }
 
-        yangaiche(ls.products.update)(function(products) {
-            t.each(store_item['ware_products'], function(i, wp) {
+        yangaiche(ls.products.update)(function (products) {
+            t.each(store_item['ware_products'], function (i, wp) {
                 wp['total_price'] = wp['product_price'];
                 wp['product_type'] = wp['product_id'];
                 wp['unit_count'] = 1;
@@ -127,8 +131,76 @@ yangaiche(sys.init)(function(t) {
             });
         });
 
-        yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
+        var storage = yangaiche(sys.local_storage);
+        var car = storage.get(key.car.info);
 
+        yangaiche(ls.order.update)(function (order) {
+            order.car_id = car.car_id;
+            order.car_model_type = car.car_model_type;
+            order.car_number = car.car_number;
+        });
+
+        storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
+
+        yangaiche(ls.back.set_back_to_self)('base_info.html');
+    });
+
+    t('#store-item-car-choose').click(function () {
         yangaiche(ls.back.set_back_to_self)('car_list.html');
     });
+
+    function ready_submit() {
+        var storage = yangaiche(sys.local_storage);
+        var car = storage.get(key.car.info);
+        if (!yangaiche(sys.exist)(car)) {
+            yangaiche(app.show_msg.show)('请先选车');
+            return false;
+        }
+
+        t('#popup').css('display', 'block');
+    }
+
+    t('#store-item-service-type').click(ready_submit);
+
+    t('#ready_submit').click(ready_submit);
+
+    t('.store-item-cover').click(function () {
+        t('#popup').css('display', 'none');
+    });
+
+    var storage = yangaiche(sys.local_storage);
+
+    t('#my-btn-group').on('click', 'button', function () {
+        var $this = t(this);
+        var group_p = $this.parents()[0];
+        var local_rel = $this.attr('data-rel');
+        var selected_rel = t(group_p).attr('data-rel');
+        if (local_rel === selected_rel) {
+            return false;
+        }
+
+        t(group_p).attr('data-rel', local_rel);
+        storage.set(key.service.type, local_rel);
+        t('#store-item-service-type span').text($this.text());
+
+        t(group_p).find('button').removeClass('service-type-choose-chosen');
+        t(group_p).find('button').addClass('service-type-choose-chosen-not');
+
+        $this.removeClass('service-type-choose-chosen-not');
+        $this.addClass('service-type-choose-chosen');
+    });
+
+    var service_type = storage.get(key.service.type);
+    if (yangaiche(sys.exist)(service_type)) {
+        var btn = t('#my-btn-group button[data-rel="' + service_type + '"]');
+        btn.click();
+        t('#store-item-service-type span').text(btn.text());
+    }
+
+    var car_info = storage.get(key.car.info);
+    if (yangaiche(sys.exist)(car_info)) {
+        t('#store-item-car-choose span').text(car_info.model);
+        var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
+        t('#car_model').text(short_model);
+    }
 });

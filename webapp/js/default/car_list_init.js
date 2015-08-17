@@ -3,7 +3,7 @@ yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('format', {});
 
-yangaiche(sys.init)(function(t) {
+yangaiche(sys.init)(function (t) {
     var progress = $.AMUI.progress;
     progress.start();
     progress.inc(0.5);
@@ -30,17 +30,23 @@ yangaiche(sys.init)(function(t) {
 
         t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30 - 14) + 'px');
 
-        t('li').click(function() {
+        t('li').click(function () {
             var $this = t(this), car_id = $this.attr('data-rel'), car = items[parseInt(car_id)];
 
-            yangaiche(ls.order.update)(function(order) {
+            yangaiche(ls.order.update)(function (order) {
                 order.car_id = car.car_id;
                 order.car_model_type = car.car_model_type;
                 order.car_number = car.car_number;
             });
 
             var storage = yangaiche(sys.local_storage);
-            storage.set("car_info", {img_url: car.img_url, car_number: car.car_number, model: car.model});
+            storage.set(key.car.info, {
+                car_id: car.car_id,
+                car_model_type: car.car_model_type,
+                img_url: car.img_url,
+                car_number: car.car_number,
+                model: car.model
+            });
 
             var goto = storage.get(key.goto.car_list);
             if (yangaiche(sys.exist)(goto)) {

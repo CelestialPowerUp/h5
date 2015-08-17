@@ -9,5 +9,11 @@ var key = {
     },
     goto: {
         car_list: 'car_list_goto'
+    },
+    car: {
+        info: 'car_info'
+    },
+    service: {
+        type: 'service_type'
     }
 };

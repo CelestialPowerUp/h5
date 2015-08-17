@@ -25,7 +25,7 @@ yangaiche(ls.back.set_back_to_store, function() {
 
 yangaiche(ls.back.set_back_to_self, function() {
     return function(url) {
-        yangaiche(ls.back.set_back_to)(url, window.location.href.match(/\/.*\/(.*?\.html)/)[1]);
+        yangaiche(ls.back.set_back_to)(url, window.location.href.match(/\/.*\/(.*?\.html.*)/)[1]);
     };
 });
 
