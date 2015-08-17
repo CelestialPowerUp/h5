@@ -5,8 +5,10 @@
     t(function () {
 
         if (!getStore().get('open_id')) {
-            getStore().set('open_id_back', './order_info.html');
-            window.location.href = './open_id.html';
+            retry('open_id', 30, function() {
+                getStore().set('open_id_back', './order_info.html');
+                window.location.href = './open_id.html';
+            });
         }
 
         $("#submit_button").click(function () {
