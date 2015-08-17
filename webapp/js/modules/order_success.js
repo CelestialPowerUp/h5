@@ -5,6 +5,11 @@
     if (t) {
         t(function () {
 
+            if (!getStore().get('open_id')) {
+                getStore().set('open_id_back', './order_success.html');
+                window.location.href = './open_id.html';
+            }
+
             console.log(getOrder());
             clearOrder();
             var order_info = getSuccessOrder();

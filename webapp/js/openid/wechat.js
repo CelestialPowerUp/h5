@@ -15,14 +15,25 @@ var snsapi = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appI
 
 var reqParam = getReqParam(), to_snsapi = true;
 if (reqParam['code']) {
+    var open_id_back = getStore().get('open_id_back');
     postReq("login_by_wx_code.json?code="+reqParam['code']+"&situation="+situation,{},function(data){
         getStore().set("open_id",data.openid);
         updateUser(data);
-        after_login();
+        if (open_id_back) {
+            getStore().remove('open_id_back');
+            window.location.href = open_id_back;
+        } else {
+            after_login();
+        }
     },function(data){
         getStore().set("open_id",data.data);
-        if(data && data['code'] == '10007'){
-            show_login_win();
+        if (open_id_back) {
+            getStore().remove('open_id_back');
+            window.location.href = open_id_back;
+        } else {
+            if(data && data['code'] == '10007'){
+                show_login_win();
+            }
         }
     });
     to_snsapi = false;
