@@ -6,7 +6,7 @@
 
         if (!getStore().get('open_id')) {
             retry('open_id', 30, function() {
-                getStore().set('open_id_back', './order_info.html');
+                getStore().set('open_id_back', window.location.href.match(/\/.*\/(.*?\.html\?order_id=\d*)/)[1]);
                 window.location.href = './open_id.html';
             });
         }
