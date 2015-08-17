@@ -3,7 +3,7 @@
  */
 var domain = '', api_root = "/v1/api/", dev = '';
 
-!function() {
+!function () {
     var obj = $.ajax({
         url: './data.json',
         cache: false,
@@ -40,7 +40,7 @@ var default_header = function (request) {
 };
 
 
-var login_by_opencode = function(){
+var login_by_opencode = function () {
     loadCfg('platform.json', function (platform) {
         if ('normal' === platform['platform']) {
             show_login_win();
@@ -72,7 +72,7 @@ var getReqParam = function () {
     return theRequest;
 };
 
-var getHashParam = function() {
+var getHashParam = function () {
     var url = location.href; //
     var theRequest = {};
     theRequest.counts = 0;
@@ -470,5 +470,15 @@ function check_reload_cmd() {
     if ('T' === getStore().get('to_reload')) {
         getStore().remove('to_reload');
         window.location.reload();
+    }
+}
+
+function retry(key, mins, callback) {
+    var last = getStore().get(key);
+    if (!last || (Date.now() - last) / 1000 / 60 > mins) {
+        getStore().set(key, Date.now());
+        callback();
+    } else {
+        show_msg('请30分钟后重试');
     }
 }
