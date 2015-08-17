@@ -6,8 +6,10 @@
         t(function () {
 
             if (!getStore().get('open_id')) {
-                getStore().set('open_id_back', './order_success.html');
-                window.location.href = './open_id.html';
+                retry('open_id', 30, function() {
+                    getStore().set('open_id_back', './order_success.html');
+                    window.location.href = './open_id.html';
+                });
             }
 
             console.log(getOrder());
