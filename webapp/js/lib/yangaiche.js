@@ -127,6 +127,7 @@ yangaiche(sys.init, function () {
     return function (callback) {
         var $ = yangaiche(sys.$);
         $(callback($));
+        console.log('init complete...');
     };
 });
 
