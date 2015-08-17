@@ -1411,18 +1411,19 @@ body {
     font-size: 24px;
 }
 
-#store-item-supplier span:first-child {
+#store-item-supplier span {
     display: inline-block;
-    width: 150px;
+    float: left;
     margin: 0;
     padding: 0;
 }
 
+#store-item-supplier span:first-child {
+    width: 150px;
+}
+
 #store-item-supplier span:last-child {
-    display: inline-block;
-    width: 470px;
-    margin: 0;
-    padding: 0;
+    width: 450px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
