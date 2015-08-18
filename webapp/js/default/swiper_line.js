@@ -28,8 +28,9 @@ yangaiche(app.swiper_line.decorate, function () {
             swipers.push(swiper);
         });
         var scroll_bars = t(selector).find('.swiper-scrollbar');
-        scroll_bars.css('margin', '0 0 105px -3px');
+        scroll_bars.css('margin', '0 0 105px -5px');
         scroll_bars.css('height', '1px');
+        scroll_bars.css('width', '490px');
         return swipers;
     };
 });
