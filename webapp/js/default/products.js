@@ -14,7 +14,11 @@ yangaiche(ls.products.calculate, function() {
         return p['labour_price'] + (p['price'] * p['unit_count']);
     }
     return function(products) {
-
+        var price = 0;
+        yangaiche(sys.$).each(products, function(i, p) {
+            price += product_price(p);
+        });
+        return price.toFixed(2);
     };
 });
 
