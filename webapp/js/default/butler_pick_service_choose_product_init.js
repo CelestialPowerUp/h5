@@ -104,6 +104,8 @@ yangaiche(sys.init)(function (t) {
 
             recalculate_products(required_products);
 
+            yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
+
             yangaiche(ls.back.set_back_to_self)('base_info.html');
         });
     }, function () {

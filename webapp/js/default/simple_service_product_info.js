@@ -27,6 +27,8 @@ yangaiche(sys.init)(function (t) {
 
         // 下一步按钮
         t('#next').click(function () {
+            yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value3);
+
             yangaiche(ls.back.set_back_to_self)('base_info.html');
         });
     }, function () {
