@@ -114,7 +114,7 @@ body {
     z-index: 999;
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 640px;
     _position: absolute;
     clear: both;
     height: 260px;
