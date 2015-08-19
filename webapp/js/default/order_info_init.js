@@ -30,7 +30,7 @@ yangaiche(sys.init)(function (t) {
 
     var reqParams = yangaiche(app.url_parameter);
     if (yangaiche(sys.exist)(reqParams['order_id'])) {//有参数，查看页面
-        getReq("/v1/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
+        getReq("/v2/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
             order.car_number = order.car.licence.province + order.car.licence.number;
             order.contact_name = order.client_basic.name;
             order.phone_number = order.client_basic.phone_number;

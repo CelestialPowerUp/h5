@@ -10,7 +10,7 @@ yangaiche(sys.load_default_module)('back');
 yangaiche(sys.init)(function (t) {
     var order = yangaiche(ls.order.touch)(),
         calculate = yangaiche(ls.products.calculate);
-    yangaiche(app.http.get_request)('/v1/api/products.json?service_type=1&supplier_id=' + order.supplier_id + '&car_model_type=' + order.car_model_type, function (data) {
+    yangaiche(app.http.get_request)('/v1/api/products.json?service_type=11&supplier_id=' + order.supplier_id + '&car_model_type=' + order.car_model_type, function (data) {
         var required_products = data['required_products'], required_price = calculate(data['required_products']), product_dict = {};
 
         t.each(data['optional_products'] ? data['optional_products'] : [], function (i, p_c) {
