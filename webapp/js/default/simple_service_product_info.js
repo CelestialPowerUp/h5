@@ -8,11 +8,10 @@ yangaiche(sys.load_default_module)('supplier');
 
 app.simple_service_products = {
     config: {
-        car_beauty_service_product_info: 2,
-        renewal_service_product_info: 3,
-        home_testing_service_product_info: 4,
-        set_loss_service_product_info: 5,
-        vehicle_exam_service_product_info: 13
+        car_beauty_service_product_info: 12,
+        renewal_service_product_info: 13,
+        home_testing_service_product_info: 14,
+        set_loss_service_product_info: 15
     }
 };
 

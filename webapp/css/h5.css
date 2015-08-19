@@ -1128,6 +1128,10 @@ body {
     white-space: nowrap;
 }
 
+.my-product-list {
+    margin-bottom: 280px;
+}
+
 .my-product-list li {
     border-width: 0;
     border-top: 1px solid #cccccc;
@@ -1217,8 +1221,9 @@ body {
 
 .my-product-line-content-label {
     color: #666666;
-    width: 90px;
+    width: 2em;
     margin-left: 30px;
+    margin-right: 10px;
     text-align: center;
     font-size: 30px;
 }
@@ -1244,7 +1249,6 @@ body {
 }
 
 .swiper-container {
-    width: 490px;
     height: 110px;
 }
 

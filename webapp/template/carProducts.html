@@ -1,5 +1,5 @@
 <ul class="am-list my-product-list">
-    {{#each this}}
+    {{#each products}}
     <li class="my-product-line">
         <div class="body-background-color-gray my-product-line am-vertical-align">
             <div class="my-product-line-content-label am-vertical-align-middle">{{{part_name}}}</div>
@@ -19,4 +19,23 @@
         </div>
     </li>
     {{/each}}
+    <li id="community_only" class="my-product-line">
+        <div class="body-background-color-gray my-product-line am-vertical-align">
+            <div class="my-product-line-content-label am-vertical-align-middle">接车方式</div>
+            <div class="swiper-container am-vertical-align-middle">
+                <!-- Add Scrollbar -->
+                <div class="swiper-scrollbar"></div>
+                <div class="swiper-wrapper my-btn-group" must-select-one="1" data-rel="{{keeper_type}}">
+                    <div class="swiper-slide clear-pm am-nbfc">
+                        <button class="my-product-line-content-button am-fl" data-rel="{{keeper_type}}">
+                            管家接车
+                        </button>
+                        <button class="my-product-line-content-button am-fl" data-rel="{{self_type}}">
+                            线下自助
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
 </ul>

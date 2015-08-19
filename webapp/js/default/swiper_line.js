@@ -5,12 +5,17 @@ app.swiper_line = {
 yangaiche(app.swiper_line.decorate, function () {
     var t = yangaiche(sys.$);
     return function (selector) {
+
+        var label = t(selector).find('.my-product-line-content-label');
+        var max_len = 640 - 60 - label.width() - label.css('margin-right').match(/(\d*)/)[1];
+        t(selector).find('.swiper-container').css('width', max_len + 'px');
+
         var swipers = [];
         t.each(t(selector).find('.swiper-container'), function(i, sc) {
             t(sc).addClass('swiper-container' + i);
             var scroll = t(sc).find('.swiper-scrollbar');
             scroll.addClass('swiper-scrollbar' + i);
-            scroll.css('width', '490px');
+            scroll.css('width', max_len + 'px');
             var slide0 = t(sc).find('.swiper-slide').eq(0);
             var btn_count = t(sc).find('button').length;
             var len = btn_count * 200 + (btn_count - 1) * 24;

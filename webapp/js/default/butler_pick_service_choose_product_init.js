@@ -27,11 +27,18 @@ yangaiche(sys.init)(function (t) {
             });
 
             var tpl = Handlebars.compile(yangaiche(app.tpl.load)('template/carProducts.html'));
-            t('#products').empty().html(tpl(data['optional_products']));
+            t('#products').empty().html(tpl({
+                products: data['optional_products'],
+                keeper_type: 1,
+                self_type: 2
+            }));
 
             yangaiche(app.swiper_line.decorate)('#products');
 
             t.each(t('.my-btn-group'), function (i, btn_group) {
+                if (i >= data['optional_products'].length) {
+                    return false;
+                }
                 var part_name = data['optional_products'][i]['part_name'];
                 var first_p = t(btn_group).find('button').eq(0);
                 if ('空气滤' === part_name) {
@@ -81,7 +88,8 @@ yangaiche(sys.init)(function (t) {
                 var group_p = t(this).parents()[1];
                 var local_rel = t(this).attr('data-rel');
                 var selected_rel = t(group_p).attr('data-rel');
-                if (local_rel == selected_rel) {
+                var must_select_one = t(group_p).attr('must-select-one');
+                if (local_rel == selected_rel && !must_select_one) {
                     t(group_p).attr('data-rel', '');
                     t(this).css('background-color', '#FFFFFF');
                     t(this).css('color', '#333333');
