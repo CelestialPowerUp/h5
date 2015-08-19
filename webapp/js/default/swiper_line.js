@@ -8,7 +8,9 @@ yangaiche(app.swiper_line.decorate, function () {
         var swipers = [];
         t.each(t(selector).find('.swiper-container'), function(i, sc) {
             t(sc).addClass('swiper-container' + i);
-            t(sc).find('.swiper-scrollbar').addClass('swiper-scrollbar' + i);
+            var scroll = t(sc).find('.swiper-scrollbar');
+            scroll.addClass('swiper-scrollbar' + i);
+            scroll.css('width', '490px');
             var slide0 = t(sc).find('.swiper-slide').eq(0);
             var btn_count = t(sc).find('button').length;
             var len = btn_count * 200 + (btn_count - 1) * 24;
@@ -28,9 +30,8 @@ yangaiche(app.swiper_line.decorate, function () {
             swipers.push(swiper);
         });
         var scroll_bars = t(selector).find('.swiper-scrollbar');
-        scroll_bars.css('margin', '0 0 105px -5px');
         scroll_bars.css('height', '1px');
-        scroll_bars.css('width', '490px');
+        scroll_bars.css('margin', '0 0 105px -3px');
         return swipers;
     };
 });
