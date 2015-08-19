@@ -4,22 +4,24 @@ yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('order', {});
+yangaiche(sys.load_default_module)('location', {});
+yangaiche(sys.load_default_module)('map', {});
 yangaiche(sys.load_default_module)('back', {});
 
-yangaiche(sys.init)(function(t) {
+yangaiche(sys.init)(function (t) {
 
     //var raw_data = '{"code":"00000","data":[{"ware_list":[{"product_name":"机油-磁护","ware_mark_price":94.5,"ware_status":"down_shelves","ware_full_price":3232,"ware_type_name":"室内清洗","cover_img":{"img_id":1052,"thumbnail_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s250.jpg","img_index":0,"original_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s1024.jpg","raw_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg"},"ware_id":1,"ware_name":"室内清洗"}],"ware_type_name":"室内清洗"}]}';
     //var data = JSON.parse(raw_data)['data'];
 
-    yangaiche(app.http.get_request)('/v2/api/store/home_ware_list.json', function(data) {
+    yangaiche(app.http.get_request)('/v2/api/store/home_ware_list.json', function (data) {
 
         var to_move_index = null, to_append_data = null;
-        t.each(data, function(i, d) {
+        t.each(data, function (i, d) {
             if (d['ware_type_name'].match(/线下/)) {
                 to_move_index = i;
                 to_append_data = d;
             }
-            t.each(d['ware_list'], function(j, wl) {
+            t.each(d['ware_list'], function (j, wl) {
                 if (j % 2 === 0) {
                     wl.odd_or_even = 'odd';
                 } else {
@@ -34,12 +36,12 @@ yangaiche(sys.init)(function(t) {
         var tpl = Handlebars.compile(t("#home_store_list_tpl").text());
         t('#home-page-wrapper').append(tpl(data));
 
-        t.each(t('.home-page-products'), function(i, l) {
+        t.each(t('.home-page-products'), function (i, l) {
             var list = t(l);
             list.css('height', ((list.children().length + 1) / 2 * 310) + 'px');
         });
 
-        t('.home-page-products li').click(function() {
+        t('.home-page-products li').click(function () {
             yangaiche(ls.order.clear)();
 
             var ware_id = t(this).attr('data-rel');
@@ -47,7 +49,16 @@ yangaiche(sys.init)(function(t) {
             yangaiche(ls.back.set_back_to_self)('store_item_page.html?ware_id=' + ware_id);
         });
 
-    }, function(error) {
+        var location = yangaiche(ls.location.touch)();
+        console.log(location);
+        if (!yangaiche(sys.exist)(location['address']) || '' === location['address']) {
+            yangaiche(app.map.auto_location)(function (address) {
+                t('#location span').text(address);
+            });
+        } else {
+            t('#location span').text(location['address']);
+        }
+    }, function (error) {
         yangaiche(app.show_msg.show)(error['message']);
     });
 
@@ -71,6 +82,10 @@ yangaiche(sys.init)(function(t) {
         window.history.replaceState(null, null, "./store.html");
     }).on('open.offcanvas.amui', function () {
         window.history.replaceState(null, null, "./store.html?back=true");
+    });
+
+    t('#location').click(function () {
+        yangaiche(ls.back.set_back_to_self)('my_address_manage.html');
     });
 
     //t('#footer_close').click(function(e) {

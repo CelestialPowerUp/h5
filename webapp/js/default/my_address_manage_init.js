@@ -17,11 +17,12 @@ yangaiche(sys.init)(function (t) {
         t('body').prepend(tpl(data));
 
         t('.address-btn').click(function () {
+            var $this = t(this);
             yangaiche(ls.location.update)(function (location_info) {
-                location_info['longitude'] = t(this).attr('data-longitude');
-                location_info['latitude'] = t(this).attr('data-latitude');
-                location_info['name'] = t(this).attr('data-name');
-                location_info['address'] = t(this).find('span').eq(0).text();
+                location_info['longitude'] = $this.attr('data-longitude');
+                location_info['latitude'] = $this.attr('data-latitude');
+                location_info['name'] = $this.attr('data-name');
+                location_info['address'] = $this.find('span').eq(0).text();
             });
             var url = yangaiche(ls.back.get_parent_of)('my_address_manage.html');
             yangaiche(ls.back.set_back_to_his)(url);

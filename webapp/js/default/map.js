@@ -1,14 +1,16 @@
+yangaiche(sys.load_default_module)('location');
+
 app.map = {
     init: 'map_init',
     auto_location: 'map_auto_location'
 };
 
 yangaiche(app.map.init, function () {
-
+    return {};
 });
 
 yangaiche(app.map.auto_location, function () {
-    return function () {
+    return function (callback) {
         !function () {
             var geolocation = new BMap.Geolocation();
             geolocation.getCurrentPosition(function (e) {
@@ -26,7 +28,7 @@ yangaiche(app.map.auto_location, function () {
                         location_info.longitude = e.point.lng;
                         location_info.point = e.point;
                     });
-
+                    callback(address);
                 } else {
                     // 定位失败事件
                     show_msg(e.message);
