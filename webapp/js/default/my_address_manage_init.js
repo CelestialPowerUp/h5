@@ -1,6 +1,8 @@
 yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('swiper', {});
+yangaiche(sys.load_default_module)('location', {});
+yangaiche(sys.load_default_module)('back', {});
 
 yangaiche(sys.init)(function (t) {
     var progress = $.AMUI.progress;
@@ -14,16 +16,15 @@ yangaiche(sys.init)(function (t) {
         var tpl = Handlebars.compile(t("#address_list_tpl").text());
         t('body').prepend(tpl(data));
 
-        t('.address-btn').click(function (e) {
-            if ('address_list' !== getStore().get('now_in')) {
-                var location_info = {};
+        t('.address-btn').click(function () {
+            yangaiche(ls.location.update)(function (location_info) {
                 location_info['longitude'] = t(this).attr('data-longitude');
                 location_info['latitude'] = t(this).attr('data-latitude');
                 location_info['name'] = t(this).attr('data-name');
                 location_info['address'] = t(this).find('span').eq(0).text();
-                updateLocation(location_info);
-                go_back_to_reload();
-            }
+            });
+            var url = yangaiche(ls.back.get_parent_of)('my_address_manage.html');
+            yangaiche(ls.back.set_back_to_his)(url);
         });
 
         t('.delete-btn').click(function (e) {
