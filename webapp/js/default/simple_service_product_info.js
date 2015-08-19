@@ -24,7 +24,7 @@ yangaiche(sys.init)(function (t) {
 
         var config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
 
-        yangaiche(app.http.get_request)('/v2/api/products.json?service_type=' + service_type + config + order.supplier_id + '&car_model_type=' + order.car_model_type, function (data) {
+        yangaiche(app.http.get_request)('/v2/api/products.json?service_type=' + service_type + config + '&car_model_type=' + order.car_model_type, function (data) {
             var total_price = yangaiche(ls.products.calculate)(data['required_products']);
             t('#total_price').html('¥' + total_price);
             yangaiche(ls.products.set)(data['required_products']);
