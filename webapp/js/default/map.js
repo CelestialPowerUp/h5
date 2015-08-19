@@ -16,8 +16,8 @@ yangaiche(app.map.auto_location, function () {
             geolocation.getCurrentPosition(function (e) {
                 if (this.getStatus() == BMAP_STATUS_SUCCESS) {
                     // 定位成功事件
-                    var address = '';
                     yangaiche(ls.location.update)(function (location_info) {
+                        var address = '';
                         address += e.address.city ? e.address.city : '';
                         address += e.address.district ? e.address.district : '';
                         address += e.address.street ? e.address.street : '';
@@ -27,8 +27,8 @@ yangaiche(app.map.auto_location, function () {
                         location_info.latitude = e.point.lat;
                         location_info.longitude = e.point.lng;
                         location_info.point = e.point;
+                        callback(address, location_info);
                     });
-                    callback(address);
                 } else {
                     // 定位失败事件
                     show_msg(e.message);
