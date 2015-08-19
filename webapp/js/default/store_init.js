@@ -50,7 +50,6 @@ yangaiche(sys.init)(function (t) {
         });
 
         var location = yangaiche(ls.location.touch)();
-        console.log(location);
         if (!yangaiche(sys.exist)(location['address']) || '' === location['address']) {
             yangaiche(app.map.auto_location)(function (address) {
                 t('#location span').text(address);
