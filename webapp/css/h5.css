@@ -701,7 +701,7 @@ body {
 }
 
 /* order info */
-#order_info_advise_items, #order_info_self_items, #order_info_keeper_info, #order_info_user_info {
+#order_info_advise_items, #order_info_selected_items, #order_info_self_items, #order_info_keeper_info, #order_info_user_info {
     width: 640px;
     margin-top: 30px;
     background-color: #FFFFFF;
@@ -715,6 +715,11 @@ body {
     padding: 0 30px;
     height: 60px;
     line-height: 60px;
+}
+
+#order_info_keeper_info li span {
+    font-size: 30px;
+    color: #999;
 }
 
 #order_info_keeper_info li span:first-child {
@@ -749,6 +754,14 @@ body {
     display: inline-block;
 }
 
+#order_info_advise_items .order_info_items li img {
+    margin-right: 28px;
+}
+
+#order_info_advise_items .order_info_items li span {
+    float: right;
+}
+
 .order_info_item_name {
     width: 200px;
     color: #666;
@@ -766,7 +779,7 @@ body {
 }
 
 .order_info_item_price {
-    width: 260px;
+    width: 320px;
     /*font-family: "Hiragino Sans GB W3", 冬青黑体简, 兰亭黑, monospace;*/
     font-size: 30px;
     font-weight: bolder;
@@ -775,13 +788,13 @@ body {
     /*background: #999;*/
 }
 
-#order_info_self_items ul li .order_info_item_price {
-    width: 320px;
+#order_info_advise_items ul li .order_info_item_price {
+    width: 260px;
 }
 
 #order_info_advise_decide {
     width: 640px;
-    height: 60px;
+    height: 70px;
     border-top: solid #DDD 1px;
 }
 
@@ -790,7 +803,7 @@ body {
     font-size: 30px;
     height: 50px;
     padding: 0 20px;
-    margin: 5px 30px 0 30px;
+    margin: 10px 30px 0 30px;
     border-radius: 3px;
 }
 
@@ -854,6 +867,7 @@ body {
 
 #order_info_user_info {
     height: 130px;
+    margin-bottom: 130px;
 }
 
 #order_info_user_info > div:first-child {

@@ -35,15 +35,15 @@ yangaiche(sys.init)(function (t) {
                 var selection_mode = p['selection_mode'];
                 if (selection_mode === 1) {
                     order.self_items.push(p);
-                } else if (selection_mode === 2) {
-                    if (yangaiche(sys.exist)(order.to_select)) {
+                //} else if (selection_mode === 2) {
+                    if (!yangaiche(sys.exist)(order.to_select)) {
                         order.to_select = {
                             unselected_items: []
                         };
                     }
                     order.to_select.unselected_items.push(p);
-                } else if (selection_mode !== 5) {
-                    if (yangaiche(sys.exist)(order.to_select)) {
+                //} else if (selection_mode !== 5) {
+                    if (!yangaiche(sys.exist)(order.to_selected_items)) {
                         order.to_selected_items = {
                             selected_items: []
                         };
@@ -57,6 +57,35 @@ yangaiche(sys.init)(function (t) {
                 order.not_paid = {not_paid_price: order['not_paid_price']};
             }
             order.paid_price = order['paid_price'];
+
+            order['keeper_basics'] = [
+                {
+                    "id": 3,
+                    "type": "keeper",
+                    "name": "孙勇",
+                    "gender": "male",
+                    "star_count": 5,
+                    "rating": 5,
+                    "ID_number": "11010419791210205X",
+                    "phone_number": "18801354630",
+                    "car_exp_year": 1,
+                    "avatar_img": "http://7xiqe8.com2.z0.glb.qiniucdn.com/keeper3.jpg/s1024.jpg",
+                    "current": true
+                },
+                {
+                    "id": 3,
+                    "type": "mechanic",
+                    "name": "孙勇",
+                    "gender": "male",
+                    "star_count": 5,
+                    "rating": 5,
+                    "ID_number": "11010419791210205X",
+                    "phone_number": "18801354630",
+                    "car_exp_year": 1,
+                    "avatar_img": "http://7xiqe8.com2.z0.glb.qiniucdn.com/keeper3.jpg/s1024.jpg",
+                    "current": true
+                }
+            ]
 
             t.each(order['keeper_basics'], function (i, keeper) {
                 if ('keeper' === keeper['type']) {
@@ -81,6 +110,11 @@ yangaiche(sys.init)(function (t) {
                     'order_info.html?order_id=' + yangaiche(app.url_parameter)['order_id']);
 
                 yangaiche(app.pay.do)(param);
+            });
+
+            t('#order_info_advise_items .order_info_items li img').click(function() {
+                t(this).css('display', 'none');
+                t(this).siblings('img').css('display', 'inline-block');
             });
         });
     } else {

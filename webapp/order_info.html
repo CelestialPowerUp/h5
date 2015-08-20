@@ -28,11 +28,12 @@
     <div class="order_info_title">爱车管家建议增加以下项目</div>
     <ul class="order_info_items">
         {{#each unselected_items}}
-        <li>
-            <img src="">
-            <span class="order_info_item_name">{{product_name}}</span>
-            <span class="order_info_item_count">X{{unit_count}}</span>
-            <span class="order_info_item_price">¥{{total_price}}</span>
+        <li class="am-vertical-align">
+            <img class="am-vertical-align-middle choose" src="http://7xiqe8.com2.z0.glb.qiniucdn.com/choose.png">
+            <img class="am-vertical-align-middle un-choose" style="display: none;" src="http://7xiqe8.com2.z0.glb.qiniucdn.com/unchoose2.png">
+            <span class="order_info_item_price am-vertical-align-middle">¥{{total_price}}</span>
+            <span class="order_info_item_count am-vertical-align-middle">X{{unit_count}}</span>
+            <span class="order_info_item_name am-vertical-align-middle">{{product_name}}</span>
         </li>
         {{/each}}
     </ul>
@@ -49,7 +50,6 @@
     <ul class="order_info_items">
         {{#each selected_items}}
         <li>
-            <img class="{{can_select}}" src="">
             <span class="order_info_item_name">{{product_name}}</span>
             <span class="order_info_item_count">X{{unit_count}}</span>
             <span class="order_info_item_price">{{display_status}}</span>
