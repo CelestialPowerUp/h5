@@ -748,7 +748,16 @@ body {
 #order_info_paid_wrapper {
     width: 640px;
     height: 60px;
-    color: #
+    border-top: solid #DDD 1px;
+}
+
+#order_info_paid_wrapper span {
+    float: right;
+    height: 60px;
+    color: #09be00;
+    font-size: 24px;
+    line-height: 60px;
+    margin-right: 20px;
 }
 
 /* exam reports detail */
