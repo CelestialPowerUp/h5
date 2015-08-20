@@ -28,35 +28,43 @@ yangaiche(sys.init)(function (t) {
             }
 
             order.to_select = null;
+            order.to_selected_items = null;
             order.self_items = [];
 
-            t.each(order['products'], function(i, p) {
+            t.each(order['products'], function (i, p) {
                 var selection_mode = p['selection_mode'];
                 if (selection_mode === 1) {
                     order.self_items.push(p);
                 } else if (selection_mode === 2) {
                     if (yangaiche(sys.exist)(order.to_select)) {
                         order.to_select = {
-                            selected_items: [],
                             unselected_items: []
                         };
                     }
                     order.to_select.unselected_items.push(p);
                 } else if (selection_mode !== 5) {
                     if (yangaiche(sys.exist)(order.to_select)) {
-                        order.to_select = {
-                            selected_items: [],
-                            unselected_items: []
+                        order.to_selected_items = {
+                            selected_items: []
                         };
                     }
-                    order.to_select.selected_items.push(p);
+                    p['display_status'] = selection_mode === 3 ? '¥' + p['total_price'] : '已拒绝';
+                    order.to_selected_items.selected_items.push(p);
                 }
             });
 
-            if (order['notPaidPrice'] > 0) {
-                order.not_paid = {not_paid_price: order['not_paid_price'] || order['notPaidPrice']};
+            if (order['not_paid_price'] > 0) {
+                order.not_paid = {not_paid_price: order['not_paid_price']};
             }
-            order.paid_price = order['paid_price'] || order['paidPrice'];
+            order.paid_price = order['paid_price'];
+
+            t.each(order['keeper_basics'], function (i, keeper) {
+                if ('keeper' === keeper['type']) {
+                    keeper['type'] = '管家';
+                } else if ('mechanic' === keeper['type']) {
+                    keeper['type'] = '技师';
+                }
+            });
 
             parse_data(order);
 

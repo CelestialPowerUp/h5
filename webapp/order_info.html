@@ -27,20 +27,12 @@
 <div id="order_info_advise_items">
     <div class="order_info_title">爱车管家建议增加以下项目</div>
     <ul class="order_info_items">
-        {{#each selected_items}}
-        <li>
-            <img class="{{can_select}}" src="">
-            <span class="order_info_item_name">{{product_name}}</span>
-            <span class="order_info_item_count">X<i>{{unit_count}}</i></span>
-            <span class="order_info_item_price">¥<i>{{total_price}}</i></span>
-        </li>
-        {{/each}}
         {{#each unselected_items}}
         <li>
-            <img class="{{can_select}}" src="">
+            <img src="">
             <span class="order_info_item_name">{{product_name}}</span>
-            <span class="order_info_item_count">X<i>{{unit_count}}</i></span>
-            <span class="order_info_item_price">¥<i>{{total_price}}</i></span>
+            <span class="order_info_item_count">X{{unit_count}}</span>
+            <span class="order_info_item_price">¥{{total_price}}</span>
         </li>
         {{/each}}
     </ul>
@@ -51,43 +43,57 @@
 </div>
 {{/to_select}}
 
+{{#to_selected_items}}
+<div id="order_info_selected_items">
+    <div class="order_info_title">已确认过的增项</div>
+    <ul class="order_info_items">
+        {{#each selected_items}}
+        <li>
+            <img class="{{can_select}}" src="">
+            <span class="order_info_item_name">{{product_name}}</span>
+            <span class="order_info_item_count">X{{unit_count}}</span>
+            <span class="order_info_item_price">{{display_status}}</span>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+{{/to_selected_items}}
+
 <div id="order_info_self_items">
     <div class="order_info_title">自选服务项目</div>
     <ul class="order_info_items">
         {{#each self_items}}
         <li>
             <span class="order_info_item_name">{{product_name}}</span>
-            <span class="order_info_item_count">X<i>{{unit_count}}</i></span>
-            <span class="order_info_item_price">¥<i>{{total_price}}</i></span>
+            <span class="order_info_item_count">X{{unit_count}}</span>
+            <span class="order_info_item_price">¥{{total_price}}</span>
         </li>
         {{/each}}
     </ul>
-    <div id="order_info_discount_wrapper">
-        <span>优惠券</span>
-        <img src="">
-        <span id="order_info_discount">-&nbsp;&nbsp;¥<i>{{coupon_price}}</i></span>
+    <div id="order_info_discount_wrapper" class="am-vertical-align">
+        <span class="am-vertical-align-middle">优惠券</span>
+        <img class="am-vertical-align-middle" src="./img/minus.png">
+        <span class="am-vertical-align-middle">-&nbsp;&nbsp;¥{{coupon_price}}</span>
     </div>
     <div id="order_info_paid_wrapper">
         {{#not_paid}}
-        <span id="order_info_need_to_pay">未支付{{not_paid_price}}元</span>
+            <div>未支付<span>¥{{not_paid_price}}</span></div>
         {{/not_paid}}
         <span>已支付{{paid_price}}元</span>
     </div>
 </div>
 
 <ul id="order_info_keeper_info">
-    <li>
-        <span>管家司机</span>
-        <span></span>
-    </li>
-    <li>
-        <span>技师</span>
-        <span></span>
-    </li>
+    {{#each keeper_basics}}
+        <li>
+            <span>{{type}}</span>
+            <span>{{name}}</span>
+        </li>
+    {{/each}}
 </ul>
 
 <div id="order_info_user_info">
-    <img src="./img/location_icon.png">
+    <div><img src="./img/location_icon.png"></div>
     <div>
         {{#client_basic}}
             <div>

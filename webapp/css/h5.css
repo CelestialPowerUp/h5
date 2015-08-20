@@ -96,7 +96,7 @@ body {
     width: 640px;
     _position: absolute;
     clear: both;
-    padding: 0 20px;
+    padding: 0 30px;
     height: 100px;
 }
 
@@ -703,8 +703,26 @@ body {
 /* order info */
 #order_info_advise_items, #order_info_self_items, #order_info_keeper_info, #order_info_user_info {
     width: 640px;
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: #FFFFFF;
+}
+
+#order_info_keeper_info {
+    list-style-type: none;
+}
+
+#order_info_keeper_info li {
+    padding: 0 30px;
+    height: 60px;
+    line-height: 60px;
+}
+
+#order_info_keeper_info li span:first-child {
+    float: left;
+}
+
+#order_info_keeper_info li span:last-child {
+    float: right;
 }
 
 .order_info_title {
@@ -713,11 +731,52 @@ body {
     font-size: 24px;
     line-height: 60px;
     border-bottom: solid #DDD 1px;
-    text-indent: 20px;
+    text-indent: 30px;
 }
 
 .order_info_items {
+}
+
+.order_info_items li {
+    height: 80px;
+    line-height: 80px;
+    padding: 0 30px;
+    font-size: 0;
+    /*background: #DDD;*/
+}
+
+.order_info_items li span {
+    display: inline-block;
+}
+
+.order_info_item_name {
+    width: 200px;
+    color: #666;
     font-size: 30px;
+    text-align: left;
+    /*background: #333;*/
+}
+
+.order_info_item_count {
+    width: 60px;
+    color: #666;
+    font-size: 30px;
+    text-align: left;
+    /*background: #666;*/
+}
+
+.order_info_item_price {
+    width: 260px;
+    /*font-family: "Hiragino Sans GB W3", 冬青黑体简, 兰亭黑, monospace;*/
+    font-size: 30px;
+    font-weight: bolder;
+    color: #FF6600;
+    text-align: right;
+    /*background: #999;*/
+}
+
+#order_info_self_items ul li .order_info_item_price {
+    width: 320px;
 }
 
 #order_info_advise_decide {
@@ -731,7 +790,7 @@ body {
     font-size: 30px;
     height: 50px;
     padding: 0 20px;
-    margin: 5px 20px 0 20px;
+    margin: 5px 30px 0 30px;
     border-radius: 3px;
 }
 
@@ -743,6 +802,26 @@ body {
 .order_info_advise_agree {
     background-color: #09be00;
     color: #FFF;
+}
+
+#order_info_discount_wrapper {
+    width: 640px;
+    height: 80px;
+    line-height: 80px;
+    padding: 0 30px;
+}
+
+#order_info_discount_wrapper span {
+    font-size: 30px;
+}
+
+#order_info_discount_wrapper span:first-child {
+    width: 120px;
+}
+
+#order_info_discount_wrapper span:last-child {
+    width: 410px;
+    text-align: right;
 }
 
 #order_info_paid_wrapper {
@@ -757,7 +836,79 @@ body {
     color: #09be00;
     font-size: 24px;
     line-height: 60px;
-    margin-right: 20px;
+    margin-right: 30px;
+}
+
+#order_info_paid_wrapper div {
+    float: right;
+    height: 60px;
+    color: #666;
+    font-size: 24px;
+    line-height: 60px;
+}
+
+#order_info_paid_wrapper div span {
+    font-size: 36px;
+    margin-left: 10px;
+}
+
+#order_info_user_info {
+    height: 130px;
+}
+
+#order_info_user_info > div:first-child {
+    float: left;
+    text-align: center;
+    height: 130px;
+    line-height: 130px;
+    width: 90px;
+}
+
+#order_info_user_info > div:last-child {
+    float: left;
+    height: 130px;
+    width: 520px;
+}
+
+#order_info_user_info > div:last-child > div:first-child {
+    margin-top: 10px;
+    font-size: 0;
+    color: #999;
+    height: 50px;
+    line-height: 50px;
+}
+
+#order_info_user_info > div:last-child > div:first-child span {
+    float: left;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.order_info_user_name {
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.order_info_user_phone {
+    width: 200px;
+    padding-left: 10px;
+}
+
+.order_info_user_car {
+    width: 170px;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#order_info_user_info > div:last-child > div:last-child {
+    font-size: 24px;
+    color: #999;
+    line-height: 30px;
+    margin-bottom: 130px;
 }
 
 /* exam reports detail */

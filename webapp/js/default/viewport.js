@@ -7,11 +7,16 @@ app.viewport = {
 
 yangaiche(app.viewport.set, function () {
     function get_initial_scale() {
-        return window.screen.availWidth / 640;
+        var availWidth = window.screen.availWidth;
+        //alert(availWidth);
+        return availWidth / 640;
+        //return 640 / availWidth;
     }
 
     return function () {
-        yangaiche(sys.$)('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no">');
+        var meta = '<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no">';
+        //alert(meta);
+        yangaiche(sys.$)('head').prepend(meta);
     };
 });
 
