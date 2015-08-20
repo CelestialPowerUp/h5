@@ -16,93 +16,89 @@
 
 </head>
 <body class="body-background-color-gray">
-<div class="order-info-div">
-    <div class="order-info-item-content" id="user_info_view">
-        <!--基本信息-->
-    </div>
-    <p class="order-info-title">订单项目</p>
 
-    <div class="order-info-item-content" id="products_view">
-
-    </div>
-
-    <p class="order-info-title">支付信息</p>
-
-    <div class="order-info-item-content" id="paid_view">
-
-    </div>
-
-    <p class="order-info-title-empty">&nbsp;</p>
-
-    <div class="order-info-item-content" id="paid_type_view">
-
-    </div>
-</div>
 <div class="new-bottom-button-div">
     <button type="button" id="submit_button" style="display: none;"
             class="am-btn am-btn-success am-btn-block new-bottom-button"></button>
 </div>
 
-<script type="text/x-handlebars-template" id="user_info_tpl">{{#this}}
-<div class="am-g">
-    <div class="am-u-sm-4 order-info-base"><img src="./img/user.png">{{contact_name}}</div>
-    <div class="am-u-sm-4 order-info-base"><img src="./img/phone.png">{{phone_number}}</div>
-    <div class="am-u-sm-4 order-info-base"><img src="./img/car.png">{{car_number}}</div>
+<script type="text/x-handlebars-template" id="order_info_tpl">{{#this}}
+{{#to_select}}
+<div id="order_info_advise_items">
+    <div class="order_info_title">爱车管家建议增加以下项目</div>
+    <ul class="order_info_items">
+        {{#each selected_items}}
+        <li>
+            <img class="{{can_select}}" src="">
+            <span class="order_info_item_name">{{product_name}}</span>
+            <span class="order_info_item_count">X<i>{{unit_count}}</i></span>
+            <span class="order_info_item_price">¥<i>{{total_price}}</i></span>
+        </li>
+        {{/each}}
+        {{#each unselected_items}}
+        <li>
+            <img class="{{can_select}}" src="">
+            <span class="order_info_item_name">{{product_name}}</span>
+            <span class="order_info_item_count">X<i>{{unit_count}}</i></span>
+            <span class="order_info_item_price">¥<i>{{total_price}}</i></span>
+        </li>
+        {{/each}}
+    </ul>
+    <div id="order_info_advise_decide">
+        <button class="am-btn order_info_advise_reject">拒绝</button>
+        <button class="am-btn order_info_advise_agree">同意</button>
+    </div>
 </div>
-<div class="am-g">
-    <div class="am-u-sm-12 order-info-base-big">{{this.location.address}}</div>
-</div>
-{{/this}}</script>
+{{/to_select}}
 
-<script type="text/x-handlebars-template" id="product_info_tpl">{{#each this}}
-<div class="am-g order-info-box">
-    <div class="am-u-sm-4 order-info-line-cell am-vertical-align">
-        <div class="am-vertical-align-middle">{{product_name}}</div>
+<div id="order_info_self_items">
+    <div class="order_info_title">自选服务项目</div>
+    <ul class="order_info_items">
+        {{#each self_items}}
+        <li>
+            <span class="order_info_item_name">{{product_name}}</span>
+            <span class="order_info_item_count">X<i>{{unit_count}}</i></span>
+            <span class="order_info_item_price">¥<i>{{total_price}}</i></span>
+        </li>
+        {{/each}}
+    </ul>
+    <div id="order_info_discount_wrapper">
+        <span>优惠券</span>
+        <img src="">
+        <span id="order_info_discount">-&nbsp;&nbsp;¥<i>{{coupon_price}}</i></span>
     </div>
-    <div class="am-u-sm-4 order-info-line-cell am-vertical-align" style="text-align: center;">
-        <div class="am-vertical-align-middle">X {{unit_count}}</div>
-    </div>
-    <div class="am-u-sm-4 order-info-line-cell am-vertical-align">
-        <div class="am-vertical-align-middle">¥{{total_price}}</div>
+    <div id="order_info_paid_wrapper">
+        {{#not_paid}}
+        <span id="order_info_need_to_pay">未支付<i>{{not_paid_price}}</i>元</span>
+        {{/not_paid}}
+        <span>已支付<i>{{paid_price}}</i>元</span>
     </div>
 </div>
-{{/each}}</script>
 
-<script type="text/x-handlebars-template" id="paid_tpl">{{#this}}
-{{#coupon}}
-<div class="am-g order-info-box">
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">已优惠价格</div>
-    </div>
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align" style="text-align: right;">
-        <div class="am-vertical-align-middle">-</div>
-    </div>
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">¥{{value}}</div>
-    </div>
-</div>
-{{/coupon}}
-<div class="am-g order-info-box">
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">应付金额</div>
-    </div>
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align"></div>
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle"><span>¥{{total_price}}</span></div>
-    </div>
-</div>
-{{/this}}</script>
+<ul id="order_info_keeper_info">
+    <li>
+        <span>管家司机</span>
+        <span></span>
+    </li>
+    <li>
+        <span>技师</span>
+        <span></span>
+    </li>
+</ul>
 
-<script type="text/x-handlebars-template" id="paid_type_tpl">{{#this}}
-<div class="am-g order-info-box">
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">支付方式</div>
-    </div>
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align"></div>
-    <div class="am-u-sm-4 order-info-line-cell2 am-vertical-align">
-        <div class="am-vertical-align-middle">
-            <div>{{pay_type_info}}</div>
-        </div>
+<div id="order_info_user_info">
+    <img src="./img/location_icon.png">
+    <div>
+        {{#client_basic}}
+            <div>
+                <span class="order_info_user_name">车主: {{name}}</span>
+                <span class="order_info_user_phone">{{phone_number}}</span>
+                <span class="order_info_user_car">{{car_number}}</span>
+            </div>
+            {{#location}}
+                <div>接车地点: {{address}}</div>
+            {{/location}}
+        {{/client_basic}}
     </div>
 </div>
 {{/this}}</script>

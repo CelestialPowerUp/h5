@@ -3,6 +3,7 @@ html, body, div, ul, li, span, input, img, a, p {
     margin: 0;
     padding: 0;
     border: 0 none;
+    font-weight: lighter;
 }
 
 /* use with viewport */
@@ -700,145 +701,54 @@ body {
 }
 
 /* order info */
-.order-info-div {
-    margin: 15px 0 85px 0;
-}
-
-.order-info-help {
-    padding-left: 10px;
-    padding-top: 5px;
-    font-size: 20px;
-    color: #FE7B2E;
-}
-
-.order-info-item-content {
-    border-radius: 5px;
+#order_info_advise_items, #order_info_self_items, #order_info_keeper_info, #order_info_user_info {
+    width: 640px;
+    margin-top: 20px;
     background-color: #FFFFFF;
-    padding: 5px 0;
 }
 
-.order-info-base-big {
-    width: 580px;
-    margin: 28px 0 0 30px;
-    padding: 0;
-    color: #666666;
+.order_info_title {
+    height: 60px;
+    color: #999;
+    font-size: 24px;
+    line-height: 60px;
+    border-bottom: solid #DDD 1px;
+    text-indent: 20px;
+}
+
+.order_info_items {
     font-size: 30px;
 }
 
-.order-info-base {
-    width: 212px;
-    color: #666666;
+#order_info_advise_decide {
+    width: 640px;
+    height: 60px;
+    border-top: solid #DDD 1px;
+}
+
+#order_info_advise_decide button {
+    float: right;
     font-size: 30px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    height: 50px;
+    padding: 0 20px;
+    margin: 5px 20px 0 20px;
+    border-radius: 3px;
 }
 
-.order-info-base:first-child {
-    width: 182px;
-    margin-left: 30px;
+.order_info_advise_reject {
+    background-color: #DDD;
+    color: #999;
 }
 
-.order-info-line-cell {
-    width: 212px;
-    height: 90px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.order_info_advise_agree {
+    background-color: #09be00;
+    color: #FFF;
 }
 
-.order-info-line-cell div {
-    color: #333333;
-    font-size: 30px;
-}
-
-.order-info-line-cell:first-child {
-    width: 182px;
-    margin-left: 30px;
-}
-
-.order-info-line-cell:last-child div {
-    color: #FE7B2E;
-}
-
-.order-info-line-cell2 {
-    width: 212px;
-    height: 74px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.order-info-line-cell2 div {
-    color: #FE7B2E;
-    font-size: 30px;
-}
-
-.order-info-line-cell2:first-child {
-    width: 182px;
-    margin-left: 30px;
-}
-
-.order-info-line-cell2:first-child div {
-    color: #333333;
-}
-
-.order-info-line-cell2:last-child div div {
-    color: #333333;
-}
-
-.order-info-line-cell2:last-child div span {
-    font-size: 40px;
-}
-
-.order-info-title {
-    margin: 10px 0 10px 30px;
-    color: #7A7A7A;
-    font-size: 30px;
-}
-
-.order-info-title-empty {
-    margin: 2px;
-    color: #7A7A7A;
-    height: 10px;
-}
-
-.order-info-box {
-    font-size: 30px;
-}
-
-/* order success */
-.order-success-div {
-    margin: 15px 0;
-}
-
-.order-success-success-font {
-    width: 600px;
-    font-size: 40px;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.order-success-success-info {
-    width: 600px;
-    font-size: 30px;
-    text-align: center;
-}
-
-.order-success-help {
-    font-size: 20px;
-}
-
-.order-success-img {
-    width: 120px;
-    height: 119px;
-    margin: 120px 260px 30px 260px;
+#order_info_paid_wrapper {
+    width: 640px;
+    height: 60px;
+    color: #
 }
 
 /* exam reports detail */
