@@ -17,7 +17,7 @@ yangaiche(app.supplier.init, function() {
                     order.supplier_name = data[0].supplier_name;
                 }
             });
-            callback();
+            callback(data);
         }, function () {
             yangaiche(app.show_msg.show)("AJAX ERROR!");
         });

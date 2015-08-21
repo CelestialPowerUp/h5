@@ -4,6 +4,7 @@ yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
+yangaiche(sys.load_default_module)('supplier');
 
 yangaiche(sys.init)(function (t) {
     var device_width = t(window).width();
@@ -98,55 +99,61 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    yangaiche(sys.load_default_module)('supplier');
-    var order = yangaiche(ls.order.touch)(),
-        config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
-
-    getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (data) {
-
-        store_item = data;
-
-        t('#item_price').text('¥' + data['ware_mark_price']);
-        t('#item_title').text(data['ware_name']);
-        t('#item_image_cover').attr('src', data['cover_img']['raw_url'] + '?imageView2/3/w/180/h/180/interlace/1');
-
-        data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
-
-        var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
-        t('body').prepend(tpl(data));
-
-        load_comments(data);
-    }, function (error) {
-        show_msg(error['message']);
-    });
-
-    t('#submit_btn').click(function () {
-        if (!yangaiche(sys.exist)(store_item)) {
-            return true;
+    function init(suppliers) {
+        if (suppliers.length > 0) {
+            t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
         }
 
-        yangaiche(ls.products.update)(function (products) {
-            t.each(store_item['ware_products'], function (i, wp) {
-                wp['total_price'] = wp['product_price'];
-                wp['product_type'] = wp['product_id'];
-                wp['unit_count'] = 1;
-                products.push(wp);
+        var order = yangaiche(ls.order.touch)(),
+            config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
+        getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (data) {
+
+            store_item = data;
+
+            t('#item_price').text('¥' + data['ware_mark_price']);
+            t('#item_title').text(data['ware_name']);
+            t('#item_image_cover').attr('src', data['cover_img']['raw_url'] + '?imageView2/3/w/180/h/180/interlace/1');
+
+            data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
+
+            var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
+            t('body').prepend(tpl(data));
+
+            load_comments(data);
+
+            t('#submit_btn').click(function () {
+                if (!yangaiche(sys.exist)(store_item)) {
+                    return true;
+                }
+
+                yangaiche(ls.products.update)(function (products) {
+                    t.each(store_item['ware_products'], function (i, wp) {
+                        wp['total_price'] = wp['product_price'];
+                        wp['product_type'] = wp['product_id'];
+                        wp['unit_count'] = 1;
+                        products.push(wp);
+                    });
+                });
+
+                var storage = yangaiche(sys.local_storage);
+                var car = storage.get(key.car.info);
+
+                yangaiche(ls.order.update)(function (order) {
+                    order.car_id = car.car_id;
+                    order.car_model_type = car.car_model_type;
+                    order.car_number = car.car_number;
+                });
+
+                storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
+
+                yangaiche(ls.back.set_back_to_self)('base_info.html');
             });
+        }, function (error) {
+            show_msg(error['message']);
         });
+    }
 
-        var storage = yangaiche(sys.local_storage);
-        var car = storage.get(key.car.info);
-
-        yangaiche(ls.order.update)(function (order) {
-            order.car_id = car.car_id;
-            order.car_model_type = car.car_model_type;
-            order.car_number = car.car_number;
-        });
-
-        storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
-
-        yangaiche(ls.back.set_back_to_self)('base_info.html');
-    });
+    yangaiche(app.supplier.init)(init);
 
     t('#store-item-car-choose').click(function () {
         yangaiche(sys.local_storage).remove(key.goto.car_list);

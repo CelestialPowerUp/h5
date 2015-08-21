@@ -10,7 +10,11 @@ yangaiche(sys.load_default_module)('supplier');
 
 yangaiche(sys.init)(function (t) {
 
-    function init() {
+    function init(suppliers) {
+        if (suppliers.length > 0) {
+            t('#old-service-supplier span:last-child').text(suppliers[0]['supplier_name']);
+        }
+
         var order = yangaiche(ls.order.touch)(),
             calculate = yangaiche(ls.products.calculate);
 
