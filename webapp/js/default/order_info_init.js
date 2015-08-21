@@ -5,6 +5,7 @@ yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('pay', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('order', {});
+yangaiche(sys.load_default_module)('location', {});
 yangaiche(sys.load_default_module)('order_info', {});
 
 yangaiche(sys.init)(function (t) {
@@ -39,13 +40,16 @@ yangaiche(sys.init)(function (t) {
             });
         });
     } else {
-        var order = yangaiche(ls.order.touch)(), user = yangaiche(ls.user.touch)();
-        if (order['coupon_value'] > 0) {
-            order['coupon'] = {value: order['coupon_value'].toFixed(2)};
-        }
-        parse_data(order);
+        var order = yangaiche(ls.order.touch)();
+        order.client_basic = {
+            name: order['contact_name'],
+            phone_number: order['phone_number'],
+            car_number: order['car_number'],
+            location: yangaiche(ls.location.touch)()
+        };
+        yangaiche(app.order_info.show)(order);
+
         t('#submit_button').text('立即预约');
-        t('#submit_button').css('display', 'block');
 
         t("#submit_button").click(function () {
             disable_button("#submit_button");
@@ -54,7 +58,7 @@ yangaiche(sys.init)(function (t) {
             order.user_id = user.user_id;
             order.peer_source = yangaiche(sys.browser_type).type;
             order.total_price = null;
-            postReq("/v2/api/order/create", order, function (data) {
+            postReq("/v2/api/order/create.json", order, function (data) {
                 yangaiche(ls.order.set)(data);
                 yangaiche(ls.back.set_back_to_store)('./order_success.html');
             }, function (data) {

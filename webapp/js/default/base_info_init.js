@@ -71,8 +71,9 @@ yangaiche(sys.init)(function(t) {
             products: order['products'],
             user_id: user[ls.user.user_id]
         }, function (data) {
-            order['coupon_value'] = data['free_price'];
-            order['total_price'] = data['total_price'];
+            order['coupon_price'] = data['free_price'];
+            order['paid_price'] = 0;
+            order['not_paid_price'] = data['total_price'];
             set_order(order);
 
             if (yangaiche(sys.exist)(go_flag)) {
@@ -120,7 +121,7 @@ yangaiche(sys.init)(function(t) {
             order.peer_source = yangaiche(sys.browser_type).type;
             order.total_price = null;
 
-            postReq("/v2/api/order/create", order, function (order_data) {
+            postReq("/v2/api/order/create.json", order, function (order_data) {
                 set_order(order_data);
                 yangaiche(ls.back.set_back_to_store)('order_success.html');
             }, function (data) {

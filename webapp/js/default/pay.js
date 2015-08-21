@@ -28,7 +28,7 @@ yangaiche(app.pay.do, function() {
     var reset_button = yangaiche(app.ds.reset_button),
         show_msg = yangaiche(app.show_msg.show);
     return function(param, success_callback, debug_flag) {
-        yangaiche(app.http.post_charge_request)('/v3/api/charge', param, function (charge) {
+        yangaiche(app.http.post_charge_request)('/v3/api/charge.json', param, function (charge) {
             pingpp.createPayment(charge, function (result, error) {
                 if (result == "success") {
                     yangaiche(sys.load_module)('close_app', {});

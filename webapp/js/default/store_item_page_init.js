@@ -140,6 +140,13 @@ yangaiche(sys.init)(function (t) {
                         wp['unit_count'] = 1;
                         products.push(wp);
                     });
+                    t.each(t('#my-btn-group button'), function(i, btn) {
+                        if (t(btn).hasClass('service-type-choose-chosen')) {
+                            var selected_service = service_product_dict[t(btn).attr('data-rel')];
+                            selected_service['total_price'] = yangaiche(ls.products.calculate_single)(selected_service);
+                            products.push(selected_service);
+                        }
+                    });
                 });
 
                 var storage = yangaiche(sys.local_storage);
