@@ -671,6 +671,19 @@ body {
     border-color: #09be00;
 }
 
+.order-list-cancel-btn {
+    float: right;
+    margin-top: 10px;
+    margin-right: 20px;
+    padding: 0 auto;
+    height: 70px;
+    font-size: 30px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    color: #09be00;
+    border-color: #09be00;
+}
+
 .gray_button {
     color: #666;
     border-color: #666;
@@ -2022,56 +2035,15 @@ body {
     font-size: 28px;
 }
 
-/* footer ???? */
-/*#footer {*/
-/*position: fixed;*/
-/*bottom: 0;*/
-/*width: 100%;*/
-/*height: 120px;*/
-/*background: rgba(0, 0, 0, 0.9);*/
-/*}*/
+.am-modal-dialog {
+    width: 320px;
+}
 
-/*#footer img {*/
-/*position: absolute;*/
-/*top: 50%;*/
-/*left: 44px;*/
-/*margin-top: -45px;*/
-/*display: block;*/
-/*}*/
+.modal-text {
+    margin: 50px auto;
+    font-size: 30px;
+}
 
-/*#footer img:first-child {*/
-/*margin: 0;*/
-/*z-index: 1;*/
-/*top: 0;*/
-/*left: 0;*/
-/*opacity: 0.9;*/
-/*filter: alpha(opacity=90); /!* For IE8 and earlier *!/*/
-/*}*/
-
-/*#footer span {*/
-/*position: absolute;*/
-/*top: 50%;*/
-/*left: 154px;*/
-/*margin-top: -38px;*/
-/*display: block;*/
-/*font-size: 24px;*/
-/*color: #CCCCCC;*/
-/*line-height: 38px;*/
-/*width: 8em;*/
-/*height: 76px;*/
-/*}*/
-
-/*#footer a {*/
-/*position: absolute;*/
-/*top: 50%;*/
-/*right: 20px;*/
-/*padding: 10px;*/
-/*margin-top: -22px;*/
-/*display: block;*/
-/*font-size: 28px;*/
-/*color: #09be00;*/
-/*line-height: 24px;*/
-/*border: 1px solid #09be00;*/
-/*border-radius: 8px;*/
-/*}*/
-/* footer ???? */
+.am-modal-footer span {
+    font-size: 30px;
+}
