@@ -13,6 +13,27 @@ yangaiche(sys.init)(function (t) {
     //var raw_data = '{"code":"00000","data":[{"ware_list":[{"product_name":"机油-磁护","ware_mark_price":94.5,"ware_status":"down_shelves","ware_full_price":3232,"ware_type_name":"室内清洗","cover_img":{"img_id":1052,"thumbnail_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s250.jpg","img_index":0,"original_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s1024.jpg","raw_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg"},"ware_id":1,"ware_name":"室内清洗"}],"ware_type_name":"室内清洗"}]}';
     //var data = JSON.parse(raw_data)['data'];
 
+    yangaiche(app.http.get_request)('/v2/api/store/banners.json', function (data) {
+        //console.log(data);
+        //data = [data[0], data[0]];
+        //console.log(data);
+
+        if (data.length > 1) {
+            data = {multi: {data: data}};
+        } else if (data.length === 1) {
+            data = {solo: data[0]};
+        } else {
+            data = {};
+        }
+
+        var tpl = Handlebars.compile(t("#store_banners_tpl").text());
+        t('#banner').empty().html(tpl(data));
+
+        t('.am-slider').flexslider({playAfterPaused: 8000});
+    }, function (error) {
+        yangaiche(app.show_msg.show)(error['message']);
+    });
+
     yangaiche(app.http.get_request)('/v2/api/store/home_ware_list.json', function (data) {
 
         var to_move_index = null, to_append_data = null;

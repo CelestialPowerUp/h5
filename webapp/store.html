@@ -71,13 +71,13 @@
 
         /* 六宫格 */
         #services {
-            height: 426px;
+            height: 340px;
             list-style-type: none;
         }
 
         #services li {
             width: 213px;
-            height: 213px;
+            height: 170px;
             float: left;
             background: #FFF;
         }
@@ -94,7 +94,7 @@
         #services li a {
             display: block;
             width: 213px;
-            height: 213px;
+            height: 170px;
             overflow: hidden;
         }
 
@@ -102,7 +102,7 @@
             display: block;
             width: 52px;
             height: 64px;
-            margin: 50px auto 0;
+            margin: 30px auto 0;
         }
 
         #services li a span {
@@ -178,20 +178,7 @@
     </div>
 
     <div id="banner">
-        <!--<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}' data-am-flexslider="{playAfterPaused: 8000}">-->
-        <!--<ul class="am-slides">-->
-        <!--<li>-->
-        <!--<a href="http://pay.yangaiche.com/normal/activities/yac150716/external_sale.html?code=yac150716">-->
-        <!--<img src="./img/banner1.png">-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <a href="http://mp.weixin.qq.com/s?__biz=MzA4Mzc1NzEzMw==&mid=206642480&idx=1&sn=2bf61e4297de1db5f15d016d4301456e#wechat_redirect">
-            <img src="./img/banner2.png">
-        </a>
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
+
     </div>
 
     <ul id="services">
@@ -267,6 +254,28 @@
     </ul>
     {{/each}}
 </script>
+
+<script type="text/x-handlebars-template" id="store_banners_tpl">{{#this}}
+    {{#solo}}
+        <a href="{{link_url}}">
+            <img src="{{image_url}}">
+        </a>
+    {{/solo}}
+
+    {{#multi}}
+    <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}'>
+        <ul class="am-slides">
+            {{#each data}}
+                <li>
+                    <a href="{{link_url}}">
+                        <img src="{{image_url}}">
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/multi}}
+{{/this}}</script>
 
 <script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./js/lib/jquery.min.js"></script>
