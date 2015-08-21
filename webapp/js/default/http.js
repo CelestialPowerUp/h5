@@ -130,14 +130,14 @@ yangaiche(app.http.post_charge_request, function () {
                     if ('string' == typeof(parsed_data) && failureBack) {
                         failureBack(parsed_data);
                     } else if ('object' == typeof(parsed_data)) {
-                        if (parsed_data['code'] == "20007") {
+                        if (parsed_data['code']) {
                             if (failureBack) {
-                                failureBack(parsed_data['message']);
+                                failureBack(parsed_data);
                             } else {
                                 alert('建议设置请求错误的回调');
                             }
                         } else {
-                            failureBack(parsed_data);
+                            callBack(parsed_data);
                         }
                     } else if (failureBack) {
                         failureBack('未能识别服务器返回参数');

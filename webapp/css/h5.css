@@ -13,16 +13,6 @@ body {
     overflow-x: hidden;
 }
 
-/*@media screen and (min-width: 1150px) {*/
-/*body {*/
-/*width: 640px;*/
-/*background: #f1f1f1;*/
-/*overflow-x: hidden;*/
-/*padding-left: calc(100vw - 100%);*/
-/*}*/
-/*}*/
-
-/* all */
 #top {
     width: 100px;
     height: 100px;
@@ -31,10 +21,35 @@ body {
     padding: 0;
 }
 
-.auto-center {
-    margin: 0 auto;
+/* order success */
+.order-success-div {
+    width: 640px;
+    text-align: center;
 }
 
+.order-success-div img {
+    width: 120px;
+    margin: 100px auto 20px auto;
+    display: block;
+}
+
+.order-success-div span {
+    display: block;
+}
+
+.order-success-success-info-congratulations {
+    font-size: 42px;
+}
+
+.order-success-success-info {
+    font-size: 30px;
+}
+
+.order-success-help {
+    font-size: 24px;
+}
+
+/* all */
 .body-background-color-gray {
     background-color: #f1f1f1;
 }
