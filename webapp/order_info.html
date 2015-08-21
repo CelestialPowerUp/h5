@@ -21,11 +21,6 @@
 </head>
 <body class="body-background-color-gray">
 
-<div class="new-bottom-button-div">
-    <button type="button" id="submit_button" style="display: none;"
-            class="am-btn am-btn-success am-btn-block new-bottom-button"></button>
-</div>
-
 <script type="text/x-handlebars-template" id="order_info_tpl">{{#this}}
 {{#to_select}}
 <div id="order_info_advise_items">
@@ -79,12 +74,6 @@
         <img class="am-vertical-align-middle" src="./img/minus.png">
         <span class="am-vertical-align-middle">-&nbsp;&nbsp;¥{{coupon_price}}</span>
     </div>
-    <div id="order_info_paid_wrapper">
-        {{#not_paid}}
-            <div>未支付<span>¥{{not_paid_price}}</span></div>
-        {{/not_paid}}
-        <span>已支付{{paid_price}}元</span>
-    </div>
 </div>
 
 <ul id="order_info_keeper_info">
@@ -109,6 +98,18 @@
                 <div>接车地点: {{address}}</div>
             {{/location}}
         {{/client_basic}}
+    </div>
+</div>
+
+<div class="transparent-bottom-div">
+    <div class="order-info-bottom-div">
+        {{#not_paid}}
+            <div class="order-info-not-paid"><span>未支付</span><span>¥{{not_paid_price}}</span></div>
+        {{/not_paid}}
+        <div class="order-info-paid {{paid_only}}"><span>已支付</span><span>¥{{paid_price}}</span></div>
+    </div>
+    <div class="order-info-bottom-div">
+        <button id="submit_button" class="am-btn am-btn-block order-info-submit-btn {{submit_button_class}}">{{submit_button_text}}</button>
     </div>
 </div>
 {{/this}}</script>

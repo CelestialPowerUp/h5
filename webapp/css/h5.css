@@ -798,7 +798,7 @@ body {
     height: 70px;
     padding: 0 20px;
     margin: 10px 30px 0 30px;
-    border-radius: 3px;
+    border-radius: 8px;
 }
 
 .order_info_advise_reject {
@@ -921,6 +921,67 @@ body {
     color: #999;
     line-height: 30px;
     margin-bottom: 130px;
+}
+
+.order-info-bottom-div {
+    float: left;
+    height: 130px;
+    background: #FFFFFF;
+}
+
+.order-info-bottom-div div {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.order-info-bottom-div div span:first-child {
+    margin-right: 20px;
+}
+
+.order-info-bottom-div:first-child {
+    width: 360px;
+    padding-left: 30px;
+    /*background: #333;*/
+}
+
+.order-info-bottom-div:last-child {
+    width: 280px;
+    padding-right: 30px;
+    /*background: #555;*/
+}
+
+.order-info-not-paid {
+    color: #FF6600;
+}
+
+.order-info-not-paid span:first-child {
+    font-size: 32px;
+    line-height: 32px;
+}
+
+.order-info-not-paid span:last-child {
+    font-size: 40px;
+    line-height: 40px;
+}
+
+.order-info-paid {
+    color: #555;
+}
+
+.order-info-paid span:first-child {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.order-info-paid span:last-child {
+    font-size: 30px;
+    line-height: 30px;
+}
+
+.order-info-submit-btn {
+    height: 90px;
+    margin-top: 20px;
+    border-radius: 8px;
 }
 
 /* exam reports detail */

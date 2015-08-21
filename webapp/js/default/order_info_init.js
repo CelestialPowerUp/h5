@@ -21,7 +21,7 @@ yangaiche(sys.init)(function (t) {
 
     var reqParams = yangaiche(app.url_parameter);
     if (yangaiche(sys.exist)(reqParams['order_id'])) {//有参数，查看页面
-        getReq("/v2/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
+        getReq("/v3/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
             order['client_basic'].car_number = order.car.licence.province + order.car.licence.number;
             if (order['coupon_price'] > 0) {
                 order['coupon'] = {value: order['coupon_price'].toFixed(2)};
@@ -85,7 +85,7 @@ yangaiche(sys.init)(function (t) {
                     "avatar_img": "http://7xiqe8.com2.z0.glb.qiniucdn.com/keeper3.jpg/s1024.jpg",
                     "current": true
                 }
-            ]
+            ];
 
             t.each(order['keeper_basics'], function (i, keeper) {
                 if ('keeper' === keeper['type']) {
@@ -97,10 +97,9 @@ yangaiche(sys.init)(function (t) {
 
             parse_data(order);
 
-            if (1 === order['pay_mode'] && !order['paid'] && order['total_price'] > 0) {
-                t('#submit_button').text('立即付款');
-                t('#submit_button').css('display', 'block');
-            }
+            t('#submit_button').css('display', 'block');
+
+            //if ()
 
             t("#submit_button").click(function () {
                 disable_button("#submit_button");
