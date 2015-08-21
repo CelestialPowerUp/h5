@@ -31,6 +31,7 @@ window.mobileUtil = (function (win, doc) {
         isTXWeibo: /T(?:X|encent)MicroBlog/gi.test(UA),
 
         tapEvent: isMobile ? 'tap' : 'click',
+        view_scale: 1,
 
         /**
          * 缩放页面
@@ -93,7 +94,7 @@ window.mobileUtil = (function (win, doc) {
                     scale /= window.devicePixelRatio;
                 }
 
-                metaEl.content = metaCtt + ',' + !function fillScale(scale) {
+                metaEl.content = metaCtt + ',' + !function (scale) {
                         return 'initial-scale=' + scale + ',maximum-scale=' + scale + ',minimum-scale=' + scale;
                     }(scale);
                 //alert("report:\n" +
@@ -108,6 +109,7 @@ window.mobileUtil = (function (win, doc) {
                 //    "\ndevice pixel ratio: " +
                 //    window.devicePixelRatio
                 //);
+                view_scale = scale;
             }
         },
 
