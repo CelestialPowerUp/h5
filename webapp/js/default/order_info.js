@@ -1,3 +1,9 @@
+yangaiche(sys.load_default_module)('duplicate_submission', {});
+yangaiche(sys.load_default_module)('http', {});
+yangaiche(sys.load_default_module)('show_msg', {});
+yangaiche(sys.load_default_module)('user', {});
+yangaiche(sys.load_default_module)('order', {});
+yangaiche(sys.load_default_module)('back', {});
 yangaiche(sys.load_default_module)('template', {});
 
 app.order_info = {
@@ -5,10 +11,14 @@ app.order_info = {
 };
 
 yangaiche(app.order_info.show, function () {
-    var t = yangaiche(sys.$);
+    var t = yangaiche(sys.$),
+        disable_button = yangaiche(app.ds.disable_button),
+        reset_button = yangaiche(app.ds.reset_button),
+        postReq = yangaiche(app.http.post_request),
+        show_msg = yangaiche(app.show_msg.show);
     return function (order) {
         console.log(order);
-        order['client_basic'].car_number = order['client_basic'].car_number ||  order.car.licence.province + order.car.licence.number;
+        order['client_basic'].car_number = order['client_basic'].car_number || order.car.licence.province + order.car.licence.number;
 
         order.to_select = null;
         order.to_selected_items = null;
@@ -41,35 +51,6 @@ yangaiche(app.order_info.show, function () {
         }
         order.paid_price = order['paid_price'];
 
-        //order['keeper_basics'] = [
-        //    {
-        //        "id": 3,
-        //        "type": "keeper",
-        //        "name": "孙勇",
-        //        "gender": "male",
-        //        "star_count": 5,
-        //        "rating": 5,
-        //        "ID_number": "11010419791210205X",
-        //        "phone_number": "18801354630",
-        //        "car_exp_year": 1,
-        //        "avatar_img": "http://7xiqe8.com2.z0.glb.qiniucdn.com/keeper3.jpg/s1024.jpg",
-        //        "current": true
-        //    },
-        //    {
-        //        "id": 3,
-        //        "type": "mechanic",
-        //        "name": "孙勇",
-        //        "gender": "male",
-        //        "star_count": 5,
-        //        "rating": 5,
-        //        "ID_number": "11010419791210205X",
-        //        "phone_number": "18801354630",
-        //        "car_exp_year": 1,
-        //        "avatar_img": "http://7xiqe8.com2.z0.glb.qiniucdn.com/keeper3.jpg/s1024.jpg",
-        //        "current": true
-        //    }
-        //];
-
         order['keeper_basics'] = order['keeper_basics'] || [];
         t.each(order['keeper_basics'], function (i, keeper) {
             if ('keeper' === keeper['type']) {
@@ -79,8 +60,60 @@ yangaiche(app.order_info.show, function () {
             }
         });
 
+        if (order.order_status_key.match(/creating|unconfirmed|confirmed|take|giveback_start|giveback|unpaid/)) {
+            order.submit_button_class = 'orange_btn';
+            if ('creating' === order.order_status_key) {
+                order.submit_button_text = key.submit_button.submit_text_value3;
+            } else {
+                order.submit_button_text = key.submit_button.submit_text_value2;
+            }
+        } else {
+            order.submit_button_class = 'gray_btn';
+            if (order.order_status_key.match(/completed|evaluated/)) {
+                order.submit_button_text = key.submit_button.submit_text_value4;
+            } else {
+                order.submit_button_text = order.order_status_value || order.order_status_key;
+            }
+        }
+
         console.log(order);
         var template = Handlebars.compile(yangaiche(app.tpl.load)('template/orderInfo.html'));
         t("body").prepend(template(order));
+
+        if (order.submit_button_text === key.submit_button.submit_text_value3) {
+            t("#submit_button").click(function () {
+                disable_button("#submit_button");
+
+
+                var user = yangaiche(ls.user.touch)();
+                order.user_id = user.user_id;
+                order.peer_source = yangaiche(sys.browser_type).type;
+                postReq("/v2/api/order/create.json", order, function (data) {
+                    yangaiche(ls.order.set)(data);
+                    yangaiche(ls.back.set_back_to_store)('order_success.html');
+                }, function (data) {
+                    reset_button("#submit_button");
+                    show_msg("下单失败:" + data['message']);
+                });
+            });
+        } else if (order.submit_button_text === key.submit_button.submit_text_value2) {
+            t("#submit_button").click(function () {
+                if (order['pay_status'] === 1) {
+                    return;
+                }
+
+                disable_button("#submit_button");
+
+                var param = yangaiche(app.pay.get_param)(order,
+                    'order_info_suc.html?order_id=' + yangaiche(app.url_parameter)['order_id'],
+                    'order_info.html?order_id=' + yangaiche(app.url_parameter)['order_id']);
+
+                yangaiche(app.pay.do)(param);
+            });
+        } else if (order.submit_button_text === key.submit_button.submit_text_value4) {
+            t("#submit_button").click(function () {
+                yangaiche(ls.back.set_back_to_self)('order_comment.html?order_id=' + order['id']);
+            });
+        }
     };
 });

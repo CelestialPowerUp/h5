@@ -59,7 +59,7 @@ yangaiche(sys.init)(function (t) {
 
         t.each(t('.home-page-products'), function (i, l) {
             var list = t(l);
-            list.css('height', ((list.children().length + 1) / 2 * 310) + 'px');
+            list.css('height', (parseInt((list.children().length + 1) / 2) * 310) + 'px');
         });
 
         t('.home-page-products li').click(function () {

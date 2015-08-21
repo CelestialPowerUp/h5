@@ -91,8 +91,7 @@ yangaiche(app.http.post_request, function () {
                 if (data && data['code'] == '00000') {
                     callBack(data['data']);
                 } else if (data && data['code'] == '20007') {
-                    //show_login_win();
-                    login_by_opencode();
+                    yangaiche(ls.openid.login_by_opencode)();
                 } else {
                     console.log(data['message']);
                     if (failureBack) {

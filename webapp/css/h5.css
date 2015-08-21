@@ -21,6 +21,24 @@ body {
     padding: 0;
 }
 
+.gray_btn {
+    color: #FFF;
+    background: #c6c6c6;
+}
+
+.gray_btn:hover, .gray_btn:focus {
+    color: #FFF;
+}
+
+.orange_btn {
+    color: #FFF;
+    background: #ff6600;
+}
+
+.orange_btn:hover, .orange_btn:focus {
+    color: #FFF;
+}
+
 /* order success */
 .order-success-div {
     width: 640px;
