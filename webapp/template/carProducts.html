@@ -30,9 +30,11 @@
                         <button class="my-product-line-content-button am-fl" data-rel="{{keeper_type}}">
                             管家接车
                         </button>
-                        <button class="my-product-line-content-button am-fl" data-rel="{{self_type}}">
-                            线下自助
-                        </button>
+                        {{#can_self}}
+                            <button class="my-product-line-content-button am-fl" data-rel="{{self_type}}">
+                                自驾到店
+                            </button>
+                        {{/can_self}}
                     </div>
                 </div>
             </div>

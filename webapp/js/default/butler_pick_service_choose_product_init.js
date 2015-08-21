@@ -31,11 +31,13 @@ yangaiche(sys.init)(function (t) {
             });
 
             var tpl = Handlebars.compile(yangaiche(app.tpl.load)('template/carProducts.html'));
-            t('#products').empty().html(tpl({
+            var tpl_data = {
                 products: data['optional_products'],
                 keeper_type: 1,
                 self_type: 2
-            }));
+            };
+            tpl_data.can_self = (suppliers.length > 0) ? true : null;
+            t('#products').empty().html(tpl(tpl_data));
 
             yangaiche(app.swiper_line.decorate)('#products');
 
