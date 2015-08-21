@@ -1,6 +1,7 @@
 //old_service_start根据文件名设置goto参数，用在car_list.html中选车后的跳转。
 //此外，清空order对象。
 yangaiche(sys.load_default_module)('order');
+yangaiche(sys.load_default_module)('location');
 yangaiche(sys.load_default_module)('back');
 
 app.old_service = {
@@ -20,7 +21,9 @@ yangaiche(sys.init)(function(t) {
 
         yangaiche(sys.local_storage).set(key.goto.car_list, app.old_service.config[app.old_service.key]);
 
+        var location = yangaiche(ls.location.touch)();
         yangaiche(ls.order.clear)();
+        yangaiche(ls.location.set)(location);
 
         yangaiche(ls.back.set_back_to_self)('car_list.html');
     });

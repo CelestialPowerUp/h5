@@ -63,7 +63,9 @@ yangaiche(sys.init)(function (t) {
         });
 
         t('.home-page-products li').click(function () {
+            var location = yangaiche(ls.location.touch)();
             yangaiche(ls.order.clear)();
+            yangaiche(ls.location.set)(location);
 
             var ware_id = t(this).attr('data-rel');
 
