@@ -356,10 +356,10 @@ body {
 
 .download-div {
     position: absolute;
-    bottom: 100px;
+    bottom: 50px;
     left: 150px;
     width: 234px;
-    height: 88px;
+    height: 66px;
     text-align: center;
 }
 
@@ -367,7 +367,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 534px;
-    height: 66px;
+    height: 30px;
     text-align: center;
     overflow: hidden;
 }
