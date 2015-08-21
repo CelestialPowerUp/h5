@@ -22,7 +22,7 @@ yangaiche(sys.init)(function (t) {
 
     var getReq = yangaiche(app.http.get_request), show_msg = yangaiche(app.show_msg.show);
     var page = 1, total_size = 0, real_total_size = 0, page_size = 2, active = true, product_ids = '';
-    var store_item = null;
+    var store_item = null, service_product_dict = {};
 
     function load_suc(data, callback) {
         t.each(data['items'], function (i, d) {
@@ -99,7 +99,12 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    function init(suppliers) {
+    function init(suppliers, service_products) {
+        t.each(service_products, function(i, p) {
+            service_product_dict[p['product_type']] = p;
+            t('#my-btn-group button[data-key="'+p['service_type']+'"]').attr('data-rel', p['product_type']);
+        });
+
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
         }
@@ -110,14 +115,16 @@ yangaiche(sys.init)(function (t) {
 
             store_item = data;
 
-            t('#item_price').text('¥' + data['ware_mark_price']);
-            t('#item_title').text(data['ware_name']);
             t('#item_image_cover').attr('src', data['cover_img']['raw_url'] + '?imageView2/3/w/180/h/180/interlace/1');
 
             data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
 
+
             var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
             t('body').prepend(tpl(data));
+
+            t('.store-item-u-price').text('¥' + data['ware_mark_price']);
+            t('#item_title').text(data['ware_name']);
 
             load_comments(data);
 
@@ -148,6 +155,12 @@ yangaiche(sys.init)(function (t) {
 
                 yangaiche(ls.back.set_back_to_self)('base_info.html');
             });
+
+            var service_type = storage.get(key.service.type);
+            if (yangaiche(sys.exist)(service_type)) {
+                var btn = t('#my-btn-group button[data-rel="' + service_type + '"]');
+                btn.click();
+            }
         }, function (error) {
             show_msg(error['message']);
         });
@@ -194,19 +207,15 @@ yangaiche(sys.init)(function (t) {
         storage.set(key.service.type, local_rel);
         t('#store-item-service-type span').text($this.text());
 
+        t('.store-item-u-price').text('¥' + (store_item['ware_mark_price'] +
+        parseFloat(yangaiche(ls.products.calculate_single)(service_product_dict[local_rel]))));
+
         t(group_p).find('button').removeClass('service-type-choose-chosen');
         t(group_p).find('button').addClass('service-type-choose-chosen-not');
 
         $this.removeClass('service-type-choose-chosen-not');
         $this.addClass('service-type-choose-chosen');
     });
-
-    var service_type = storage.get(key.service.type);
-    if (yangaiche(sys.exist)(service_type)) {
-        var btn = t('#my-btn-group button[data-rel="' + service_type + '"]');
-        btn.click();
-        t('#store-item-service-type span').text(btn.text());
-    }
 
     var car_info = storage.get(key.car.info);
     if (yangaiche(sys.exist)(car_info)) {

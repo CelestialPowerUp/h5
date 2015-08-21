@@ -2,6 +2,7 @@ yangaiche(sys.load_default_module)('repository', {});
 
 ls.products = {
     calculate: 'products_calculate',
+    calculate_single: 'products_calculate_single',
     touch: 'products_touch',
     set: 'products_set',
     update: 'products_update',
@@ -9,10 +10,14 @@ ls.products = {
     products_info: 'products'
 };
 
-yangaiche(ls.products.calculate, function() {
-    function product_price(p) {
+yangaiche(ls.products.calculate_single, function() {
+    return function (p) {
         return p['labour_price'] + (p['price'] * p['unit_count']);
-    }
+    };
+});
+
+yangaiche(ls.products.calculate, function() {
+    var product_price = yangaiche(ls.products.calculate_single);
     return function(products) {
         var price = 0;
         yangaiche(sys.$).each(products, function(i, p) {

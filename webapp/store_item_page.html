@@ -58,18 +58,18 @@
     <div class="store-item-cover"></div>
     <div class="service-type-choose-wrapper">
         <div class="service-type-price-wrapper">
-            <span id="item_price"></span>
+            <span id="item_price" class="store-item-u-price"></span>
             <span id="item_title"></span>
             <div>已选择&nbsp;&nbsp;“<span id="car_model"></span>”</div>
         </div>
         <hr>
-        <div class="am-vertical-align" id="my-btn-group" data-rel="1">
+        <div class="am-vertical-align" id="my-btn-group" data-rel="">
             <button type="button" class="service-type-choose service-type-choose-chosen am-vertical-align-middle"
-                    data-rel="1">
+                    data-rel="" data-key="keeper">
                 管家接车
             </button>
             <button type="button" class="service-type-choose service-type-choose-chosen-not am-vertical-align-middle"
-                    data-rel="2">
+                    data-rel="" data-key="self">
                 自驾到店
             </button>
         </div>
@@ -83,12 +83,12 @@
 </div>
 
 <footer id="store-item-footer">
-    <a href="tel:400-0102-766">
-        <img src="./img/kefu.png"/>
-        <span>客服</span>
-    </a>
-
-    <div id="ready_submit">立即购买</div>
+    <div class="store-item-bottom-div">
+        <span class="store-item-u-price"></span>
+    </div>
+    <div class="store-item-bottom-div">
+        <button id="ready_submit" class="am-btn am-btn-block">立即购买</button>
+    </div>
 </footer>
 
 <script type="text/x-handlebars-template" id="store_item_page_tpl">
@@ -105,7 +105,7 @@
                 <div id="store-item-brief-intro-text-wrapper">
                     <span>{{ware_name}}</span>
                     <div id="store-item-brief-intro-text">{{brief_introduction}}</div>
-                    <span>¥</span><span>{{ware_mark_price}}</span>
+                    <span></span><span class="store-item-u-price">¥{{ware_mark_price}}</span>
                 </div>
             </a>
         </div>

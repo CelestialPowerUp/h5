@@ -65,7 +65,7 @@ yangaiche(sys.init)(function(t) {
     var user = yangaiche(ls.user.touch)();
 
     function preview_order(order, go_flag) {
-        postReq('/v3/api/order_preview', {
+        postReq('/v1/api/order_preview', {
             car_model_type: order['car_model_type'],
             coupon_id: order['coupon_id'],
             products: order['products'],
