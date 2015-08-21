@@ -144,12 +144,12 @@ yangaiche(sys.init)(function (t) {
         });
 
         storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
-        storage.remove(key.goto.car_list);
 
         yangaiche(ls.back.set_back_to_self)('base_info.html');
     });
 
     t('#store-item-car-choose').click(function () {
+        yangaiche(sys.local_storage).remove(key.goto.car_list);
         yangaiche(ls.back.set_back_to_self)('car_list.html');
     });
 
