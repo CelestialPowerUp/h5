@@ -639,20 +639,13 @@ body {
 
 .order-list-item-content-inner {
     font-size: 30px;
-    margin: 0;
-    padding-bottom: 26px;
+    height: 80px;
+    line-height: 80px;
 }
 
-.order-list-item-content-inner div {
-    font-size: 30px;
-}
-
-.order-list-item-content-inner:first-child {
-    padding-top: 30px;
-}
-
-.order-list-item-content-inner:last-child {
-    padding-bottom: 30px;
+.order-list-right-arrow {
+    height: 160px;
+    line-height: 160px;
 }
 
 .order-list-item-pd {

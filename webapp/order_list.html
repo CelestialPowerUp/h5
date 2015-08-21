@@ -37,11 +37,11 @@
 
     <div class="order-list-item-content0 am-vertical-align">
         <div class="color_gray order-list-item-header am-vertical-align-middle">{{car_number}}</div>
-        <div class="order-list-item-header am-vertical-align-middle">状态：<span class="color_red">{{status}}</span></div>
+        <div class="order-list-item-header am-vertical-align-middle">状态：<span class="color_red">{{order_status_value}}</span></div>
     </div>
     <hr data-am-widget="divider" class="am-divider am-divider-default hr-pd margin-0"/>
     <div class="am-g am-g-pd order-list-item-content" data-rel="{{id}}">
-        <div class="am-u-sm-12">
+        <div class="am-u-sm-11">
             <div class="am-g order-list-item-content-inner">
                 <div class="am-u-sm-5 order-list-item-pd">创建时间</div>
                 <div class="am-u-sm-7">{{place_time}}</div>
@@ -49,13 +49,9 @@
             <div class="am-g order-list-item-content-inner">
                 <div class="am-u-sm-5 order-list-item-pd">订单金额</div>
                 <div class="am-u-sm-6">¥{{total_price}}</div>
-                <div class="am-u-sm-1">〉</div>
-            </div>
-            <div class="am-g order-list-item-content-inner">
-                <div class="am-u-sm-5 order-list-item-pd">支付状态</div>
-                <div class="am-u-sm-7">{{paid_info}}</div>
             </div>
         </div>
+        <div class="am-u-sm-1 order-list-right-arrow">〉</div>
     </div>
     <hr data-am-widget="divider" class="am-divider am-divider-default hr-pd margin-0"/>
     <div class="order-list-item-content2 body-background-color-white">

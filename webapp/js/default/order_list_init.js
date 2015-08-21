@@ -23,7 +23,7 @@ yangaiche(sys.init)(function (t) {
             item.paid_info = data[i].paid === true ? "已支付" : "未支付";
             item.total_price = data[i].total_price;
             item.place_time = yangaiche(app.format.time)(data[i].place_time);
-            item.status = data[i].status;
+            item.order_status_value = data[i].order_status_value;
             if (data[i].client_feedback['if_feedback_committed'] || data[i]['order_status_key'] !== 'complete') {
                 item.gray_button = 'gray_button';
             }
