@@ -99,8 +99,10 @@ yangaiche(sys.init)(function (t) {
     }
 
     yangaiche(sys.load_default_module)('supplier');
+    var order = yangaiche(ls.order.touch)(),
+        config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
 
-    getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + '&supplier_id=' + yangaiche(ls.order.touch)().supplier_id, function (data) {
+    getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (data) {
 
         store_item = data;
 
