@@ -1430,6 +1430,12 @@ body {
 }
 
 /* store item */
+#cover-wrapper {
+    width: 640px;
+    max-height: 360px;
+    overflow: hidden;
+}
+
 .store-item-img {
     width: 640px;
 }

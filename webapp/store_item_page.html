@@ -94,7 +94,9 @@
 <script type="text/x-handlebars-template" id="store_item_page_tpl">
     {{#this}}
         {{#cover_img}}
-        <img class="store-item-img" src="{{raw_url}}"/>
+        <div id="cover-wrapper">
+            <img class="store-item-img" src="{{raw_url}}"/>
+        </div>
         {{/cover_img}}
 
         <div id="store-item-wrapper">
