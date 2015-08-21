@@ -17,9 +17,18 @@ yangaiche(app.supplier.init, function() {
                     order.supplier_name = data[0].supplier_name;
                 }
             });
-            callback(data);
-        }, function () {
-            yangaiche(app.show_msg.show)("AJAX ERROR!");
+            supplier_products(data, callback);
+        }, function (error) {
+            yangaiche(app.show_msg.show)(error['message']);
+        });
+    }
+
+    function supplier_products(suppliers, callback) {
+        var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
+        yangaiche(app.http.get_request)('/v1/api/service_products.json?code=all' + config, function(data) {
+            callback(suppliers, data);
+        }, function(error) {
+            yangaiche(app.show_msg.show)(error['message']);
         });
     }
 

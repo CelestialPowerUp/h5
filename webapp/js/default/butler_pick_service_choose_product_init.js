@@ -10,7 +10,7 @@ yangaiche(sys.load_default_module)('supplier');
 
 yangaiche(sys.init)(function (t) {
 
-    function init(suppliers) {
+    function init(suppliers, service_products) {
         if (suppliers.length > 0) {
             t('#old-service-supplier span:last-child').text(suppliers[0]['supplier_name']);
         }
@@ -32,11 +32,17 @@ yangaiche(sys.init)(function (t) {
 
             var tpl = Handlebars.compile(yangaiche(app.tpl.load)('template/carProducts.html'));
             var tpl_data = {
-                products: data['optional_products'],
-                keeper_type: 1,
-                self_type: 2
+                products: data['optional_products']
             };
             tpl_data.can_self = (suppliers.length > 0) ? true : null;
+            t.each(service_products, function(i, p) {
+                if ('self' === p['service_type']) {
+                    tpl_data.self_type = p['product_type'];
+                } else if ('keeper' === p['service_type']) {
+                    tpl_data.keeper_type = p['product_type'];
+                }
+                product_dict[p['product_type']] = p;
+            });
             t('#products').empty().html(tpl(tpl_data));
 
             yangaiche(app.swiper_line.decorate)('#products');
