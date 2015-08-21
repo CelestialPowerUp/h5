@@ -137,7 +137,7 @@ yangaiche(app.http.post_charge_request, function () {
                                 alert('建议设置请求错误的回调');
                             }
                         } else {
-                            callBack(parsed_data);
+                            failureBack(parsed_data);
                         }
                     } else if (failureBack) {
                         failureBack('未能识别服务器返回参数');

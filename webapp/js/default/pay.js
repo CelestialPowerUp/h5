@@ -53,7 +53,7 @@ yangaiche(app.pay.do, function() {
                 }
             });
         }, function (error) {
-            show_msg(error);
+            show_msg(error['message'] || error);
         });
     };
 });
