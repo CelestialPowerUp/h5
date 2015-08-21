@@ -1,37 +1,17 @@
 yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('pay', {});
+yangaiche(sys.load_default_module)('order_info', {});
 
 yangaiche(sys.init)(function (t) {
     var getReq = yangaiche(app.http.get_request);
 
-    var parse_data = function (order) {
-        var template = Handlebars.compile(t("#user_info_tpl").html());
-        t("#user_info_view").html(template(order));
-
-        var product_template = Handlebars.compile(t("#product_info_tpl").html());
-        t("#products_view").html(product_template(order.products));
-
-        var paid_template = Handlebars.compile(t("#paid_tpl").html());
-        t("#paid_view").html(paid_template(order));
-
-        order.pay_type_info = yangaiche(app.pay.to_pay_type_info)(order);
-        var paid_type_template = Handlebars.compile(t("#paid_type_tpl").html());
-        t("#paid_type_view").html(paid_type_template(order));
-    };
-
     var reqParams = yangaiche(app.url_parameter);
     if (yangaiche(sys.exist)(reqParams['order_id'])) {//有参数，查看页面
-        getReq("/v2/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
-            order.car_number = order.car.licence.province + order.car.licence.number;
-            order.contact_name = order.client_basic.name;
-            order.phone_number = order.client_basic.phone_number;
-            order.location = order.client_basic.location;
-            if (order['coupon_price'] > 0) {
-                order['coupon'] = {value: order['coupon_price'].toFixed(2)};
-            }
+        getReq("/v3/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
+            yangaiche(app.order_info.show)(order);
 
-            parse_data(order);
+            t('#order_info_advise_items').css('display', 'none');
 
             t('#submit_button').text('关闭');
             t('#submit_button').css('display', 'block');
