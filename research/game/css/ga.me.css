@@ -1,0 +1,24 @@
+/* flow OR layout */
+.fixed-wrapper {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+
+    background: transparent;
+}
+
+.mobile-wrapper {
+    width: 640px;
+    height: 100%;
+    margin: 0 auto;
+
+    background: transparent;
+}
+
+/* filter */
+.invert {
+    filter: invert(1);
+    -webkit-filter: invert(1);
+}
