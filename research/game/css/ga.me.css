@@ -17,8 +17,20 @@
     background: transparent;
 }
 
+.scroll-y {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 /* filter */
 .invert {
     filter: invert(1);
     -webkit-filter: invert(1);
 }
+
+/* border-box */
+/*html, body, div {*/
+    /*-webkit-box-sizing: content-box;*/
+    /*-moz-box-sizing: content-box;*/
+    /*box-sizing: content-box;*/
+/*}*/
