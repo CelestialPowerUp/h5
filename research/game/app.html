@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=640, user-scalable=no">
+    <script type="text/javascript" src="./js/mobile-util.js"></script>
+
+    <title>养爱车</title>
+    <link href="./css/normalize.min.css" rel="stylesheet">
+    <style>
+        .fixed-wrapper {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+
+            background: transparent;
+        }
+
+        .mobile-wrapper {
+            width: 640px;
+            height: 100%;
+            margin: 0 auto;
+
+            background: transparent;
+        }
+
+        .road {
+            float: left;
+            height: 100%;
+        }
+
+        #road-left {
+            width: 91px;
+            background: url("./img/left.jpg");
+        }
+
+        #road-center {
+            width: 458px;
+            background: url("./img/center.jpg");
+        }
+
+        #road-right {
+            width: 91px;
+            background: url("./img/right.jpg");
+        }
+
+        #car {
+            width: 150px;
+            height: 302px;
+            margin: 0 auto;
+            background: url("./img/car.png");
+
+            /*transform:translateY(300px);*/
+            /*-ms-transform:translateY(300px); 	/!* IE 9 *!/*/
+            /*-moz-transform:translateY(300px); 	/!* Firefox *!/*/
+            /*-webkit-transform:translateY(300px); /!* Safari 和 Chrome *!/*/
+            /*-o-transform:translateY(300px);*/
+
+            /*transition: transform 2s;*/
+            /*-moz-transition: -moz-transform 2s;*/
+            /*-webkit-transition: -webkit-transform 2s;*/
+            /*-o-transition: -o-transform 2s;*/
+        }
+
+        .control-right-wrapper {
+            float: right;
+            width: 100px;
+            height: 100%;
+        }
+
+        #throttle {
+            width: 80px;
+            height: 150px;
+
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+<div id="road-layer" class="fixed-wrapper" style="z-index: 0;">
+    <div class="mobile-wrapper">
+        <div id="road-left" class="road"></div>
+        <div id="road-center" class="road"></div>
+        <div id="road-right" class="road"></div>
+    </div>
+</div>
+
+<div id="car-layer" class="fixed-wrapper" style="z-index: 1;">
+    <div class="mobile-wrapper">
+        <div id="car"></div>
+    </div>
+</div>
+
+<div id="control-layer" class="fixed-wrapper" style="z-index: 2;">
+    <div class="mobile-wrapper">
+        <div class="control-right-wrapper">
+            <div id="throttle"></div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/jquery.min.js"></script>
+<script>
+    var $width = 640, $height = $(window).height();
+
+    var $car = $('#car'), transition_set = false;
+    $car.css('transform', 'translateY(' + ($height - 302) + 'px)');
+
+    var $throttle = $('#throttle');
+    $throttle.css('transform', 'translateY('
+            + ($height - 20 - $throttle.height())
+            + 'px)');
+
+    $throttle.click(function () {
+        if (!transition_set) {
+            $car.css('transition', 'transform 2s');
+            $car.css('-moz-transition', '-moz-transform 2s');
+            $car.css('-webkit-transition', '-webkit-transform 2s');
+            $car.css('-o-transition', '-o-transform 2s');
+            transition_set = true;
+        }
+        setTimeout(function() {
+            $car.css('transform', 'translateY(0)');
+        }, 1)
+    });
+</script>
+</body>
+</html>
