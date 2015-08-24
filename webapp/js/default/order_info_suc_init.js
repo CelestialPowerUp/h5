@@ -8,7 +8,7 @@ yangaiche(sys.init)(function (t) {
 
     var reqParams = yangaiche(app.url_parameter);
     if (yangaiche(sys.exist)(reqParams['order_id'])) {//有参数，查看页面
-        getReq("/v3/api/orders.json?order_id=" + reqParams['order_id'], function (order) {
+        getReq("/v3/api/orders.json?user_type=caruser&order_id=" + reqParams['order_id'], function (order) {
             yangaiche(app.order_info.show)(order);
 
             t('#order_info_advise_items').css('display', 'none');

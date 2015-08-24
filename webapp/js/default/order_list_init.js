@@ -15,7 +15,7 @@ yangaiche(sys.init)(function (t) {
     t('#nprogress .nprogress-bar').css('bottom', 'auto');
     t('#nprogress .nprogress-bar').css('top', '0');
 
-    yangaiche(app.http.get_request)("/v3/api/orders.json?user_id=" + yangaiche(ls.user.touch)()[ls.user.user_id], function (data) {
+    yangaiche(app.http.get_request)("/v3/api/orders.json?user_type=caruser&user_id=" + yangaiche(ls.user.touch)()[ls.user.user_id], function (data) {
         var items = [];
         for (var i = 0; i < data.length; i++) {
             var item = {};
