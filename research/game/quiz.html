@@ -59,7 +59,27 @@
 
             color: #FFF;
             font-size: 30px;
+
+            transition: transform 1s;
+            -moz-transition: -moz-transform 1s;
+            -webkit-transition: -webkit-transform 1s;
+            -o-transition: -o-transform 1s;
+
+            transform: rotate(0deg);
+            -ms-transform: rotate(0deg); /* IE 9 */
+            -moz-transform: rotate(0deg); /* Firefox */
+            -webkit-transform: rotate(0deg); /* Safari 和 Chrome */
+            -o-transform: rotate(0deg);
+
             /*background: #555;*/
+        }
+
+        #answers li:hover, #answers li:focus {
+            transform: rotate(360deg);
+            -ms-transform: rotate(360deg); /* IE 9 */
+            -moz-transform: rotate(360deg); /* Firefox */
+            -webkit-transform: rotate(360deg); /* Safari 和 Chrome */
+            -o-transform: rotate(360deg);
         }
 
         #yac-ads {
@@ -107,10 +127,20 @@
 <script>
     var $width = 640, $height = $(window).height();
 
-    $.each($('#answers').find('li'), function(i, ans) {
+    var lis = $('#answers').find('li');
+    $.each(lis, function (i, ans) {
         var value = (i * 2 + 2);
         var color = '#' + '5' + value + value;
-        $(ans).css('background',  color);
+        $(ans).css('background', color);
+    });
+
+    lis.click(function () {
+        var $this = $(this);
+        $this.css('transform', 'rotate(360deg)')
+                .bind('webkitTransitionEnd', function () {
+                    $this.css('transform', 'rotate(0deg)');
+                    $this.unbind('webkitTransitionEnd');
+                });
     });
 </script>
 </body>
