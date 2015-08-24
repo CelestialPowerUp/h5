@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../pubjs/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.amazeui.org/amazeui/2.3.0/js/amazeui.min.js"></script>
+    <script type="text/javascript" src="../pubjs/common.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    var host = get_host();
+
+    var situation = "test";
+    var appId = loadCfg('data.json', function(enviroment) {
+        if ('dev' === enviroment['thisis'] || 'staging' === enviroment['thisis']) {
+            situation = "test";
+            return 'wx6569a515e0c3e346';
+        } else {
+            situation = "production";
+            return 'wxb78dc0eb87da0df9';
+        }
+    });
+
+    var platform = loadCfg('platform.json', function(platform) {
+        return platform['platform'];
+    });
+
+    var snsapi = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appId + '&redirect_uri=http%3A%2F%2F' + get_host() + platform + '%2Factivities%2F'+'yichechexian'+'%2Fexternal_sale_wechat_openid.html&response_type=code&scope=snsapi_userinfo#wechat_redirect';
+
+    var reqParam = getReqParam(), to_snsapi = true;
+    if (reqParam['code']) {
+        postReq("login_by_wx_code.json?code="+reqParam['code']+"&situation="+situation,{},function(data){
+            getStore().set("external_sale_wechat_openid",data.openid);
+            window.location.href = './external_sale.html?topay=true';
+        },function(data){
+            getStore().set("external_sale_wechat_openid",data.data);
+            window.location.href = './external_sale.html?topay=true';
+        });
+        to_snsapi = false;
+    }
+
+    if (to_snsapi) {
+        window.location.href = snsapi;
+    }
+</script>
+</body>
+</html>
