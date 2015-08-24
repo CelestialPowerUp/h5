@@ -134,13 +134,14 @@
         $(ans).css('background', color);
     });
 
+    var $hit = $('#hit-image');
+
     lis.click(function () {
         var $this = $(this);
-        $this.css('transform', 'rotate(360deg)')
-                .bind('webkitTransitionEnd', function () {
-                    $this.css('transform', 'rotate(0deg)');
-                    $this.unbind('webkitTransitionEnd');
-                });
+        $this.hover().bind('webkitTransitionEnd', function () {
+            alert('跳页面啦');
+            $this.unbind('webkitTransitionEnd');
+        });
     });
 </script>
 </body>
