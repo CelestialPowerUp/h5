@@ -16,7 +16,27 @@ yangaiche(sys.init)(function (t) {
         getReq("/v3/api/orders.json?user_type=caruser&order_id=" + reqParams['order_id'], function (order) {
             yangaiche(app.order_info.show)(order);
 
-            t('#order_info_advise_items .order_info_items li img').click(function() {
+            function process_order_addition(value) {
+                var selected_images = t('#order_info_advise_items .order_info_items li img[src="http://7xiqe8.com2.z0.glb.qiniucdn.com/choose.png"]');
+                var params = [];
+                t.each(selected_images, function (i, image) {
+                    params.push({order_item_id: parseInt(t(image).attr('data-rel')), selection_mode: value});
+                });
+                yangaiche(app.http.post_request)('/v1/api/order_addition/confirmation.json', params, function (data) {
+                    window.location.reload();
+                }, function (error) {
+                    yangaiche(app.show_msg.show)(error['message']);
+                });
+            }
+
+            t('#order_addition_reject').click(function () {
+                process_order_addition(4);
+            });
+            t('#order_addition_agree').click(function () {
+                process_order_addition(3);
+            });
+
+            t('#order_info_advise_items .order_info_items li img').click(function () {
                 t(this).css('display', 'none');
                 t(this).siblings('img').css('display', 'inline-block');
             });
