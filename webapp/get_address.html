@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content=" user-scalable=no">
-    <script type="text/javascript" src="./js/lib/mobile-util.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
@@ -17,37 +16,27 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="./css/amazeui.min.css">
     <link rel="stylesheet" href="./css/h5.css">
-
+    <style>
+        body {
+            width: 100%;
+        }
+    </style>
 </head>
 <body class="body-background-color-gray">
-<header data-am-widget="header" class="am-header am-header-default am-header-fixed body-background-color-white">
-    <div class="am-header-left am-header-nav">
-        <a href="./my_address_manage.html">
-            <img src="./img/back_green.png">
-        </a>
-    </div>
-    <h1 class="am-header-title">
-        位置信息
-    </h1>
-
-    <div class="am-header-right am-header-nav">
-        <!--<button  class="am-btn am-btn-success" id="search_button" style="background-color: #09be00;border-radius: 5px;margin-top: 12px; ">搜索</button>-->
-        <button class="am-btn am-btn-success" id="locate_button">
-            确定
-        </button>
-    </div>
-</header>
-
 <div class="address-getter-search-input-div">
     <input id="search_input" class="address-getter-search-input" placeholder="输入查询的地址"/>
+
+    <button class="am-btn address-getter-confirm-input" id="locate_button">
+        确定
+    </button>
 </div>
 
 <div id="map_view" class="address-getter-map-view"></div>
 
+<script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="./js/lib/handlebars.min.js"></script>
 <script type="text/javascript" src="./js/lib/amazeui.min.js"></script>
-<script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./js/lib/yangaiche.js"></script>
 </body>
 </html>

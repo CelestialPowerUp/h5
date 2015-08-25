@@ -3,14 +3,11 @@ yangaiche(sys.load_default_module)('duplicate_submission');
 yangaiche(sys.load_default_module)('show_msg');
 yangaiche(sys.load_default_module)('back');
 yangaiche(sys.load_default_module)('user');
-yangaiche(sys.load_default_module)('viewport');
 
 yangaiche(sys.init)(function(t) {
-    yangaiche(app.viewport.replace)(1.0);
-
     var show_msg = yangaiche(app.show_msg.show);
 
-    t('#map_view').css('height', (t(window).height() - t('header').height()) + 'px');
+    t('#map_view').css('height', t(window).height() + 'px');
 
     var location_info = {};
     var map = new BMap.Map('map_view');

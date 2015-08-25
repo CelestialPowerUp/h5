@@ -15,7 +15,7 @@ yangaiche(app.viewport.set, function () {
 
     return function () {
         var meta = '<meta name="viewport" content="width=device-width, initial-scale=' + get_initial_scale() + ', user-scalable=no">';
-        //alert(meta);
+        alert(meta);
         yangaiche(sys.$)('head').prepend(meta);
     };
 });

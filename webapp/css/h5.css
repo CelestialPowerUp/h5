@@ -1168,37 +1168,42 @@ body {
 }
 
 /* address getter */
-.address-getter-search-input {
-    height: 48px;
-    border-radius: 3px;
-    border: 1px solid #000;
-    width: 100%;
-    font-size: 18px;
-    color: #555;
-    padding: 0 5px;
-}
-
 .address-getter-search-input-div {
     position: absolute;
-    top: 60px;
+    top: 30px;
     z-index: 999;
     width: 100%;
     padding: 0 10px;
 }
 
+.address-getter-search-input {
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 75%;
+    font-size: 18px;
+    color: #555;
+    padding: 0 5px;
+    float: left;
+}
+
+.address-getter-confirm-input {
+    height: 48px;
+    width: 20%;
+    float: right;
+    border-radius: 8px;
+    background: #09be00;
+    color: #FFF;
+}
+
+.address-getter-confirm-input:hover, .address-getter-confirm-input:focus {
+    color: #FFF;
+}
+
 .address-getter-map-view {
     width: 100%;
+    height: 100%;
     overflow: hidden;
-}
-
-.am-header .am-header-title {
-    color: #555;
-}
-
-.am-header-default .am-header-nav .am-btn {
-    /*margin-top: 10px;*/
-    background-color: #09be00;
-    border-radius: 5px;
 }
 
 /* car manager */

@@ -110,6 +110,10 @@ yangaiche(sys.init)(function (t) {
         yangaiche(ls.back.set_back_to_self)('my_address_manage.html');
     });
 
+    t('#user-win .menu-info a').click(function() {
+        yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
+    });
+
     //t('#footer_close').click(function(e) {
     //    t('#footer').css('display', 'none');
     //});
