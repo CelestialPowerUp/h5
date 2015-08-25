@@ -8,23 +8,10 @@
 
     <title>养爱车</title>
     <link href="./css/normalize.min.css" rel="stylesheet">
+    <link href="./css/ga.me.css" rel="stylesheet">
     <style>
-        .fixed-wrapper {
-            position: fixed;
-            height: 100%;
-            width: 100%;
-            left: 0;
-            top: 0;
+        #the-long-way {
 
-            background: transparent;
-        }
-
-        .mobile-wrapper {
-            width: 640px;
-            height: 100%;
-            margin: 0 auto;
-
-            background: transparent;
         }
 
         .road {
@@ -32,17 +19,17 @@
             height: 100%;
         }
 
-        #road-left {
+        .road-left {
             width: 91px;
             background: url("./img/left.jpg");
         }
 
-        #road-center {
+        .road-center {
             width: 458px;
             background: url("./img/center.jpg");
         }
 
-        #road-right {
+        .road-right {
             width: 91px;
             background: url("./img/right.jpg");
         }
@@ -82,9 +69,18 @@
 <body>
 <div id="road-layer" class="fixed-wrapper" style="z-index: 0;">
     <div class="mobile-wrapper">
-        <div id="road-left" class="road"></div>
-        <div id="road-center" class="road"></div>
-        <div id="road-right" class="road"></div>
+        <div id="the-long-way">
+            <div class="invert" style="width: inherit;height: 323px;">
+                <div class="road-left road"></div>
+                <div class="road-center road"></div>
+                <div class="road-right road"></div>
+            </div>
+            <div id="normal-road" style="width: inherit;">
+                <div class="road-left road"></div>
+                <div class="road-center road"></div>
+                <div class="road-right road"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -106,6 +102,11 @@
 <script>
     var $width = 640, $height = $(window).height();
 
+    $('#normal-road').height($height * 2 - 323);
+
+    var $the_long_way = $('#the-long-way');
+    $the_long_way.css('transform', 'translateY(' + (0 - $height) + 'px)');
+
     var $car = $('#car'), transition_set = false;
     $car.css('transform', 'translateY(' + ($height - 302) + 'px)');
 
@@ -114,17 +115,32 @@
             + ($height - 20 - $throttle.height())
             + 'px)');
 
-    $throttle.click(function () {
+    function setTransitions(nodes, duration, timing_function) {
         if (!transition_set) {
-            $car.css('transition', 'transform 2s');
-            $car.css('-moz-transition', '-moz-transform 2s');
-            $car.css('-webkit-transition', '-webkit-transform 2s');
-            $car.css('-o-transition', '-o-transform 2s');
+            $.each(nodes || [], function (i, node) {
+                var this_node = node['$yac$'] || node;
+                var this_duration = (node['$yac$duration'] || duration);
+                var this_timing_function = (node['$yac$timing_function'] || timing_function);
+                this_node.css({
+                    transition: 'transform ' + this_duration + ' ' + this_timing_function,
+                    mozTransition: '-moz-transform ' + this_duration + ' ' + this_timing_function,
+                    webkitTransition: '-webkit-transform ' + this_duration + ' ' + this_timing_function,
+                    oTransition: '-o-transform ' + this_duration + ' ' + this_timing_function
+                });
+            });
             transition_set = true;
         }
-        setTimeout(function() {
-            $car.css('transform', 'translateY(0)');
-        }, 1)
+    }
+
+    $throttle.click(function () {
+        setTransitions([
+            {$yac$: $car, $yac$timing_function: 'ease-out'},
+            {$yac$: $the_long_way, $yac$timing_function: 'ease-in'}
+        ], '2s');
+        $the_long_way.css('transform', 'translateY(0)');
+        setTimeout(function () {
+            $car.css('transform', 'translateY(323px)');
+        }, 2000);
     });
 </script>
 </body>

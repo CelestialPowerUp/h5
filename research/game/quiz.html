@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=640, user-scalable=no">
+    <script type="text/javascript" src="./js/mobile-util.js"></script>
+
+    <title>养爱车</title>
+    <link href="./css/normalize.min.css" rel="stylesheet">
+    <link href="./css/ga.me.css" rel="stylesheet">
+    <style>
+        #hit-title {
+            width: 400px;
+            height: 80px;
+            margin: 30px 120px;
+            text-align: center;
+            line-height: 80px;
+            font-size: 30px;
+            font-weight: bolder;
+
+            background: #555;
+        }
+
+        #hit-image {
+            width: 500px;
+            height: 300px;
+            margin: 0 auto;
+            border-image: url("./img/wenli.png") 30 30 round;
+            border-width: 30px;
+        }
+
+        #hit-text {
+            width: 360px;
+            height: 150px;
+            margin: 30px 120px;
+            padding: 15px 20px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 30px;
+            font-weight: bolder;
+
+            background: #555;
+        }
+
+        #answers ul {
+            list-style: none;
+            width: 400px;
+            height: 320px;
+            margin: 30px auto;
+
+            padding: 0;
+        }
+
+        #answers li {
+            width: 200px;
+            height: 160px;
+            float: left;
+
+            color: #FFF;
+            font-size: 30px;
+
+            transition: transform 1s;
+            -moz-transition: -moz-transform 1s;
+            -webkit-transition: -webkit-transform 1s;
+            -o-transition: -o-transform 1s;
+
+            transform: rotate(0deg);
+            -ms-transform: rotate(0deg); /* IE 9 */
+            -moz-transform: rotate(0deg); /* Firefox */
+            -webkit-transform: rotate(0deg); /* Safari 和 Chrome */
+            -o-transform: rotate(0deg);
+
+            /*background: #555;*/
+        }
+
+        #answers li:hover, #answers li:focus {
+            transform: rotate(360deg);
+            -ms-transform: rotate(360deg); /* IE 9 */
+            -moz-transform: rotate(360deg); /* Firefox */
+            -webkit-transform: rotate(360deg); /* Safari 和 Chrome */
+            -o-transform: rotate(360deg);
+        }
+
+        #yac-ads {
+            position: fixed;
+            z-index: 1;
+
+            left: 0;
+            bottom: 0;
+
+            width: 640px;
+            height: 100px;
+
+            color: #FFF;
+            font-size: 24px;
+            line-height: 50px;
+            text-align: center;
+            font-weight: lighter;
+
+            background: #F60;
+        }
+    </style>
+</head>
+<body>
+<div class="fixed-wrapper" style="z-index: 0;">
+    <div class="mobile-wrapper scroll-y">
+        <div style="padding-bottom: 130px;">
+            <div id="hit-title">关卡提示</div>
+            <div id="hit-image"></div>
+            <div id="hit-text">给予一定的提示</div>
+            <div id="answers">
+                <ul>
+                    <li>A</li>
+                    <li>B</li>
+                    <li>C</li>
+                    <li>D</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="yac-ads">养爱车广告</div>
+
+<script src="./js/jquery.min.js"></script>
+<script>
+    var $width = 640, $height = $(window).height();
+
+    var lis = $('#answers').find('li');
+    $.each(lis, function (i, ans) {
+        var value = (i * 2 + 2);
+        var color = '#' + '5' + value + value;
+        $(ans).css('background', color);
+    });
+
+    var $hit = $('#hit-image');
+
+    lis.click(function () {
+        var $this = $(this);
+        $this.hover().bind('webkitTransitionEnd', function () {
+            alert('跳页面啦');
+            $this.unbind('webkitTransitionEnd');
+        });
+    });
+</script>
+</body>
+</html>
