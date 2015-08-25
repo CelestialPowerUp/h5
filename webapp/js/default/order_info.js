@@ -5,6 +5,7 @@ yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('back', {});
 yangaiche(sys.load_default_module)('template', {});
+yangaiche(sys.load_default_module)('parameter', {});
 
 app.order_info = {
     show: 'show_order_info'

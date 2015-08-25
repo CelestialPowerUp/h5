@@ -38,7 +38,7 @@ yangaiche(app.env.get_host, function () {
             return host;
         }
 
-        host = window.location.host + '/h5/';
+        host = 'http://' + window.location.host + '/h5/';
         return host;
     }();
 });

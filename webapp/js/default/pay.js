@@ -15,8 +15,8 @@ yangaiche(app.pay.get_param, function() {
     yangaiche(sys.load_module)('pay_param', {});
     return function(order, success_url, cancel_url) {
         var param = {
-            subject: "养爱车-" + order['order_type'],
-            body: "养爱车-" + order['order_type'],
+            subject: "养爱车-一站式管家服务",
+            body: "养爱车-一站式管家服务",
             order_id: order['id']
         };
         yangaiche(app.pay.get_extra_param)(param, success_url, cancel_url);
