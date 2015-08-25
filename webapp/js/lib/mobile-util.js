@@ -37,36 +37,21 @@ window.mobileUtil = (function (win, doc) {
          */
         fixScreen: function () {
             var metaEl = doc.querySelector('meta[name="viewport"]'),
-                metaCtt = metaEl ? metaEl.content : '',
-                matchWidth = metaCtt.match(/width=([^,\s]+)/);
+                metaCtt = metaEl ? metaEl.content : '';
             if (isMobile) { // 定宽
-                var width = parseInt(matchWidth[1]),
-                    iw = win.innerWidth || width,
-                    ow = win.outerWidth || iw,
-                    sw = win.screen.width || iw,
-                    saw = win.screen.availWidth || iw,
-                    ih = win.innerHeight || width,
-                    oh = win.outerHeight || ih,
-                    ish = win.screen.height || ih,
-                    sah = win.screen.availHeight || ih,
-                    w = Math.min(iw, ow, sw, saw, ih, oh, ish, sah),
-                    scale = w / width;
+                var scale = win.screen.availWidth / 640;
                 if (isAndroid) {
                     scale /= window.devicePixelRatio;
                 }
 
-                metaEl.content = metaCtt + ',initial-scale=' + scale + ',maximum-scale=' + scale + ',minimum-scale=' + scale;
-                console.log("report:\n" +
-                    "inner width: " +
-                    iw +
-                    "\nouter width: " +
-                    ow +
-                    "\nscreen width: " +
-                    sw +
+                metaEl.content = metaCtt + ', width=640, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale;
+                alert("report:" +
                     "\nscreen avail width: " +
-                    saw +
+                    win.screen.availWidth +
                     "\ndevice pixel ratio: " +
-                    window.devicePixelRatio
+                    window.devicePixelRatio +
+                    "\nscale: " +
+                    scale
                 );
             }
         },

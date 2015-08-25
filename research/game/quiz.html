@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content="width=640, user-scalable=no">
+    <meta name="viewport" content=" user-scalable=no">
     <script type="text/javascript" src="./js/mobile-util.js"></script>
 
     <title>养爱车</title>
@@ -84,7 +84,6 @@
 
         #yac-ads {
             position: fixed;
-            z-index: 1;
 
             left: 0;
             bottom: 0;
@@ -118,14 +117,17 @@
                 </ul>
             </div>
         </div>
+
+        <div id="yac-ads">养爱车广告</div>
     </div>
 </div>
 
-<div id="yac-ads">养爱车广告</div>
-
 <script src="./js/jquery.min.js"></script>
 <script>
-    var $width = 640, $height = $(window).height();
+    var $width = 640, $real_width = $(window).width(), $height = $(window).height();
+
+    var $yac_ads = $('#yac-ads');
+    $yac_ads.css('transform', 'translateX(' + (($real_width - $width) / 2) + 'px)');
 
     var lis = $('#answers').find('li');
     $.each(lis, function (i, ans) {
