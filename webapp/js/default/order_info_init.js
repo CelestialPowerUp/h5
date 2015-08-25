@@ -20,8 +20,11 @@ yangaiche(sys.init)(function (t) {
                 var selected_images = t('#order_info_advise_items .order_info_items li img[src="http://7xiqe8.com2.z0.glb.qiniucdn.com/choose.png"]');
                 var params = [];
                 t.each(selected_images, function (i, image) {
-                    params.push({order_item_id: parseInt(t(image).attr('data-rel')), selection_mode: value});
+                    if ('inline-block' == t(image).css('display')) {
+                        params.push({order_item_id: parseInt(t(image).attr('data-rel')), selection_mode: value});
+                    }
                 });
+
                 yangaiche(app.http.post_request)('/v1/api/order_addition/confirmation.json', params, function (data) {
                     window.location.reload();
                 }, function (error) {

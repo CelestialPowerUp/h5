@@ -25,7 +25,7 @@ yangaiche(app.order_info.show, function () {
         order.to_selected_items = null;
         order.self_items = [];
 
-        t.each(order['products'], function (i, p) {
+        function products_divide(i, p) {
             var selection_mode = p['selection_mode'] || 1;
             if (selection_mode === 1) {
                 order.self_items.push(p);
@@ -45,7 +45,10 @@ yangaiche(app.order_info.show, function () {
                 p['display_status'] = selection_mode === 3 ? '¥' + p['total_price'] : '已拒绝';
                 order.to_selected_items.selected_items.push(p);
             }
-        });
+        }
+
+        t.each(order['products'], products_divide);
+        t.each(order['increase_products'], products_divide);
 
         if (order['not_paid_price'] > 0) {
             order.not_paid = {not_paid_price: order['not_paid_price']};

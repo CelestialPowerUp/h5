@@ -1809,28 +1809,29 @@ body {
     z-index: 1000;
     background: rgba(255, 255, 255, 1.0);
     width: 640px;
-    height: 360px;
+    height: 400px;
     bottom: 0;
     left: 0;
+    font-size: 0;
 }
 
 .service-type-price-wrapper {
     background: #FFFFFF;
     width: 400px;
-    height: 140px;
-    margin: 0 20px 0 220px;
+    height: 130px;
+    margin: 10px 20px 0 220px;
 }
 
 .service-type-choose-wrapper hr {
     width: 600px;
-    margin: 10px 20px;
+    margin: 20px 20px;
     padding: 0;
     border-color: #999999;
 }
 
 .service-type-choose {
     white-space: nowrap;
-    height: 60px;
+    height: 90px;
     border-radius: 8px;
     border: solid 1px;
     text-align: center;
@@ -1858,35 +1859,27 @@ body {
     position: fixed;
     z-index: 1001;
     left: 20px;
-    bottom: 220px;
+    bottom: 265px;
     display: block;
     width: 180px;
     height: 180px;
     overflow: hidden;
+    border-radius: 8px;
 }
 
 #item_price {
     display: block;
-    margin-top: 10px;
     color: #FF6600;
     font-size: 30px;
 }
 
 #item_title {
     display: block;
-    margin-top: 5px;
     color: #333;
     font-size: 28px;
 }
 
-#car_model {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
 .service-type-price-wrapper > div {
-    margin-top: 5px;
     color: #999;
     font-size: 24px;
 }
