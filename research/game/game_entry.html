@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content=" user-scalable=no">
+    <script type="text/javascript" src="./js/mobile-util.js"></script>
+
+    <title>养爱车</title>
+    <link href="./css/normalize.min.css" rel="stylesheet">
+    <link href="./css/ga.me.css" rel="stylesheet">
+    <style>
+        .mobile-wrapper img {
+            width: 640px;
+        }
+
+        .btn {
+            display: block;
+
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .mobile-wrapper > a.btn {
+            background: url("./img/game_btn.png") no-repeat;
+            background-size: 100% 100%;
+
+            width: 300px;
+            height: 100px;
+
+            color: #FFF;
+            font-size: 44px;
+            line-height: 100px;
+            text-align: center;
+
+            -webkit-text-stroke: 2px #894000;
+
+            margin: 750px auto 0 auto;
+        }
+
+        .mobile-wrapper > a.btn:active {
+            background: url("./img/game_btn_focus.png") no-repeat;
+            background-size: 100% 100%;
+
+            -webkit-text-stroke: 2px #59940c;
+        }
+    </style>
+</head>
+<body>
+<div id="bg-layer" class="fixed-wrapper" style="z-index: 0;">
+    <div class="mobile-wrapper">
+        <img src="./img/game_entry_bg.png">
+    </div>
+</div>
+<div id="control-layer" class="fixed-wrapper" style="z-index: 0;">
+    <div class="mobile-wrapper">
+        <a class="btn">进入游戏</a>
+    </div>
+</div>
+<script src="./js/jquery.min.js"></script>
+<script>
+    <!-- Is this real hacking? -->
+    $('body').on('touchstart', function () {
+    });
+</script>
+</body>
+</html>
