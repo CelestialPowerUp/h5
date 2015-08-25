@@ -34,3 +34,15 @@
     /*-moz-box-sizing: content-box;*/
     /*box-sizing: content-box;*/
 /*}*/
+
+/* font */
+@font-face {
+    font-family: hua-kang-hai-bao-ti;
+    src: url('../font/华康海报体W12_0.ttf');
+}
+
+html, body, div, a, p, ul, li {
+    font-family: hua-kang-hai-bao-ti, monospace;
+    font-weight: normal;
+    font-size: 50px;
+}
