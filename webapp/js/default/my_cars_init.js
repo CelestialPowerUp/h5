@@ -2,6 +2,7 @@ yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('swiper', {});
 yangaiche(sys.load_default_module)('format', {});
+yangaiche(sys.load_default_module)('back', {});
 
 yangaiche(sys.init)(function(t) {
 
@@ -44,6 +45,8 @@ yangaiche(sys.init)(function(t) {
 
         t('.delete-btn').click(function () {
             yangaiche(app.http.post_request)('/v1/api/cars/delete', [t(this).attr('data-rel')], function() {
+                yangaiche(sys.local_storage).remove(key.car.info);
+
                 window.location.reload();
             });
         });
@@ -53,6 +56,10 @@ yangaiche(sys.init)(function(t) {
         });
 
         yangaiche(app.swiper.show)('.carinfo', '.carinfo-btn', '/v1/api/cars/delete');
+
+        t('a').click(function() {
+            yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
+        });
 
         progress.done();
     });

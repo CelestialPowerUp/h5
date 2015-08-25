@@ -2,6 +2,7 @@ yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('format', {});
+yangaiche(sys.load_default_module)('back', {});
 
 yangaiche(sys.init)(function (t) {
     var progress = $.AMUI.progress;
@@ -55,6 +56,10 @@ yangaiche(sys.init)(function (t) {
                 var url = yangaiche(ls.back.get_parent_of)('car_list.html');
                 yangaiche(ls.back.set_back_to_his)(url);
             }
+        });
+
+        t('a').click(function() {
+            yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
         });
 
         progress.done();
