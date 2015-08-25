@@ -45,7 +45,7 @@ window.mobileUtil = (function (win, doc) {
                 }
 
                 metaEl.content = metaCtt + ', width=640, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale;
-                alert("report:" +
+                console.log("report:" +
                     "\nscreen avail width: " +
                     win.screen.availWidth +
                     "\ndevice pixel ratio: " +
