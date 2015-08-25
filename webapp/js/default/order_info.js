@@ -48,7 +48,7 @@ yangaiche(app.order_info.show, function () {
         }
 
         t.each(order['products'], products_divide);
-        t.each(order['increase_products'], products_divide);
+        t.each(order['increase_products'] || [], products_divide);
 
         if (order['not_paid_price'] > 0) {
             order.not_paid = {not_paid_price: order['not_paid_price']};
