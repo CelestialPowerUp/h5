@@ -46,3 +46,25 @@ html, body, div, a, p, ul, li {
     font-weight: normal;
     font-size: 50px;
 }
+
+/* button */
+.btn {
+    display: block;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+    background: url("../img/quiz_btn.png") no-repeat;
+    background-size: 100% 100%;
+
+    color: #FFF;
+    -webkit-text-stroke: 2px #894000;
+}
+
+.btn:active {
+    background: url("../img/quiz_btn_focus.png") no-repeat;
+    background-size: 100% 100%;
+
+    -webkit-text-stroke: 2px #59940c;
+}
