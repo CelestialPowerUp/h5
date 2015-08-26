@@ -15,7 +15,7 @@
         }
 
         #bg1 .up {
-            height: 680px;
+            height: 830px;
             background: url("./img/quiz_bg1.png");
         }
 
@@ -33,28 +33,43 @@
             width: 443px;
             height: 418px;
 
-            margin: 50px auto 0;
+            margin: 70px auto 0;
 
             border-width: 16px;
             border-image: url("./img/quiz-image-border.png") 16 16 round;
+
+            background: url("./img/loading.gif") no-repeat center;
+        }
+
+        #image-answers {
+            width: 528px;
+            height: 347px;
+
+            margin: 20px auto 0;
+
+            background: url("img/quiz-answers-bg.png");
         }
 
         #controls ul {
-            padding: 0 30px;
+            padding: 0 88px;
             list-style-type: none;
 
-            margin-top: 600px;
+            margin-top: 677px;
         }
 
         #controls ul > li {
             float: left;
-            width: 290px;
-            height: 120px;
+            width: 232px;
+            height: 100px;
         }
 
         #controls ul > li > div {
-            width: 200px;
-            height: 90px;
+            width: 208px;
+            height: 67px;
+
+            font-size: 28px;
+            line-height: 67px;
+            text-align: center;
 
             margin: 0 auto;
         }
@@ -84,18 +99,146 @@
 <div id="controls" class="fixed-wrapper" style="z-index: 3;">
     <div class="mobile-wrapper">
         <ul>
-            <li><div class="btn"></div></li>
-            <li><div class="btn"></div></li>
-            <li><div class="btn"></div></li>
-            <li><div class="btn"></div></li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
         </ul>
     </div>
 </div>
 <script src="./js/jquery.min.js"></script>
 <script>
-    <!-- Is this real hacking? -->
+    //    Is this real hacking?
     $('body').on('touchstart', function () {
     });
+
+    //    Configs
+
+    var easy_mode_rate = 0.5, quests = null;
+
+    var configs = $.ajax({
+        dataType: 'json',
+        url: './quiz/quiz.json',
+        async: false
+    })['responseJSON'];
+
+    //        console.log(configs);
+
+    function cp_array(array) {
+        var new_array = [];
+        for (var index = 0; index < array.length; index++) {
+            new_array.push(array[index]);
+        }
+        return new_array;
+    }
+
+    function random_n_from(array, n, copy_flag) {
+        var len = array.length;
+        if (len < n) {
+            return false;
+        }
+
+        var big_n = 1, i = 0, copy_array = array, return_array = [];
+
+        if (copy_flag) {
+            copy_array = cp_array(array);
+        }
+
+        for (; i < n; i++) {
+            big_n *= (len - i);
+        }
+
+        var middle_n = Math.floor(Math.random() * big_n), index_this_round;
+        for (i = 0; i < n; i++) {
+            big_n /= (len - i);
+            index_this_round = Math.floor(middle_n / big_n);
+            var return_item = copy_array.splice(index_this_round - 1, 1)[0];
+            if (!return_item) {
+                console.log({len: copy_array.length, index: index_this_round});
+            }
+            return_array.push(return_item);
+            middle_n -= index_this_round * big_n;
+        }
+
+        return return_array;
+    }
+
+    function setup_answer(correct_index) {
+        var answers = $('#controls').find('.answer');
+        answers.unbind('click');
+
+        var random_array = cp_array(configs['answers']), correct_answer = random_array[correct_index];
+
+        random_array.splice(correct_index, 1);
+
+        random_array = random_n_from(random_array, 3);
+
+        correct_index = Math.floor(Math.random() * 4);
+        random_array.splice(correct_index, 0, correct_answer);
+
+        $.each(answers, function (i, answer) {
+            var answer_text = random_array[i];
+            $(answer).text(answer_text);
+
+//            Dynamic Font-Size
+//            $(answer).css('font-size', {
+//                1: '32px',
+//                2: '32px',
+//                3: '32px',
+//                4: '32px',
+//                5: '28px',
+//                6: '28px'
+//            }[answer_text.length]);
+
+            if (correct_index === i) {
+                $(answer).addClass('correct');
+            }
+        });
+
+        answers.bind('click', function () {
+            console.log($(this).text() + 'selected!');
+        });
+    }
+
+    function setup_game(index) {
+        function setup_quest(quest) {
+
+        }
+
+        if (quests && typeof(index) === 'number') {
+            setup_quest(quests[index]);
+            return true;
+        }
+
+        var easy_vs_hard = null;
+        if (Math.random() < easy_mode_rate) {
+            easy_vs_hard = {easy: 5, hard: 5};
+        } else {
+            easy_vs_hard = {easy: 4, hard: 6};
+        }
+    }
+
+    //    setup_answer(0);
+
+    //TESTS: 生成1000次，检查是否出现undefined。
+    //    for(var j=0;j<1000;j++) {
+    //        var randomNFrom = random_n_from(configs['answers'], 3);
+    //        for (var r in randomNFrom) {
+    //            if (!r) {
+    //                debugger
+    //            }
+    //        }
+    //        console.log(randomNFrom);
+    //    }
+    //    console.log('complete');
 </script>
 </body>
 </html>
