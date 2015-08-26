@@ -27,7 +27,7 @@ yangaiche(sys.init)(function (t) {
             if (data[i].client_feedback['if_feedback_committed'] || data[i]['order_status_key'] !== 'complete') {
                 item.gray_button = 'gray_button';
             }
-            if (data[i]['order_status_key'].match(/completed|evaluated|cancelled|closed/)) {
+            if (!data[i]['order_status_key'].match(/unconfirmed|confirmed/)) {
                 item.gray_button2 = 'gray_button';
             }
             items.push(item);
