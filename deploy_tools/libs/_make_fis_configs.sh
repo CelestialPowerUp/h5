@@ -3,28 +3,21 @@
 dir=$1
 fis_cfg_dir="fis-cfgs"
 
-if [ -e $dir/$fis_cfg_dir ]; then
+if [ -e ${dir}/${fis_cfg_dir} ]; then
 	echo dir aready exits
 else
-	mkdir $dir/$fis_cfg_dir
+	mkdir ${dir}/${fis_cfg_dir}
 fi
 
 enviroment_dir_name="enviroment"
-str_enviroment=$(ls $dir/$enviroment_dir_name/ | sort)
+str_enviroment=$(ls ${dir}/${enviroment_dir_name}/ | sort)
 arr_enviroment=(${str_enviroment// / })
-enviroment_file_name="data.json"
+enviroment_file_name="env.json"
 
-str_platform=$(ls $dir/platform/ | sort)
-arr_platform=(${str_platform// / })
-
-tpl=$(cat $dir/deploy_tools/fis-conf.js)
+tpl=$(cat ${dir}/deploy_tools/fis-conf.js)
 
 for i in ${arr_enviroment[@]} 
 do
-    domain=$(jq '.domain' $dir/$enviroment_dir_name/$i/$enviroment_file_name)
-    len=${#domain}
-    for j in ${arr_platform[@]} 
-	do
-	    echo "fis.config.merge({ roadmap : { domain : "${domain:0:len-1}"/"$j"\" } });"$tpl > $dir/$fis_cfg_dir/"fis-"$i"-"$j"-conf.js"
-	done
+    domain=$(jq '.domain' ${dir}/${enviroment_dir_name}/${i}/${enviroment_file_name})
+    echo "fis.config.merge({ roadmap : { domain : "${domain}" } });"${tpl} > ${dir}/${fis_cfg_dir}/"fis-"${i}"-conf.js"
 done
