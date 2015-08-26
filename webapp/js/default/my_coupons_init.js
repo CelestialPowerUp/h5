@@ -58,7 +58,7 @@ yangaiche(sys.init)(function(t) {
                     } else {
                         var coupon_name = t(this).attr('data-name');
                         var coupon_type = t(this).attr('data-type');
-                        postReq('order_preview', {
+                        postReq('/v1/api/order_preview', {
                             car_model_type: order['car_model_type'],
                             coupon_id: seleted_id,
                             products: order['products'],
