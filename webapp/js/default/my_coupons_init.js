@@ -4,6 +4,7 @@ yangaiche(sys.load_default_module)('user');
 yangaiche(sys.load_default_module)('order');
 yangaiche(sys.load_default_module)('back');
 yangaiche(sys.load_default_module)('duplicate_submission');
+yangaiche(sys.load_default_module)('parameter');
 
 yangaiche(sys.init)(function(t) {
     var getReq = yangaiche(app.http.get_request),
@@ -45,8 +46,9 @@ yangaiche(sys.init)(function(t) {
             var tpl = Handlebars.compile(t("#coupons_list_tpl").text());
             t('#coupons').empty().html(tpl(data));
 
+            var can_select = yangaiche(app.url_parameter)['can_select'];
             t('.coupon-btn').click(function () {
-                if ('false' === t(this).attr('data-used')) {
+                if (yangaiche(sys.exist)(can_select) && can_select && 'false' === t(this).attr('data-used')) {
                     var order = yangaiche(ls.order.touch)();
                     var seleted_id = parseInt(t(this).attr('data-id'));
                     if (order['coupon_id'] === seleted_id) {
