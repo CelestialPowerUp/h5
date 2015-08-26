@@ -3,10 +3,14 @@
 <html class="no-js m"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
+
+    <meta name="viewport" content=" user-scalable=no">
+    <script type="text/javascript" src="./js/lib/mobile-util.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="renderer" content="webkit">     <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no">
     <title>我的检测报告单</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,10 +42,12 @@
                 <div class="exam-reports-detail-right-name-wrapper">
                     <span class="exam-reports-detail-right-name">{{name}}</span>
                 </div>
-                <div data-am-widget="gallery" class="am-gallery am-gallery-default am-cf my-gallery" data-am-gallery="{ pureview: true }">
+                <div data-am-widget="gallery" class="am-gallery am-gallery-default am-cf my-gallery"
+                     data-am-gallery="{ pureview: true }">
                     {{#each imgs}}
                     <a class="am-fl am-gallery-item">
-                        <img class="gallery-img" style="height: 80px;width: 80px;" src="{{thumbnail_url}}" data-rel="{{original_url}}" />
+                        <img class="gallery-img" style="height: 80px;width: 80px;" src="{{thumbnail_url}}"
+                             data-rel="{{original_url}}"/>
                     </a>
                     {{/each}}
                 </div>
@@ -53,13 +59,11 @@
         {{/each}}
     </ul>
 </script>
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/amazeui.min.js"></script>
-<script type="text/javascript" src="./js/handlebars.min.js"></script>
-<script type="text/javascript" src="./js/amazeui.widgets.helper.min.js"></script>
 
-<script type="text/javascript" src="./js/common.js"></script>
-<script type="text/javascript" src="./js/router.js"></script>
-<script type="text/javascript" src="./js/modules/my_exam_reports_detail.js"></script>
+<script type="text/javascript" src="./js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="./js/lib/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/lib/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/lib/amazeui.widgets.helper.min.js"></script>
+<script type="text/javascript" src="./js/lib/yangaiche.js"></script>
 </body>
 </html>

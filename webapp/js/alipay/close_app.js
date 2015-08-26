@@ -1,0 +1,1 @@
+AlipayJSBridge.call('exitApp');
