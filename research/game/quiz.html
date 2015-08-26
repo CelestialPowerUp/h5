@@ -15,7 +15,7 @@
         }
 
         #bg1 .up {
-            height: 830px;
+            height: 700px;
             background: url("./img/quiz_bg1.png");
         }
 
@@ -33,7 +33,7 @@
             width: 443px;
             height: 418px;
 
-            margin: 70px auto 0;
+            margin: 10px auto 0;
 
             border-width: 16px;
             border-image: url("./img/quiz-image-border.png") 16 16 round;
@@ -45,7 +45,7 @@
             width: 528px;
             height: 347px;
 
-            margin: 20px auto 0;
+            margin: 10px auto 0;
 
             background: url("img/quiz-answers-bg.png");
         }
@@ -54,7 +54,7 @@
             padding: 0 88px;
             list-style-type: none;
 
-            margin-top: 677px;
+            margin-top: 620px;
         }
 
         #controls ul > li {
@@ -114,6 +114,7 @@
         </ul>
     </div>
 </div>
+<!--<script src="./js/store.min.js"></script>-->
 <script src="./js/jquery.min.js"></script>
 <script>
     //    Is this real hacking?
@@ -130,7 +131,7 @@
         async: false
     })['responseJSON'];
 
-    //        console.log(configs);
+    console.log(configs);
 
     function cp_array(array) {
         var new_array = [];
@@ -138,6 +139,25 @@
             new_array.push(array[index]);
         }
         return new_array;
+    }
+
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
     }
 
     function random_n_from(array, n, copy_flag) {
@@ -171,7 +191,7 @@
         return return_array;
     }
 
-    function setup_answer(correct_index) {
+    function setup_answer(correct_index, next_index) {
         var answers = $('#controls').find('.answer');
         answers.unbind('click');
 
@@ -205,17 +225,25 @@
 
         answers.bind('click', function () {
             console.log($(this).text() + 'selected!');
+            if (!setup_game(next_index)) {
+                console.log('game is finished');
+            }
         });
     }
 
     function setup_game(index) {
         function setup_quest(quest) {
-
+            $('#image-quest').css('background', 'url("' + quest[0] + '") no-repeat center');
+            setup_answer(quest[1], index + 1);
         }
 
         if (quests && typeof(index) === 'number') {
-            setup_quest(quests[index]);
-            return true;
+            if (index < quests.length) {
+                setup_quest(quests[index]);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         var easy_vs_hard = null;
@@ -224,7 +252,18 @@
         } else {
             easy_vs_hard = {easy: 4, hard: 6};
         }
+
+        quests = random_n_from(configs['easy'], easy_vs_hard.easy);
+        $.each(random_n_from(configs['hard'], easy_vs_hard.hard), function(i, q) {
+            quests.splice(0, 0, q);
+        });
+        shuffle(quests);
+        console.log(quests);
+
+        setup_game(0);
     }
+
+    setup_game();
 
     //    setup_answer(0);
 
