@@ -1,0 +1,78 @@
+/* flow OR layout */
+.fixed-wrapper {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+
+    background: transparent;
+}
+
+.mobile-wrapper {
+    width: 640px;
+    height: 100%;
+    margin: 0 auto;
+
+    background: transparent;
+}
+
+.scroll-y {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* filter */
+.invert {
+    filter: invert(1);
+    -webkit-filter: invert(1);
+}
+
+/* boxing */
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* font */
+@font-face {
+    font-family: hua-kang-hai-bao-ti;
+    src: url('../font/华康海报体W12_0.ttf');
+}
+
+html, body, div, a, p, ul, li {
+    font-family: hua-kang-hai-bao-ti, monospace;
+    font-weight: normal;
+    font-size: 50px;
+}
+
+/* button */
+.btn {
+    display: block;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+    background: url("../img/quiz_btn.png") no-repeat;
+    background-size: 100% 100%;
+
+    color: #FFF;
+    text-align: center;
+
+    -webkit-text-stroke: 2px #894000;
+}
+
+.btn:active {
+    background: url("../img/quiz_btn_focus.png") no-repeat;
+    background-size: 100% 100%;
+
+    -webkit-text-stroke: 2px #59940c;
+}
+
+.round {
+    border-radius: 50%;
+}

@@ -3,10 +3,14 @@
 <html class="no-js m"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
+
+    <meta name="viewport" content=" user-scalable=no">
+    <script type="text/javascript" src="./js/lib/mobile-util.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=640px, user-scalable=no;">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="renderer" content="webkit">     <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no">
     <title>车辆列表</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,29 +21,26 @@
 </head>
 <body class="body-background-color-gray">
 <div class="new-bottom-button-div">
-    <a href="./car_choose.html">
+    <a data-rel="car_choose.html">
         <button class="am-btn am-btn-success am-btn-block new-bottom-button">
             <!--<i class="am-icon-plus"></i>-->
             添加一款车型
         </button>
     </a>
 </div>
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/common.js"></script>
-<script type="text/javascript" src="./js/handlebars.min.js"></script>
-<script type="text/javascript" src="./js/amazeui.min.js"></script>
-<script type="text/javascript" src="./js/router.js"></script>
+
 <script type="text/x-handlebars-template" id="carinfo_list_tpl">
     <ul class="am-list my-list">
         {{#each this}}
         <!--缩略图在标题左边-->
-        <li class="my-list-line" onclick="item_click_handler({{car_id}})">
+        <li class="my-list-line" data-rel="{{car_id}}">
             <div class="carinfo-btn am-vertical-align car-manager-clickable" data-rel="{{car_id}}">
                 <div class="am-vertical-align-middle">
                     <img src="{{img_url}}" class="my-thumb-icon">
                 </div>
                 <div class="my-list-line-content am-vertical-align-middle">
                     <h3 class="am-list-item-hd">{{{car_number}}}</h3>
+
                     <div class="am-list-item-text fixed-width-content">{{{model}}}</div>
                 </div>
                 <div class="am-vertical-align-middle">
@@ -50,6 +51,10 @@
         {{/each}}
     </ul>
 </script>
-<script type="text/javascript" src="./js/modules/car_list.js"></script>
+
+<script type="text/javascript" src="./js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="./js/lib/handlebars.min.js"></script>
+<script type="text/javascript" src="./js/lib/amazeui.min.js"></script>
+<script type="text/javascript" src="./js/lib/yangaiche.js"></script>
 </body>
 </html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content=" user-scalable=no">
+    <script type="text/javascript" src="./js/mobile-util.js"></script>
+
+    <title>养爱车</title>
+    <link href="./css/normalize.min.css" rel="stylesheet">
+    <link href="./css/ga.me.css" rel="stylesheet">
+    <style>
+        #bg1 > div > div {
+            width: 640px;
+        }
+
+        #bg1 .up {
+            height: 600px;
+            background: url("./img/quiz_bg1.png");
+        }
+
+        #bg1 .middle {
+            height: 192px;
+            background: url("./img/quiz_bg2.png");
+        }
+
+        #bg1 .down {
+            height: 800px;
+            background: url("./img/quiz_bg3.png");
+        }
+
+        #image-quest {
+            width: 443px;
+            height: 416px;
+
+            margin: 12px auto 0;
+
+            border-width: 16px;
+            border-image: url("./img/quiz-image-border.png") 16 16 round;
+
+            background: url("./img/loading.gif") no-repeat center;
+        }
+
+        #image-answers {
+            width: 528px;
+            height: 347px;
+
+            margin: 400px auto 0;
+
+            background: url("img/quiz-answers-bg.png");
+        }
+
+        #tip.btn {
+            width: 90px;
+            height: 50px;
+
+            font-size: 28px;
+            line-height: 50px;
+
+            background: url("./img/quiz_tip_btn.png") no-repeat;
+            background-size: 100% 100%;
+
+            margin: 480px 0 0 520px;
+        }
+
+        #tip.btn:active {
+            background: url("./img/quiz_tip_btn_focus.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #controls ul {
+            height: 200px;
+
+            padding: 0 88px;
+            list-style-type: none;
+
+            margin-top: 16px;
+        }
+
+        #controls ul > li {
+            float: left;
+            width: 232px;
+            height: 100px;
+        }
+
+        #controls ul > li > div.btn {
+            width: 208px;
+            height: 67px;
+
+            font-size: 28px;
+            line-height: 67px;
+
+            margin: 0 auto;
+        }
+
+        #ads {
+            height: 73px;
+
+            top: auto;
+            bottom: 0;
+        }
+
+        #ads .mobile-wrapper {
+            font-size: 0;
+            line-height: 73px;
+
+            padding: 0 50px;
+        }
+
+        #ads .mobile-wrapper img {
+            float: left;
+        }
+
+        #ads .mobile-wrapper p {
+            float: left;
+            width: 316px;
+
+            color: #4c2c19;
+            font-size: 30px;
+            line-height: 36px;
+
+            padding: 0 0 0 40px;
+            margin: 1px 0 0;
+        }
+    </style>
+</head>
+<body>
+<div id="bg1" class="fixed-wrapper" style="z-index: 0;">
+    <div class="mobile-wrapper">
+        <div class="up"></div>
+        <div class="middle"></div>
+        <div class="down"></div>
+    </div>
+</div>
+
+<div id="bg2" class="fixed-wrapper" style="z-index: 1;">
+    <div class="mobile-wrapper">
+        <div id="image-quest"></div>
+    </div>
+</div>
+
+<div id="bg3" class="fixed-wrapper" style="z-index: 2;">
+    <div class="mobile-wrapper">
+        <div id="image-answers"></div>
+    </div>
+</div>
+
+<div id="ads" class="fixed-wrapper" style="z-index: 3;">
+    <div class="mobile-wrapper">
+        <img src="./img/quiz_yangaiche_logo.png">
+        <p>保养维修&nbsp;&nbsp;&nbsp;&nbsp;保养维修&nbsp;&nbsp;&nbsp;&nbsp;保养维修&nbsp;&nbsp;&nbsp;&nbsp;保养维修</p>
+    </div>
+</div>
+
+<div id="controls" class="fixed-wrapper" style="z-index: 4;">
+    <div class="mobile-wrapper">
+        <div id="tip" class="btn">提示</div>
+        <ul>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+            <li>
+                <div class="btn answer"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--<script src="./js/store.min.js"></script>-->
+<script src="./js/jquery.min.js"></script>
+<script>
+    //    Is this real hacking?
+    $('body').on('touchstart', function () {
+    });
+
+    //    Configs
+
+    var easy_mode_rate = 0.5, quests = null;
+
+    var configs = $.ajax({
+        dataType: 'json',
+        url: './quiz/quiz.json',
+        async: false
+    })['responseJSON'];
+
+    console.log(configs);
+
+    function cp_array(array) {
+        var new_array = [];
+        for (var index = 0; index < array.length; index++) {
+            new_array.push(array[index]);
+        }
+        return new_array;
+    }
+
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    function random_n_from(array, n, copy_flag) {
+        var len = array.length;
+        if (len < n) {
+            return false;
+        }
+
+        var big_n = 1, i = 0, copy_array = array, return_array = [];
+
+        if (copy_flag) {
+            copy_array = cp_array(array);
+        }
+
+        for (; i < n; i++) {
+            big_n *= (len - i);
+        }
+
+        var middle_n = Math.floor(Math.random() * big_n), index_this_round;
+        for (i = 0; i < n; i++) {
+            big_n /= (len - i);
+            index_this_round = Math.floor(middle_n / big_n);
+            var return_item = copy_array.splice(index_this_round - 1, 1)[0];
+            if (!return_item) {
+                console.log({len: copy_array.length, index: index_this_round});
+            }
+            return_array.push(return_item);
+            middle_n -= index_this_round * big_n;
+        }
+
+        return return_array;
+    }
+
+    function setup_answer(correct_index, next_index) {
+        var answers = $('#controls').find('.answer');
+        answers.unbind('click');
+        answers.removeClass('correct');
+
+        var random_array = cp_array(configs['answers']), correct_answer = random_array[correct_index];
+
+        random_array.splice(correct_index, 1);
+
+        random_array = random_n_from(random_array, 3);
+
+        correct_index = Math.floor(Math.random() * 4);
+        random_array.splice(correct_index, 0, correct_answer);
+
+        $.each(answers, function (i, answer) {
+            var answer_text = random_array[i];
+            $(answer).text(answer_text);
+
+//            Dynamic Font-Size
+//            $(answer).css('font-size', {
+//                1: '32px',
+//                2: '32px',
+//                3: '32px',
+//                4: '32px',
+//                5: '28px',
+//                6: '28px'
+//            }[answer_text.length]);
+
+            if (correct_index === i) {
+                $(answer).addClass('correct');
+            }
+        });
+
+        answers.bind('click', function () {
+            console.log($(this).text() + 'selected!');
+            if (!setup_game(next_index)) {
+                console.log('game is finished');
+            }
+        });
+    }
+
+    function setup_game(index) {
+        function setup_quest(quest) {
+            $('#image-quest').css('background', 'url("' + quest[0] + '") no-repeat center');
+            setup_answer(quest[1], index + 1);
+        }
+
+        if (quests && typeof(index) === 'number') {
+            if (index < quests.length) {
+                setup_quest(quests[index]);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        var easy_vs_hard = null;
+        if (Math.random() < easy_mode_rate) {
+            easy_vs_hard = {easy: 5, hard: 5};
+        } else {
+            easy_vs_hard = {easy: 4, hard: 6};
+        }
+
+        quests = random_n_from(configs['easy'], easy_vs_hard.easy);
+        $.each(random_n_from(configs['hard'], easy_vs_hard.hard), function(i, q) {
+            quests.splice(0, 0, q);
+        });
+        shuffle(quests);
+        console.log(quests);
+
+        setup_game(0);
+    }
+
+    setup_game();
+
+    //    setup_answer(0);
+
+    //TESTS: 生成1000次，检查是否出现undefined。
+    //    for(var j=0;j<1000;j++) {
+    //        var randomNFrom = random_n_from(configs['answers'], 3);
+    //        for (var r in randomNFrom) {
+    //            if (!r) {
+    //                debugger
+    //            }
+    //        }
+    //        console.log(randomNFrom);
+    //    }
+    //    console.log('complete');
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="target-densitydpi=device-dpi,user-scalable=no">
+    <script type="text/javascript" src="./js/mobile-util.js"></script>
+
+    <title>养爱车</title>
+    <link href="./css/normalize.min.css" rel="stylesheet">
+    <link href="./css/ga.me.css" rel="stylesheet">
+    <style>
+        #bg1 > div > div {
+            width: 640px;
+        }
+
+        #bg1 .up {
+            height: 400px;
+            background: url("./img/quiz_bg1.png");
+        }
+
+        #bg1 .middle {
+            height: 192px;
+            background: url("./img/quiz_bg2.png");
+        }
+
+        #bg1 .down {
+            height: 800px;
+            background: url("./img/quiz_bg3.png");
+        }
+
+        #summary {
+            width: 580px;
+            height: 285px;
+
+            background: url("./img/quiz_summary_bg.png");
+
+            margin: 110px auto 0;
+        }
+
+        #summary-text {
+            width: 640px;
+
+            color: #FFF;
+            text-align: center;
+            font-size: 36px;
+            line-height: 40px;
+
+            -webkit-text-stroke: 2px #111;
+
+            margin: 190px auto 0;
+        }
+
+        #summary-text span {
+            color: #fdfd00;
+        }
+
+        #focus-text {
+            width: 640px;
+
+            color: #fdfd00;
+            text-align: center;
+            font-size: 36px;
+            line-height: 40px;
+
+            margin: 300px auto 0;
+        }
+
+        #controls ul {
+            height: 164px;
+
+            padding: 0 92px;
+            list-style-type: none;
+
+            margin-top: 300px;
+        }
+
+        #controls ul > li {
+            float: left;
+            width: 228px;
+            height: 164px;
+        }
+
+        #controls ul > li > div.btn {
+            width: 164px;
+            height: 164px;
+
+            font-size: 32px;
+            line-height: 164px;
+
+            margin: 0 auto;
+        }
+
+        #controls ul > li > div.share.btn:active {
+            background: url("./img/quiz_share2_btn_focus.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #controls ul > li > div.share.btn {
+            background: url("./img/quiz_share2_btn.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #controls ul > li > div.retry.btn:active {
+            background: url("./img/quiz_retry_btn_focus.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #controls ul > li > div.retry.btn {
+            background: url("./img/quiz_retry_btn.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #qr_code {
+            display: block;
+
+            width: 322px;
+            height: 321px;
+
+            margin: 100px auto 0;
+        }
+    </style>
+</head>
+<body>
+<div id="bg1" class="fixed-wrapper" style="z-index: 0;">
+    <div class="mobile-wrapper">
+        <div class="up"></div>
+        <div class="middle"></div>
+        <div class="down"></div>
+    </div>
+</div>
+
+<div id="bg2" class="fixed-wrapper" style="z-index: 1;">
+    <div class="mobile-wrapper">
+        <div id="summary"></div>
+    </div>
+</div>
+
+<div id="text-bg" class="fixed-wrapper" style="z-index: 2;">
+    <div class="mobile-wrapper">
+        <div id="summary-text">您对汽车品牌的理解程度已经<br>超过<span>百分之10</span>的用户</div>
+        <div id="focus-text">想了解更多的赛车知识<br>请关注养爱车</div>
+    </div>
+</div>
+
+<div id="controls" class="fixed-wrapper" style="z-index: 3;">
+    <div class="mobile-wrapper">
+        <ul>
+            <li>
+                <div class="round btn share">晒成绩</div>
+            </li>
+            <li>
+                <div class="round btn retry">再试一次</div>
+            </li>
+        </ul>
+        <div id="qr_code"><img src="./img/quiz_qr_code.png"></div>
+    </div>
+</div>
+
+<script src="./js/jquery.min.js"></script>
+<script>
+    //    Is this real hacking?
+    $('body').on('touchstart', function () {
+    });
+</script>
+</body>
+</html>
