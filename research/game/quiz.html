@@ -15,7 +15,7 @@
         }
 
         #bg1 .up {
-            height: 700px;
+            height: 600px;
             background: url("./img/quiz_bg1.png");
         }
 
@@ -25,15 +25,15 @@
         }
 
         #bg1 .down {
-            height: 500px;
+            height: 800px;
             background: url("./img/quiz_bg3.png");
         }
 
         #image-quest {
             width: 443px;
-            height: 418px;
+            height: 416px;
 
-            margin: 10px auto 0;
+            margin: 12px auto 0;
 
             border-width: 16px;
             border-image: url("./img/quiz-image-border.png") 16 16 round;
@@ -45,16 +45,36 @@
             width: 528px;
             height: 347px;
 
-            margin: 10px auto 0;
+            margin: 400px auto 0;
 
             background: url("img/quiz-answers-bg.png");
         }
 
+        #tip.btn {
+            width: 90px;
+            height: 50px;
+
+            font-size: 28px;
+            line-height: 50px;
+
+            background: url("./img/quiz_tip_btn.png") no-repeat;
+            background-size: 100% 100%;
+
+            margin: 480px 0 0 520px;
+        }
+
+        #tip.btn:active {
+            background: url("./img/quiz_tip_btn_focus.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
         #controls ul {
+            height: 200px;
+
             padding: 0 88px;
             list-style-type: none;
 
-            margin-top: 620px;
+            margin-top: 16px;
         }
 
         #controls ul > li {
@@ -63,13 +83,12 @@
             height: 100px;
         }
 
-        #controls ul > li > div {
+        #controls ul > li > div.btn {
             width: 208px;
             height: 67px;
 
             font-size: 28px;
             line-height: 67px;
-            text-align: center;
 
             margin: 0 auto;
         }
@@ -87,17 +106,18 @@
 <div id="bg2" class="fixed-wrapper" style="z-index: 1;">
     <div class="mobile-wrapper">
         <div id="image-quest"></div>
-        <div id="image-answers"></div>
     </div>
 </div>
 
 <div id="ads" class="fixed-wrapper" style="z-index: 2;">
     <div class="mobile-wrapper">
+        <div id="image-answers"></div>
     </div>
 </div>
 
 <div id="controls" class="fixed-wrapper" style="z-index: 3;">
     <div class="mobile-wrapper">
+        <div id="tip" class="btn">提示</div>
         <ul>
             <li>
                 <div class="btn answer"></div>
@@ -194,6 +214,7 @@
     function setup_answer(correct_index, next_index) {
         var answers = $('#controls').find('.answer');
         answers.unbind('click');
+        answers.removeClass('correct');
 
         var random_array = cp_array(configs['answers']), correct_answer = random_array[correct_index];
 
