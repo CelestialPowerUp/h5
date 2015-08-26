@@ -18,7 +18,7 @@ yangaiche(sys.init)(function (t) {
         var order = yangaiche(ls.order.touch)(),
             calculate = yangaiche(ls.products.calculate);
 
-        var config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
+        var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
 
         yangaiche(app.http.get_request)('/v2/api/products.json?service_type=11' + config + '&car_model_type=' + order.car_model_type, function (data) {
             var required_products = data['required_products'], required_price = calculate(data['required_products']), product_dict = {};
@@ -35,9 +35,9 @@ yangaiche(sys.init)(function (t) {
                 products: data['optional_products']
             };
             tpl_data.can_self = (suppliers.length > 0) ? true : null;
-            t.each(service_products, function(i, p) {
+            t.each(service_products, function (i, p) {
                 if ('self' === p['service_type']) {
-                    tpl_data.self_type = p['product_type'];
+                    tpl_data.can_self = {self_type: p['product_type']};
                 } else if ('keeper' === p['service_type']) {
                     tpl_data.keeper_type = p['product_type'];
                 }

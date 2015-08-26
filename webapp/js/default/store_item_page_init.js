@@ -105,12 +105,16 @@ yangaiche(sys.init)(function (t) {
             t('#my-btn-group button[data-key="'+p['service_type']+'"]').attr('data-rel', p['product_type']);
         });
 
+        if (service_products.length < 2) {
+            t('#my-btn-group button[data-key="self"]').css('display', 'none');
+        }
+
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
         }
 
         var order = yangaiche(ls.order.touch)(),
-            config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
+            config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
         getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (data) {
 
             store_item = data;
@@ -164,8 +168,14 @@ yangaiche(sys.init)(function (t) {
 
             var service_type = storage.get(key.service.type);
             if (yangaiche(sys.exist)(service_type)) {
-                var btn = t('#my-btn-group button[data-rel="' + service_type + '"]');
-                btn.click();
+                var btn = t('#my-btn-group button[data-key="' + service_type + '"]');
+                if (btn.css('display') === 'none') {
+                    t('#my-btn-group button[data-key="keeper"]').click();
+                } else {
+                    btn.click();
+                }
+            } else {
+                t('#my-btn-group button[data-key="keeper"]').click();
             }
         }, function (error) {
             show_msg(error['message']);
@@ -210,7 +220,7 @@ yangaiche(sys.init)(function (t) {
         }
 
         t(group_p).attr('data-rel', local_rel);
-        storage.set(key.service.type, local_rel);
+        storage.set(key.service.type, $this.attr('data-key'));
         t('#store-item-service-type span').text($this.text());
 
         t('.store-item-u-price').text('¥' + (store_item['ware_mark_price'] +
