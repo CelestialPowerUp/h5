@@ -249,6 +249,6 @@ yangaiche(sys.init)(function(t) {
     });
 
     t('#use_coupon').click(function () {
-        yangaiche(ls.back.set_back_to_self)('my_coupons.html');
+        yangaiche(ls.back.set_back_to_self)('my_coupons.html?can_select=true');
     });
 });
