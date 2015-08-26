@@ -45,8 +45,8 @@ yangaiche(sys.init)(function(t) {
             var tpl = Handlebars.compile(t("#coupons_list_tpl").text());
             t('#coupons').empty().html(tpl(data));
 
-            t('.coupon-btn').click(function (e) {
-                if ('coupon_list' !== getStore().get('now_in') && 'false' === t(this).attr('data-used')) {
+            t('.coupon-btn').click(function () {
+                if ('false' === t(this).attr('data-used')) {
                     var order = yangaiche(ls.order.touch)();
                     var seleted_id = parseInt(t(this).attr('data-id'));
                     if (order['coupon_id'] === seleted_id) {
@@ -67,8 +67,9 @@ yangaiche(sys.init)(function(t) {
                             order['coupon_id'] = seleted_id;
                             order['coupon_name'] = coupon_name;
                             order['coupon_type'] = coupon_type;
-                            order['coupon_value'] = data['free_price'];
-                            order['total_price'] = data['total_price'];
+                            order['coupon_price'] = data['free_price'];
+                            order['paid_price'] = 0;
+                            order['not_paid_price'] = data['total_price'];
                             updateOrder(order);
                             set_back_to_his('base_info.html');
                         }, function(error) {
