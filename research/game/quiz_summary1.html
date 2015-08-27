@@ -3,19 +3,23 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content="target-densitydpi=device-dpi,user-scalable=no">
-    <script type="text/javascript" src="./js/mobile-util.js"></script>
+    <meta name="viewport" content=" user-scalable=no, width=device-width, initial-scale=1.0 , maximum-scale=3.0, minimum-scale=0.5">
+    <!--<script type="text/javascript" src="./js/mobile-util.js"></script>-->
 
     <title>养爱车</title>
     <link href="./css/normalize.min.css" rel="stylesheet">
     <link href="./css/ga.me.css" rel="stylesheet">
     <style>
+        .mobile-wrapper {
+            width: 100%;
+        }
+
         #bg1 > div > div {
-            width: 640px;
+            width: 100%;
         }
 
         #bg1 .up {
-            height: 400px;
+            height: 30%;
             background: url("./img/quiz_bg1.png");
         }
 
@@ -25,30 +29,33 @@
         }
 
         #bg1 .down {
-            height: 800px;
+            height: 70%;
             background: url("./img/quiz_bg3.png");
         }
 
         #summary {
-            width: 580px;
-            height: 285px;
+            width: 90.625%;
+            height: 0;
+            padding-bottom: 44.92%;
 
             background: url("./img/quiz_summary_bg.png");
+            background-size: contain;
 
-            margin: 110px auto 0;
+            margin: 14.375% auto 0;
         }
 
         #summary-text {
-            width: 640px;
+            width: 100%;
+            height: 0;
 
             color: #FFF;
             text-align: center;
-            font-size: 36px;
-            line-height: 40px;
+            font-size: 4vw;
+            line-height: 1.2em;
 
-            -webkit-text-stroke: 2px #111;
+            -webkit-text-stroke: 1px #111;
 
-            margin: 190px auto 0;
+            margin: 26.4% auto 0;
         }
 
         #summary-text span {
@@ -56,68 +63,65 @@
         }
 
         #focus-text {
-            width: 640px;
+            width: 100%;
 
             color: #fdfd00;
             text-align: center;
-            font-size: 36px;
-            line-height: 40px;
+            font-size: 4vw;
+            line-height: 1.5em;
 
             margin: 300px auto 0;
         }
 
         #controls ul {
-            height: 164px;
+            width: 100%;
+            height: 0;
 
-            padding: 0 92px;
+            padding: 0 14.375%;
             list-style-type: none;
 
-            margin-top: 300px;
+            margin-top: 44.53%;
         }
 
         #controls ul > li {
+            width: 50%;
+            height: 0;
+
             float: left;
-            width: 228px;
-            height: 164px;
+            
+            padding-bottom: 35.745614%;
         }
 
         #controls ul > li > div.btn {
-            width: 164px;
-            height: 164px;
+            width: 68%;
+            height: 0;
 
-            font-size: 32px;
-            line-height: 164px;
+            padding-bottom: 71.5%;
+
+            font-size: 1em;
+            line-height: 5.53em;
 
             margin: 0 auto;
         }
 
         #controls ul > li > div.share.btn:active {
             background: url("./img/quiz_share2_btn_focus.png") no-repeat;
-            background-size: 100% 100%;
+            background-size: contain;
         }
 
         #controls ul > li > div.share.btn {
             background: url("./img/quiz_share2_btn.png") no-repeat;
-            background-size: 100% 100%;
+            background-size: contain;
         }
 
         #controls ul > li > div.retry.btn:active {
             background: url("./img/quiz_retry_btn_focus.png") no-repeat;
-            background-size: 100% 100%;
+            background-size: contain;
         }
 
         #controls ul > li > div.retry.btn {
             background: url("./img/quiz_retry_btn.png") no-repeat;
-            background-size: 100% 100%;
-        }
-
-        #qr_code {
-            display: block;
-
-            width: 322px;
-            height: 321px;
-
-            margin: 100px auto 0;
+            background-size: contain;
         }
     </style>
 </head>
@@ -153,7 +157,6 @@
                 <div class="round btn retry">再试一次</div>
             </li>
         </ul>
-        <div id="qr_code"><img src="./img/quiz_qr_code.png"></div>
     </div>
 </div>
 
