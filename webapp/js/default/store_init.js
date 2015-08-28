@@ -48,7 +48,7 @@ yangaiche(sys.init)(function (t) {
                 } else {
                     wl.odd_or_even = 'even';
                 }
-                wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/3/w/290/h/196/interlace/1';
+                wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/0/w/290/h/163/interlace/1';
             });
         });
         data.splice(to_move_index, 1);
@@ -59,7 +59,7 @@ yangaiche(sys.init)(function (t) {
 
         t.each(t('.home-page-products'), function (i, l) {
             var list = t(l);
-            list.css('height', (parseInt((list.children().length + 1) / 2) * 310) + 'px');
+            list.css('height', (parseInt((list.children().length + 1) / 2) * 287) + 'px');
         });
 
         t('.home-page-products li').click(function () {
