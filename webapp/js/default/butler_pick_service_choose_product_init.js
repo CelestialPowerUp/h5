@@ -37,9 +37,10 @@ yangaiche(sys.init)(function (t) {
             tpl_data.can_self = (suppliers.length > 0) ? true : null;
             t.each(service_products, function (i, p) {
                 if ('self' === p['service_type']) {
-                    tpl_data.can_self = {self_type: p['product_type']};
+                    tpl_data.can_self = {self_type: p['product_type'], service_key: 'self'};
                 } else if ('keeper' === p['service_type']) {
                     tpl_data.keeper_type = p['product_type'];
+                    tpl_data.service_key = 'keeper';
                 }
                 product_dict[p['product_type']] = p;
             });
@@ -111,6 +112,11 @@ yangaiche(sys.init)(function (t) {
                     return;
                 }
 
+                if (must_select_one) {
+                    var local_key = t(this).attr('data-key');
+                    t(group_p).attr('data-key', local_key);
+                }
+
                 t(group_p).attr('data-rel', local_rel);
                 t(group_p).find('button').css('background-color', '#FFFFFF');
                 t(group_p).find('button').css('color', '#333333');
@@ -126,6 +132,7 @@ yangaiche(sys.init)(function (t) {
             t('#next').click(function () {
                 yangaiche(ls.order.update)(function (order) {
                     order['product_comment'] = t('#comment').val();
+                    order['service_type'] = t('#community_only .my-btn-group').attr('data-key');
                 });
 
                 recalculate_products(required_products);
