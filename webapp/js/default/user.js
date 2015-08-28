@@ -5,6 +5,7 @@ ls.user = {
     if_exist: 'if_user_exist',
     set: 'user_set',
     touch: 'user_touch',
+    update: 'user_update',
 
     user_info: 'user_info',
     user_id: 'user_id',
@@ -35,5 +36,13 @@ yangaiche(ls.user.touch, function () {
             yangaiche(ls.openid.login_by_opencode)();
         }
         return user_info;
+    };
+});
+
+yangaiche(ls.user.update, function() {
+    return function(callback) {
+        var user = yangaiche(ls.user.touch)();
+        callback(user);
+        yangaiche(ls.user.set)(user);
     };
 });

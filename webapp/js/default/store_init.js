@@ -114,6 +114,10 @@ yangaiche(sys.init)(function (t) {
         yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
     });
 
+    t('#user_info').click(function() {
+        yangaiche(ls.back.set_back_to_self)('my_info.html');
+    });
+
     //t('#footer_close').click(function(e) {
     //    t('#footer').css('display', 'none');
     //});
