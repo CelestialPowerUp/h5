@@ -22,7 +22,7 @@ yangaiche(sys.init)(function (t) {
 
     var getReq = yangaiche(app.http.get_request), show_msg = yangaiche(app.show_msg.show);
     var page = 1, total_size = 0, real_total_size = 0, page_size = 2, active = true, product_ids = '';
-    var store_item = null, service_product_dict = {};
+    var store_item = null;
 
     function load_suc(data, callback) {
         t.each(data['items'], function (i, d) {
@@ -99,22 +99,12 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    function init(suppliers, service_products) {
-        t.each(service_products, function(i, p) {
-            service_product_dict[p['product_type']] = p;
-            t('#my-btn-group button[data-key="'+p['service_type']+'"]').attr('data-rel', p['product_type']);
-        });
-
-        if (service_products.length < 2) {
-            t('#my-btn-group button[data-key="self"]').css('display', 'none');
-        }
-
+    function init(suppliers) {
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
         }
 
-        var order = yangaiche(ls.order.touch)(),
-            config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
+        var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
         getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (data) {
 
             store_item = data;
@@ -143,13 +133,6 @@ yangaiche(sys.init)(function (t) {
                         wp['unit_count'] = 1;
                         products.push(wp);
                     });
-                    t.each(t('#my-btn-group button'), function(i, btn) {
-                        if (t(btn).hasClass('service-type-choose-chosen')) {
-                            var selected_service = service_product_dict[t(btn).attr('data-rel')];
-                            selected_service['total_price'] = yangaiche(ls.products.calculate_single)(selected_service);
-                            products.push(selected_service);
-                        }
-                    });
                 });
 
                 var storage = yangaiche(sys.local_storage);
@@ -159,6 +142,11 @@ yangaiche(sys.init)(function (t) {
                     order.car_id = car.car_id;
                     order.car_model_type = car.car_model_type;
                     order.car_number = car.car_number;
+                    t.each(t('#my-btn-group button'), function(i, btn) {
+                        if (t(btn).hasClass('service-type-choose-chosen')) {
+                            order.service_type = t(btn).attr('data-key');
+                        }
+                    });
                 });
 
                 storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
@@ -213,18 +201,15 @@ yangaiche(sys.init)(function (t) {
     t('#my-btn-group').on('click', 'button', function () {
         var $this = t(this);
         var group_p = $this.parents()[0];
-        var local_rel = $this.attr('data-rel');
-        var selected_rel = t(group_p).attr('data-rel');
-        if (local_rel === selected_rel) {
+        var local_key = $this.attr('data-key');
+        var selected_key = t(group_p).attr('data-key');
+        if (local_key === selected_key) {
             return false;
         }
 
-        t(group_p).attr('data-rel', local_rel);
+        t(group_p).attr('data-key', local_key);
         storage.set(key.service.type, $this.attr('data-key'));
         t('#store-item-service-type span').text($this.text());
-
-        t('.store-item-u-price').text('¥' + (store_item['ware_mark_price'] +
-        parseFloat(yangaiche(ls.products.calculate_single)(service_product_dict[local_rel]))));
 
         t(group_p).find('button').removeClass('service-type-choose-chosen');
         t(group_p).find('button').addClass('service-type-choose-chosen-not');

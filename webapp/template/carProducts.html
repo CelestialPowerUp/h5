@@ -25,13 +25,13 @@
             <div class="swiper-container am-vertical-align-middle">
                 <!-- Add Scrollbar -->
                 <div class="swiper-scrollbar"></div>
-                <div class="swiper-wrapper my-btn-group" must-select-one="1" data-rel="{{keeper_type}}">
+                <div class="swiper-wrapper my-btn-group" must-select-one="1" data-key="{{service_key}}" data-rel="{{keeper_type}}">
                     <div class="swiper-slide clear-pm am-nbfc">
-                        <button class="my-product-line-content-button am-fl" data-rel="{{keeper_type}}">
+                        <button class="my-product-line-content-button am-fl" data-key="{{service_key}}" data-rel="{{keeper_type}}">
                             管家接车
                         </button>
                         {{#can_self}}
-                            <button class="my-product-line-content-button am-fl" data-rel="{{self_type}}">
+                            <button class="my-product-line-content-button am-fl" data-key="{{service_key}}" data-rel="{{self_type}}">
                                 自驾到店
                             </button>
                         {{/can_self}}
