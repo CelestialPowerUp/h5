@@ -71,7 +71,7 @@ yangaiche(app.order_info.show, function () {
             if ('creating' === order.order_status_key) {
                 order.submit_button_text = key.submit_button.submit_text_value3;
             } else {
-                if (order['order_pay_status'] && order['order_pay_status'] == 1) {
+                if (order['pay_status'] && order['pay_status'] == 1) {
                     order.submit_button_class = 'gray_btn';
                     order.submit_button_text = key.submit_button.submit_text_value5;
                 } else {
