@@ -148,7 +148,7 @@
 <div id="ads" class="fixed-wrapper" style="z-index: 3;">
     <div class="mobile-wrapper">
         <img src="./img/quiz_yangaiche_logo.png">
-        <p>保养维修&nbsp;&nbsp;&nbsp;&nbsp;保养维修&nbsp;&nbsp;&nbsp;&nbsp;保养维修&nbsp;&nbsp;&nbsp;&nbsp;保养维修</p>
+        <p>保养维修保养维修保养维修保养维修维修</p>
     </div>
 </div>
 
@@ -173,6 +173,15 @@
 </div>
 <!--<script src="./js/store.min.js"></script>-->
 <script src="./js/jquery.min.js"></script>
+<script>
+    $(function() {
+        var higher = $(window).height() - 832;
+        if (higher > 30) {
+            var $ads = $('#ads');
+            $ads.height($ads.height() + Math.min(higher, 30));
+        }
+    });
+</script>
 <script>
     //    Is this real hacking?
     $('body').on('touchstart', function () {
