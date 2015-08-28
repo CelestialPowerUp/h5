@@ -6,7 +6,8 @@ var key = {
         submit_text_value1: '确定',
         submit_text_value2: '去支付',
         submit_text_value3: '立即预约',
-        submit_text_value4: '去评价'
+        submit_text_value4: '去评价',
+        submit_text_value5: '已支付'
     },
     goto: {
         car_list: 'car_list_goto'

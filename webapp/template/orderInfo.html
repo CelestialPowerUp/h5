@@ -83,7 +83,9 @@
         {{#not_paid}}
         <div class="order-info-not-paid"><span>未支付</span><span>¥{{not_paid_price}}</span></div>
         {{/not_paid}}
-        <div class="order-info-paid {{paid_only}}"><span>已支付</span><span>¥{{paid_price}}</span></div>
+        {{#paid}}
+        <div class="order-info-paid"><span>已支付</span><span>¥{{paid_price}}</span></div>
+        {{/paid}}
     </div>
     <div class="order-info-bottom-div">
         <button id="submit_button" class="am-btn am-btn-block order-info-submit-btn {{submit_button_class}}">{{submit_button_text}}</button>
