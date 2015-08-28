@@ -2020,7 +2020,7 @@ body {
 .home-page-products li {
     display: block;
     width: 320px;
-    height: 320px;
+    height: 287px;
     float: left;
 }
 
@@ -2035,14 +2035,16 @@ body {
 .home-page-products li > div {
     display: block;
     width: 290px;
-    height: 290px;
+    height: 257px;
     background: #FFF;
 }
 
 .home-page-products li > div div:first-child {
     width: 290px;
-    height: 196px;
+    height: 163px;
     overflow: hidden;
+    line-height: 163px;
+    text-align: center;
 }
 
 .home-page-products .home-page-products-title {
