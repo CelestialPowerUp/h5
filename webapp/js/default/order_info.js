@@ -53,7 +53,9 @@ yangaiche(app.order_info.show, function () {
         if (order['not_paid_price'] > 0) {
             order.not_paid = {not_paid_price: order['not_paid_price']};
         }
-        order.paid_price = order['paid_price'];
+        if (order['paid_price'] > 0) {
+            order.paid = {paid_price: order['paid_price']};
+        }
 
         order['keeper_basics'] = order['keeper_basics'] || [];
         t.each(order['keeper_basics'], function (i, keeper) {
@@ -69,7 +71,12 @@ yangaiche(app.order_info.show, function () {
             if ('creating' === order.order_status_key) {
                 order.submit_button_text = key.submit_button.submit_text_value3;
             } else {
-                order.submit_button_text = key.submit_button.submit_text_value2;
+                if (order['order_pay_status'] && order['order_pay_status'] == 1) {
+                    order.submit_button_class = 'gray_btn';
+                    order.submit_button_text = key.submit_button.submit_text_value5;
+                } else {
+                    order.submit_button_text = key.submit_button.submit_text_value2;
+                }
             }
         } else {
             order.submit_button_class = 'gray_btn';
