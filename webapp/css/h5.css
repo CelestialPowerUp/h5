@@ -1704,13 +1704,13 @@ body {
     float: left;
     height: 90px;
     line-height: 90px;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 #store-item-footer .store-item-bottom-div:first-child {
     width: 420px;
     padding-left: 20px;
-    color: #FF6600;
+    color: #FFF;
 }
 
 #store-item-footer .store-item-bottom-div:last-child {
@@ -2035,7 +2035,7 @@ body {
 .home-page-products li > div {
     display: block;
     width: 290px;
-    height: 257px;
+    height: 267px;
     background: #FFF;
 }
 
@@ -2048,6 +2048,8 @@ body {
 }
 
 .home-page-products .home-page-products-title {
+    width: 290px;
+    height: 52px;
     color: #333;
     font-size: 28px;
     line-height: 52px;
@@ -2055,6 +2057,8 @@ body {
 }
 
 .home-page-products .home-page-products-price {
+    width: 290px;
+    height: 52px;
     line-height: 52px;
     padding-left: 10px;
 }
