@@ -99,7 +99,11 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    function init(suppliers) {
+    function init(suppliers, service_products) {
+        if (service_products.length < 2) {
+            t('#my-btn-group button[data-key="self"]').css('display', 'none');
+        }
+
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
         }

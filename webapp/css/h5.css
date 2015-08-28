@@ -807,6 +807,10 @@ body {
     font-size: 30px;
     text-align: left;
     /*background: #333;*/
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .order_info_item_count {
