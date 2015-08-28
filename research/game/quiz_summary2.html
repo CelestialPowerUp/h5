@@ -78,59 +78,23 @@
             margin: 43% auto 0;
         }
 
-        #controls ul {
-            width: 100%;
+        #controls div.share.btn {
+            width: 69.53125%;
             height: 0;
+            padding-top: 3.45%;
+            padding-bottom: 15.45%;
 
-            padding: 0 14.375% 5%;
-            list-style-type: none;
-
-            margin-top: 38%;
-        }
-
-        #controls ul > li {
-            width: 50%;
-            height: 0;
-
-            float: left;
-            
-            padding-bottom: 35.745614%;
-        }
-
-        #controls ul > li > div.btn {
-            width: 68%;
-            height: 0;
-
-            padding-bottom: 71.5%;
-
-            font-size: 4.6875vw;
-            line-height: 5.53em;
-
-            margin: 0 auto;
-        }
-
-        #controls ul > li > div.share.btn:active {
-            background: url("./img/quiz_share2_btn_focus.png") no-repeat;
-            background-size: contain;
-        }
-
-        #controls ul > li > div.share.btn {
-            background: url("./img/quiz_share2_btn.png") no-repeat;
-            background-size: contain;
-
-            -webkit-text-stroke: 0.03333em #157506;
-        }
-
-        #controls ul > li > div.retry.btn:active {
-            background: url("./img/quiz_retry_btn_focus.png") no-repeat;
-            background-size: contain;
-        }
-
-        #controls ul > li > div.retry.btn {
-            background: url("./img/quiz_retry_btn.png") no-repeat;
+            background: url("./img/quiz_share_btn.png") no-repeat;
             background-size: contain;
 
             -webkit-text-stroke: 0.03333em #a75a00;
+
+            margin: 40% auto 0;
+        }
+
+        #controls div.share.btn:active {
+            background: url("./img/quiz_share_btn_focus.png") no-repeat;
+            background-size: contain;
         }
 
         #qr_code {
@@ -140,7 +104,7 @@
             height: 0;
             padding-bottom: 50%;
 
-            margin: 34.375% auto 0;
+            margin: 18% auto 0;
         }
     </style>
 </head>
@@ -161,21 +125,14 @@
 
 <div id="text-bg" class="fixed-wrapper" style="z-index: 2;">
     <div class="mobile-wrapper">
-        <div id="summary-text">您对汽车品牌的理解程度已经<br>超过<span>百分之10</span>的用户</div>
+        <div id="summary-text">您对汽车品牌的理解程度已经<br>超过<span>百分之50</span>的用户</div>
         <div id="focus-text">想了解更多的赛车知识<br>请关注养爱车</div>
     </div>
 </div>
 
 <div id="controls" class="fixed-wrapper" style="z-index: 3;">
     <div class="mobile-wrapper">
-        <ul>
-            <li>
-                <div class="round btn share">晒成绩</div>
-            </li>
-            <li>
-                <div class="round btn retry">再试一次</div>
-            </li>
-        </ul>
+        <div class="btn share">分享朋友圈继续游戏<br>完成20关养爱车送豪礼</div>
         <div id="qr_code"><img style="width: 100%;" src="./img/quiz_qr_code.png"></div>
     </div>
 </div>
