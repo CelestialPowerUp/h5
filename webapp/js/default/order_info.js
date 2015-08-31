@@ -66,24 +66,29 @@ yangaiche(app.order_info.show, function () {
             }
         });
 
-        if (order.order_status_key.match(/creating|unconfirmed|confirmed|take|giveback_start|giveback|unpaid/)) {
+        if (order['pay_status'] && order['pay_status'] === 1) {
+            if ('completed' === order.order_status_key) {
+                order.submit_button_class = 'orange_btn';
+                order.submit_button_text = key.submit_button.submit_text_value4;
+            } else {
+                order.submit_button_class = 'gray_btn';
+                if ('evaluated' === order.order_status_key) {
+                    order.submit_button_text = key.submit_button.submit_text_value6;
+                } else {
+                    order.submit_button_text = key.submit_button.submit_text_value5;
+                }
+            }
+        } else {
             order.submit_button_class = 'orange_btn';
             if ('creating' === order.order_status_key) {
                 order.submit_button_text = key.submit_button.submit_text_value3;
             } else {
-                if (order['pay_status'] && order['pay_status'] == 1) {
-                    order.submit_button_class = 'gray_btn';
-                    order.submit_button_text = key.submit_button.submit_text_value5;
-                } else {
+                if (order['not_paid_price'] > 0) {
                     order.submit_button_text = key.submit_button.submit_text_value2;
+                } else {
+                    order.submit_button_class = 'gray_btn';
+                    order.submit_button_text = key.submit_button.submit_text_value7;
                 }
-            }
-        } else {
-            order.submit_button_class = 'gray_btn';
-            if (order.order_status_key.match(/completed|evaluated/)) {
-                order.submit_button_text = key.submit_button.submit_text_value4;
-            } else {
-                order.submit_button_text = order.order_status_value || order.order_status_key;
             }
         }
 
@@ -94,7 +99,6 @@ yangaiche(app.order_info.show, function () {
         if (order.submit_button_text === key.submit_button.submit_text_value3) {
             t("#submit_button").click(function () {
                 disable_button("#submit_button");
-
 
                 var user = yangaiche(ls.user.touch)();
                 order.user_id = user.user_id;
@@ -109,10 +113,6 @@ yangaiche(app.order_info.show, function () {
             });
         } else if (order.submit_button_text === key.submit_button.submit_text_value2) {
             t("#submit_button").click(function () {
-                if (order['pay_status'] === 1) {
-                    return;
-                }
-
                 disable_button("#submit_button");
 
                 var param = yangaiche(app.pay.get_param)(order,
