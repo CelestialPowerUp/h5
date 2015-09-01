@@ -20,5 +20,8 @@ var key = {
     },
     service: {
         type: 'service_type'
+    },
+    snapshot: {
+        order_list: 'snapshot_order_list'
     }
 };
