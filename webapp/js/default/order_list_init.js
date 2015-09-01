@@ -2,21 +2,18 @@ yangaiche(sys.load_default_module)('http', {});
 yangaiche(sys.load_default_module)('user', {});
 yangaiche(sys.load_default_module)('format', {});
 yangaiche(sys.load_default_module)('show_msg', {});
+yangaiche(sys.load_default_module)('paging');
+yangaiche(sys.load_default_module)('parameter');
 
 yangaiche(sys.init)(function (t) {
     var storage = yangaiche(sys.local_storage), now_scroll_top = 'now_scroll_top';
     var save_now_location = function () {
+        yangaiche(app.paging.save)();
         storage.set(now_scroll_top, document.body.scrollTop);
     };
 
-    var progress = $.AMUI.progress;
-    progress.start();
-    progress.inc(0.5);
-    t('#nprogress .nprogress-bar').css('bottom', 'auto');
-    t('#nprogress .nprogress-bar').css('top', '0');
-
-    yangaiche(app.http.get_request)("/v3/api/orders.json?user_type=caruser&user_id=" + yangaiche(ls.user.touch)()[ls.user.user_id], function (data) {
-        var items = [];
+    function data_handler(data) {
+        var items = [], data = data['items'];
         for (var i = 0; i < data.length; i++) {
             var item = {};
             item.id = data[i].id;
@@ -42,29 +39,26 @@ yangaiche(sys.init)(function (t) {
         }
         console.log(items);
         var product_template = Handlebars.compile(t("#order_list_item_tpl").html());
-        t("#order_list_view").html(product_template(items));
+        t("#order_list_view").append(product_template(items));
 
-        var now_scroll_top_value = storage.get(now_scroll_top);
-        if (yangaiche(sys.exist)(now_scroll_top_value)) {
-            document.body.scrollTop = now_scroll_top_value;
-            storage.remove(now_scroll_top);
-        }
-
+        t('.order-comment-btn').unbind('click');
         t('.order-comment-btn').bind('click', function () {
             if (t(this).hasClass('gray_button')) {
                 return;
             }
 
             save_now_location();
-            yangaiche(ls.back.set_back_to_self)('order_comment.html?order_id=' + t(this).attr('data-rel'));
+            yangaiche(ls.back.set_back_to)('order_comment.html?order_id=' + t(this).attr('data-rel'), 'order_list.html?recover=true');
         });
 
+        t('.order-flow-btn').unbind('click');
         t('.order-flow-btn').bind('click', function () {
 
             save_now_location();
-            yangaiche(ls.back.set_back_to_self)('order_flow.html?order_id=' + t(this).attr('data-rel'));
+            yangaiche(ls.back.set_back_to)('order_flow.html?order_id=' + t(this).attr('data-rel'), 'order_list.html?recover=true');
         });
 
+        t('.order-cancel-btn').unbind('click');
         t('.order-cancel-btn').bind('click', function () {
             if (t(this).hasClass('gray_button')) {
                 return;
@@ -92,12 +86,27 @@ yangaiche(sys.init)(function (t) {
             });
         });
 
+        t('.order-list-item-content').unbind('click');
         t('.order-list-item-content').bind('click', function () {
 
             save_now_location();
-            yangaiche(ls.back.set_back_to_self)('order_info.html?order_id=' + t(this).attr('data-rel'));
+            yangaiche(ls.back.set_back_to)('order_info.html?order_id=' + t(this).attr('data-rel'), 'order_list.html?recover=true');
         });
+    }
 
-        progress.done();
-    });
+    if (!yangaiche(sys.exist)(yangaiche(app.url_parameter)['recover'])) {
+        yangaiche(app.paging.setup)({
+            page_size: 3,
+            url_request: "/v3/api/orders.json?user_type=caruser&user_id=" + yangaiche(ls.user.touch)()[ls.user.user_id],
+            data_handler: data_handler
+        });
+    } else {
+        yangaiche(app.paging.recover)(data_handler);
+        var now_scroll_top_value = storage.get(now_scroll_top);
+        if (yangaiche(sys.exist)(now_scroll_top_value)) {
+            document.body.scrollTop = now_scroll_top_value;
+            storage.remove(now_scroll_top);
+        }
+    }
+
 });
