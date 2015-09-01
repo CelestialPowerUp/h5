@@ -174,7 +174,7 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    yangaiche(app.supplier.init)(init);
+    yangaiche(app.supplier.init)(init, yangaiche(app.url_parameter)['ware_id']);
 
     t('#store-item-car-choose').click(function () {
         yangaiche(sys.local_storage).remove(key.goto.car_list);
