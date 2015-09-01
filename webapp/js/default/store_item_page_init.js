@@ -57,13 +57,12 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    function init(suppliers, service_products) {
-        if (service_products.length < 2) {
-            t('#my-btn-group button[data-key="self"]').css('display', 'none');
-        }
-
+    function init(suppliers) {
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
+        } else {
+            t('#store-item-supplier span:last-child').text('养爱车综合店');
+            t('#my-btn-group button[data-key="self"]').css('display', 'none');
         }
 
         var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
