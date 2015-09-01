@@ -13,6 +13,8 @@ yangaiche(sys.init)(function (t) {
     function init(suppliers, service_products) {
         if (suppliers.length > 0) {
             t('#old-service-supplier span:last-child').text(suppliers[0]['supplier_name']);
+        } else {
+            t('#old-service-supplier span:last-child').text('养爱车综合店');
         }
 
         var order = yangaiche(ls.order.touch)(),

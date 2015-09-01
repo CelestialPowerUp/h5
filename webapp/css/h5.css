@@ -1618,12 +1618,11 @@ body {
     float: left;
     margin: 0;
     padding: 0;
-    font-size: 24px;
+    font-size: 30px;
 }
 
 #store-item-supplier span:first-child {
     width: 180px;
-    padding-left: 30px;
 }
 
 #store-item-supplier span:last-child {
