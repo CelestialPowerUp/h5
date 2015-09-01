@@ -8,6 +8,7 @@ yangaiche(sys.init)(function(t) {
     var show_msg = yangaiche(app.show_msg.show);
 
     t('#map_view').css('height', t(window).height() + 'px');
+    t('#locate_button').attr('disabled', 'disabled');
 
     var location_info = {};
     var map = new BMap.Map('map_view');
@@ -45,6 +46,8 @@ yangaiche(sys.init)(function(t) {
             map.openInfoWindow(infoWindow, cpoint); //开启信息窗口
         });
         map.addOverlay(marker);   //添加标注
+
+        t('#locate_button').removeAttr('disabled');
     };
 
     geolocationControl.addEventListener("locationSuccess", function (e) {
