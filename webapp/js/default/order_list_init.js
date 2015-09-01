@@ -96,7 +96,7 @@ yangaiche(sys.init)(function (t) {
 
     if (!yangaiche(sys.exist)(yangaiche(app.url_parameter)['recover'])) {
         yangaiche(app.paging.setup)({
-            page_size: 3,
+            page_size: 5,
             url_request: "/v3/api/orders.json?user_type=caruser&user_id=" + yangaiche(ls.user.touch)()[ls.user.user_id],
             data_handler: data_handler
         });
