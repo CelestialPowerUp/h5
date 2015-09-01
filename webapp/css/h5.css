@@ -2035,7 +2035,7 @@ body {
     background: #FFF;
 }
 
-.home-page-products li > div div:first-child {
+.home-page-products .home-page-products-image {
     width: 290px;
     height: 163px;
     overflow: hidden;
@@ -2054,18 +2054,25 @@ body {
 .home-page-products .home-page-products-price {
     width: 290px;
     height: 48px;
+}
+
+.home-page-products .home-page-products-price div {
+    float: left;
+    display: block;
+    height: 48px;
     line-height: 48px;
-    padding-left: 10px;
 }
 
-.home-page-products .home-page-products-price span {
-    color: #999;
-    font-size: 18px;
-}
-
-.home-page-products .home-page-products-price span:first-child {
+.home-page-products .home-page-products-price div:first-child {
     color: #FF6600;
     font-size: 28px;
+    margin: 0 10px;
+}
+
+.home-page-products .home-page-products-price div:last-child {
+    color: #999;
+    font-size: 18px;
+    text-decoration: line-through;
 }
 
 .am-modal-dialog {

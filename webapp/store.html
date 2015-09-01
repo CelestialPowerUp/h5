@@ -240,12 +240,12 @@
         <li class="{{odd_or_even}}" data-rel="{{ware_id}}">
             <div>
                 {{#cover_img}}
-                <div><img src="{{raw_url}}"/></div>
+                <div class="home-page-products-image"><img src="{{raw_url}}"/></div>
                 {{/cover_img}}
                 <div class="home-page-products-title">{{ware_name}}</div>
                 <div class="home-page-products-price">
-                    <span>¥{{ware_mark_price}}</span>
-                    <span><del>¥{{ware_full_price}}</del></span>
+                    <div>¥{{ware_mark_price}}</div>
+                    <div>¥{{ware_full_price}}</div>
                 </div>
             </div>
         </li>
