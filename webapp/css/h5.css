@@ -2016,7 +2016,7 @@ body {
 .home-page-products li {
     display: block;
     width: 320px;
-    height: 287px;
+    height: 271px;
     float: left;
 }
 
@@ -2031,7 +2031,7 @@ body {
 .home-page-products li > div {
     display: block;
     width: 290px;
-    height: 267px;
+    height: 251px;
     background: #FFF;
 }
 
@@ -2045,17 +2045,16 @@ body {
 
 .home-page-products .home-page-products-title {
     width: 290px;
-    height: 52px;
+    height: 40px;
     color: #333;
     font-size: 28px;
-    line-height: 52px;
     padding-left: 10px;
 }
 
 .home-page-products .home-page-products-price {
     width: 290px;
-    height: 52px;
-    line-height: 52px;
+    height: 48px;
+    line-height: 48px;
     padding-left: 10px;
 }
 
