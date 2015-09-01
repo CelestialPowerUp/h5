@@ -695,7 +695,7 @@ body {
     float: right;
     margin-top: 10px;
     margin-right: 20px;
-    padding: 0 auto;
+    padding: 0 20px;
     height: 70px;
     font-size: 30px;
     background-color: #FFFFFF;
@@ -704,17 +704,8 @@ body {
     border-color: #09be00;
 }
 
-.order-list-cancel-btn {
-    float: right;
-    margin-top: 10px;
-    margin-right: 20px;
-    padding: 0 auto;
-    height: 70px;
-    font-size: 30px;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    color: #09be00;
-    border-color: #09be00;
+.order-list-flow-btn:hover, .order-list-flow-btn:focus {
+    color: #999;
 }
 
 .gray_button {
