@@ -22,7 +22,7 @@ yangaiche(app.http.get_api_root, function() {
                 api_root = '/staging';
             },
             product: function() {
-                api_root = 'http://api.yangaiche.com';
+                api_root = '';
             },
             local: function() {
                 api_root = '';
