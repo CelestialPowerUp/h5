@@ -2089,10 +2089,6 @@ body {
     text-decoration: line-through;
 }
 
-.am-modal-dialog {
-    width: 320px;
-}
-
 .modal-text {
     margin: 50px auto;
     font-size: 30px;
