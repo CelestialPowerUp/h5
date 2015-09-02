@@ -6,7 +6,7 @@ app.show_msg = {
 
     html: '<div class="am-modal am-modal-no-btn" tabindex="-1" id="yac-modal">' +
     '<div class="am-modal-dialog">' +
-    '<div class="am-modal-hd">养爱车提示' +
+    '<div class="am-modal-hd">' +
     '</div>' +
     '<div class="am-modal-bd">' +
     '{{msg_to_show}}' +
