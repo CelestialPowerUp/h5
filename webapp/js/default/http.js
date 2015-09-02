@@ -10,21 +10,21 @@ app.http = {
     post_charge_request: 'post_charge_request'
 };
 
-yangaiche(app.http.get_api_root, function() {
+yangaiche(app.http.get_api_root, function () {
     return function () {
         var api_root = '';
 
         yangaiche(app.env.do_sth)({
-            dev: function() {
+            dev: function () {
                 api_root = '/develop';
             },
-            staging: function() {
+            staging: function () {
                 api_root = '/staging';
             },
-            product: function() {
+            product: function () {
                 api_root = '';
             },
-            local: function() {
+            local: function () {
                 api_root = '';
             }
         });
@@ -43,7 +43,7 @@ function get_real_url(url) {
 function default_header(request) {
     //request.setRequestHeader("Accept-Encoding", 'gzip');
     request.setRequestHeader("API-Client-Device-Type", yangaiche(sys.browser_type).type);
-    yangaiche(ls.user.if_exist)(function(user) {
+    yangaiche(ls.user.if_exist)(function (user) {
         request.setRequestHeader("API-Access-Token", user.token);
     });
 }
