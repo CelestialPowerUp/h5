@@ -39,6 +39,11 @@ body {
     color: #FFF;
 }
 
+/* alert */
+#yac-modal .am-modal-bd:last-child {
+    font-size: 34px;
+}
+
 /* order success */
 .order-success-div {
     width: 640px;
