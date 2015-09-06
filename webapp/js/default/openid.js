@@ -11,6 +11,7 @@ ls.openid = {
     get_redirect_uri: 'get_redirect_uri',
     
     open_id: 'open_id',
+    external_sale_wechat_openid: 'external_sale_wechat_openid',
     user_gender: 'user_gender',
     user_mobile: 'user_mobile',
     user_real_name: 'user_real_name',
