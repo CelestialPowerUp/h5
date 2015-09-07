@@ -57,6 +57,15 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
+    var gsth;
+    function get_unique_service_type(sth) {
+        if (undefined !== sth) {
+            gsth = sth;
+            return key.service.type + sth + yangaiche(app.url_parameter)['ware_id'];
+        }
+        return key.service.type + gsth + yangaiche(app.url_parameter)['ware_id'];
+    }
+
     function init(suppliers) {
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
@@ -115,7 +124,7 @@ yangaiche(sys.init)(function (t) {
                 yangaiche(ls.back.set_back_to_self)('base_info.html');
             });
 
-            var service_type = storage.get(key.service.type);
+            var service_type = storage.get(get_unique_service_type(suppliers.length > 0 ? suppliers[0]['supplier_name'] : ''));
             if (yangaiche(sys.exist)(service_type)) {
                 var btn = t('#my-btn-group button[data-key="' + service_type + '"]');
                 if (btn.css('display') === 'none') {
@@ -124,7 +133,12 @@ yangaiche(sys.init)(function (t) {
                     btn.click();
                 }
             } else {
-                t('#my-btn-group button[data-key="keeper"]').click();
+                var self_btn = t('#my-btn-group button[data-key="self"]');
+                if (self_btn.css('display') === 'none') {
+                    t('#my-btn-group button[data-key="keeper"]').click();
+                } else {
+                    self_btn.click();
+                }
             }
         }, function (error) {
             show_msg(error['message']);
@@ -169,7 +183,7 @@ yangaiche(sys.init)(function (t) {
         }
 
         t(group_p).attr('data-key', local_key);
-        storage.set(key.service.type, $this.attr('data-key'));
+        storage.set(get_unique_service_type(), $this.attr('data-key'));
         t('#store-item-service-type span').text($this.text());
 
         t(group_p).find('button').removeClass('service-type-choose-chosen');
