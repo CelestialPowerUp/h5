@@ -133,9 +133,6 @@ yangaiche(sys.init, function () {
         } else {
             sys.inits.splice(index, 0, callback);
         }
-        for (var i = 0; i < sys.inits.length; i++) {
-            console.log(sys.inits[i].toString());
-        }
         console.log('init complete...');
     };
 });
