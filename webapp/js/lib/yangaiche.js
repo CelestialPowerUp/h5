@@ -129,7 +129,7 @@ yangaiche(sys.$, function () {
 
 yangaiche(sys.init, function () {
     return function (callback, index) {
-        if (undefined === index) {
+        if (!yangaiche(sys.exist)(index)) {
             sys.inits.push(callback);
         } else {
             sys.inits.splice(index, 0, callback);

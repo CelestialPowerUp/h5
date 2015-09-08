@@ -20,5 +20,3 @@ yangaiche(sys.init)(function(t) {
         })
     });
 }, 0);
-
-yangaiche(sys.start)();
