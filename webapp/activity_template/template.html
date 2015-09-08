@@ -3,8 +3,81 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>活动模板</title>
+    <link href="https://www.google.com/images/branding/product/ico/googleg_lodp.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="../css/amazeui.min.css">
+
+    <style>
+        body, #wrapper, #left, #right {
+            display: block;
+            height: 100vh;
+        }
+
+        #wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #left, #right {
+            float: left;
+            overflow: auto;
+        }
+
+        #left {
+            width: 20%;
+            background: #333;
+        }
+
+        #left .title {
+            width: 100%;
+            height: 20px;
+
+            line-height: 20px;
+            text-align: center;
+
+            font-size: 12px;
+            color: #DDD;
+
+            background: #555;
+            /*border-top: solid 1px #111;*/
+            border-bottom: solid 1px #111;
+
+            cursor: pointer;
+        }
+
+        #left ul {
+            list-style-type: none;
+        }
+
+        #left ul li {
+            float: left;
+            width: 50%;
+        }
+
+        .tool {
+            /*width: */
+        }
+
+        #right {
+            width: 80%;
+            background: #555;
+        }
+    </style>
 </head>
 <body root="..">
+
+<div id="wrapper">
+    <div id="left">
+        <div class="title">工具箱</div>
+        <ul>
+            <li><div class="tool"></div></li>
+            <li><div class="tool"></div></li>
+            <li><div class="tool"></div></li>
+            <li><div class="tool"></div></li>
+            <li><div class="tool"></div></li>
+        </ul>
+    </div>
+    <div id="right"></div>
+</div>
 
 <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../js/lib/amazeui.min.js"></script>
