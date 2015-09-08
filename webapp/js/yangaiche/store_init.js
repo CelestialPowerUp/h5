@@ -17,7 +17,13 @@ yangaiche(sys.init)(function (t) {
 yangaiche(sys.init)(function (t) {
     yangaiche(app.bridge.connect)(function (bridge) {
         t('#services li a').unbind('click').click(function () {
-            var data = {type: t(this).index() + 1};
+            var array = t('#services li a'), index = 0, $this_data_rel = t(this).attr('data-rel');
+            t.each(array, function(i, a) {
+                if (t(a).attr('data-rel') === $this_data_rel) {
+                    index = i;
+                }
+            });
+            var data = {type: index + 1};
             bridge['callHandler']('route', data, function (responseData) {
                 console.log('JS got response: ' + responseData);
             });
