@@ -4,11 +4,11 @@ sys.load_module = 'load_module';
 sys.load_default_module = 'load_default_module';
 
 yangaiche(sys.site_config, function () {
-    var site_config = null;
+    var site_config = null, root = yangaiche(sys.root);
     return function () {
         if (!exist(site_config)) {
             site_config = $.ajax({
-                url: './map/site.json',
+                url: root + '/map/site.json',
                 cache: false,
                 async: false,
                 dataType: 'json'

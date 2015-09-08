@@ -9,6 +9,7 @@ var sys = {
     $: '$',
     init: 'init',
     start: 'start',
+    root: 'root',
 
     inits: []
 };
@@ -149,12 +150,21 @@ yangaiche(sys.start, function () {
     };
 });
 
+yangaiche(sys.root, function() {
+    var $ = yangaiche(sys.$), root = '.';
+    var $root = $('body').attr('root');
+    if (yangaiche(sys.exist)($root)) {
+        root = $root;
+    }
+    return root;
+});
+
 yangaiche(sys.load, function () {
-    var loaded = [];
+    var loaded = [], $ = yangaiche(sys.$), root = yangaiche(sys.root);
     console.log(loaded);
 
     var map = $.ajax({
-        url: './map.json',
+        url: root + '/map.json',
         cache: false,
         async: false,
         dataType: 'json'
@@ -175,6 +185,8 @@ yangaiche(sys.load, function () {
             } else {
                 return enable_sync_mode_flag ? false : null;
             }
+        } else {
+            url = yangaiche(sys.root) + '/' + url;
         }
         if (!loaded.includes(url)) {
             loaded.push(url);
