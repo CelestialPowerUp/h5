@@ -7,7 +7,10 @@ var sys = {
     local_storage: 'local_storage',
     load: 'load',
     $: '$',
-    init: 'init'
+    init: 'init',
+    start: 'start',
+
+    inits: []
 };
 
 function exist(obj) {
@@ -124,10 +127,25 @@ yangaiche(sys.$, function () {
 });
 
 yangaiche(sys.init, function () {
-    return function (callback) {
-        var $ = yangaiche(sys.$);
-        $(callback($));
+    return function (callback, index) {
+        if (undefined === index) {
+            sys.inits.push(callback);
+        } else {
+            sys.inits.splice(index, 0, callback);
+        }
         console.log('init complete...');
+    };
+});
+
+yangaiche(sys.start, function () {
+    return function () {
+        var $ = yangaiche(sys.$);
+        $(function () {
+            for (var i = 0; i < sys.inits.length; i++) {
+                sys.inits[i]($);
+            }
+        });
+        console.log('start complete...');
     };
 });
 
