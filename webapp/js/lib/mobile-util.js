@@ -39,19 +39,25 @@ window.mobileUtil = (function (win, doc) {
             var metaEl = doc.querySelector('meta[name="viewport"]'),
                 metaCtt = metaEl ? metaEl.content : '';
             if (isMobile) { // 定宽
-                var scale = win.screen.availWidth / 640;
                 if (isAndroid) {
-                    scale /= window.devicePixelRatio;
-                }
+                    var medium_dpi = 640 / win.screen.availWidth * window.devicePixelRatio * 160;
 
-                metaEl.content = metaCtt + ', width=640, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale;
+                    medium_dpi = medium_dpi.toFixed(2);
+                    metaEl.content = metaCtt + ', width=640, target-densitydpi=' + medium_dpi;
+
+                } else {
+                    var scale = win.screen.availWidth / 640;
+
+                    scale = scale.toFixed(2);
+                    metaEl.content = metaCtt + ', width=640, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale;
+                }
                 console.log("report:" +
                     "\nscreen avail width: " +
                     win.screen.availWidth +
                     "\ndevice pixel ratio: " +
                     window.devicePixelRatio +
-                    "\nscale: " +
-                    scale
+                    //"\nscale: " + scale +
+                    "\n" + metaEl.content
                 );
             }
         },
