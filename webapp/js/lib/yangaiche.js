@@ -7,7 +7,11 @@ var sys = {
     local_storage: 'local_storage',
     load: 'load',
     $: '$',
-    init: 'init'
+    init: 'init',
+    start: 'start',
+    root: 'root',
+
+    inits: []
 };
 
 function exist(obj) {
@@ -124,19 +128,43 @@ yangaiche(sys.$, function () {
 });
 
 yangaiche(sys.init, function () {
-    return function (callback) {
-        var $ = yangaiche(sys.$);
-        $(callback($));
+    return function (callback, index) {
+        if (!yangaiche(sys.exist)(index)) {
+            sys.inits.push(callback);
+        } else {
+            sys.inits.splice(index, 0, callback);
+        }
         console.log('init complete...');
     };
 });
 
+yangaiche(sys.start, function () {
+    return function () {
+        var $ = yangaiche(sys.$);
+        $(function () {
+            for (var i = 0; i < sys.inits.length; i++) {
+                sys.inits[i]($);
+            }
+        });
+        console.log('start complete...');
+    };
+});
+
+yangaiche(sys.root, function() {
+    var $ = yangaiche(sys.$), root = '.';
+    var $root = $('body').attr('root');
+    if (yangaiche(sys.exist)($root)) {
+        root = $root;
+    }
+    return root;
+});
+
 yangaiche(sys.load, function () {
-    var loaded = [];
+    var loaded = [], $ = yangaiche(sys.$), root = yangaiche(sys.root);
     console.log(loaded);
 
     var map = $.ajax({
-        url: './map.json',
+        url: root + '/map.json',
         cache: false,
         async: false,
         dataType: 'json'
@@ -157,6 +185,8 @@ yangaiche(sys.load, function () {
             } else {
                 return enable_sync_mode_flag ? false : null;
             }
+        } else {
+            url = yangaiche(sys.root) + '/' + url;
         }
         if (!loaded.includes(url)) {
             loaded.push(url);

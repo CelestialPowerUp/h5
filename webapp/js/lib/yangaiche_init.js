@@ -9,4 +9,5 @@ yangaiche(app.show_msg.init)();
 
 window.location.href.replace(/\/.*\/(.*?)\.html/, function (sth, filename) {
     yangaiche(sys.load_module)(filename + '_init');
+    yangaiche(sys.start)();
 });

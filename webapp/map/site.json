@@ -1,7 +1,7 @@
 {
   "browser": [
     {
-      "type": "yangaiche",
+      "type": "h5_hybrid",
       "userAgent": "yangaiche",
       "moduleRoot": "yangaiche"
     },

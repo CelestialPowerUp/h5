@@ -7,30 +7,56 @@ app.http = {
     get_api_root: 'get_api_root',
     get_request: 'get_request',
     post_request: 'post_request',
-    post_charge_request: 'post_charge_request'
+    post_charge_request: 'post_charge_request',
+    tweak: 'tweak_sth',
+    fire_tweaks: 'fire_tweaks',
+
+    before_render: 'before_render',
+    after_render: 'after_render',
+
+    get: 'get_request_key',
+    post: 'post_request_key',
+    charge: 'charge_request_key',
+
+    tweaks: []
 };
 
-yangaiche(app.http.get_api_root, function() {
+yangaiche(app.http.get_api_root, function () {
     return function () {
         var api_root = '';
 
         yangaiche(app.env.do_sth)({
-            dev: function() {
+            dev: function () {
                 api_root = '/develop';
             },
-            staging: function() {
+            staging: function () {
                 api_root = '/staging';
             },
-            product: function() {
+            product: function () {
                 api_root = '';
             },
-            local: function() {
+            local: function () {
                 api_root = '';
             }
         });
 
         return api_root;
     }();
+});
+
+yangaiche(app.http.tweak, function () {
+    return function (callback) {
+        //alert(callback.toString());
+        app.http.tweaks.push(callback);
+    };
+});
+
+yangaiche(app.http.fire_tweaks, function () {
+    return function (type, request_type, url) {
+        for (var i = 0; i < app.http.tweaks.length; i++) {
+            app.http.tweaks[i](type, request_type, url);
+        }
+    };
 });
 
 var timeout = 45 * 1000;
@@ -43,12 +69,13 @@ function get_real_url(url) {
 function default_header(request) {
     //request.setRequestHeader("Accept-Encoding", 'gzip');
     request.setRequestHeader("API-Client-Device-Type", yangaiche(sys.browser_type).type);
-    yangaiche(ls.user.if_exist)(function(user) {
+    yangaiche(ls.user.if_exist)(function (user) {
         request.setRequestHeader("API-Access-Token", user.token);
     });
 }
 
 yangaiche(app.http.get_request, function () {
+    var tweaker = yangaiche(app.http.fire_tweaks);
     return function (url, callBack, failureBack) {
         var real_url = get_real_url(url);
 
@@ -60,7 +87,9 @@ yangaiche(app.http.get_request, function () {
             beforeSend: default_header,
             success: function (data) {
                 if (data && data['code'] == '00000') {
+                    tweaker(app.http.before_render, app.http.get, url);
                     callBack(data['data']);
+                    tweaker(app.http.after_render, app.http.get, url);
                 } else if (data && data['code'] === '20007') {
                     yangaiche(ls.openid.login_by_opencode)();
                 } else {
@@ -78,6 +107,7 @@ yangaiche(app.http.get_request, function () {
 });
 
 yangaiche(app.http.post_request, function () {
+    var tweaker = yangaiche(app.http.fire_tweaks);
     return function (url, param, callBack, failureBack) {
         var real_url = get_real_url(url);
 
@@ -91,7 +121,9 @@ yangaiche(app.http.post_request, function () {
             beforeSend: default_header,
             success: function (data) {
                 if (data && data['code'] == '00000') {
+                    tweaker(app.http.before_render, app.http.post, url);
                     callBack(data['data']);
+                    tweaker(app.http.after_render, app.http.post, url);
                 } else if (data && data['code'] == '20007') {
                     yangaiche(ls.openid.login_by_opencode)();
                 } else {
@@ -109,6 +141,7 @@ yangaiche(app.http.post_request, function () {
 });
 
 yangaiche(app.http.post_charge_request, function () {
+    var tweaker = yangaiche(app.http.fire_tweaks);
     return function (url, param, callBack, failureBack) {
         var real_url = get_real_url(url);
 
@@ -127,7 +160,6 @@ yangaiche(app.http.post_charge_request, function () {
                 } catch (e) {
                     parsed_data = data;
                 } finally {
-                    //alert(typeof(parsed_data));
                     if ('string' == typeof(parsed_data) && failureBack) {
                         failureBack(parsed_data);
                     } else if ('object' == typeof(parsed_data)) {
@@ -138,7 +170,9 @@ yangaiche(app.http.post_charge_request, function () {
                                 alert('建议设置请求错误的回调');
                             }
                         } else {
+                            tweaker(app.http.before_render, app.http.charge, url);
                             callBack(parsed_data);
+                            tweaker(app.http.after_render, app.http.charge, url);
                         }
                     } else if (failureBack) {
                         failureBack('未能识别服务器返回参数');
