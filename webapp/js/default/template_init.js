@@ -23,7 +23,7 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    function tweak(e) {
+    function tweak() {
         alert('尼玛，tweak!!!');
         return false;
     }
