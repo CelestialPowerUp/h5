@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>活动模板</title>
+    <link href="https://www.google.com/images/branding/product/ico/googleg_lodp.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="../css/amazeui.min.css">
+
+    <style>
+        *, *:before， *:after {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        body, #wrapper, #left, #right {
+            display: block;
+            height: 100vh;
+        }
+
+        /* btn start */
+        .btn {
+            cursor: pointer;
+
+            opacity: 0.6;
+
+            transition: all .3s;
+            -moz-transition: all .3s;
+            -webkit-transition: all .3s;
+            -o-transition: all .3s;
+        }
+
+        .btn:hover, .btn:focus {
+            opacity: 1;
+        }
+
+        /* btn end*/
+
+        #wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #left, #right {
+            float: left;
+        }
+
+        #left {
+            width: 20%;
+            background: #333;
+            overflow: auto;
+
+            border-right: solid 1px #111;
+        }
+
+        #left .title {
+            width: 100%;
+            height: 20px;
+
+            line-height: 20px;
+            text-align: center;
+
+            font-size: 12px;
+            color: #DDD;
+
+            background: #555;
+            border-bottom: solid 1px #111;
+
+            cursor: pointer;
+        }
+
+        #left .title.btn {
+            height: 30px;
+
+            line-height: 30px;
+
+            font-size: 14px;
+
+            border-top: solid 1px #111;
+        }
+
+        #left ul {
+            width: 100%;
+            height: 0;
+            padding-bottom: 44%;
+        }
+
+        #left ul li {
+            float: left;
+            width: 50%;
+            height: 0;
+            padding-bottom: 40%;
+        }
+
+        .tool {
+            width: 80%;
+            height: 0;
+            padding-bottom: 72%;
+            margin: 8% 10% 0;
+
+            background: url("./img/view.jpeg");
+        }
+
+        .tweak {
+            display: inline;
+            color: #FFF;
+            font-size: 16px;
+        }
+
+        .tweak:hover, .tweak:focus {
+            font-size: 15px;
+        }
+
+        #right {
+            width: 80%;
+            background: #555;
+            overflow: hidden;
+        }
+
+        #right #workspace {
+            width: 640px;
+            height: 100%;
+            margin: 0 auto;
+
+            background: #333;
+        }
+
+        #sth-on-the-top {
+            position: absolute;
+            z-index: 9999;
+
+            left: 0;
+            top: 0;
+
+            display: none;
+        }
+    </style>
+</head>
+<body root="..">
+
+<div id="wrapper">
+    <div id="left">
+        <div class="title">工具箱</div>
+        <ul>
+        </ul>
+        <div id="left-add" class="title btn">添加</div>
+    </div>
+    <div id="right">
+        <div id="workspace"></div>
+    </div>
+</div>
+
+<script type="text/x-handlebars-template" id="tool_tpl">{{#each this}}
+<li>
+    <div class="tool btn">
+        <div class="tweak btn">TWEAK</div>
+    </div>
+</li>
+{{/each}}</script>
+
+<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="../js/lib/amazeui.min.js"></script>
+<script type="text/javascript" src="../js/lib/handlebars.min.js"></script>
+<script type="text/javascript" src="../js/lib/yangaiche.js"></script>
+</body>
+</html>
