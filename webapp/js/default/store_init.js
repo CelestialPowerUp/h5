@@ -7,8 +7,14 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('location', {});
 yangaiche(sys.load_default_module)('map', {});
 yangaiche(sys.load_default_module)('back', {});
+yangaiche(sys.load_default_module)('env', {});
 
 yangaiche(sys.init)(function (t) {
+
+    if (yangaiche(sys.browser_type).type !== 'h5_hybrid') {
+        t('#location').css('display', 'block');
+        t('#to_show_user_win').css('display', 'block');
+    }
 
     //var raw_data = '{"code":"00000","data":[{"ware_list":[{"product_name":"机油-磁护","ware_mark_price":94.5,"ware_status":"down_shelves","ware_full_price":3232,"ware_type_name":"室内清洗","cover_img":{"img_id":1052,"thumbnail_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s250.jpg","img_index":0,"original_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s1024.jpg","raw_url":"http://7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg"},"ware_id":1,"ware_name":"室内清洗"}],"ware_type_name":"室内清洗"}]}';
     //var data = JSON.parse(raw_data)['data'];
@@ -72,13 +78,15 @@ yangaiche(sys.init)(function (t) {
             yangaiche(ls.back.set_back_to_self)('store_item_page.html?ware_id=' + ware_id);
         });
 
-        var location = yangaiche(ls.location.touch)();
-        if (!yangaiche(sys.exist)(location['address']) || '' === location['address']) {
-            yangaiche(app.map.auto_location)(function (address) {
-                t('#location span').text(address);
-            });
-        } else {
-            t('#location span').text(location['address']);
+        if (t('#location').css('display') !== 'none') {
+            var location = yangaiche(ls.location.touch)();
+            if (!yangaiche(sys.exist)(location['address']) || '' === location['address']) {
+                yangaiche(app.map.auto_location)(function (address) {
+                    t('#location span').text(address);
+                });
+            } else {
+                t('#location span').text(location['address']);
+            }
         }
     }, function (error) {
         yangaiche(app.show_msg.show)(error['message']);

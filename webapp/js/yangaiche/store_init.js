@@ -4,6 +4,7 @@ yangaiche(sys.load_default_module)('http');
 yangaiche(sys.load_module)('ios/bridge');
 
 yangaiche(sys.init)(function (t) {
+
     yangaiche(app.bridge.connect)(function (bridge) {
         var data = {'Javascript Responds': 'Wee!'};
         bridge.init(function (message, responseCallback) {
@@ -19,7 +20,6 @@ yangaiche(sys.init)(function (t) {
             if (this_context === accept_context) {
                 t('.home-page-products li').unbind('click').click(function () {
                     var data = {type: 7, ware_id: t(this).attr('data-rel')};
-                    alert(JSON.stringify(data));
                     bridge['callHandler']('route', data, function (responseData) {
                         console.log('JS got response: ' + responseData);
                     });
@@ -27,6 +27,7 @@ yangaiche(sys.init)(function (t) {
             }
         });
     });
+
 }, 0);
 
 yangaiche(sys.init)(function (t) {
