@@ -65,12 +65,16 @@ yangaiche(sys.init)(function(t) {
     var user = yangaiche(ls.user.touch)();
 
     function preview_order(order, go_flag) {
-        postReq('/v1/api/order_preview', {
+        var params = {
             car_model_type: order['car_model_type'],
             coupon_id: order['coupon_id'],
             products: order['products'],
             user_id: user[ls.user.user_id]
-        }, function (data) {
+        };
+        if (yangaiche(sys.exist)(order['supplier_id'])) {
+            params.supplier_id = order['supplier_id'];
+        }
+        postReq('/v1/api/order_preview', params, function (data) {
             order['coupon_price'] = data['free_price'];
             order['paid_price'] = 0;
             order['not_paid_price'] = data['total_price'];
