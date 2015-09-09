@@ -7,10 +7,38 @@
     <link rel="stylesheet" href="../css/amazeui.min.css">
 
     <style>
+        *, *:before， *:after {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
         body, #wrapper, #left, #right {
             display: block;
             height: 100vh;
         }
+
+        /* btn start */
+        .btn {
+            opacity: 0.6;
+
+            transition: opacity .5s;
+            -moz-transition: opacity .5s;
+            -webkit-transition: opacity .5s;
+            -o-transition: opacity .5s;
+        }
+
+        .btn:hover, .btn:focus {
+            opacity: 1;
+        }
+        /* btn end*/
 
         #wrapper {
             width: 100%;
@@ -38,23 +66,41 @@
             color: #DDD;
 
             background: #555;
-            /*border-top: solid 1px #111;*/
             border-bottom: solid 1px #111;
 
             cursor: pointer;
         }
 
+        #left .title.btn {
+            height: 30px;
+
+            line-height: 30px;
+
+            font-size: 14px;
+
+            border-top: solid 1px #111;
+        }
+
         #left ul {
-            list-style-type: none;
+            width: 100%;
+            height: 0;
+            padding-bottom: 124%;
         }
 
         #left ul li {
             float: left;
             width: 50%;
+            height: 0;
+            padding-bottom: 40%;
         }
 
         .tool {
-            /*width: */
+            width: 80%;
+            height: 0;
+            padding-bottom: 72%;
+            margin: 8% 10% 0;
+
+            background: #111;
         }
 
         #right {
@@ -69,18 +115,38 @@
     <div id="left">
         <div class="title">工具箱</div>
         <ul>
-            <li><div class="tool"></div></li>
-            <li><div class="tool"></div></li>
-            <li><div class="tool"></div></li>
-            <li><div class="tool"></div></li>
-            <li><div class="tool"></div></li>
+            <li>
+                <div class="tool"></div>
+            </li>
+            <li>
+                <div class="tool"></div>
+            </li>
+            <li>
+                <div class="tool"></div>
+            </li>
+            <li>
+                <div class="tool"></div>
+            </li>
+            <li>
+                <div class="tool"></div>
+            </li>
         </ul>
+        <div id="left-add" class="title btn">添加</div>
     </div>
     <div id="right"></div>
 </div>
 
+<script type="text/x-handlebars-template" id="tool_tpl">
+    {{#each this}}
+    <li>
+        <div class="tool"></div>
+    </li>
+    {{/each}}
+</script>
+
 <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../js/lib/amazeui.min.js"></script>
+<script type="text/javascript" src="../js/lib/handlebars.min.js"></script>
 <script type="text/javascript" src="../js/lib/yangaiche.js"></script>
 </body>
 </html>
