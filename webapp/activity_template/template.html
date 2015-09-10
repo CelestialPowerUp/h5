@@ -27,6 +27,8 @@
 
         /* btn start */
         .btn {
+            background: url("./img/view.jpeg");
+
             cursor: pointer;
 
             opacity: 0.6;
@@ -54,10 +56,10 @@
 
         #left {
             width: 20%;
-            background: #333;
-            overflow: auto;
+            background: #DDD;
+            overflow-y: scroll;
 
-            border-right: solid 1px #111;
+            border-right: solid 1px #EEE;
         }
 
         #left .title {
@@ -70,10 +72,16 @@
             font-size: 12px;
             color: #DDD;
 
-            background: #555;
-            border-bottom: solid 1px #111;
+            background: #AAA;
+
+            border-top: solid 1px #EEE;
+            border-bottom: solid 1px #EEE;
 
             cursor: pointer;
+        }
+
+        #left .title:first-child {
+            border-top: none;
         }
 
         #left .title.btn {
@@ -83,7 +91,7 @@
 
             font-size: 14px;
 
-            border-top: solid 1px #111;
+            margin-bottom: 10px;
         }
 
         #left ul {
@@ -99,18 +107,16 @@
             padding-bottom: 40%;
         }
 
-        .tool {
+        .tpl, .comp {
             width: 80%;
             height: 0;
             padding-bottom: 72%;
             margin: 8% 10% 0;
-
-            background: url("./img/view.jpeg");
         }
 
         .tweak {
             display: inline;
-            color: #FFF;
+            color: #000;
             font-size: 16px;
         }
 
@@ -120,7 +126,7 @@
 
         #right {
             width: 80%;
-            background: #555;
+            background: #AAA;
             overflow: hidden;
         }
 
@@ -129,7 +135,7 @@
             height: 100%;
             margin: 0 auto;
 
-            background: #333;
+            background: #FFF;
         }
 
         #sth-on-the-top {
@@ -147,25 +153,46 @@
 
 <div id="wrapper">
     <div id="left">
-        <div class="title">工具箱</div>
-        <ul>
+        <div class="title">模板</div>
+        <ul id="tpl-list">
+            <li>
+                <div class="tpl btn"></div>
+            </li>
+            <li>
+                <div class="tpl btn"></div>
+            </li>
         </ul>
-        <div id="left-add" class="title btn">添加</div>
+        <div id="tpl-list-add" class="title btn">添加</div>
+        <div class="title">工具箱</div>
+        <ul id="comp-list"></ul>
+        <div id="comp-list-add" class="title btn">添加</div>
     </div>
     <div id="right">
-        <div id="workspace"></div>
+        <div id="workspace">
+            <button>hello world</button>
+            <br>
+            <br>
+            <br>
+            <span><a>hello world</a>&nbsp;&nbsp;&nbsp;&nbsp;<a>hello world</a></span>
+            <br>
+            <br>
+            <br>
+            <button>hello world</button>
+        </div>
     </div>
 </div>
 
 <script type="text/x-handlebars-template" id="tool_tpl">{{#each this}}
 <li>
-    <div class="tool btn">
+    <div class="comp btn">
         <div class="tweak btn">TWEAK</div>
     </div>
 </li>
 {{/each}}</script>
 
 <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="../js/lib/plupload.full.min.js"></script>
+<script type="text/javascript" src="../js/lib/qiniu.js"></script>
 <script type="text/javascript" src="../js/lib/amazeui.min.js"></script>
 <script type="text/javascript" src="../js/lib/handlebars.min.js"></script>
 <script type="text/javascript" src="../js/lib/yangaiche.js"></script>

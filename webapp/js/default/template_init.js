@@ -1,3 +1,5 @@
+yangaiche(sys.load_default_module)('super_dimmer');
+
 yangaiche(sys.init)(function (t) {
     function pick_a_tool(e) {
         t('body').append('<div id="sth-on-the-top"></div>');
@@ -11,6 +13,7 @@ yangaiche(sys.init)(function (t) {
             $sth_top.css('left', (e.pageX - width / 2) + 'px');
             $sth_top.css('top', (e.pageY - height / 2) + 'px');
         }
+
         stick(e);
 
         $sth_top.css('display', 'block');
@@ -28,9 +31,9 @@ yangaiche(sys.init)(function (t) {
         return false;
     }
 
-    t('#left-add').click(function () {
+    t('#comp-list-add').click(function () {
         var tpl = Handlebars.compile(t('#tool_tpl').text());
-        var ul = t('#left ul');
+        var ul = t('#left #comp-list');
         var html = tpl([{}]);
         console.log(html);
         ul.append(html);
@@ -44,4 +47,16 @@ yangaiche(sys.init)(function (t) {
     t('.tool.btn').mousedown(pick_a_tool);
 
     t('.tweak.btn').mousedown(tweak);
+
+    t('.tpl.btn').click(function () {
+        var confirmed = confirm('确定切换魔板么？一切都要重新开始...');
+        if (!confirmed) {
+            return;
+        }
+
+        t('#tpl-list').find('.btn').css('opacity', '0.6');
+        t(this).css('opacity', '1');
+    });
+
+    yangaiche(app.super_dimmer.setup)('#right #workspace', ['button', 'a']);
 });
