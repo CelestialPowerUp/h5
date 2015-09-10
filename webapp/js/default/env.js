@@ -8,7 +8,7 @@ app.env = {
 yangaiche(app.env.get, function () {
     return function () {
         var cfg = $.ajax({
-            url: './map/env.json',
+            url: yangaiche(sys.root) + '/map/env.json',
             cache: true,
             async: false,
             dataType: 'json'
@@ -27,7 +27,7 @@ yangaiche(app.env.get_host, function () {
     // 如需转义，请使用encodeURIComponent方法，对应的方法是decodeURIComponent
     return function () {
         var cfg = $.ajax({
-            url: './map/env.json',
+            url: yangaiche(sys.root) + '/map/env.json',
             cache: true,
             async: false,
             dataType: 'json'
