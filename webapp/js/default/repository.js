@@ -23,5 +23,9 @@ var key = {
     },
     snapshot: {
         order_list: 'snapshot_order_list'
+    },
+    qiniu: {
+        token: 'qiniu_token_key',
+        last_update: 'qiniu_token_last_update'
     }
 };
