@@ -21,9 +21,18 @@ yangaiche(sys.init)(function (t) {
 
         t('body').mousemove(stick);
 
-        t('body').mouseup(function () {
+        t('body').mouseup(function (e) {
             t('body').unbind('mousemove').unbind('mouseup');
             $sth_top.remove();
+
+            var last = null, done = false;
+            t.each(t('#editor').find('.component'), function(i, comp) {
+                if (null !== last && comp.offsetTop > e.pageY) {
+
+                } else {
+                    last = comp;
+                }
+            });
         });
     }
 
@@ -59,32 +68,22 @@ yangaiche(sys.init)(function (t) {
         t(this).css('opacity', '1');
     });
 
-    t('.component[data-tpl="image"]').click(function (e) {
-        console.log(e);
-        //alert('image clicked');
+    //for (var i = 1; i < 3; i++) {
+    //    yangaiche(app.qiniu_helper.bind)('test' + i, function (source, data) {
+    //        var $source = t('#' + source);
+    //        $source.css('background', 'url("' + data.data['raw_url'] + '") no-repeat center');
+    //        var image = new Image();
+    //        image.src = data.data['raw_url'];
+    //        image.onload = function () {
+    //            $source.css('height', (image.height) + 'px');
+    //        }
+    //    });
+    //}
 
-    });
-
-    for (var i = 1; i < 4; i++) {
-        yangaiche(app.qiniu_helper.bind)('test' + i, function (source, data) {
-            var $source = t('#' + source);
-            $source.css('background', 'url("' + data.data['raw_url'] + '") no-repeat center');
-            var image = new Image();
-            image.src = data.data['raw_url'];
-            image.onload = function () {
-                $source.css('height', (image.height) + 'px');
-            }
-        });
-    }
-
-    t('#right').hover(function () {
-        t(this).find('.component').removeClass('deactivated');
-        return false;
-    });
-
-    t('#editor').hover(function () {
+    t('#editor').mouseenter(function () {
         t(this).find('.component').addClass('deactivated');
-        return false;
+    }).mouseleave(function() {
+        t(this).find('.component').removeClass('deactivated');
     });
 
     //yangaiche(app.super_dimmer.setup)('#right #workspace', ['button', 'a']);
