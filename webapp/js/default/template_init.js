@@ -40,12 +40,12 @@ yangaiche(sys.init)(function (t) {
         ul.append(html);
         ul.css('padding-bottom', (40 * parseInt((1 + ul.children().length) / 2) + 4) + '%');
 
-        t('.tool.btn').unbind('mousedown').mousedown(pick_a_tool);
+        t('.comp.btn').unbind('mousedown').mousedown(pick_a_tool);
 
         t('.tweak.btn').unbind('mousedown').mousedown(tweak);
     });
 
-    t('.tool.btn').mousedown(pick_a_tool);
+    t('.comp.btn').mousedown(pick_a_tool);
 
     t('.tweak.btn').mousedown(tweak);
 
@@ -65,14 +65,26 @@ yangaiche(sys.init)(function (t) {
 
     });
 
-    yangaiche(app.qiniu_helper.bind)('test', function (source, data) {
-        var $source = t('#' + source);
-        $source.css('background', 'url("' + data.data['raw_url'] + '") no-repeat center');
-        var image = new Image();
-        image.src = data.data['raw_url'];
-        image.onload = function() {
-            $source.css('height', (image.height) + 'px');
-        }
+    for (var i = 1; i < 4; i++) {
+        yangaiche(app.qiniu_helper.bind)('test' + i, function (source, data) {
+            var $source = t('#' + source);
+            $source.css('background', 'url("' + data.data['raw_url'] + '") no-repeat center');
+            var image = new Image();
+            image.src = data.data['raw_url'];
+            image.onload = function () {
+                $source.css('height', (image.height) + 'px');
+            }
+        });
+    }
+
+    t('#right').hover(function () {
+        t(this).find('.component').removeClass('deactivated');
+        return false;
+    });
+
+    t('#editor').hover(function () {
+        t(this).find('.component').addClass('deactivated');
+        return false;
     });
 
     //yangaiche(app.super_dimmer.setup)('#right #workspace', ['button', 'a']);
