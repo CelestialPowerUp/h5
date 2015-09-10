@@ -1,4 +1,5 @@
 yangaiche(sys.load_default_module)('super_dimmer');
+yangaiche(sys.load_default_module)('qiniu_helper');
 
 yangaiche(sys.init)(function (t) {
     function pick_a_tool(e) {
@@ -58,5 +59,21 @@ yangaiche(sys.init)(function (t) {
         t(this).css('opacity', '1');
     });
 
-    yangaiche(app.super_dimmer.setup)('#right #workspace', ['button', 'a']);
+    t('.component[data-tpl="image"]').click(function (e) {
+        console.log(e);
+        //alert('image clicked');
+
+    });
+
+    yangaiche(app.qiniu_helper.bind)('test', function (source, data) {
+        var $source = t('#' + source);
+        $source.css('background', 'url("' + data.data['raw_url'] + '") no-repeat center');
+        var image = new Image();
+        image.src = data.data['raw_url'];
+        image.onload = function() {
+            $source.css('height', (image.height) + 'px');
+        }
+    });
+
+    //yangaiche(app.super_dimmer.setup)('#right #workspace', ['button', 'a']);
 });

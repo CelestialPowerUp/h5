@@ -127,15 +127,33 @@
         #right {
             width: 80%;
             background: #AAA;
-            overflow: hidden;
+            overflow-y: scroll;
         }
 
         #right #workspace {
             width: 640px;
-            height: 100%;
             margin: 0 auto;
 
             background: #FFF;
+        }
+
+        .component {
+            width: 640px;
+
+            opacity: 1;
+
+            transition: all .3s;
+            -moz-transition: all .3s;
+            -webkit-transition: all .3s;
+            -o-transition: all .3s;
+        }
+
+        .deactivated {
+            opacity: 0.5;
+        }
+
+        .deactivated:hover, .deactivated:focus {
+            opacity: 1;
         }
 
         #sth-on-the-top {
@@ -169,15 +187,9 @@
     </div>
     <div id="right">
         <div id="workspace">
-            <button>hello world</button>
-            <br>
-            <br>
-            <br>
-            <span><a>hello world</a>&nbsp;&nbsp;&nbsp;&nbsp;<a>hello world</a></span>
-            <br>
-            <br>
-            <br>
-            <button>hello world</button>
+            <div id="test" data-tpl="image" class="component deactivated" style="height: 320px;background: url('./img/view.jpeg') no-repeat center;"></div>
+            <!--<div class="component deactivated" style="height: 320px;background: url('./img/view.jpeg') no-repeat center;"></div>-->
+            <!--<div data-tpl="image" class="component deactivated" style="height: 320px;background: url('./img/view.jpeg') no-repeat center;"></div>-->
         </div>
     </div>
 </div>
