@@ -1,61 +1,8 @@
 //yangaiche(sys.load_default_module)('super_dimmer');
 yangaiche(sys.load_default_module)('qiniu_helper');
+yangaiche(sys.load_default_module)('activity_comp_editor');
 
 yangaiche(sys.init)(function (t) {
-
-    var predefined = {
-        height: 220,
-        background: '#FFF'
-    };
-    var components = {
-        count: 1,
-        refresh: function () {
-            console.log(components);
-            var html = '', id, i;
-            for (i = 0; i < components.count; i++) {
-                id = 'editor_component_' + i;
-
-                html += components.template({
-                    id: id,
-                    data_tpl: components[id].data_tpl,
-                    background: components[id].background,
-                    height: components[id].height
-                })
-            }
-            console.log(html);
-            t('#editor').empty().html(html);
-            for (i = 0; i < components.count; i++) {
-                id = 'editor_component_' + i;
-                components.post[components[id].data_tpl](id);
-            }
-        },
-        background: {
-            placeholder: '#FFF',
-            image: 'url("./img/view.jpeg") no-repeat center'
-        },
-        post: {
-            placeholder: function () {
-            },
-            image: function (comp_id) {
-                yangaiche(app.qiniu_helper.bind)(comp_id, function (source, data) {
-                    var $source = components[source];
-                    $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
-                    var image = new Image();
-                    image.src = data.data['raw_url'];
-                    image.onload = function () {
-                        $source.height = (image.height);
-                        components.refresh();
-                    }
-                });
-            }
-        },
-        template: Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};"></div>'),
-        editor_component_0: {
-            data_tpl: 'placeholder',
-            background: predefined.background,
-            height: predefined.height
-        }
-    };
 
     function pick_a_tool(e) {
         t('body').append('<div id="sth-on-the-top"></div>');
@@ -85,20 +32,23 @@ yangaiche(sys.init)(function (t) {
 
             function place($comp) {
                 if (!done) {
+                    var id = parseInt($comp.attr('id').match(/editor_component_(\d+)/)[1]);
                     var data_tpl = $sth_top.attr('data-tpl');
-                    var $comp_id_count = parseInt($comp.attr('id').match(/editor_component_(\d+)/)[1]);
-                    var i;
-                    for (i = components.count; i > $comp_id_count; i--) {
-                        components['editor_component_' + i] = components['editor_component_' + (i - 1)];
-                    }
-                    var id = 'editor_component_' + i;
-                    components[id] = {
-                        data_tpl: data_tpl,
-                        background: components.background[data_tpl],
-                        height: predefined.height
-                    };
-                    components.count += 1;
-                    components.refresh();
+
+                    yangaiche(app.activity_comp_editor.insert_before)(id, data_tpl, function(id, data_tpl, data) {
+                        if ('image' === data_tpl) {
+                            var $source = data;
+                            yangaiche(app.qiniu_helper.bind)(id, function (source, data) {
+                                $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
+                                var image = new Image();
+                                image.src = data.data['raw_url'];
+                                image.onload = function () {
+                                    $source.height = (image.height);
+                                    yangaiche(app.activity_comp_editor.refresh)();
+                                }
+                            });
+                        }
+                    });
 
                     done = true;
                 }
@@ -106,6 +56,7 @@ yangaiche(sys.init)(function (t) {
 
             t.each(t('#editor').find('.component'), function (i, comp) {
                 var $comp = t(comp);
+                //console.log($comp);
                 if (!done && ($comp.offset().top + $comp.height()) > e.pageY) {
                     place($comp);
                 }
