@@ -72,19 +72,6 @@ yangaiche(sys.init)(function (t) {
         return false;
     }
 
-    //t('#comp-list-add').click(function () {
-    //    var tpl = Handlebars.compile(t('#tool_tpl').text());
-    //    var ul = t('#left #comp-list');
-    //    var html = tpl([{}]);
-    //    console.log(html);
-    //    ul.append(html);
-    //    ul.css('padding-bottom', (40 * parseInt((1 + ul.children().length) / 2) + 4) + '%');
-    //
-    //    t('.comp.btn').unbind('mousedown').mousedown(pick_a_tool);
-    //
-    //    t('.tweak.btn').unbind('mousedown').mousedown(tweak);
-    //});
-
     t('.comp.btn').mousedown(pick_a_tool);
 
     t('.tweak.btn').mousedown(tweak);
@@ -105,5 +92,5 @@ yangaiche(sys.init)(function (t) {
         t(this).find('.component').removeClass('deactivated');
     });
 
-    //yangaiche(app.super_dimmer.setup)('#right #workspace', ['button', 'a']);
+    yangaiche(app.activity_comp_editor.refresh)();
 });

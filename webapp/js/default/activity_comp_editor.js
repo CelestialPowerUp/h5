@@ -17,7 +17,8 @@ app.activity_comp_editor = {
             data: {
                 data_tpl: 'placeholder',
                 background: '#EEE',
-                height: 220
+                height: 220,
+                inner: '<div style="width: 100%;height: 220px;line-height: 220px;text-align: center;">+++添加+++</div>'
             },
             post: function() {}
         }
@@ -53,7 +54,7 @@ yangaiche(app.activity_comp_editor.data.get, function () {
 });
 
 yangaiche(app.activity_comp_editor.template, function () {
-    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};">{{inner}}</div>');
+    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};">{{{inner}}}</div>');
     return function (id) {
         return tpl(yangaiche(app.activity_comp_editor.data.get)(id));
     };
