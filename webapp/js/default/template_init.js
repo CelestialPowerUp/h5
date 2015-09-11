@@ -1,7 +1,62 @@
-yangaiche(sys.load_default_module)('super_dimmer');
+//yangaiche(sys.load_default_module)('super_dimmer');
 yangaiche(sys.load_default_module)('qiniu_helper');
 
 yangaiche(sys.init)(function (t) {
+
+    var predefined = {
+        height: 220,
+        background: '#FFF'
+    };
+    var components = {
+        count: 1,
+        refresh: function () {
+            console.log(components);
+            var html = '', id, i;
+            for (i = 0; i < components.count; i++) {
+                id = 'editor_component_' + i;
+
+                html += components.template({
+                    id: id,
+                    data_tpl: components[id].data_tpl,
+                    background: components[id].background,
+                    height: components[id].height
+                })
+            }
+            console.log(html);
+            t('#editor').empty().html(html);
+            for (i = 0; i < components.count; i++) {
+                id = 'editor_component_' + i;
+                components.post[components[id].data_tpl](id);
+            }
+        },
+        background: {
+            placeholder: '#FFF',
+            image: 'url("./img/view.jpeg") no-repeat center'
+        },
+        post: {
+            placeholder: function () {
+            },
+            image: function (comp_id) {
+                yangaiche(app.qiniu_helper.bind)(comp_id, function (source, data) {
+                    var $source = components[source];
+                    $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
+                    var image = new Image();
+                    image.src = data.data['raw_url'];
+                    image.onload = function () {
+                        $source.height = (image.height);
+                        components.refresh();
+                    }
+                });
+            }
+        },
+        template: Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};"></div>'),
+        editor_component_0: {
+            data_tpl: 'placeholder',
+            background: predefined.background,
+            height: predefined.height
+        }
+    };
+
     function pick_a_tool(e) {
         t('body').append('<div id="sth-on-the-top"></div>');
 
@@ -9,6 +64,10 @@ yangaiche(sys.init)(function (t) {
         $sth_top.width(width);
         $sth_top.height(height);
         $sth_top.css('background', $this.css('background'));
+
+        console.log($sth_top);
+
+        $sth_top.attr('data-tpl', $this.attr('data-tpl'));
 
         function stick(e) {
             $sth_top.css('left', (e.pageX - width / 2) + 'px');
@@ -22,17 +81,38 @@ yangaiche(sys.init)(function (t) {
         t('body').mousemove(stick);
 
         t('body').mouseup(function (e) {
-            t('body').unbind('mousemove').unbind('mouseup');
-            $sth_top.remove();
+            var done = false;
 
-            var last = null, done = false;
-            t.each(t('#editor').find('.component'), function(i, comp) {
-                if (null !== last && comp.offsetTop > e.pageY) {
+            function place($comp) {
+                if (!done) {
+                    var data_tpl = $sth_top.attr('data-tpl');
+                    var $comp_id_count = parseInt($comp.attr('id').match(/editor_component_(\d+)/)[1]);
+                    var i;
+                    for (i = components.count; i > $comp_id_count; i--) {
+                        components['editor_component_' + i] = components['editor_component_' + (i - 1)];
+                    }
+                    var id = 'editor_component_' + i;
+                    components[id] = {
+                        data_tpl: data_tpl,
+                        background: components.background[data_tpl],
+                        height: predefined.height
+                    };
+                    components.count += 1;
+                    components.refresh();
 
-                } else {
-                    last = comp;
+                    done = true;
+                }
+            }
+
+            t.each(t('#editor').find('.component'), function (i, comp) {
+                var $comp = t(comp);
+                if (!done && ($comp.offset().top + $comp.height()) > e.pageY) {
+                    place($comp);
                 }
             });
+
+            t('body').unbind('mousemove').unbind('mouseup');
+            $sth_top.remove();
         });
     }
 
@@ -41,18 +121,18 @@ yangaiche(sys.init)(function (t) {
         return false;
     }
 
-    t('#comp-list-add').click(function () {
-        var tpl = Handlebars.compile(t('#tool_tpl').text());
-        var ul = t('#left #comp-list');
-        var html = tpl([{}]);
-        console.log(html);
-        ul.append(html);
-        ul.css('padding-bottom', (40 * parseInt((1 + ul.children().length) / 2) + 4) + '%');
-
-        t('.comp.btn').unbind('mousedown').mousedown(pick_a_tool);
-
-        t('.tweak.btn').unbind('mousedown').mousedown(tweak);
-    });
+    //t('#comp-list-add').click(function () {
+    //    var tpl = Handlebars.compile(t('#tool_tpl').text());
+    //    var ul = t('#left #comp-list');
+    //    var html = tpl([{}]);
+    //    console.log(html);
+    //    ul.append(html);
+    //    ul.css('padding-bottom', (40 * parseInt((1 + ul.children().length) / 2) + 4) + '%');
+    //
+    //    t('.comp.btn').unbind('mousedown').mousedown(pick_a_tool);
+    //
+    //    t('.tweak.btn').unbind('mousedown').mousedown(tweak);
+    //});
 
     t('.comp.btn').mousedown(pick_a_tool);
 
@@ -68,21 +148,9 @@ yangaiche(sys.init)(function (t) {
         t(this).css('opacity', '1');
     });
 
-    //for (var i = 1; i < 3; i++) {
-    //    yangaiche(app.qiniu_helper.bind)('test' + i, function (source, data) {
-    //        var $source = t('#' + source);
-    //        $source.css('background', 'url("' + data.data['raw_url'] + '") no-repeat center');
-    //        var image = new Image();
-    //        image.src = data.data['raw_url'];
-    //        image.onload = function () {
-    //            $source.css('height', (image.height) + 'px');
-    //        }
-    //    });
-    //}
-
     t('#editor').mouseenter(function () {
         t(this).find('.component').addClass('deactivated');
-    }).mouseleave(function() {
+    }).mouseleave(function () {
         t(this).find('.component').removeClass('deactivated');
     });
 
