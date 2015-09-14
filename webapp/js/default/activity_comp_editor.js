@@ -2,6 +2,7 @@ yangaiche(sys.load_default_module)('obj_util');
 yangaiche(sys.load_default_module)('http');
 
 app.activity_comp_editor = {
+    init: 'activity_comp_editor_init',
     refresh: 'activity_comp_editor_refresh',
     template: 'activity_comp_editor_template',
     insert_before: 'activity_comp_editor_insert_before',
@@ -10,6 +11,8 @@ app.activity_comp_editor = {
         get: 'activity_comp_editor_data_get'
     },
 
+    comp_tpls: {},
+    js_suit_tpls: {},
     count: 1,
     components: {
         editor_component_0: {
@@ -18,31 +21,50 @@ app.activity_comp_editor = {
                 data_tpl: 'placeholder',
                 background: '#EEE',
                 height: 220,
-                inner: '<div style="width: 100%;height: 220px;line-height: 220px;text-align: center;">+++添加+++</div>'
+                inner_html: '<div style="width: 100%;height: 220px;line-height: 220px;text-align: center;">+++添加+++</div>'
             },
-            post: function() {}
+            post: function () {
+            }
         }
     }
 };
 
-yangaiche(app.activity_comp_editor.data.init, function () {
-    var data_tpls = {
-        image: {
-            data_tpl: 'image',
-            background: 'url("./img/view.jpeg") no-repeat center',
-            height: 220
-        }
+yangaiche(app.activity_comp_editor.init, function () {
+    var t = yangaiche(sys.$),
+        comp_tpl_fn = Handlebars.compile(t('#comp_tpl').text()),
+        js_suit_tpl_fn = Handlebars.compile(t('#js_suit_tpl').text());
+    return function ($comp_list, $js_suit_list, callback) {
+        var comp_tpls = app.activity_comp_editor.comp_tpls,
+            js_suit_tpls = app.activity_comp_editor.js_suit_tpls;
+        yangaiche(app.http.get_request)('/v1/api/h5template/configs.json', function (data) {
+            console.log(data);
+            t.each(data['component_tpls'], function (i, comp) {
+                comp_tpls[comp['data_tpl']] = comp;
+            });
+            t.each(data['js_suit_tpls'], function(i , js_suit) {
+                js_suit_tpls[js_suit['id']] = js_suit;
+            });
+
+            $comp_list.empty().html(comp_tpl_fn(data['component_tpls']));
+            $js_suit_list.empty().html(js_suit_tpl_fn(data['js_suit_tpls']));
+
+            callback();
+        });
     };
+});
+
+yangaiche(app.activity_comp_editor.data.init, function () {
     return function (id) {
-        var comps = app.activity_comp_editor.components;
-        var ret = yangaiche(app.obj_util.copy)(data_tpls[comps[id].data_tpl]);
+        var comps = app.activity_comp_editor.components,
+            comp_tpls = app.activity_comp_editor.comp_tpls;
+        var ret = yangaiche(app.obj_util.copy)(comp_tpls[comps[id].data_tpl]);
         ret.id = id;
         return ret;
     };
 });
 
 yangaiche(app.activity_comp_editor.data.get, function () {
-    return function(id) {
+    return function (id) {
         var comps = app.activity_comp_editor.components;
         if (yangaiche(sys.exist)(comps[id].data)) {
             comps[id].data.id = id;
@@ -54,7 +76,7 @@ yangaiche(app.activity_comp_editor.data.get, function () {
 });
 
 yangaiche(app.activity_comp_editor.template, function () {
-    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};">{{{inner}}}</div>');
+    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};">{{{inner_html}}}</div>');
     return function (id) {
         return tpl(yangaiche(app.activity_comp_editor.data.get)(id));
     };

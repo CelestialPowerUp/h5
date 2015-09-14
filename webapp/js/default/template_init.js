@@ -3,7 +3,6 @@ yangaiche(sys.load_default_module)('qiniu_helper');
 yangaiche(sys.load_default_module)('activity_comp_editor');
 
 yangaiche(sys.init)(function (t) {
-
     function pick_a_tool(e) {
         t('body').append('<div id="sth-on-the-top"></div>');
 
@@ -72,17 +71,19 @@ yangaiche(sys.init)(function (t) {
         return false;
     }
 
-    t('.comp.btn').mousedown(pick_a_tool);
+    yangaiche(app.activity_comp_editor.init)(t('#comp-list'), t('#js-suit-list'), function() {
+        t('.comp.btn').mousedown(pick_a_tool);
 
-    t('.tweak.btn').mousedown(tweak);
+        t('.tweak.btn').mousedown(tweak);
+    });
 
-    t('.tpl.btn').click(function () {
+    t('.js-suit.btn').click(function () {
         var confirmed = confirm('确定切换魔板么？一切都要重新开始...');
         if (!confirmed) {
             return;
         }
 
-        t('#tpl-list').find('.btn').css('opacity', '0.6');
+        t('#js-suit-list').find('.btn').css('opacity', '0.6');
         t(this).css('opacity', '1');
     });
 
