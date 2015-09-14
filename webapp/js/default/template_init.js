@@ -43,6 +43,7 @@ yangaiche(sys.init)(function (t) {
                                 image.src = data.data['raw_url'];
                                 image.onload = function () {
                                     $source.height = (image.height);
+                                    $source.inner_html = '';
                                     yangaiche(app.activity_comp_editor.refresh)();
                                 }
                             });
@@ -67,24 +68,25 @@ yangaiche(sys.init)(function (t) {
     }
 
     function tweak() {
-        alert('尼玛，tweak!!!');
+        alert('unimplemented!!!');
         return false;
     }
 
     yangaiche(app.activity_comp_editor.init)(t('#comp-list'), t('#js-suit-list'), function() {
         t('.comp.btn').mousedown(pick_a_tool);
-
         t('.tweak.btn').mousedown(tweak);
-    });
 
-    t('.js-suit.btn').click(function () {
-        var confirmed = confirm('确定切换魔板么？一切都要重新开始...');
-        if (!confirmed) {
-            return;
-        }
+        t('.js-suit.btn').click(function () {
+            var confirmed = confirm('确定切换魔板么？一切都要重新开始...');
+            if (!confirmed) {
+                return;
+            }
 
-        t('#js-suit-list').find('.btn').css('opacity', '0.6');
-        t(this).css('opacity', '1');
+            t('#js-suit-list').find('.btn').css('opacity', '0.6');
+            t(this).css('opacity', '1');
+        });
+
+        yangaiche(app.activity_comp_editor.refresh)();
     });
 
     t('#editor').mouseenter(function () {
@@ -92,6 +94,4 @@ yangaiche(sys.init)(function (t) {
     }).mouseleave(function () {
         t(this).find('.component').removeClass('deactivated');
     });
-
-    yangaiche(app.activity_comp_editor.refresh)();
 });
