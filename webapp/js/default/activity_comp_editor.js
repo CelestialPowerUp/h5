@@ -76,7 +76,7 @@ yangaiche(app.activity_comp_editor.data.get, function () {
 });
 
 yangaiche(app.activity_comp_editor.template, function () {
-    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="height: {{height}}px;background: {{background}};">{{{inner_html}}}</div>');
+    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="overflow: hidden;height: {{height}}px;background: {{background}};">{{{inner_html}}}</div>');
     return function (id) {
         return tpl(yangaiche(app.activity_comp_editor.data.get)(id));
     };
