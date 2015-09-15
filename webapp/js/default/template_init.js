@@ -3,7 +3,87 @@ yangaiche(sys.load_default_module)('qiniu_helper');
 yangaiche(sys.load_default_module)('activity_comp_editor');
 
 yangaiche(sys.init)(function (t) {
-    function pick_a_tool(e) {
+
+    function show_delete($component) {
+        var $delete_comp_btn = t('#sth-on-the-control');
+
+        if ('placeholder' === $component.attr('data-tpl')) {
+            hide_delete();
+            return;
+        }
+
+        $delete_comp_btn.css('left', ($component.offset().left - 30) + 'px');
+        $delete_comp_btn.css('top', $component.offset().top + 'px');
+
+        $delete_comp_btn.attr('data-rel', $component.attr('id'));
+
+        $delete_comp_btn.css('display', 'block');
+
+        $delete_comp_btn.unbind('click').click(function () {
+            var confirm_delete_comp = confirm('确定删除么？');
+            if (confirm_delete_comp) {
+                yangaiche(app.activity_comp_editor.delete_comp)(t(this).attr('data-rel'));
+            }
+        });
+    }
+
+    function hide_delete() {
+        t('#sth-on-the-control').css('display', 'none');
+    }
+
+    function bind_delete() {
+        t('#editor .component')
+            .unbind('mouseenter')
+            .unbind('mousemove')
+            .mouseenter(function () {
+                show_delete(t(this));
+            })
+            .mousemove(function () {
+                show_delete(t(this));
+            });
+        t('#right').unbind('scroll').scroll(hide_delete);
+    }
+
+    function place_a_comp(e, $sth_top) {
+        var done = false;
+
+        function _place($comp) {
+            if (!done) {
+                var id = parseInt($comp.attr('id').match(/editor_component_(\d+)/)[1]);
+                var data_tpl = $sth_top.attr('data-tpl');
+
+                yangaiche(app.activity_comp_editor.insert_before)(id, data_tpl, function (id, data_tpl, data) {
+                    if ('image' === data_tpl) {
+                        var $source = data;
+                        yangaiche(app.qiniu_helper.bind)(id, function (source, data) {
+                            $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
+                            var image = new Image();
+                            image.src = data.data['raw_url'];
+                            image.onload = function () {
+                                $source.height = (image.height);
+                                $source.inner_html = '';
+                                yangaiche(app.activity_comp_editor.refresh)();
+                            }
+                        });
+                    }
+                });
+
+                done = true;
+            }
+        }
+
+        t.each(t('#editor').find('.component'), function (i, comp) {
+            var $comp = t(comp);
+            if (!done && ($comp.offset().top + $comp.height()) > e.pageY) {
+                _place($comp);
+            }
+        });
+
+        t('body').unbind('mousemove').unbind('mouseup');
+        $sth_top.remove();
+    }
+
+    function pick_a_comp(e) {
         t('body').append('<div id="sth-on-the-top"></div>');
 
         var $this = t(this), width = $this.width(), height = $this.css('padding-bottom').match(/(\d+)/)[1], $sth_top = t('#sth-on-the-top');
@@ -27,43 +107,7 @@ yangaiche(sys.init)(function (t) {
         t('body').mousemove(stick);
 
         t('body').mouseup(function (e) {
-            var done = false;
-
-            function place($comp) {
-                if (!done) {
-                    var id = parseInt($comp.attr('id').match(/editor_component_(\d+)/)[1]);
-                    var data_tpl = $sth_top.attr('data-tpl');
-
-                    yangaiche(app.activity_comp_editor.insert_before)(id, data_tpl, function(id, data_tpl, data) {
-                        if ('image' === data_tpl) {
-                            var $source = data;
-                            yangaiche(app.qiniu_helper.bind)(id, function (source, data) {
-                                $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
-                                var image = new Image();
-                                image.src = data.data['raw_url'];
-                                image.onload = function () {
-                                    $source.height = (image.height);
-                                    $source.inner_html = '';
-                                    yangaiche(app.activity_comp_editor.refresh)();
-                                }
-                            });
-                        }
-                    });
-
-                    done = true;
-                }
-            }
-
-            t.each(t('#editor').find('.component'), function (i, comp) {
-                var $comp = t(comp);
-                //console.log($comp);
-                if (!done && ($comp.offset().top + $comp.height()) > e.pageY) {
-                    place($comp);
-                }
-            });
-
-            t('body').unbind('mousemove').unbind('mouseup');
-            $sth_top.remove();
+            place_a_comp(e, $sth_top);
         });
     }
 
@@ -72,8 +116,8 @@ yangaiche(sys.init)(function (t) {
         return false;
     }
 
-    yangaiche(app.activity_comp_editor.init)(t('#comp-list'), t('#js-suit-list'), function() {
-        t('.comp.btn').mousedown(pick_a_tool);
+    yangaiche(app.activity_comp_editor.init)(t('#comp-list'), t('#js-suit-list'), function () {
+        t('.comp.btn').mousedown(pick_a_comp);
         t('.tweak.btn').mousedown(tweak);
 
         t('.js-suit.btn').click(function () {
@@ -87,7 +131,7 @@ yangaiche(sys.init)(function (t) {
         });
 
         yangaiche(app.activity_comp_editor.refresh)();
-    });
+    }, bind_delete);
 
     t('#editor').mouseenter(function () {
         t(this).find('.component').addClass('deactivated');

@@ -6,11 +6,13 @@ app.activity_comp_editor = {
     refresh: 'activity_comp_editor_refresh',
     template: 'activity_comp_editor_template',
     insert_before: 'activity_comp_editor_insert_before',
+    delete_comp: 'activity_comp_editor_delete',
     data: {
         init: 'activity_comp_editor_data_init',
         get: 'activity_comp_editor_data_get'
     },
 
+    callback_after_refresh: null,
     comp_tpls: {},
     js_suit_tpls: {},
     count: 1,
@@ -33,7 +35,8 @@ yangaiche(app.activity_comp_editor.init, function () {
     var t = yangaiche(sys.$),
         comp_tpl_fn = Handlebars.compile(t('#comp_tpl').text()),
         js_suit_tpl_fn = Handlebars.compile(t('#js_suit_tpl').text());
-    return function ($comp_list, $js_suit_list, callback) {
+    return function ($comp_list, $js_suit_list, callback, callback_after_refresh) {
+        app.activity_comp_editor.callback_after_refresh = callback_after_refresh;
         var comp_tpls = app.activity_comp_editor.comp_tpls,
             js_suit_tpls = app.activity_comp_editor.js_suit_tpls;
         yangaiche(app.http.get_request)('/v1/api/h5template/configs.json', function (data) {
@@ -41,7 +44,7 @@ yangaiche(app.activity_comp_editor.init, function () {
             t.each(data['component_tpls'], function (i, comp) {
                 comp_tpls[comp['data_tpl']] = comp;
             });
-            t.each(data['js_suit_tpls'], function(i , js_suit) {
+            t.each(data['js_suit_tpls'], function (i, js_suit) {
                 js_suit_tpls[js_suit['id']] = js_suit;
             });
 
@@ -87,7 +90,8 @@ yangaiche(app.activity_comp_editor.refresh, function () {
     return function () {
         console.log(app.activity_comp_editor.components);
         var comps = app.activity_comp_editor.components,
-            count = app.activity_comp_editor.count;
+            count = app.activity_comp_editor.count,
+            callback_after_refresh = app.activity_comp_editor.callback_after_refresh;
         var html = '', id, i;
         for (i = 0; i < count; i++) {
             id = 'editor_component_' + i;
@@ -97,6 +101,9 @@ yangaiche(app.activity_comp_editor.refresh, function () {
         for (i = 0; i < count; i++) {
             id = 'editor_component_' + i;
             comps[id].post(id, comps[id].data_tpl, comps[id].data);
+        }
+        if (yangaiche(sys.exist)(callback_after_refresh)) {
+            callback_after_refresh();
         }
     };
 });
@@ -118,4 +125,19 @@ yangaiche(app.activity_comp_editor.insert_before, function () {
         app.activity_comp_editor.count += 1;
         yangaiche(app.activity_comp_editor.refresh)();
     };
+});
+
+yangaiche(app.activity_comp_editor.delete_comp, function () {
+    return function (id) {
+        var i = parseInt(id.match(/editor_component_(\d+)/)[1]),
+            comps = app.activity_comp_editor.components,
+            count = app.activity_comp_editor.count - 1;
+
+        for (; i < count; i++) {
+            comps['editor_component_' + i] = comps['editor_component_' + (i + 1)];
+        }
+
+        app.activity_comp_editor.count = count;
+        yangaiche(app.activity_comp_editor.refresh)();
+    }
 });

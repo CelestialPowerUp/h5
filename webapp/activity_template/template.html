@@ -165,6 +165,16 @@
 
             display: none;
         }
+
+        #sth-on-the-control {
+            position: absolute;
+            z-index: 8888;
+
+            left: 0;
+            top: 0;
+
+            display: none;
+        }
     </style>
 </head>
 <body root="..">
@@ -172,12 +182,10 @@
 <div id="wrapper">
     <div id="left">
         <div class="title">模板</div>
-        <ul id="js-suit-list">
-        </ul>
+        <ul id="js-suit-list"></ul>
         <div id="js-suit-list-add" class="title btn">添加</div>
         <div class="title">工具箱</div>
-        <ul id="comp-list">
-        </ul>
+        <ul id="comp-list"></ul>
         <div id="comp-list-add" class="title btn">添加</div>
     </div>
     <div id="right">
@@ -186,6 +194,12 @@
             </div>
         </div>
     </div>
+</div>
+<div id="sth-on-the-control">
+    <svg height="30" width="30">
+        <line x1="0" y1="0" x2="30" y2="30" style="stroke:rgb(255,0,0);stroke-width:2" ></line>
+        <line x1="0" y1="30" x2="30" y2="0" style="stroke:rgb(255,0,0);stroke-width:2" ></line>
+    </svg>
 </div>
 
 <script type="text/x-handlebars-template" id="comp_tpl">{{#each this}}
