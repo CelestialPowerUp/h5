@@ -256,7 +256,7 @@
 
 <script type="text/x-handlebars-template" id="store_banners_tpl">{{#this}}
     {{#solo}}
-        <a href="{{link_url}}">
+        <a data-rel="{{link_url}}">
             <img src="{{image_url}}">
         </a>
     {{/solo}}
@@ -266,7 +266,7 @@
         <ul class="am-slides">
             {{#each data}}
                 <li>
-                    <a href="{{link_url}}">
+                    <a data-rel="{{link_url}}">
                         <img src="{{image_url}}">
                     </a>
                 </li>
