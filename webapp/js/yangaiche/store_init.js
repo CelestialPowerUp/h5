@@ -29,7 +29,6 @@ yangaiche(sys.init)(function (t) {
             if (this_context === accept_context2) {
                 t('#banner img').unbind('click').click(function () {
                     var data = {type: 0, web_url: t(t(this).parents()[0]).attr('data-rel')};
-                    alert(JSON.stringify(data));
                     bridge['callHandler']('route', data, function (responseData) {
                         console.log('JS got response: ' + responseData);
                     });
