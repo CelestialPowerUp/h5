@@ -40,6 +40,7 @@ yangaiche(sys.init)(function (t) {
                     d['order_rating'] = make_array(d['service_rating']);
                     d['keeper_rating'] = make_array(d['keeper_rating']);
                     d['create_time'] = d['create_time'].substr(0, (4 + 2 + 1 + 2 + 1));
+                    d['comment_user_name'] = d['comment_user_name'].substr(0, 1) + '**';
                 });
 
                 var tpl = Handlebars.compile(t("#store_item_comment_tpl").text());
@@ -86,7 +87,7 @@ yangaiche(sys.init)(function (t) {
             var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
             t('body').prepend(tpl(data));
 
-            t('.store-item-u-price').text('¥' + data['ware_mark_price']);
+            t('.store-item-u-price').text('¥' + data['ware_mark_price'].toFixed(2));
             t('#item_title').text(data['ware_name']);
 
             load_comments(data);

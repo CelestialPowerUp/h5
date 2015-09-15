@@ -55,6 +55,11 @@ yangaiche(sys.init)(function (t) {
                     wl.odd_or_even = 'even';
                 }
                 wl['cover_img']['raw_url'] = wl['cover_img']['raw_url'] + '?imageView2/0/w/290/h/163/interlace/1';
+                if (Math.abs(wl['ware_price_min'].toFixed(2) - wl['ware_price_max'].toFixed(2)) > 0) {
+                    wl['ware_mark_price'] = wl['ware_price_min'].toFixed(2) + '~¥' + wl['ware_price_max'].toFixed(2);
+                } else {
+                    wl['ware_mark_price'] = wl['ware_mark_price'].toFixed(2);
+                }
             });
         });
         data.splice(to_move_index, 1);
