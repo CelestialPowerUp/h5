@@ -36,6 +36,10 @@ yangaiche(sys.init)(function (t) {
         t('#banner').empty().html(tpl(data));
 
         t('.am-slider').flexslider({playAfterPaused: 8000});
+
+        t('#banner img').click(function () {
+            yangaiche(ls.back.set_back_to_self)(t(t(this).parents()[0]).attr('data-rel'));
+        });
     }, function (error) {
         yangaiche(app.show_msg.show)(error['message']);
     });

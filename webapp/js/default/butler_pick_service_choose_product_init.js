@@ -74,27 +74,23 @@ yangaiche(sys.init)(function (t) {
                 return new_array;
             }
 
-            function recalculate_products(products) {
-                var total_price = 0, total_products = products || copy(required_products);
+            function recalculate_products() {
+                var total_price = 0, total_products = copy(required_products);
                 t.each(t('.my-btn-group'), function (i, btn_group) {
                     var selected_rel = t(btn_group).attr('data-rel');
                     var p = product_dict[selected_rel];
                     if (p) {
-                        if (products) {
-                            p['total_price'] = parseFloat(calculate([p]));
-                            total_products.push(p);
-                        }
+                        p['total_price'] = parseFloat(calculate([p]));
+                        total_products.push(p);
                         total_price += parseFloat(calculate([p]));
                     }
                 });
                 var now_total_price = (parseFloat(required_price) + total_price).toFixed(2);
                 t('#total_price').html('¥' + now_total_price);
-                if (products) {
-                    yangaiche(ls.order.update)(function (order) {
-                        order['total_price'] = now_total_price;
-                        order['products'] = total_products;
-                    });
-                }
+                yangaiche(ls.order.update)(function (order) {
+                    order['total_price'] = now_total_price;
+                    order['products'] = total_products;
+                });
             }
 
             recalculate_products();
@@ -137,7 +133,7 @@ yangaiche(sys.init)(function (t) {
                     order['service_type'] = t('#community_only .my-btn-group').attr('data-key');
                 });
 
-                recalculate_products(required_products);
+                recalculate_products();
 
                 yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
 

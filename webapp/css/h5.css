@@ -1751,8 +1751,8 @@ body {
     text-indent: 20px;
 }
 
-#store-item-comments ul li {
-    /*background: #555;*/
+#store-item-comments ul {
+    list-style-type: none;
 }
 
 #store-item-comments ul li hr {
