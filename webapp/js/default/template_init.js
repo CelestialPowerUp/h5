@@ -1,6 +1,9 @@
 //yangaiche(sys.load_default_module)('super_dimmer');
 yangaiche(sys.load_default_module)('qiniu_helper');
 yangaiche(sys.load_default_module)('activity_comp_editor');
+yangaiche(sys.load_default_module)('http');
+yangaiche(sys.load_default_module)('form');
+yangaiche(sys.load_default_module)('obj_util');
 
 yangaiche(sys.init)(function (t) {
 
@@ -138,4 +141,54 @@ yangaiche(sys.init)(function (t) {
     }).mouseleave(function () {
         t(this).find('.component').removeClass('deactivated');
     });
+
+    t('#activity-submit').click(function () {
+        t('#sth-on-the-form').show();
+    });
+
+    t('#activity-add').click(function () {
+        var params = yangaiche(app.form.to_obj)('#activity-add-form'),
+            components = yangaiche(app.activity_comp_editor.get_components)();
+
+        console.log(params);
+        console.log(components);
+
+        if (components.length <= 0) {
+            alert('请先设计界面');
+            return;
+        }
+
+        yangaiche(app.obj_util.is_missing_key)(params, function(key) {});
+
+        params.product_id = 999;
+        yangaiche(app.http.post_request)('/v1/api/activity/create', params, function (data) {
+            console.log(data);
+            yangaiche(app.http.post_request)('/v1/api/h5template/create.json', {
+                page_code: data.code,
+                page_config: {
+                    component_tpls: components,
+                    "js_suit_tpls": [
+                        {
+                            "js_suit": [
+                                "share",
+                                "external_sale_pay"
+                            ]
+                        }
+                    ]
+                }
+            }, function (inner_data) {
+                console.log(inner_data);
+                alert('添加成功');
+                t('#sth-on-the-form').hide();
+            });
+        }, function (error) {
+            console.log(error);
+            alert('添加失败');
+        });
+    });
+
+    t('#activity-cancel').click(function () {
+        t('#sth-on-the-form').hide();
+    });
+
 });

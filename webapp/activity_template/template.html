@@ -175,6 +175,27 @@
 
             display: none;
         }
+
+        #sth-on-the-form {
+            position: absolute;
+            z-index: 10000;
+
+            width: 800px;
+            height: 300px;
+
+            left: 50%;
+            top: 50%;
+
+            margin-left: -400px;
+            margin-top: -150px;
+
+            display: none;
+        }
+
+        .my-form-label {
+            height: 41px;
+            line-height: 41px;
+        }
     </style>
 </head>
 <body root="..">
@@ -187,6 +208,7 @@
         <div class="title">工具箱</div>
         <ul id="comp-list"></ul>
         <div id="comp-list-add" class="title btn">添加</div>
+        <div id="activity-submit" class="title btn">提交</div>
     </div>
     <div id="right">
         <div id="workspace">
@@ -195,12 +217,72 @@
         </div>
     </div>
 </div>
+
 <div id="sth-on-the-control">
     <svg height="30" width="30">
-        <line x1="0" y1="0" x2="30" y2="30" style="stroke:rgb(255,0,0);stroke-width:2" ></line>
-        <line x1="0" y1="30" x2="30" y2="0" style="stroke:rgb(255,0,0);stroke-width:2" ></line>
+        <line x1="0" y1="0" x2="30" y2="30" style="stroke:rgb(255,0,0);stroke-width:2"></line>
+        <line x1="0" y1="30" x2="30" y2="0" style="stroke:rgb(255,0,0);stroke-width:2"></line>
     </svg>
 </div>
+
+<div id="sth-on-the-form">
+    <!-- code -->
+    <!-- name -->
+    <!-- amount -->
+    <!-- price -->
+    <!-- product_name -->
+    <!-- single_user_times -->
+
+    <form id="activity-add-form">
+        <ul class="am-list">
+            <li class="am-g">
+                <div class="am-u-md-3"><span class="my-form-label">Code:</span></div>
+                <div class="am-u-md-9">
+                    <input name="code" class="am-form-field" title="" placeholder="Code...">
+                </div>
+            </li>
+            <li class="am-g">
+                <div class="am-u-md-3"><span class="my-form-label">Name:</span></div>
+                <div class="am-u-md-9">
+                    <input name="name" class="am-form-field" title="" placeholder="Name...">
+                </div>
+            </li>
+            <li class="am-g">
+                <div class="am-u-md-3"><span class="my-form-label">Amount:</span></div>
+                <div class="am-u-md-9">
+                    <input name="amount" class="am-form-field" title="" placeholder="Amount...">
+                </div>
+            </li>
+            <li class="am-g">
+                <div class="am-u-md-3"><span class="my-form-label">Price:</span></div>
+                <div class="am-u-md-9">
+                    <input name="price" class="am-form-field" title="" placeholder="Price...">
+                </div>
+            </li>
+            <li class="am-g">
+                <div class="am-u-md-3"><span class="my-form-label">Product Name:</span></div>
+                <div class="am-u-md-9">
+                    <input name="product_name" class="am-form-field" title="" placeholder="19块9 ... 活动商品">
+                </div>
+            </li>
+            <li class="am-g">
+                <div class="am-u-md-3"><span class="my-form-label">Single User Times:</span></div>
+                <div class="am-u-md-9">
+                    <input name="single_user_times" class="am-form-field" title="" placeholder="Single User Times...">
+                </div>
+            </li>
+            <li class="am-g">
+                <div class="am-u-md-6">
+                    <div id="activity-add" class="am-btn am-btn-block am-btn-primary">提交</div>
+                </div>
+                <div class="am-u-md-6">
+                    <div id="activity-cancel" class="am-btn am-btn-block am-btn-secondary">取消</div>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="sth-on-the-dimmer"></div>
 
 <script type="text/x-handlebars-template" id="comp_tpl">{{#each this}}
 <li>

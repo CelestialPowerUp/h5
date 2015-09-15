@@ -11,6 +11,7 @@ app.activity_comp_editor = {
         init: 'activity_comp_editor_data_init',
         get: 'activity_comp_editor_data_get'
     },
+    get_components: 'activity_comp_editor_get_components',
 
     callback_after_refresh: null,
     comp_tpls: {},
@@ -140,4 +141,19 @@ yangaiche(app.activity_comp_editor.delete_comp, function () {
         app.activity_comp_editor.count = count;
         yangaiche(app.activity_comp_editor.refresh)();
     }
+});
+
+yangaiche(app.activity_comp_editor.get_components, function () {
+    return function () {
+        var comps = app.activity_comp_editor.components,
+            count = app.activity_comp_editor.count,
+            ret_comps = [];
+        for (var i = 0; i < count; i++) {
+            var comp_data = comps['editor_component_' + i].data;
+            if (comp_data['data_tpl'] !== 'placeholder') {
+                ret_comps[i] = comp_data;
+            }
+        }
+        return ret_comps;
+    };
 });
