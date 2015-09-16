@@ -74,6 +74,12 @@ yangaiche(app.order_info.show, function () {
                 order.submit_button_class = 'gray_btn';
                 if ('evaluated' === order.order_status_key) {
                     order.submit_button_text = key.submit_button.submit_text_value6;
+                } else if ('cancelled' === order.order_status_key) {
+                    order.submit_button_class = 'gray_btn';
+                    order.submit_button_text = key.submit_button.submit_text_value9;
+                } else if ('closed' === order.order_status_key) {
+                    order.submit_button_class = 'gray_btn';
+                    order.submit_button_text = key.submit_button.submit_text_value10;
                 } else {
                     order.submit_button_text = key.submit_button.submit_text_value5;
                 }
@@ -82,6 +88,12 @@ yangaiche(app.order_info.show, function () {
             order.submit_button_class = 'orange_btn';
             if ('creating' === order.order_status_key) {
                 order.submit_button_text = key.submit_button.submit_text_value3;
+            } else if ('cancelled' === order.order_status_key) {
+                order.submit_button_class = 'gray_btn';
+                order.submit_button_text = key.submit_button.submit_text_value9;
+            } else if ('closed' === order.order_status_key) {
+                order.submit_button_class = 'gray_btn';
+                order.submit_button_text = key.submit_button.submit_text_value10;
             } else {
                 if (order['not_paid_price'] > 0) {
                     order.submit_button_text = key.submit_button.submit_text_value2;
