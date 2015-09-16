@@ -12,10 +12,12 @@ app.activity_comp_editor = {
         get: 'activity_comp_editor_data_get'
     },
     get_components: 'activity_comp_editor_get_components',
+    set_current_js_suit: 'activity_comp_editor_set_current_js_suit',
 
     callback_after_refresh: null,
     comp_tpls: {},
     js_suit_tpls: {},
+    current_js_suit: null,
     count: 1,
     components: {
         editor_component_0: {
@@ -155,5 +157,24 @@ yangaiche(app.activity_comp_editor.get_components, function () {
             }
         }
         return ret_comps;
+    };
+});
+
+yangaiche(app.activity_comp_editor.set_current_js_suit, function () {
+    return function (id) {
+        var js_suit = app.activity_comp_editor.js_suit_tpls[id];
+        if (!yangaiche(sys.exist)(js_suit)) {
+            alert('所选js套件不存在! ');
+            return;
+        }
+
+        // init js suits
+        key.external_sale_configs = JSON.parse(data.js_suit.external_sale_configs);
+        console.log(key.external_sale_configs);
+        t.each(data.js_suit.js_suit, function (i, js_name) {
+            yangaiche(sys.load_module)(js_name);
+        });
+
+        app.activity_comp_editor.current_js_suit = js_suit;
     };
 });

@@ -196,4 +196,9 @@ yangaiche(sys.init)(function (t) {
         t('#sth-on-the-form').hide();
     });
 
+    t('#activity-new').click(function () {
+        t('#sth-on-the-welcome').hide();
+        t('#sth-on-the-dimmer').hide();
+    });
+
 });

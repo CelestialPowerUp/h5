@@ -24,7 +24,7 @@ yangaiche(sys.browser_type, function () {
     return function () {
         if (!type) {
             var user_agent = window.navigator.userAgent.toLowerCase();
-            alert(JSON.stringify(user_agent));
+            console.log(JSON.stringify(user_agent));
             for (var i = 0; i < yangaiche(sys.site_config)['browser'].length; i++) {
                 var b = yangaiche(sys.site_config)['browser'][i];
                 if (user_agent.indexOf(b['userAgent']) >= 0) {

@@ -212,9 +212,16 @@
 
             background: #555;
 
-            overflow: auto;
+            overflow: hidden;
 
             display: block;
+        }
+
+        #sth-on-the-welcome #activities {
+            width: 720px;
+            height: 239px;
+
+            overflow: auto;
         }
 
         #sth-on-the-dimmer {
@@ -312,7 +319,10 @@
 </div>
 
 <div id="sth-on-the-welcome">
-
+    <div id="activities"></div>
+    <div class="am-g">
+        <div id="activity-new" class="am-btn am-btn-block am-btn-primary">新建</div>
+    </div>
 </div>
 
 <div id="sth-on-the-dimmer"></div>
@@ -327,7 +337,7 @@
 
 <script type="text/x-handlebars-template" id="js_suit_tpl">{{#each this}}
 <li>
-    <div class="js-suit btn"></div>
+    <div class="js-suit btn" data-rel="{{id}}"></div>
 </li>
 {{/each}}</script>
 
