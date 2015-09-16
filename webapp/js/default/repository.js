@@ -10,7 +10,9 @@ var key = {
         submit_text_value5: '已支付',
         submit_text_value6: '已评价',
         submit_text_value7: '无需支付',
-        submit_text_value8: '评价'
+        submit_text_value8: '评价',
+        submit_text_value9: '已取消',
+        submit_text_value10: '已关闭'
     },
     goto: {
         car_list: 'car_list_goto'
