@@ -8,7 +8,7 @@ var sys = {
     load: 'load',
     $: '$',
     init: 'init',
-    start: 'start',
+    start: 'start', //供框架调用.
     root: 'root',
 
     inits: []
