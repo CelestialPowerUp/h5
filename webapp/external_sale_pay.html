@@ -24,6 +24,8 @@
             return platform['platform'];
         });
 
+        var host = window.location.href.match(/(http:\/\/.*\/.*\/).*/)[1];
+
         // 创建支付凭据
         var param = {
             subject: getStore().get('subject'),
@@ -31,8 +33,8 @@
             activity_record_id: getStore().get('activity_record_id'),
             channel: 'alipay_wap',
             extra: {
-                success_url: 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('success_url'),
-                cancel_url: 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('cancel_url')
+                success_url: host + getStore().get('success_url'),
+                cancel_url: host + getStore().get('cancel_url')
             }
         };
         if (is_weixin) {
@@ -50,7 +52,7 @@
                     // 微信公众账号支付的结果会在这里返回
     //                alert('微信公众账号支付的结果会在这里返回');
                     getStore().set('already_pay', true);
-                    window.location.href = window.location.href.match(/(http:\/\/.*\/.*\/).*/)[1] + getStore().get('success_url');
+                    window.location.href = host + getStore().get('success_url');
                 } else if (result == "fail") {
                     // charge 不正确或者微信公众账号支付失败时会在此处返回
                     show_msg("支付失败");
@@ -66,7 +68,7 @@
     //              alert('微信公众账号支付取消支付');
                     show_msg('您已取消支付');
                     getStore().set('already_pay', true);
-                    window.location.href = 'http://' + get_host().replace(/%2F/g, '/') + platform + getStore().get('cancel_url');
+                    window.location.href = host + getStore().get('cancel_url');
                 }
             });
 
