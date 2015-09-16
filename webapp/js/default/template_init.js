@@ -6,6 +6,10 @@ yangaiche(sys.load_default_module)('form');
 yangaiche(sys.load_default_module)('obj_util');
 
 yangaiche(sys.init)(function (t) {
+    var do_nothing_ret_false = function () {
+        return false;
+    };
+    t('#sth-on-the-dimmer').click(do_nothing_ret_false).mousedown(do_nothing_ret_false);
 
     function show_delete($component) {
         var $delete_comp_btn = t('#sth-on-the-control');
@@ -158,7 +162,8 @@ yangaiche(sys.init)(function (t) {
             return;
         }
 
-        yangaiche(app.obj_util.is_missing_key)(params, function(key) {});
+        yangaiche(app.obj_util.is_missing_key)(params, function (key) {
+        });
 
         params.product_id = 999;
         yangaiche(app.http.post_request)('/v1/api/activity/create', params, function (data) {

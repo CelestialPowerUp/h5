@@ -196,6 +196,41 @@
             height: 41px;
             line-height: 41px;
         }
+
+        #sth-on-the-welcome {
+            position: absolute;
+            z-index: 11000;
+
+            width: 720px;
+            height: 280px;
+
+            left: 50%;
+            top: 50%;
+
+            margin-left: -360px;
+            margin-top: -140px;
+
+            background: #555;
+
+            overflow: auto;
+
+            display: block;
+        }
+
+        #sth-on-the-dimmer {
+            position: absolute;
+            z-index: 1111;
+
+            width: 100vw;
+            height: 100vh;
+
+            left: 0;
+            top: 0;
+
+            background: rgba(0, 0, 0, 0.8);
+
+            display: block;
+        }
     </style>
 </head>
 <body root="..">
@@ -226,13 +261,6 @@
 </div>
 
 <div id="sth-on-the-form">
-    <!-- code -->
-    <!-- name -->
-    <!-- amount -->
-    <!-- price -->
-    <!-- product_name -->
-    <!-- single_user_times -->
-
     <form id="activity-add-form">
         <ul class="am-list">
             <li class="am-g">
@@ -282,6 +310,11 @@
         </ul>
     </form>
 </div>
+
+<div id="sth-on-the-welcome">
+
+</div>
+
 <div id="sth-on-the-dimmer"></div>
 
 <script type="text/x-handlebars-template" id="comp_tpl">{{#each this}}
