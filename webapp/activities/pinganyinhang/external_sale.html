@@ -206,43 +206,6 @@
     if (t) {
         t(function () {
 
-
-            //////location v ///////
-            // 获取位置坐标
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-
-                    var lat = position.coords.latitude;
-                    var lon = position.coords.longitude;
-
-                    getStore().set('lat', lat);
-                    getStore().set('lon', lon);
-
-                }, function (error) {
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            console.log("您拒绝了我们访问您的位置");
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                        {
-                            alert('位置信息不可用');
-                            console.log("位置信息不可用");
-                        }
-                            break;
-                        case error.TIMEOUT:
-                            console.log("定位超时");
-                            break;
-                        case error.UNKNOWN_ERROR:
-                            console.log("发生未知错误");
-                            break;
-                    }
-
-                });
-            }
-
-
-            //////location ^ ///////
-
             t('body').on('touchstart', function () {
             });
 
