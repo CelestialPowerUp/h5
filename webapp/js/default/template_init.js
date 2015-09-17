@@ -91,6 +91,24 @@ yangaiche(sys.init)(function (t) {
     }
 
     function pick_a_comp(e) {
+        if (!yangaiche(sys.exist)(app.activity_comp_editor.current_js_suit)) {
+            alert('请先选择一个JS套件');
+            return;
+        }
+
+        var suitable_js_suits = app.activity_comp_editor.comp_tpls[t(this).attr('data-tpl')]['suitable_js_suits'];
+        var current_js_suit = parseInt(app.activity_comp_editor.current_js_suit);
+        var fit = false;
+        t.each(suitable_js_suits, function (i, js_suit) {
+            if (js_suit === current_js_suit) {
+                fit = true;
+            }
+        });
+        if (!fit) {
+            alert('当前套件不支持该组件');
+            return;
+        }
+
         t('body').append('<div id="sth-on-the-top"></div>');
 
         var $this = t(this), width = $this.width(), height = $this.css('padding-bottom').match(/(\d+)/)[1], $sth_top = t('#sth-on-the-top');
@@ -133,6 +151,9 @@ yangaiche(sys.init)(function (t) {
                 return;
             }
 
+            app.activity_comp_editor.current_js_suit = t(this).attr('data-rel');
+            yangaiche(app.activity_comp_editor.reset)();
+            yangaiche(app.activity_comp_editor.refresh)();
             t('#js-suit-list').find('.btn').css('opacity', '0.6');
             t(this).css('opacity', '1');
         });
@@ -168,22 +189,18 @@ yangaiche(sys.init)(function (t) {
         params.product_id = 999;
         yangaiche(app.http.post_request)('/v1/api/activity/create', params, function (data) {
             console.log(data);
-            yangaiche(app.http.post_request)('/v1/api/h5template/create.json', {
+            yangaiche(app.http.post_request)('/v1/api/h5template/update.json', {
                 page_code: data.code,
-                page_config: {
-                    component_tpls: components,
-                    "js_suit_tpls": [
-                        {
-                            "js_suit": [
-                                "share",
-                                "external_sale_pay"
-                            ]
-                        }
-                    ]
+                rendered_page: {
+                    js_suit: {
+                        id: parseInt(app.activity_comp_editor.current_js_suit)
+                    },
+                    rendered_html: yangaiche(app.activity_comp_editor.render)(components),
+                    external_sale_configs: '{}'
                 }
             }, function (inner_data) {
                 console.log(inner_data);
-                alert('添加成功');
+                alert('添加成功' + inner_data.page_code);
                 t('#sth-on-the-form').hide();
             });
         }, function (error) {
