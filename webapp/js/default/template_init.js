@@ -51,6 +51,22 @@ yangaiche(sys.init)(function (t) {
         t('#right').unbind('scroll').scroll(hide_delete);
     }
 
+    function post_handler(id, data_tpl, data) {
+        if ('image' === data_tpl) {
+            var $source = data;
+            yangaiche(app.qiniu_helper.bind)(id, function (source, data) {
+                $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
+                var image = new Image();
+                image.src = data.data['raw_url'];
+                image.onload = function () {
+                    $source.height = (image.height);
+                    $source.inner_html = '';
+                    yangaiche(app.activity_comp_editor.refresh)();
+                }
+            });
+        }
+    }
+
     function place_a_comp(e, $sth_top) {
         var done = false;
 
@@ -59,21 +75,7 @@ yangaiche(sys.init)(function (t) {
                 var id = parseInt($comp.attr('id').match(/editor_component_(\d+)/)[1]);
                 var data_tpl = $sth_top.attr('data-tpl');
 
-                yangaiche(app.activity_comp_editor.insert_before)(id, data_tpl, function (id, data_tpl, data) {
-                    if ('image' === data_tpl) {
-                        var $source = data;
-                        yangaiche(app.qiniu_helper.bind)(id, function (source, data) {
-                            $source.background = 'url("' + data.data['raw_url'] + '") no-repeat center';
-                            var image = new Image();
-                            image.src = data.data['raw_url'];
-                            image.onload = function () {
-                                $source.height = (image.height);
-                                $source.inner_html = '';
-                                yangaiche(app.activity_comp_editor.refresh)();
-                            }
-                        });
-                    }
-                });
+                yangaiche(app.activity_comp_editor.insert_before)(id, data_tpl, post_handler);
 
                 done = true;
             }
@@ -173,6 +175,9 @@ yangaiche(sys.init)(function (t) {
     });
 
     t('#activity-submit').click(function () {
+        t('input[name="code"]').val(app.activity_comp_editor.current_page_code);
+        t('input[name="id"]').val(app.activity_comp_editor.current_activity_id);
+
         t('#sth-on-the-dimmer').show();
         t('#sth-on-the-form').show();
     });
@@ -241,24 +246,78 @@ yangaiche(sys.init)(function (t) {
         });
     });
 
+    t('#activity-exist-add').click(function () {
+        var params = yangaiche(app.form.to_obj)('#activity-add-form'),
+            components = yangaiche(app.activity_comp_editor.get_components)();
+
+        console.log(params);
+        console.log(components);
+
+        if (components.length <= 0) {
+            alert('请先设计界面');
+            return false;
+        }
+
+        if (!yangaiche(sys.exist)(params.code) || params.code === '') {
+            alert('请正确填写Code');
+            return false;
+        }
+
+        yangaiche(app.http.post_request)('/v1/api/h5template/update.json', {
+            id: params.id,
+            page_code: params.code,
+            rendered_page: {
+                id: params.id,
+                js_suit: {
+                    id: parseInt(app.activity_comp_editor.current_js_suit)
+                },
+                rendered_html: yangaiche(app.activity_comp_editor.render)(components),
+                external_sale_configs: '{}'
+            }
+        }, function (data) {
+            console.log(data);
+            alert('修改成功' + data.page_code);
+            t('#sth-on-the-form').hide();
+            t('#sth-on-the-dimmer').hide();
+        });
+    });
+
     t('#activity-cancel').click(function () {
         t('#sth-on-the-form').hide();
         t('#sth-on-the-dimmer').hide();
     });
 
-    t('#activity-new').click(function () {
+    function start_working() {
         t('#sth-on-the-welcome').hide();
         t('#sth-on-the-dimmer').hide();
-    });
+    }
+
+    t('#activity-new').click(start_working);
 
     yangaiche(app.http.get_request)('/v1/api/h5template/get_codes.json', function (data) {
         console.log(data);
 
         t('#existing_activities_wrapper').empty().html(Handlebars.compile(t('#existing_activities').text())(data));
 
-        t('.open-activity').click(function() {
+        t('.open-activity').click(function () {
             var host = window.location.href.match(/(http:\/\/.*?\/.*?)\/.*/)[1];
             window.open(host + '/activity.html?code=' + t(this).attr('data-rel'));
+        });
+
+        t('.edit-activity').click(function () {
+            var page_code = t(this).attr('data-rel');
+            yangaiche(app.http.get_request)('/v1/api/h5template/get_page_by_code.json?code=' + page_code, function (data) {
+                console.log(data);
+
+                yangaiche(app.activity_comp_editor.reverse_render)(data['rendered_html'], {
+                    image: post_handler,
+                    input1: post_handler
+                });
+                yangaiche(app.activity_comp_editor.refresh)();
+                app.activity_comp_editor.current_activity_id = data['id'];
+                app.activity_comp_editor.current_page_code = page_code;
+                start_working();
+            });
         });
     });
 

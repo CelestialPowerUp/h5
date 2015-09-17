@@ -4,6 +4,7 @@ yangaiche(sys.load_default_module)('http');
 app.activity_comp_editor = {
     init: 'activity_comp_editor_init',
     render: 'activity_comp_editor_render',
+    reverse_render: 'activity_comp_editor_reverse_render',
     refresh: 'activity_comp_editor_refresh',
     template: 'activity_comp_editor_template',
     insert_before: 'activity_comp_editor_insert_before',
@@ -16,6 +17,8 @@ app.activity_comp_editor = {
     set_current_js_suit: 'activity_comp_editor_set_current_js_suit',
     reset: 'activity_comp_editor_reset',
 
+    current_page_code: null,
+    current_activity_id: null,
     callback_after_refresh: null,
     comp_tpls: {},
     js_suit_tpls: {},
@@ -115,6 +118,43 @@ yangaiche(app.activity_comp_editor.render, function () {
         }
         return html;
     };
+});
+
+yangaiche(app.activity_comp_editor.reverse_render, function () {
+    var t = yangaiche(sys.$);
+    return function (html, post_obj) {
+        var editor = t('#editor');
+        editor.empty().html(html);
+
+        var placeholder_comp = yangaiche(app.obj_util.copy)(app.activity_comp_editor.default_components.editor_component_0),
+            count = 0, comps = {};
+        placeholder_comp.post = function () {
+        };
+        t.each(editor.find('.component'), function (i, comp) {
+            var $comp = t(comp),
+                id = $comp.attr('id'),
+                data_tpl = $comp.attr('data-tpl'),
+                background = $comp.css('background'),
+                height = $comp.css('height').match(/(\d+)/)[1],
+                inner_html = $comp.html();
+            comps[id] = {
+                data_tpl: data_tpl,
+                data: {
+                    data_tpl: data_tpl,
+                    background: background,
+                    height: height,
+                    inner_html: inner_html
+                },
+                post: post_obj[data_tpl]
+            };
+            count += 1;
+        });
+        comps['editor_component_' + count] = placeholder_comp;
+        count += 1;
+
+        app.activity_comp_editor.components = comps;
+        app.activity_comp_editor.count = count;
+    }
 });
 
 yangaiche(app.activity_comp_editor.refresh, function () {
