@@ -199,9 +199,25 @@ yangaiche(sys.init)(function (t) {
         }
 
         params.single_user_times = parseInt(params.single_user_times);
+        if (isNaN(params.single_user_times)) {
+            alert('单个用户使用次数必须为整数');
+            return;
+        }
+
         params.amount = parseInt(params.amount);
+        if (isNaN(params.amount)) {
+            alert('数量必须为整数');
+            return;
+        }
+
         params.price = parseFloat(params.price);
+        if (isNaN(params.price)) {
+            alert('价格必须为数字');
+            return;
+        }
+
         params.product_id = 999;
+        console.log(params);
         yangaiche(app.http.post_request)('/v1/api/activity/create', params, function (data) {
             console.log(data);
             yangaiche(app.http.post_request)('/v1/api/h5template/update.json', {
@@ -221,7 +237,7 @@ yangaiche(sys.init)(function (t) {
             });
         }, function (error) {
             console.log(error);
-            alert('添加失败');
+            alert('添加失败' + JSON.stringify(error));
         });
     });
 
@@ -233,6 +249,17 @@ yangaiche(sys.init)(function (t) {
     t('#activity-new').click(function () {
         t('#sth-on-the-welcome').hide();
         t('#sth-on-the-dimmer').hide();
+    });
+
+    yangaiche(app.http.get_request)('/v1/api/h5template/get_codes.json', function (data) {
+        console.log(data);
+
+        t('#existing_activities_wrapper').empty().html(Handlebars.compile(t('#existing_activities').text())(data));
+
+        t('.open-activity').click(function() {
+            var host = window.location.href.match(/(http:\/\/.*?\/.*?)\/.*/)[1];
+            window.open(host + '/activity.html?code=' + t(this).attr('data-rel'));
+        });
     });
 
 });

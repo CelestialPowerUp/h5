@@ -217,7 +217,7 @@
             display: block;
         }
 
-        #sth-on-the-welcome #activities {
+        #sth-on-the-welcome #existing_activities_wrapper {
             width: 720px;
             height: 239px;
 
@@ -277,31 +277,31 @@
                 </div>
             </li>
             <li class="am-g">
-                <div class="am-u-md-3"><span class="my-form-label">Name:</span></div>
+                <div class="am-u-md-3"><span class="my-form-label">名称:</span></div>
                 <div class="am-u-md-9">
                     <input name="name" class="am-form-field" title="" placeholder="Name...">
                 </div>
             </li>
             <li class="am-g">
-                <div class="am-u-md-3"><span class="my-form-label">Amount:</span></div>
+                <div class="am-u-md-3"><span class="my-form-label">数量:</span></div>
                 <div class="am-u-md-9">
                     <input name="amount" class="am-form-field" title="" placeholder="Amount...">
                 </div>
             </li>
             <li class="am-g">
-                <div class="am-u-md-3"><span class="my-form-label">Price:</span></div>
+                <div class="am-u-md-3"><span class="my-form-label">价格:</span></div>
                 <div class="am-u-md-9">
                     <input name="price" class="am-form-field" title="" placeholder="Price...">
                 </div>
             </li>
             <li class="am-g">
-                <div class="am-u-md-3"><span class="my-form-label">Product Name:</span></div>
+                <div class="am-u-md-3"><span class="my-form-label">商品描述:</span></div>
                 <div class="am-u-md-9">
                     <input name="product_name" class="am-form-field" title="" placeholder="19块9 ... 活动商品">
                 </div>
             </li>
             <li class="am-g">
-                <div class="am-u-md-3"><span class="my-form-label">Single User Times:</span></div>
+                <div class="am-u-md-3"><span class="my-form-label">单个用户使用次数:</span></div>
                 <div class="am-u-md-9">
                     <input name="single_user_times" class="am-form-field" title="" placeholder="Single User Times...">
                 </div>
@@ -322,13 +322,24 @@
 </div>
 
 <div id="sth-on-the-welcome">
-    <div id="activities"></div>
+    <div id="existing_activities_wrapper"></div>
     <div class="am-g">
         <div id="activity-new" class="am-btn am-btn-block am-btn-primary">新建</div>
     </div>
 </div>
 
 <div id="sth-on-the-dimmer"></div>
+
+<script type="text/x-handlebars-template" id="existing_activities">
+    <ul>
+        {{#each this}}
+            <li class="am-g">
+                <div class="am-u-md-8"><div class="am-btn am-btn-block am-btn-primary edit-activity" data-rel="{{code}}">{{code}}</div></div>
+                <div class="am-u-md-4"><div class="am-btn am-btn-block am-btn-secondary open-activity" data-rel="{{code}}">打开</div></div>
+            </li>
+        {{/each}}
+    </ul>
+</script>
 
 <script type="text/x-handlebars-template" id="comp_tpl">{{#each this}}
 <li>
