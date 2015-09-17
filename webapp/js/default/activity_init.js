@@ -8,7 +8,7 @@ yangaiche(sys.init)(function (t) {
         t('#player').html(data['rendered_html']);
 
         // init js suits
-        key.external_sale_configs = JSON.parse(data.js_suit.external_sale_configs);
+        key.external_sale_configs = JSON.parse(data.external_sale_configs);
         console.log(key.external_sale_configs);
         t.each(data.js_suit.js_suit, function (i, js_name) {
             yangaiche(sys.load_module)(js_name);

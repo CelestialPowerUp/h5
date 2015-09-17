@@ -11,10 +11,12 @@ yangaiche(app.obj_util.copy, function () {
 
 yangaiche(app.obj_util.is_missing_key, function () {
     return function (obj, callback) {
-        for (var key in Object.keys(obj)) {
-            if (!yangaiche(sys.exist)(obj[key]) || '' === obj[key]) {
-                callback(key);
-                break;
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (!yangaiche(sys.exist)(obj[key]) || '' === obj[key]) {
+                    callback(key);
+                    break;
+                }
             }
         }
     }

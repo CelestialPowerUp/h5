@@ -168,6 +168,7 @@ yangaiche(sys.init)(function (t) {
     });
 
     t('#activity-submit').click(function () {
+        t('#sth-on-the-dimmer').show();
         t('#sth-on-the-form').show();
     });
 
@@ -183,9 +184,18 @@ yangaiche(sys.init)(function (t) {
             return;
         }
 
+        var need_param = false;
         yangaiche(app.obj_util.is_missing_key)(params, function (key) {
+            alert('请完善信息，现' + key + '为空');
+            need_param = true;
         });
+        if (need_param) {
+            return;
+        }
 
+        params.single_user_times = parseInt(params.single_user_times);
+        params.amount = parseInt(params.amount);
+        params.price = parseFloat(params.price);
         params.product_id = 999;
         yangaiche(app.http.post_request)('/v1/api/activity/create', params, function (data) {
             console.log(data);
@@ -202,6 +212,7 @@ yangaiche(sys.init)(function (t) {
                 console.log(inner_data);
                 alert('添加成功' + inner_data.page_code);
                 t('#sth-on-the-form').hide();
+                t('#sth-on-the-dimmer').hide();
             });
         }, function (error) {
             console.log(error);
@@ -211,6 +222,7 @@ yangaiche(sys.init)(function (t) {
 
     t('#activity-cancel').click(function () {
         t('#sth-on-the-form').hide();
+        t('#sth-on-the-dimmer').hide();
     });
 
     t('#activity-new').click(function () {
