@@ -54,7 +54,6 @@ yangaiche(app.activity_comp_editor.init, function () {
         app.activity_comp_editor.callback_after_refresh = callback_after_refresh;
         var comp_tpls = app.activity_comp_editor.comp_tpls,
             js_suit_tpls = app.activity_comp_editor.js_suit_tpls;
-        yangaiche(app.activity_comp_editor.reset)();
         yangaiche(app.http.get_request)('/v1/api/h5template/configs.json', function (data) {
             console.log(data);
             t.each(data['component_tpls'], function (i, comp) {
@@ -62,12 +61,17 @@ yangaiche(app.activity_comp_editor.init, function () {
             });
             t.each(data['js_suit_tpls'], function (i, js_suit) {
                 js_suit_tpls[js_suit['id']] = js_suit;
+                if (i === 0) {
+                    app.activity_comp_editor.current_js_suit = js_suit['id'];
+                }
             });
 
             $comp_list.empty().html(comp_tpl_fn(data['component_tpls']));
             $js_suit_list.empty().html(js_suit_tpl_fn(data['js_suit_tpls']));
 
             callback();
+            yangaiche(app.activity_comp_editor.reset)();
+            yangaiche(app.activity_comp_editor.refresh)();
         });
     };
 });

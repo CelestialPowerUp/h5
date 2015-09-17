@@ -115,6 +115,7 @@ yangaiche(sys.init)(function (t) {
         $sth_top.width(width);
         $sth_top.height(height);
         $sth_top.css('background', $this.css('background'));
+        $sth_top.html($this.html());
 
         console.log($sth_top);
 
@@ -136,14 +137,17 @@ yangaiche(sys.init)(function (t) {
         });
     }
 
-    function tweak() {
-        alert('unimplemented!!!');
+    function unimplemented() {
+        alert('还没有实现');
         return false;
     }
 
+    t('#js-suit-list-add').click(unimplemented);
+    t('#comp-list-add').click(unimplemented);
+
     yangaiche(app.activity_comp_editor.init)(t('#comp-list'), t('#js-suit-list'), function () {
         t('.comp.btn').mousedown(pick_a_comp);
-        t('.tweak.btn').mousedown(tweak);
+        t('.tweak.btn').mousedown(unimplemented);
 
         t('.js-suit.btn').click(function () {
             var confirmed = confirm('确定切换魔板么？一切都要重新开始...');
@@ -158,7 +162,8 @@ yangaiche(sys.init)(function (t) {
             t(this).css('opacity', '1');
         });
 
-        yangaiche(app.activity_comp_editor.refresh)();
+        t('#js-suit-list').find('.btn').css('opacity', '0.6');
+        t('.js-suit.btn[data-rel="' + app.activity_comp_editor.current_js_suit + '"]').css('opacity', '1');
     }, bind_delete);
 
     t('#editor').mouseenter(function () {

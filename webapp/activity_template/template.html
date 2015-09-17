@@ -27,7 +27,7 @@
 
         /* btn start */
         .btn {
-            background: url("./img/view.jpeg");
+            background: #888;
 
             cursor: pointer;
 
@@ -307,10 +307,13 @@
                 </div>
             </li>
             <li class="am-g">
-                <div class="am-u-md-6">
-                    <div id="activity-add" class="am-btn am-btn-block am-btn-primary">提交</div>
+                <div class="am-u-md-4">
+                    <div id="activity-add" class="am-btn am-btn-block am-btn-primary">新建</div>
                 </div>
-                <div class="am-u-md-6">
+                <div class="am-u-md-4">
+                    <div id="activity-exist-add" class="am-btn am-btn-block am-btn-primary">修改</div>
+                </div>
+                <div class="am-u-md-4">
                     <div id="activity-cancel" class="am-btn am-btn-block am-btn-secondary">取消</div>
                 </div>
             </li>
@@ -331,13 +334,14 @@
 <li>
     <div class="comp btn" data-tpl="{{data_tpl}}">
         <div class="tweak btn">TWEAK</div>
+        <span>{{brief}}</span>
     </div>
 </li>
 {{/each}}</script>
 
 <script type="text/x-handlebars-template" id="js_suit_tpl">{{#each this}}
 <li>
-    <div class="js-suit btn" data-rel="{{id}}"></div>
+    <div class="js-suit btn" data-rel="{{id}}">{{brief}}</div>
 </li>
 {{/each}}</script>
 
