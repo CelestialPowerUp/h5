@@ -167,6 +167,9 @@ yangaiche(sys.init)(function (t) {
 
         t('#js-suit-list').find('.btn').css('opacity', '0.6');
         t('.js-suit.btn[data-rel="' + app.activity_comp_editor.current_js_suit + '"]').css('opacity', '1');
+
+        t('#comp-list').css('padding-bottom', (40 * parseInt((app.activity_comp_editor.comp_tpls.count + 1) / 2) + 4) + '%');
+        t('#js-suit-list').css('padding-bottom', (40 * parseInt((app.activity_comp_editor.js_suit_tpls.count + 1) / 2) + 4) + '%');
     }, bind_delete);
 
     t('#editor').mouseenter(function () {
