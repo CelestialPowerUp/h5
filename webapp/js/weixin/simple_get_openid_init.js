@@ -11,10 +11,10 @@ var reqParam = yangaiche(app.url_parameter), store = yangaiche(sys.local_storage
 if (reqParam['simple_get_openid']) {
     yangaiche(app.http.get_request)("login_by_wx_code.json?code=" + reqParam['code'] + "&situation=" + app.open_id_init.situation, {}, function (data) {
         store.set("external_sale_wechat_openid", data.openid);
-        window.location.href = window.location.href.match(/(http:\/\/.*\.html).*/)[1] + '?to_pay=true';
+        window.location.href = './activity.html?to_pay=true';
     }, function (data) {
         store.set("external_sale_wechat_openid", data.data);
-        window.location.href = window.location.href.match(/(http:\/\/.*\.html).*/)[1] + '?to_pay=true';
+        window.location.href = './activity.html?to_pay=true';
     });
     to_snsapi = false;
 }
