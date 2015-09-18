@@ -85,7 +85,7 @@ yangaiche(sys.load_default_module)('parameter');
     } else {
 
         // 检查是否过期
-        var activity_code = yangaiche(app.url_parameter)['code'];
+        var activity_code = yangaiche(app.url_parameter)['page_code'];
         getReq('/v1/api/activity/is_valid?code=' + activity_code, function (data) {
             if (data['code'] === activity_code) {
                 if (data['status'] === false) {
