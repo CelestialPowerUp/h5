@@ -9,7 +9,7 @@ var snsapi = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + app.
 
 var reqParam = yangaiche(app.url_parameter), store = yangaiche(sys.local_storage), to_snsapi = true;
 if (reqParam['code']) {
-    yangaiche(app.http.get_request)("/v1/api/login_by_wx_code.json?code=" + reqParam['code'] + "&situation=" + app.open_id_init.situation, {}, function (data) {
+    yangaiche(app.http.post_request)("/v1/api/login_by_wx_code.json?code=" + reqParam['code'] + "&situation=" + app.open_id_init.situation, {}, function (data) {
         store.set("external_sale_wechat_openid", data.openid);
         window.location.href = './activity.html?to_pay=true';
     }, function (data) {
