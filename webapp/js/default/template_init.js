@@ -303,7 +303,7 @@ yangaiche(sys.init)(function (t) {
 
         t('.open-activity').click(function () {
             var host = window.location.href.match(/(http:\/\/.*?\/.*?)\/.*/)[1];
-            window.open(host + '/activity.html?code=' + t(this).attr('data-rel'));
+            window.open(host + '/activity.html?page_code=' + t(this).attr('data-rel'));
         });
 
         t('.edit-activity').click(function () {

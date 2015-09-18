@@ -2,7 +2,7 @@ yangaiche(sys.load_default_module)('http');
 yangaiche(sys.load_default_module)('parameter');
 
 yangaiche(sys.init)(function (t) {
-    yangaiche(app.http.get_request)('/v1/api/h5template/get_page_by_code.json?code=' + yangaiche(app.url_parameter)['code'], function (data) {
+    yangaiche(app.http.get_request)('/v1/api/h5template/get_page_by_code.json?code=' + yangaiche(app.url_parameter)['page_code'], function (data) {
         console.log(JSON.stringify(data));
 
         t('#player').html(data['rendered_html']);

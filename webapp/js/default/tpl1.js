@@ -149,7 +149,7 @@ yangaiche(sys.load_default_module)('parameter');
         store.set('external_sale_verify_code', verify_code);
 
         if (is_weixin && !store.get('external_sale_wechat_openid')) {
-            window.location.href = './simple_get_openid.html';
+            yangaiche(sys.load_module)('simple_get_openid_init');
         } else {
             to_pay();
         }
