@@ -138,7 +138,7 @@ yangaiche(app.activity_comp_editor.reverse_render, function () {
             var $comp = t(comp),
                 id = $comp.attr('id'),
                 data_tpl = $comp.attr('data-tpl'),
-                background = $comp.css('background'),
+                background = $comp.attr('style').match(/background:(.*?);/)[1],
                 height = $comp.css('height').match(/(\d+)/)[1],
                 inner_html = $comp.html();
             comps[id] = {

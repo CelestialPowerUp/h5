@@ -306,7 +306,8 @@ yangaiche(sys.init)(function (t) {
 
         t('.open-activity').click(function () {
             var host = window.location.href.match(/(http:\/\/.*?\/.*?)\/.*/)[1];
-            window.open(host + '/activity.html?page_code=' + t(this).attr('data-rel'));
+            var url = host + '/activity.html?page_code=' + t(this).attr('data-rel');
+            window.open(url);
         });
 
         t('.edit-activity').click(function () {
@@ -316,7 +317,8 @@ yangaiche(sys.init)(function (t) {
 
                 yangaiche(app.activity_comp_editor.reverse_render)(data['rendered_html'], {
                     image: post_handler,
-                    input1: post_handler
+                    input1: post_handler,
+                    qrcodephone: post_handler
                 });
                 yangaiche(app.activity_comp_editor.refresh)();
                 app.activity_comp_editor.current_activity_id = data['id'];
