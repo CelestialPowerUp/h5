@@ -6,21 +6,7 @@ yangaiche(sys.load_default_module)('user', {});
 
 app.open_id_init = {};
 
-app.open_id_init.situation = 'production';
-app.open_id_init.appId = 'wxb78dc0eb87da0df9';
-function fn1() {
-    app.open_id_init.situation = 'test';
-    app.open_id_init.appId = 'wx6569a515e0c3e346';
-}
-function fn2() {
-    app.open_id_init.situation = 'production';
-    app.open_id_init.appId = 'wxb78dc0eb87da0df9';
-}
-yangaiche(app.env.do_sth)({
-    dev: fn1,
-    staging: fn1,
-    product: fn2
-});
+yangaiche(sys.load_module)('init_open_id_params');
 
 app.open_id_init.redirect_uri = encodeURIComponent(yangaiche(ls.openid.get_redirect_uri));
 app.open_id_init.snsapi = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + app.open_id_init.appId + '&redirect_uri=' + app.open_id_init.redirect_uri + '&response_type=code&scope=snsapi_base#wechat_redirect';

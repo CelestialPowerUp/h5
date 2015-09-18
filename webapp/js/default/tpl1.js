@@ -17,9 +17,7 @@ yangaiche(sys.load_default_module)('parameter');
         store = yangaiche(sys.local_storage);
 
     var tel_link = t('#contact-us');
-    //if (tel_link.length > 0) {
-        tel_link.css('margin-left', ((640 - tel_link.width()) / 2) + 'px');
-    //}
+    tel_link.css('margin-left', ((640 - tel_link.width()) / 2) + 'px');
 
     var is_weixin = function isWeiXin() {
         var ua = window.navigator.userAgent.toLowerCase();
@@ -28,14 +26,14 @@ yangaiche(sys.load_default_module)('parameter');
 
     function pay(id) {
 
-        window.location.href = './activities/pubhtml/external_sale_pay_success2.html';
+        //window.location.href = './activities/pubhtml/external_sale_pay_success2.html';
 
-//                store.set('activity_record_id', id);
-//                store.set('subject', '养爱车-9.9元 洗车+打蜡');
-//                store.set('success_url', '/activities/pubhtml/external_sale_pay_success.html');
-//                store.set('cancel_url', '/activities/pubhtml/external_sale_pay_fail.html');
-//
-//                window.location.href = '../../external_sale_pay.html';
+        store.set('activity_record_id', id);
+        store.set('subject', '养爱车活动');
+        store.set('success_url', '/activities/pubhtml/external_sale_pay_success.html');
+        store.set('cancel_url', '/activities/pubhtml/external_sale_pay_fail.html');
+
+        window.location.href = './external_sale_pay.html';
 
     }
 
@@ -67,7 +65,7 @@ yangaiche(sys.load_default_module)('parameter');
         var param = {
             phone: store.get('external_sale_phone_number'),
             verify_code: store.get('external_sale_verify_code'),
-            sign_origin: "dida_activity"
+            sign_origin: "activity"
         };
         postReq("/v1/api/car_user/sign_up.json", param, function (data) {
 
@@ -81,7 +79,7 @@ yangaiche(sys.load_default_module)('parameter');
         });
     }
 
-    if (yangaiche(app.url_parameter)['topay']) {
+    if (yangaiche(app.url_parameter)['to_pay']) {
         t('body').css('display', 'none');
         to_pay();
     } else {
@@ -151,7 +149,7 @@ yangaiche(sys.load_default_module)('parameter');
         store.set('external_sale_verify_code', verify_code);
 
         if (is_weixin && !store.get('external_sale_wechat_openid')) {
-            window.location.href = './external_sale_wechat_openid.html';
+            yangaiche(sys.load_module)('simple_get_openid');
         } else {
             to_pay();
         }

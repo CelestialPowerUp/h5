@@ -30,6 +30,7 @@ yangaiche(sys.init)(function (t) {
             var confirm_delete_comp = confirm('确定删除么？');
             if (confirm_delete_comp) {
                 yangaiche(app.activity_comp_editor.delete_comp)(t(this).attr('data-rel'));
+                hide_delete();
             }
         });
     }
@@ -196,8 +197,10 @@ yangaiche(sys.init)(function (t) {
 
         var need_param = false;
         yangaiche(app.obj_util.is_missing_key)(params, function (key) {
-            alert('请完善信息，现' + key + '为空');
-            need_param = true;
+            if ('id' !== key) {
+                alert('请完善信息，现' + key + '为空');
+                need_param = true;
+            }
         });
         if (need_param) {
             return;
@@ -267,7 +270,6 @@ yangaiche(sys.init)(function (t) {
             id: params.id,
             page_code: params.code,
             rendered_page: {
-                id: params.id,
                 js_suit: {
                     id: parseInt(app.activity_comp_editor.current_js_suit)
                 },

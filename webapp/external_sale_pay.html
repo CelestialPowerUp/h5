@@ -29,7 +29,7 @@
         // 创建支付凭据
         var param = {
             subject: getStore().get('subject'),
-            body: getStore().get('subject')+"lon-"+getStore().get('lon')+" lat-"+getStore().get('lat'),
+            body: getStore().get('subject'),
             activity_record_id: getStore().get('activity_record_id'),
             channel: 'alipay_wap',
             extra: {
