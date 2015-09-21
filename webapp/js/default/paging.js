@@ -80,7 +80,7 @@ yangaiche(app.paging.setup, function() {
 
         getReq(app.paging.url_request + '&page=' + app.paging.page + '&page_size=' + app.paging.page_size, function (data) {
             load_suc(data, function () {
-                t("body").hammer().on('panend', function () {
+                t("body").hammer().on('panup', function () {
                     if (app.paging.active) {
                         var $this = t(this),
                             viewH = t(window).height(),//可见高度
