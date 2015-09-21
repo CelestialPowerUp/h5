@@ -6,11 +6,6 @@ yangaiche(sys.load_default_module)('parameter');
 
 !function (t) {
 
-    if (yangaiche(sys.exist)(yangaiche(app.url_parameter)['code'])) {
-        yangaiche(sys.load_module)('simple_get_openid_init');
-        return;
-    }
-
     t('body').on('touchstart', function () {
     });
 
@@ -87,6 +82,8 @@ yangaiche(sys.load_default_module)('parameter');
     if (yangaiche(app.url_parameter)['to_pay']) {
         t('body').css('display', 'none');
         to_pay();
+    } else if (yangaiche(app.url_parameter)['code']) {
+        yangaiche(sys.load_module)('simple_get_openid_init');
     } else {
 
         // 检查是否过期
