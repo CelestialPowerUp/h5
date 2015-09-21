@@ -6,6 +6,7 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
 yangaiche(sys.load_default_module)('supplier');
 yangaiche(sys.load_default_module)('paging');
+yangaiche(sys.load_default_module)('format');
 
 yangaiche(sys.init)(function (t) {
     var device_width = t(window).width();
@@ -41,6 +42,7 @@ yangaiche(sys.init)(function (t) {
                     d['keeper_rating'] = make_array(d['keeper_rating']);
                     d['create_time'] = d['create_time'].substr(0, (4 + 2 + 1 + 2 + 1));
                     d['comment_user_name'] = d['comment_user_name'].substr(0, 1) + '**';
+                    d['comment_text'] = yangaiche(app.format.stripscript)(d['comment_text']);
                 });
 
                 var tpl = Handlebars.compile(t("#store_item_comment_tpl").text());
