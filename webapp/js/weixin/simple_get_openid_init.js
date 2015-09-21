@@ -5,7 +5,7 @@ app.open_id_init = {};
 
 yangaiche(sys.load_module)('init_open_id_params');
 
-var snsapi = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + app.open_id_init.appId + '&redirect_uri=' + encodeURIComponent(window.location.href) + '&state=simple_get_openid&response_type=code&scope=snsapi_userinfo#wechat_redirect';
+var snsapi = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + app.open_id_init.appId + '&redirect_uri=' + encodeURIComponent(window.location.href) + '&response_type=code&scope=snsapi_userinfo#wechat_redirect';
 
 var reqParam = yangaiche(app.url_parameter), store = yangaiche(sys.local_storage), to_snsapi = true;
 if (reqParam['code']) {
