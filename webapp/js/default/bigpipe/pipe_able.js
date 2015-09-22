@@ -11,6 +11,7 @@ app.bigpipe = {
 
     // usage ...
     data_tpl: {
+        data: null,
         data_url: '/v1/api/now.json',
         data_param: null,
         url_method: yangaiche(app.http.get_request),
@@ -62,6 +63,7 @@ yangaiche(app.bigpipe.commit, function () {
             single_type_check_not_null(tpl.template_url, 'string', 'template_url is not a string');
 
             single_type_check_accept_null(tpl.data_param, 'object', 'data_param is not a object');
+            single_type_check_accept_null(tpl.data, 'object', 'data is not a object');
         }
 
         setTimeout(function () {
@@ -69,11 +71,11 @@ yangaiche(app.bigpipe.commit, function () {
 
             type_check();
 
-            if (!yangaiche(sys.exist)(tpl.data_url)) {
+            if (!yangaiche(sys.exist)(tpl.data_url) || yangaiche(sys.exist)(tpl.data)) {
 
                 var compiled_tpl = Handlebars.compile(yangaiche(app.tpl.load)(tpl.template_url));
 
-                var handled_data = {};
+                var handled_data = tpl.data || {};
                 if (yangaiche(sys.exist)(tpl.hook.pre)) {
                     handled_data = tpl.hook.pre() || {};
                 }
