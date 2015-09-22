@@ -1,5 +1,6 @@
 yangaiche(sys.load_default_module)('http');
 yangaiche(sys.load_default_module)('show_msg');
+yangaiche(sys.load_default_module)('template');
 
 app.bigpipe = {
     stage: 'yac_bigpipe_stage',
@@ -31,21 +32,73 @@ yangaiche(app.bigpipe.stage, function () {
         app.bigpipe.uncommitted_tpls.push(this_data_tpl);
 
         if ('boolean' === typeof(auto_commit) && auto_commit) {
-            
+            yangaiche(app.bigpipe.commit)();
         }
     };
 });
 
 yangaiche(app.bigpipe.commit, function () {
     function async_render(tpl) {
-        setTimeout(function() {
+        function single_type_check_accept_null(sth, type, msg) {
+            if (yangaiche(sys.exist)(sth) && type !== typeof(sth)) {
+                throw msg;
+            }
+        }
+
+        function single_type_check_not_null(sth, type, msg) {
+            if (!yangaiche(sys.exist)(sth) || type !== typeof(sth)) {
+                throw msg;
+            }
+        }
+
+        function type_check() {
+            tpl.hook = tpl.hook || {};
+
+            single_type_check_accept_null(tpl.hook.pre, 'function', 'hook.pre is not a callback function');
+            single_type_check_accept_null(tpl.hook.post, 'function', 'hook.post is not a callback function');
+            single_type_check_accept_null(tpl.url_method, 'function', 'url_method is not a function');
+
+            single_type_check_accept_null(tpl.data_url, 'string', 'data_url is not a string');
+            single_type_check_not_null(tpl.template_url, 'string', 'template_url is not a string');
+
+            single_type_check_accept_null(tpl.data_param, 'object', 'data_param is not a object');
+        }
+
+        setTimeout(function () {
             console.log(tpl);
+
+            type_check();
+
+            if (!yangaiche(sys.exist)(tpl.data_url)) {
+
+                var compiled_tpl = Handlebars.compile(yangaiche(app.tpl.load)(tpl.template_url));
+
+                if (yangaiche(sys.exist)(tpl.hook.pre)) {
+                    tpl.hook.pre();
+                }
+
+                tpl.dom_hook.empty().html(compiled_tpl({}));
+
+                if (yangaiche(sys.exist)(tpl.hook.post)) {
+                    tpl.hook.post();
+                }
+
+                return;
+            }
 
             function suc_handler(data) {
                 var compiled_tpl = Handlebars.compile(yangaiche(app.tpl.load)(tpl.template_url));
-                var handled_data = tpl.hook.pre(data);
+
+                var handled_data = data;
+                if (yangaiche(sys.exist)(tpl.hook.pre)) {
+                    handled_data = tpl.hook.pre(data);
+                }
+
                 tpl.dom_hook.empty().html(compiled_tpl(handled_data));
-                tpl.hook.post();
+
+                if (yangaiche(sys.exist)(tpl.hook.post)) {
+                    tpl.hook.post();
+                }
             }
 
             function error_handler(error) {
