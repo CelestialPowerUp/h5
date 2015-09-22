@@ -25,5 +25,8 @@ var key = {
     },
     snapshot: {
         order_list: 'snapshot_order_list'
+    },
+    times_card: {
+        current: 'times_card_current'
     }
 };

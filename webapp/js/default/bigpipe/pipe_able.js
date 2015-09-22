@@ -73,11 +73,12 @@ yangaiche(app.bigpipe.commit, function () {
 
                 var compiled_tpl = Handlebars.compile(yangaiche(app.tpl.load)(tpl.template_url));
 
+                var handled_data = {};
                 if (yangaiche(sys.exist)(tpl.hook.pre)) {
-                    tpl.hook.pre();
+                    handled_data = tpl.hook.pre() || {};
                 }
 
-                tpl.dom_hook.empty().html(compiled_tpl({}));
+                tpl.dom_hook.empty().html(compiled_tpl(handled_data));
 
                 if (yangaiche(sys.exist)(tpl.hook.post)) {
                     tpl.hook.post();
@@ -91,7 +92,7 @@ yangaiche(app.bigpipe.commit, function () {
 
                 var handled_data = data;
                 if (yangaiche(sys.exist)(tpl.hook.pre)) {
-                    handled_data = tpl.hook.pre(data);
+                    handled_data = tpl.hook.pre(data) || data;
                 }
 
                 tpl.dom_hook.empty().html(compiled_tpl(handled_data));
