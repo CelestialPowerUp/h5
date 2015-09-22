@@ -77,7 +77,7 @@ yangaiche(app.bigpipe.commit, function () {
 
                 var handled_data = tpl.data || {};
                 if (yangaiche(sys.exist)(tpl.hook.pre)) {
-                    handled_data = tpl.hook.pre() || {};
+                    handled_data = tpl.hook.pre(handled_data) || {};
                 }
 
                 tpl.dom_hook.empty().html(compiled_tpl(handled_data));
@@ -94,7 +94,7 @@ yangaiche(app.bigpipe.commit, function () {
 
                 var handled_data = data;
                 if (yangaiche(sys.exist)(tpl.hook.pre)) {
-                    handled_data = tpl.hook.pre(data) || data;
+                    handled_data = tpl.hook.pre(handled_data) || data;
                 }
 
                 tpl.dom_hook.empty().html(compiled_tpl(handled_data));

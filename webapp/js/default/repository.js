@@ -28,5 +28,8 @@ var key = {
     },
     times_card: {
         current: 'times_card_current'
+    },
+    supplier: {
+        current: 'supplier_current'
     }
 };

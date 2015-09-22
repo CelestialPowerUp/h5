@@ -1,15 +1,91 @@
-<ul class="home-page-products">
-    {{#each this}}
+<style>
+    .times_card_products {
+        list-style-type: none;
+    }
+
+    .times_card_products li {
+        display: block;
+        width: 320px;
+        height: 271px;
+        float: left;
+    }
+
+    .times_card_products > .odd {
+        padding: 20px 10px 0 20px;
+    }
+
+    .times_card_products > .even {
+        padding: 20px 20px 0 10px;
+    }
+
+    .times_card_products li > div {
+        display: block;
+        width: 290px;
+        height: 251px;
+        background: #FFF;
+    }
+
+    .times_card_products .home-page-products-image {
+        width: 290px;
+        height: 163px;
+        overflow: hidden;
+        line-height: 163px;
+        text-align: center;
+    }
+
+    .times_card_products .home-page-products-title {
+        width: 290px;
+        height: 40px;
+        color: #333;
+        font-size: 28px;
+        padding-left: 10px;
+    }
+
+    .times_card_products .home-page-products-price {
+        width: 290px;
+        height: 48px;
+    }
+
+    .times_card_products .home-page-products-price div {
+        float: left;
+        display: block;
+        height: 48px;
+        line-height: 48px;
+    }
+
+    .times_card_products .home-page-products-price div:first-child {
+        color: #FF6600;
+        font-size: 28px;
+        margin: 0 10px;
+    }
+
+    .times_card_products .home-page-products-price div:last-child {
+        color: #999;
+        font-size: 18px;
+        text-decoration: line-through;
+    }
+</style>
+
+{{#this}}
+<div class="am-vertical-align products-title">
+    <img class="am-vertical-align-middle" src="./img/vline.png"/>
+    <span class="am-vertical-align-middle">附近的次卡商品</span>
+</div>
+
+<ul class="times_card_products">
+    {{#each array}}
     <li class="{{odd_or_even}}" data-rel="{{times_card_id}}">
         <div>
             {{#cover_img}}
             <div class="home-page-products-image"><img src="{{raw_url}}"/></div>
             {{/cover_img}}
-            <div class="home-page-products-title">{{times_card_name}}</div>
+            <div class="home-page-products-title">{{times_card_name}} ( {{times_card_amount}}次 )</div>
             <div class="home-page-products-price">
                 <div>¥{{times_card_price}}</div>
+                <div></div>
             </div>
         </div>
     </li>
     {{/each}}
 </ul>
+{{/this}}

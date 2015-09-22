@@ -4,9 +4,11 @@ yangaiche(sys.init)(function (t) {
     yangaiche(app.bigpipe.stage)({
         template_url: 'template/times_card_detail.html',
         dom_hook: yangaiche(sys.$)('#times_card_detail'),
+        data: yangaiche(sys.local_storage).get(key.times_card.current),
         hook: {
-            pre: function () {
-                return yangaiche(sys.local_storage).get(key.times_card.current);
+            pre: function (data) {
+                data.supplier_name = yangaiche(sys.local_storage).get(key.supplier.current).supplier_name;
+                return data;
             }
         }
     });
