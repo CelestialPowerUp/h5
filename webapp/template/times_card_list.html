@@ -1,0 +1,15 @@
+<ul class="home-page-products">
+    {{#each this}}
+    <li class="{{odd_or_even}}" data-rel="{{times_card_id}}">
+        <div>
+            {{#cover_img}}
+            <div class="home-page-products-image"><img src="{{raw_url}}"/></div>
+            {{/cover_img}}
+            <div class="home-page-products-title">{{times_card_name}}</div>
+            <div class="home-page-products-price">
+                <div>¥{{times_card_price}}</div>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</ul>

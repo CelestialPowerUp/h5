@@ -1,13 +1,15 @@
-yangaiche(sys.load_default_module)('repository', {});
-yangaiche(sys.load_default_module)('http', {});
-yangaiche(sys.load_default_module)('show_msg', {});
-yangaiche(sys.load_default_module)('user', {});
-yangaiche(sys.load_default_module)('parameter', {});
-yangaiche(sys.load_default_module)('order', {});
-yangaiche(sys.load_default_module)('location', {});
-yangaiche(sys.load_default_module)('map', {});
-yangaiche(sys.load_default_module)('back', {});
-yangaiche(sys.load_default_module)('env', {});
+yangaiche(sys.load_default_module)('repository');
+yangaiche(sys.load_default_module)('http');
+yangaiche(sys.load_default_module)('show_msg');
+yangaiche(sys.load_default_module)('user');
+yangaiche(sys.load_default_module)('parameter');
+yangaiche(sys.load_default_module)('order');
+yangaiche(sys.load_default_module)('location');
+yangaiche(sys.load_default_module)('map');
+yangaiche(sys.load_default_module)('back');
+yangaiche(sys.load_default_module)('env');
+yangaiche(sys.load_default_module)('supplier');
+yangaiche(sys.load_default_module)('bigpipe/pipe_able');
 
 yangaiche(sys.init)(function (t) {
 
@@ -20,10 +22,6 @@ yangaiche(sys.init)(function (t) {
     //var data = JSON.parse(raw_data)['data'];
 
     yangaiche(app.http.get_request)('/v2/api/store/banners.json', function (data) {
-        //console.log(data);
-        //data = [data[0], data[0]];
-        //console.log(data);
-
         if (data.length > 1) {
             data = {multi: {data: data}};
         } else if (data.length === 1) {
@@ -127,16 +125,27 @@ yangaiche(sys.init)(function (t) {
         yangaiche(ls.back.set_back_to_self)('my_address_manage.html');
     });
 
-    t('#user-win .menu-info a').click(function() {
+    t('#user-win .menu-info a').click(function () {
         yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
     });
 
-    t('#services li a').click(function() {
+    t('#services li a').click(function () {
         yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
     });
 
-    t('#user_info').click(function() {
+    t('#user_info').click(function () {
         yangaiche(ls.back.set_back_to_self)('my_info.html');
+    });
+
+    yangaiche(app.supplier.simple)(function (suppliers) {
+        if (suppliers.length > 0) {
+            yangaiche(app.bigpipe.stage)({
+                data_url: '/v1/api/supplier/times_card_products.json?supplier_id=' + suppliers[0].supplier_id,
+                url_method: yangaiche(app.http.get_request),
+                template_url: 'template/times_card_list.html',
+                dom_hook: yangaiche(sys.$)('#times_card_wrapper')
+            }, true);
+        }
     });
 
     //t('#footer_close').click(function(e) {
