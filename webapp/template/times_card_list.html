@@ -67,6 +67,7 @@
 </style>
 
 {{#this}}
+{{#yac}}
 <div class="am-vertical-align products-title">
     <img class="am-vertical-align-middle" src="./img/vline.png"/>
     <span class="am-vertical-align-middle">附近的次卡商品</span>
@@ -74,18 +75,19 @@
 
 <ul class="times_card_products">
     {{#each array}}
-    <li class="{{odd_or_even}}" data-rel="{{times_card_id}}">
+    <li class="{{odd_or_even}}" data-rel="{{times_card_product_id}}">
         <div>
             {{#cover_img}}
             <div class="home-page-products-image"><img src="{{raw_url}}"/></div>
             {{/cover_img}}
-            <div class="home-page-products-title">{{times_card_name}} ( {{times_card_amount}}次 )</div>
+            <div class="home-page-products-title">{{times_card_product_name}} ( {{times_card_amount}}次 )</div>
             <div class="home-page-products-price">
-                <div>¥{{times_card_price}}</div>
+                <div>¥{{total_price}}</div>
                 <div></div>
             </div>
         </div>
     </li>
     {{/each}}
 </ul>
+{{/yac}}
 {{/this}}

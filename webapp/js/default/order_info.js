@@ -127,7 +127,7 @@ yangaiche(app.order_info.show, function () {
             t("#submit_button").click(function () {
                 disable_button("#submit_button");
 
-                var param = yangaiche(app.pay.get_param)(order,
+                var param = yangaiche(app.pay.get_param)({order_id: order['id']},
                     'order_info_suc.html?order_id=' + yangaiche(app.url_parameter)['order_id'],
                     'order_info.html?order_id=' + yangaiche(app.url_parameter)['order_id']);
 

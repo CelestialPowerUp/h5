@@ -141,58 +141,62 @@ yangaiche(sys.init)(function (t) {
         if (suppliers.length > 0) {
             var times_card_dic = {};
             yangaiche(app.bigpipe.stage)({
-                data_url: '/v1/api/supplier/times_card_products.json?supplier_id=' + suppliers[0].supplier_id,
-                data: [{
-                    "buy_amount": 5, "cover_img": {
-                        "img_id": 1052,
-                        "img_index": 0,
-                        "original_url": "http: //7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s1024.jpg",
-                        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
-                        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
-                    }
-                    , "send_amount": 1, "times_card_id": 1, "times_card_name": "洗车打蜡", "times_card_price": 19.8
-                }, {
-                    "buy_amount": 5, "cover_img": {
-                        "img_id": 1052,
-                        "img_index": 0,
-                        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
-                        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
-                        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
-                    }
-                    , "send_amount": 2, "times_card_id": 2, "times_card_name": "洗车打蜡", "times_card_price": 19.8
-                }, {
-                    "buy_amount": 5, "cover_img": {
-                        "img_id": 1052,
-                        "img_index": 0,
-                        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
-                        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
-                        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
-                    }
-                    , "send_amount": 3, "times_card_id": 3, "times_card_name": "洗车打蜡", "times_card_price": 19.8
-                }, {
-                    "buy_amount": 5, "cover_img": {
-                        "img_id": 1052,
-                        "img_index": 0,
-                        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
-                        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
-                        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
-                    }
-                    , "send_amount": 4, "times_card_id": 4, "times_card_name": "洗车打蜡", "times_card_price": 19.8
-                }, {
-                    "buy_amount": 5, "cover_img": {
-                        "img_id": 1052,
-                        "img_index": 0,
-                        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
-                        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
-                        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
-                    }
-                    , "send_amount": 5, "times_card_id": 5, "times_card_name": "洗车打蜡", "times_card_price": 19.8
-                }],
+                data_url: '/v2/api/supplier/times_card/list.json/' + suppliers[0].supplier_id,
+                //data: [{
+                //    "buy_amount": 5, "cover_img": {
+                //        "img_id": 1052,
+                //        "img_index": 0,
+                //        "original_url": "http: //7xiqd7.com2.z0.glb.qiniucdn.com/1052.jpg/s1024.jpg",
+                //        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
+                //        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
+                //    }
+                //    , "send_amount": 1, "times_card_id": 1, "times_card_name": "洗车打蜡", "times_card_price": 19.8
+                //}, {
+                //    "buy_amount": 5, "cover_img": {
+                //        "img_id": 1052,
+                //        "img_index": 0,
+                //        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
+                //        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
+                //        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
+                //    }
+                //    , "send_amount": 2, "times_card_id": 2, "times_card_name": "洗车打蜡", "times_card_price": 19.8
+                //}, {
+                //    "buy_amount": 5, "cover_img": {
+                //        "img_id": 1052,
+                //        "img_index": 0,
+                //        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
+                //        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
+                //        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
+                //    }
+                //    , "send_amount": 3, "times_card_id": 3, "times_card_name": "洗车打蜡", "times_card_price": 19.8
+                //}, {
+                //    "buy_amount": 5, "cover_img": {
+                //        "img_id": 1052,
+                //        "img_index": 0,
+                //        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
+                //        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
+                //        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
+                //    }
+                //    , "send_amount": 4, "times_card_id": 4, "times_card_name": "洗车打蜡", "times_card_price": 19.8
+                //}, {
+                //    "buy_amount": 5, "cover_img": {
+                //        "img_id": 1052,
+                //        "img_index": 0,
+                //        "original_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s1024.jpg",
+                //        "raw_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B",
+                //        "thumbnail_url": "http://7xiqd8.com2.z0.glb.qiniucdn.com/Fjw6uZrKxtIsWmPveBbh1zKYZW9B/s250.jpg"
+                //    }
+                //    , "send_amount": 5, "times_card_id": 5, "times_card_name": "洗车打蜡", "times_card_price": 19.8
+                //}],
                 url_method: yangaiche(app.http.get_request),
                 template_url: 'template/times_card_list.html',
                 dom_hook: yangaiche(sys.$)('#times_card_wrapper'),
                 hook: {
                     pre: function (data) {
+                        if (data.length <= 0) {
+                            return null;
+                        }
+
                         t.each(data, function (i, d) {
                             if (i % 2 === 0) {
                                 d.odd_or_even = 'odd';
@@ -200,9 +204,9 @@ yangaiche(sys.init)(function (t) {
                                 d.odd_or_even = 'even';
                             }
                             d.times_card_amount = d.buy_amount + d.send_amount;
-                            times_card_dic[d.times_card_id] = d;
+                            times_card_dic[d.times_card_product_id] = d;
                         });
-                        return {array: data};
+                        return {yac: {array: data}};
                     },
                     post: function () {
                         var list = t('.times_card_products');
