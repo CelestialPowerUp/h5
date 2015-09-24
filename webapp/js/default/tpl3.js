@@ -14,7 +14,17 @@ yangaiche(sys.load_default_module)('back');
         exist = yangaiche(sys.exist),
         show_msg = yangaiche(app.show_msg.show);
     if (!(exist(url_params['page_type']) && exist(url_params['page_code']))) {
-        show_msg('链接地址不正确');
+        var count = 0;
+        var fn = function () {
+            count += 1;
+            if (count > 3) {
+                t('.am-dimmer').css('display', 'block');
+                t('.am-dimmer').unbind('click');
+                return;
+            }
+            show_msg('链接地址不正确', fn);
+        };
+        fn();
     }
 
     t('#submit_button_1').click(function () {

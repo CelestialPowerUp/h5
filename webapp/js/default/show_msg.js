@@ -32,7 +32,7 @@ yangaiche(app.show_msg.show, function () {
     var tpl = Handlebars.compile(app.show_msg.html),
         t = yangaiche(sys.$),
         active = true;
-    return function (msg) {
+    return function (msg, on_close) {
         if (!active) {
             return false;
         }
@@ -53,6 +53,9 @@ yangaiche(app.show_msg.show, function () {
         setTimeout(function () {
             $modal.modal('close');
             active = true;
+            if ('function' === typeof(on_close)) {
+                on_close();
+            }
         }, 2000);
 
         //alert(msg);
