@@ -17,9 +17,9 @@ app.show_msg = {
     wrapper: '<div id="msg_wrapper"></div>'
 };
 
-yangaiche(app.show_msg.init, function() {
+yangaiche(app.show_msg.init, function () {
     var t = yangaiche(sys.$);
-    return function() {
+    return function () {
         if (t('#msg_wrapper').length > 0) {
             return true;
         }
@@ -45,7 +45,12 @@ yangaiche(app.show_msg.show, function () {
         $modal.modal();
         active = false;
 
-        setTimeout(function() {
+        t('.am-dimmer').css('background-color', 'rgba(0,0,0,0)');
+        t('.am-modal-dialog').css('border-radius', '8px');
+        t('.am-modal-dialog').css('background-color', 'rgba(0,0,0,0.6)');
+        t('.am-modal-dialog *').css('color', 'rgba(255,255,255,1)');
+
+        setTimeout(function () {
             $modal.modal('close');
             active = true;
         }, 2000);

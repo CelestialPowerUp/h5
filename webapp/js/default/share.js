@@ -55,7 +55,7 @@ yangaiche(sys.load_default_module)('http');
             'openCard'
         ];
         data.timestamp = parseInt(data.timestamp);
-        alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         wx.config(data);
         /*
          * 注意：
