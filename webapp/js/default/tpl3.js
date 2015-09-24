@@ -33,7 +33,7 @@ yangaiche(sys.load_default_module)('back');
         }, function () {
             yangaiche(ls.back.set_back_to_self)('activities/pubhtml/coupon_got.html');
         }, function (error) {
-            alert(JSON.stringify(error));
+            console.log(JSON.stringify(error));
             if ('20102' === error['code']) {
                 yangaiche(ls.back.set_back_to_self)('activities/pubhtml/coupon_got.html?done=true');
                 return;
