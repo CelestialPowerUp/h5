@@ -26,12 +26,7 @@ yangaiche(sys.load_default_module)('parameter');
 
     function pay(id) {
 
-        store.set('activity_record_id', id);
-        store.set('subject', '养爱车活动');
-        store.set('success_url', '/activities/pubhtml/external_sale_pay_success.html');
-        store.set('cancel_url', '/activities/pubhtml/external_sale_pay_fail.html');
-
-        window.location.href = './external_sale_pay.html';
+        window.location.href = './activities/pubhtml/external_sale_pay_success2.html';
 
     }
 
