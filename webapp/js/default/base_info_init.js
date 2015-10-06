@@ -61,6 +61,7 @@ yangaiche(sys.init)(function (t) {
 
     var submitText = yangaiche(sys.local_storage).get(key.submit_button.submit_text_key);
     t('#submit_button').html(submitText);
+    disable_button('#submit_button');
 
     var user = yangaiche(ls.user.touch)();
 
@@ -164,11 +165,15 @@ yangaiche(sys.init)(function (t) {
         };
         selectApicktime();
         t("#pick_time_info").unbind('change').change(selectApicktime);
+
+        reset_button('#submit_button');
     }
 
     function set_activity_time_segments(address_info) {
         getReq('/v1/api/activity/time_segments?longitude=' + address_info.longitude + '&latitude=' + address_info.latitude, function (data) {
             handle_time_segments(data);
+        }, function (error) {
+            show_msg(error['message']);
         });
     }
 
