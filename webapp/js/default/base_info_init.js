@@ -142,6 +142,11 @@ yangaiche(sys.init)(function (t) {
     });
 
     function handle_time_segments(data) {
+        if (data.length <= 0) {
+            show_msg('接车区域管家繁忙，请您输入其他地址或稍后再试');
+            return;
+        }
+
         var time_data = [];
 
         for (var a = 0; a < data.length; a++) {
@@ -158,10 +163,12 @@ yangaiche(sys.init)(function (t) {
         t("#pick_time_info").html(template(time_data));
 
         var selectApicktime = function () {
-            var item = time_data[t("#pick_time_info").val()];
-            t("#pick_time").val(item.pick_time);
-            t("#pick_time_segment").val(item.pick_time_segment);
-            save_from_data();
+            if (time_data.length > 0) {
+                var item = time_data[t("#pick_time_info").val()];
+                t("#pick_time").val(item.pick_time);
+                t("#pick_time_segment").val(item.pick_time_segment);
+                save_from_data();
+            }
         };
         selectApicktime();
         t("#pick_time_info").unbind('change').change(selectApicktime);
