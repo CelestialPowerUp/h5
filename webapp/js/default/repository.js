@@ -29,5 +29,11 @@ var key = {
     qiniu: {
         token: 'qiniu_token_key',
         last_update: 'qiniu_token_last_update'
+    },
+    times_card: {
+        current: 'times_card_current'
+    },
+    supplier: {
+        current: 'supplier_current'
     }
 };

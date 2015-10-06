@@ -14,7 +14,6 @@ yangaiche(sys.init)(function (t) {
             responseCallback(data);
         });
 
-        alert(1);
         yangaiche(app.http.tweak)(function (type, request_type, url) {
             var this_context = type + request_type + url,
                 accept_context = app.http.after_render + app.http.get + '/v2/api/store/home_ware_list.json',
@@ -25,7 +24,7 @@ yangaiche(sys.init)(function (t) {
                     var data = {type: 7, ware_id: t(this).attr('data-rel')};
                     alert('JS responding with: ' + JSON.stringify(data));
                     bridge['callHandler']('route', data, function (responseData) {
-                        console.log('JS got response: ' + responseData);
+                        alert('JS got response: ' + responseData);
                     });
                 });
             }
@@ -34,12 +33,11 @@ yangaiche(sys.init)(function (t) {
                     var data = {type: 0, web_url: t(t(this).parents()[0]).attr('data-rel')};
                     alert('JS responding with: ' + JSON.stringify(data));
                     bridge['callHandler']('route', data, function (responseData) {
-                        console.log('JS got response: ' + responseData);
+                        alert('JS got response: ' + responseData);
                     });
                 });
             }
         });
-        alert(2);
     });
 
 }, 0);
@@ -56,7 +54,7 @@ yangaiche(sys.init)(function (t) {
             var data = {type: index + 1};
             alert('JS responding with: ' + JSON.stringify(data));
             bridge['callHandler']('route', data, function (responseData) {
-                console.log('JS got response: ' + responseData);
+                alert('JS got response: ' + responseData);
             });
         });
 
@@ -64,7 +62,7 @@ yangaiche(sys.init)(function (t) {
             var data = {type: 7, ware_id: t(this).attr('data-rel')};
             alert('JS responding with: ' + JSON.stringify(data));
             bridge['callHandler']('route', data, function (responseData) {
-                console.log('JS got response: ' + responseData);
+                alert('JS got response: ' + responseData);
             });
         });
 
@@ -72,7 +70,7 @@ yangaiche(sys.init)(function (t) {
             var data = {type: 0, web_url: t(t(this).parents()[0]).attr('data-rel')};
             alert('JS responding with: ' + JSON.stringify(data));
             bridge['callHandler']('route', data, function (responseData) {
-                console.log('JS got response: ' + responseData);
+                alert('JS got response: ' + responseData);
             });
         });
     });

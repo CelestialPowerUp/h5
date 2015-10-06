@@ -26,8 +26,6 @@ yangaiche(sys.load_default_module)('parameter');
 
     function pay(id) {
 
-        //window.location.href = './activities/pubhtml/external_sale_pay_success2.html';
-
         store.set('activity_record_id', id);
         store.set('subject', '养爱车活动');
         store.set('success_url', '/activities/pubhtml/external_sale_pay_success.html');
