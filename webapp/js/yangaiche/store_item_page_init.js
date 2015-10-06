@@ -1,6 +1,5 @@
-yangaiche(sys.load_default_module)('store_init');
+yangaiche(sys.load_default_module)('store_item_page_init');
 yangaiche(sys.load_default_module)('user');
-yangaiche(sys.load_default_module)('http');
 yangaiche(sys.load_module)('ios/bridge');
 
 yangaiche(sys.init)(function (t) {
