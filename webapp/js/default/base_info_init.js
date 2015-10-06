@@ -7,7 +7,7 @@ yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('duplicate_submission', {});
 yangaiche(sys.load_default_module)('back', {});
 
-yangaiche(sys.init)(function(t) {
+yangaiche(sys.init)(function (t) {
     t('#contact_name').bind('mouseup', function (event) {
         event.preventDefault();
     });
@@ -140,7 +140,39 @@ yangaiche(sys.init)(function(t) {
         yangaiche(ls.back.set_back_to_self)('my_address_manage.html');
     });
 
-    var auto_get_location = function () {
+    function handle_time_segments(data) {
+        var time_data = [];
+
+        for (var a = 0; a < data.length; a++) {
+            for (var b = 0; b < data[a]['data'].length; b++) {
+                var item = {};
+                item.pick_time = data[a]['key'];
+                item.index = time_data.length;
+                item.pick_time_segment = data[a]['data'][b];
+                item.infos = item.pick_time + "</br>" + item.pick_time_segment;
+                time_data.push(item);
+            }
+        }
+        template = Handlebars.compile(t("#take_time_tpl").html());
+        t("#pick_time_info").html(template(time_data));
+
+        var selectApicktime = function () {
+            var item = time_data[t("#pick_time_info").val()];
+            t("#pick_time").val(item.pick_time);
+            t("#pick_time_segment").val(item.pick_time_segment);
+            save_from_data();
+        };
+        selectApicktime();
+        t("#pick_time_info").unbind('change').change(selectApicktime);
+    }
+
+    function set_activity_time_segments(address_info) {
+        getReq('/v1/api/activity/time_segments?longitude=' + address_info.longitude + '&latitude=' + address_info.latitude, function (data) {
+            handle_time_segments(data);
+        });
+    }
+
+    var auto_get_location = function (order) {
         disable_button('#submit_button');
 
         var geolocation = new BMap.Geolocation();
@@ -148,7 +180,7 @@ yangaiche(sys.init)(function(t) {
             if (this.getStatus() == BMAP_STATUS_SUCCESS) {
                 // 定位成功事件
                 var address = '';
-                yangaiche(ls.location.update)(function(location_info) {
+                yangaiche(ls.location.update)(function (location_info) {
                     address += e.address.city ? e.address.city : '';
                     address += e.address.district ? e.address.district : '';
                     address += e.address.street ? e.address.street : '';
@@ -158,6 +190,9 @@ yangaiche(sys.init)(function(t) {
                     location_info.latitude = e.point.lat;
                     location_info.longitude = e.point.lng;
                     location_info.point = e.point;
+                    if (/activity/.test(order.peer_source)) {
+                        set_activity_time_segments(location_info);
+                    }
                 });
                 t('#address').attr('placeholder', '限北京地区，请输入...');
                 t("#address").val(address);
@@ -189,14 +224,20 @@ yangaiche(sys.init)(function(t) {
         }
 
         var address_info = yangaiche(ls.location.touch)(), exist = yangaiche(sys.exist);
-        if ((!exist(address_info.name) || address_info.name === "") && (!exist(address_info.address) || address_info.address === "")) {
-            auto_get_location();
+        if ((!exist(address_info.name) || address_info.name === "")
+            && (!exist(address_info.address) || address_info.address === "")
+            || !exist(address_info.latitude) || !exist(address_info.longitude)) {
+            auto_get_location(order);
         } else {
             t('#address').attr('placeholder', '限北京地区，请输入...');
             if ('' !== address_info.address) {
                 t("#address").val(address_info.address.replace(/(^\s*)|(\s*$)/g, ''));
             } else {
                 t("#address").val(address_info.name.replace(/(^\s*)|(\s*$)/g, ''));
+            }
+
+            if (/activity/.test(order.peer_source)) {
+                set_activity_time_segments(address_info);
             }
         }
 
@@ -221,36 +262,18 @@ yangaiche(sys.init)(function(t) {
         preview_order(order);
     };
 
-    //获取接车时间
-    getReq("/v1/api/time_segments.json?service_type=keeper", function (data) {
-        var time_data = [];
-
-        for (var a = 0; a < data.length; a++) {
-            for (var b = 0; b < data[a]['data'].length; b++) {
-                var item = {};
-                item.pick_time = data[a]['key'];
-                item.index = time_data.length;
-                item.pick_time_segment = data[a]['data'][b];
-                item.infos = item.pick_time + "</br>" + item.pick_time_segment;
-                time_data.push(item);
-            }
-        }
-        template = Handlebars.compile(t("#take_time_tpl").html());
-        t("#pick_time_info").html(template(time_data));
-
-        var selectApicktime = function () {
-            var item = time_data[t("#pick_time_info").val()];
-            t("#pick_time").val(item.pick_time);
-            t("#pick_time_segment").val(item.pick_time_segment);
-            save_from_data();
-        };
-        selectApicktime();
-        t("#pick_time_info").change(selectApicktime);
-
-        order_to_form(yangaiche(ls.order.touch)());
-    }, function(error) {
-        show_msg(error['message']);
-    });
+    var order_touch = yangaiche(ls.order.touch)();
+    if (!/activity/.test(order_touch.peer_source)) {
+        //获取接车时间（普通单）
+        getReq("/v1/api/time_segments.json?service_type=keeper", function (data) {
+            handle_time_segments(data);
+            order_to_form(order_touch);
+        }, function (error) {
+            show_msg(error['message']);
+        });
+    } else {
+        order_to_form(order_touch);
+    }
 
     t('#use_coupon').click(function () {
         yangaiche(ls.back.set_back_to_self)('my_coupons.html?can_select=true');

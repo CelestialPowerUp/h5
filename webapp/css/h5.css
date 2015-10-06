@@ -468,6 +468,10 @@ body {
     width: 390px;
 }
 
+.am-form-field[disabled] {
+    background: #FFF;
+}
+
 .baseinfo-form-locate-img-wrapper {
     width: 60px;
     height: 88px;
