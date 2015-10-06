@@ -2,7 +2,6 @@
 
 local_dir="$1"
 local_cfg="$2"
-deploy="$3"
 cfgfile=${local_dir}/${local_cfg}"_version.cfg"
 
 if [ -e ${cfgfile} ]; then
