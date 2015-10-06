@@ -122,7 +122,7 @@ yangaiche(sys.init)(function(t) {
         } else {
             disable_button('#submit_button');
             order.user_id = user.user_id;
-            order.peer_source = yangaiche(sys.browser_type).type;
+            order.peer_source = order.peer_source || yangaiche(sys.browser_type).type;
             order.total_price = null;
 
             postReq("/v2/api/order/create.json", order, function (order_data) {

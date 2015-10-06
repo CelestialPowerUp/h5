@@ -114,7 +114,7 @@ yangaiche(app.order_info.show, function () {
 
                 var user = yangaiche(ls.user.touch)();
                 order.user_id = user.user_id;
-                order.peer_source = yangaiche(sys.browser_type).type;
+                order.peer_source = order.peer_source || yangaiche(sys.browser_type).type;
                 postReq("/v2/api/order/create.json", order, function (data) {
                     yangaiche(ls.order.set)(data);
                     yangaiche(ls.back.set_back_to_store)('order_success.html');
