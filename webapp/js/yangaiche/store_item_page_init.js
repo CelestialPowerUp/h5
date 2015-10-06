@@ -7,8 +7,8 @@ yangaiche(sys.init)(function (t) {
     yangaiche(app.bridge.connect)(function (bridge) {
         var data = {'Javascript Responds': 'Wee!'};
         bridge.init(function (message, responseCallback) {
-            console.log('JS got a message: ' + message);
-            console.log('JS responding with: ' + JSON.stringify(data));
+            alert('JS got a message: ' + message);
+            alert('JS responding with: ' + JSON.stringify(data));
             yangaiche(ls.user.set)(JSON.parse(message));
             responseCallback(data);
         });
