@@ -1,13 +1,12 @@
 app.browser = {
-    what_device: 'app_browser_is_android',
-    is_android: 'app_browser_is_android',
+    what_device: 'app_browser_what_device',
 
     android: 'Android',
     ios: 'iOS',
     unknown: 'Unknown'
 };
 
-yangaiche(app,browser.what_device, function() {
+yangaiche(app.browser.what_device, function() {
     var UA = navigator.userAgent,
         isAndroid = /android|adr/gi.test(UA),
         isIos = /iphone|ipod|ipad/gi.test(UA) && !isAndroid, // 据说某些国产机的UA会同时包含 android iphone 字符
