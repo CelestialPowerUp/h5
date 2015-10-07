@@ -4,9 +4,9 @@ yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
-yangaiche(sys.load_default_module)('supplier');
 yangaiche(sys.load_default_module)('paging');
 yangaiche(sys.load_default_module)('format');
+yangaiche(sys.load_module)('supplier');
 yangaiche(sys.load_module)('set_activity_peer_source');
 
 yangaiche(sys.init)(function (t) {
