@@ -2,6 +2,7 @@ yangaiche(sys.load_module)('ios/bridge');
 yangaiche(sys.load_default_module)('user');
 yangaiche(sys.load_default_module)('location');
 yangaiche(sys.load_default_module)('order');
+yangaiche(sys.load_default_module)('back');
 
 app.supplier = {
     init: 'supplier_init'
@@ -34,9 +35,12 @@ yangaiche(app.supplier.init, function () {
         yangaiche(app.bridge.connect)(function (bridge) {
             var data = {'Javascript Responds': 'Wee!'};
             bridge.init(function (message, responseCallback) {
-                alert('JS got a message: ' + message);
                 alert('JS responding with: ' + JSON.stringify(data));
-                var init = JSON.parse(message);
+                responseCallback(data);
+            });
+            bridge['callHandler']('getInfo', data, function (responseData) {
+                alert('JS got a message: ' + responseData);
+                var init = JSON.parse(responseData);
                 yangaiche(ls.user.set)(init.user_info);
                 yangaiche(ls.location.set)(init.location);
                 supplier_adapt(init.location, function (suppliers) {
@@ -50,7 +54,6 @@ yangaiche(app.supplier.init, function () {
                     supplier_products(suppliers, callback);
                     alert(2);
                 }, ware_id);
-                responseCallback(data);
             });
         });
     };
