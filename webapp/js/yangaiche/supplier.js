@@ -2,7 +2,6 @@ yangaiche(sys.load_module)('ios/bridge');
 yangaiche(sys.load_default_module)('user');
 yangaiche(sys.load_default_module)('location');
 yangaiche(sys.load_default_module)('order');
-yangaiche(sys.load_default_module)('back');
 
 app.supplier = {
     init: 'supplier_init'
@@ -29,16 +28,8 @@ yangaiche(app.supplier.init, function () {
     }
 
     return function (callback, ware_id) {
-        //yangaiche(sys.$)('body').append('<script type="text/javascript" src="' + yangaiche(sys.root) + '/js/default/clear_init.js"></script>');
-        //yangaiche(sys.$)('body').append('<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>');
-
         yangaiche(app.bridge.connect)(function (bridge) {
-            var data = {'Javascript Responds': 'Wee!'};
-            bridge.init(function (message, responseCallback) {
-                alert('JS responding with: ' + JSON.stringify(data));
-                responseCallback(data);
-            });
-            bridge['callHandler']('getInfo', data, function (responseData) {
+            bridge['callHandler']('getInfo', {}, function (responseData) {
                 alert('JS got a message: ' + responseData);
                 var init = JSON.parse(responseData);
                 yangaiche(ls.user.set)(init.user_info);
