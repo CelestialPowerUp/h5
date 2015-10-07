@@ -110,9 +110,7 @@ yangaiche(sys.init)(function (t) {
                     });
                 });
 
-                alert('is storage ok?');
                 var storage = yangaiche(sys.local_storage);
-                alert('yes');
 
                 var car = storage.get(key.car.info);
 

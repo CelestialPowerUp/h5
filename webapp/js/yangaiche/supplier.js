@@ -30,7 +30,7 @@ yangaiche(app.supplier.init, function () {
     return function (callback, ware_id) {
         yangaiche(app.bridge.connect)(function (bridge) {
             bridge['callHandler']('getInfo', {}, function (responseData) {
-                alert('JS got a message: ' + responseData);
+                console.log('JS got a message: ' + responseData);
                 var init = JSON.parse(responseData);
                 yangaiche(ls.user.set)(init.user_info);
                 yangaiche(ls.location.set)(init.location);
@@ -41,9 +41,7 @@ yangaiche(app.supplier.init, function () {
                             order.supplier_name = suppliers[0].supplier_name;
                         }
                     });
-                    alert(1);
                     supplier_products(suppliers, callback);
-                    alert(2);
                 }, ware_id);
             });
         });

@@ -4,13 +4,13 @@ yangaiche(sys.load_module)('ios/bridge');
 yangaiche(app.bridge.connect)(function (bridge) {
     var data = {'Javascript Responds': 'Wee!'};
     bridge.init(function (message, responseCallback) {
-        alert('JS got a message: ' + message);
+        console.log('JS got a message: ' + message);
 
         if (/.*go_back.*/.test(message)) {
-            alert('go_back');
+            console.log('go_back');
             var parent_of_this = yangaiche(ls.back.get_parent_of_this)();
-            alert(parent_of_this);
-            if (!/.*undefined/.test(parent_of_this)) {
+            console.log(parent_of_this);
+            if (yangaiche(sys.exist)(parent_of_this) && !/.*(undefined|null)/.test(parent_of_this)) {
                 yangaiche(ls.back.set_back_to_his)(parent_of_this);
                 return true;
             } else {
@@ -19,7 +19,7 @@ yangaiche(app.bridge.connect)(function (bridge) {
             }
         }
 
-        alert('JS responding with: ' + JSON.stringify(data));
+        console.log('JS responding with: ' + JSON.stringify(data));
         responseCallback(data);
     });
 });
