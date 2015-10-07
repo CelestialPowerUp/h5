@@ -97,6 +97,7 @@ yangaiche(sys.init)(function (t) {
 
             t('#submit_btn').click(function () {
                 if (!yangaiche(sys.exist)(store_item)) {
+                    alert('store_item_null');
                     return true;
                 }
 
@@ -109,7 +110,10 @@ yangaiche(sys.init)(function (t) {
                     });
                 });
 
+                alert('is storage ok?');
                 var storage = yangaiche(sys.local_storage);
+                alert('yes');
+
                 var car = storage.get(key.car.info);
 
                 yangaiche(ls.order.update)(function (order) {
