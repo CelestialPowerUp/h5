@@ -97,7 +97,6 @@ yangaiche(sys.init)(function (t) {
 
             t('#submit_btn').click(function () {
                 if (!yangaiche(sys.exist)(store_item)) {
-                    alert('store_item_null');
                     return true;
                 }
 
