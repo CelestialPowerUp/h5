@@ -4,10 +4,10 @@ yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('show_msg', {});
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
-yangaiche(sys.load_default_module)('supplier');
 yangaiche(sys.load_default_module)('paging');
 yangaiche(sys.load_default_module)('format');
-yangaiche(sys.load_default_module)('set_activity_peer_source');
+yangaiche(sys.load_module)('supplier');
+yangaiche(sys.load_module)('set_activity_peer_source');
 
 yangaiche(sys.init)(function (t) {
     var device_width = t(window).width();
@@ -110,6 +110,7 @@ yangaiche(sys.init)(function (t) {
                 });
 
                 var storage = yangaiche(sys.local_storage);
+
                 var car = storage.get(key.car.info);
 
                 yangaiche(ls.order.update)(function (order) {

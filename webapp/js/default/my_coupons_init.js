@@ -38,7 +38,7 @@ yangaiche(sys.init)(function(t) {
                     coupon.used = 'true';
                 }
                 coupon.expired_time = coupon.expired_time.substr(0, coupon.expired_time.indexOf('T'));
-                if ('coupon_type_1' === coupon['coupon_type']) {
+                if (coupon['show_money']) {
                     coupon.showvalue = {value: coupon.value};
                 }
             });

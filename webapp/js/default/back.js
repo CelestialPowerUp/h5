@@ -6,6 +6,7 @@ ls.back = {
     set_back_to_self: 'set_back_to_self',
     set_back_to_his: 'set_back_to_his',
     get_parent_of: 'get_parent_of_anything',
+    get_parent_of_this: 'get_parent_of_this',
 
     get_whole_url: 'get_whole_url'
 };
@@ -53,6 +54,18 @@ yangaiche(ls.back.get_parent_of, function () {
     var storage = yangaiche(sys.local_storage), wrapper = yangaiche(ls.back.get_whole_url);
     return function (url) {
         var referer = storage.get(wrapper(url));
+        if (yangaiche(sys.exist)(referer)) {
+            return referer;
+        } else {
+            return null;
+        }
+    };
+});
+
+yangaiche(ls.back.get_parent_of_this, function() {
+    var storage = yangaiche(sys.local_storage), wrapper = yangaiche(ls.back.get_whole_url);
+    return function () {
+        var referer = storage.get(wrapper(window.location.href));
         if (yangaiche(sys.exist)(referer)) {
             return referer;
         } else {
