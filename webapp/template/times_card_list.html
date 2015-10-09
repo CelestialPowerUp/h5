@@ -36,6 +36,7 @@
     .times_card_products .home-page-products-title {
         width: 290px;
         height: 40px;
+        line-height: 40px;
         color: #333;
         font-size: 28px;
         padding-left: 10px;
@@ -80,7 +81,7 @@
             {{#cover_img}}
             <div class="home-page-products-image"><img src="{{raw_url}}"/></div>
             {{/cover_img}}
-            <div class="home-page-products-title">{{times_card_product_name}} ( {{times_card_amount}}次 )</div>
+            <div class="home-page-products-title auto-font-size-yac" font-size-limit="290">{{times_card_product_name}}（{{times_card_amount}}次）</div>
             <div class="home-page-products-price">
                 <div>¥{{total_price}}</div>
                 <div></div>
