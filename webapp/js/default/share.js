@@ -71,7 +71,7 @@ yangaiche(sys.load_default_module)('http');
         wx.ready(function () {
             var shareData = {
                 title: '【养爱车】给车主任性大礼，用心养护您的爱车',
-                desc: '原价168元打蜡洗车只要19.9元，任性补贴贴到底',
+                desc: '【养爱车】打蜡洗车只要19.9元，任性补贴贴到底',
                 link: decodeURIComponent(link),
                 imgUrl: 'http://baseimg.yangaiche.com/extra_sale_share_logo.png'
             };

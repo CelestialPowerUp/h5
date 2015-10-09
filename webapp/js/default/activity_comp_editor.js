@@ -126,7 +126,7 @@ yangaiche(app.activity_comp_editor.render, function () {
 
 yangaiche(app.activity_comp_editor.reverse_render, function () {
     var t = yangaiche(sys.$);
-    return function (html, post_obj) {
+    return function (html, post) {
         var editor = t('#editor');
         editor.empty().html(html);
 
@@ -140,7 +140,11 @@ yangaiche(app.activity_comp_editor.reverse_render, function () {
                 data_tpl = $comp.attr('data-tpl'),
                 background = $comp.attr('style').match(/background:(.*?);/)[1],
                 height = $comp.css('height').match(/(\d+)/)[1],
-                inner_html = $comp.html();
+                inner_html = $comp.html(),
+                post_callback = post;
+            if ('object' === typeof(post_callback)) {
+                post_callback = post[data_tpl];
+            }
             comps[id] = {
                 data_tpl: data_tpl,
                 data: {
@@ -149,7 +153,7 @@ yangaiche(app.activity_comp_editor.reverse_render, function () {
                     height: height,
                     inner_html: inner_html
                 },
-                post: post_obj[data_tpl]
+                post: post_callback
             };
             count += 1;
         });

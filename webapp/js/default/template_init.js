@@ -165,12 +165,14 @@ yangaiche(sys.init)(function (t) {
             t(this).css('opacity', '1');
         });
 
-        t('#js-suit-list').find('.btn').css('opacity', '0.6');
-        t('.js-suit.btn[data-rel="' + app.activity_comp_editor.current_js_suit + '"]').css('opacity', '1');
-
         t('#comp-list').css('padding-bottom', (40 * parseInt((app.activity_comp_editor.comp_tpls.count + 1) / 2) + 4) + '%');
         t('#js-suit-list').css('padding-bottom', (40 * parseInt((app.activity_comp_editor.js_suit_tpls.count + 1) / 2) + 4) + '%');
-    }, bind_delete);
+    }, function () {
+        bind_delete();
+
+        t('#js-suit-list').find('.btn').css('opacity', '0.6');
+        t('.js-suit.btn[data-rel="' + app.activity_comp_editor.current_js_suit + '"]').css('opacity', '1');
+    });
 
     t('#editor').mouseenter(function () {
         t(this).find('.component').addClass('deactivated');
@@ -315,14 +317,11 @@ yangaiche(sys.init)(function (t) {
             yangaiche(app.http.get_request)('/v1/api/h5template/get_page_by_code.json?code=' + page_code, function (data) {
                 console.log(data);
 
-                yangaiche(app.activity_comp_editor.reverse_render)(data['rendered_html'], {
-                    image: post_handler,
-                    input1: post_handler,
-                    qrcodephone: post_handler
-                });
-                yangaiche(app.activity_comp_editor.refresh)();
+                yangaiche(app.activity_comp_editor.reverse_render)(data['rendered_html'], post_handler);
                 app.activity_comp_editor.current_activity_id = data['id'];
+                app.activity_comp_editor.current_js_suit = data['js_suit']['id'];
                 app.activity_comp_editor.current_page_code = page_code;
+                yangaiche(app.activity_comp_editor.refresh)();
                 start_working();
             });
         });
