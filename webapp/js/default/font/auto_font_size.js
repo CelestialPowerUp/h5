@@ -7,12 +7,15 @@ yangaiche(sys.init)(function (t) {
     yangaiche(app.http.tweak)(function (type) {
         if (type === app.http.after_render) {
 
-            function set_width(max_limit, font_size, text_size) {
+            function set_width(max_limit, font_size, text_size, max_font_size) {
 
                 //alert('max_limit : ' + max_limit + ' font_size : ' + font_size + ' text_size : ' + text_size);
 
                 if (font_size * text_size < max_limit) {
-                    return set_width(max_limit, font_size + font_size_step, text_size);
+                    if (font_size + font_size_step > max_font_size) {
+                        return font_size;
+                    }
+                    return set_width(max_limit, font_size + font_size_step, text_size, max_font_size);
                 } else {
                     return font_size - 2;
                 }
@@ -25,7 +28,7 @@ yangaiche(sys.init)(function (t) {
                 //最大高度
                 var max_limit = $comp.attr(size_limit_attr_name);
 
-                $comp.css('font-size', set_width(max_limit, min_font_size + font_size_step, $comp.text().replace(/^s*/, '').replace(/s*$/, '').length) + 'px');
+                $comp.css('font-size', set_width(max_limit, min_font_size + font_size_step, $comp.text().replace(/^s*/, '').replace(/s*$/, '').length) + 'px', $comp.css('font-size').match(/\d*/)[1]);
             });
         }
     });
