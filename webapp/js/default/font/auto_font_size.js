@@ -31,7 +31,7 @@ yangaiche(sys.init)(function (t) {
 
                 $comp.css('font-size', set_width(max_limit,
                         min_font_size + font_size_step,
-                        $comp.text().replace(/^s*/, '').replace(/s*$/, '').length,
+                        $comp.text().replace(/^\s*/, '').replace(/\s*$/, '').length,
                         $comp.css('font-size').match(/(\d*)/)[1])
                     + 'px');
             });
