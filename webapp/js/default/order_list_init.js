@@ -21,19 +21,8 @@ yangaiche(sys.init)(function (t) {
             item.total_price = data[i].total_price;
             item.place_time = yangaiche(app.format.time)(data[i].place_time);
             item.order_status_value = data[i].order_status_value;
-            if (data[i]['order_status_key'].match(/complete|completed/)) {
-                item.comment_btn_text = key.submit_button.submit_text_value4;
-                item.gray_button = '';
-            } else {
-                item.gray_button = 'gray_button';
-                if ('evaluated' === data[i]['order_status_key']) {
-                    item.comment_btn_text = key.submit_button.submit_text_value6;
-                } else {
-                    item.comment_btn_text = key.submit_button.submit_text_value8;
-                }
-            }
             if (!data[i]['order_status_key'].match(/unconfirmed|confirmed/)) {
-                item.gray_button2 = 'gray_button';
+                item.gray_button = 'gray_button';
             }
             items.push(item);
         }
@@ -75,7 +64,7 @@ yangaiche(sys.init)(function (t) {
                         "order_status": "cancelled"
                     }, function (data) {
                         yangaiche(app.show_msg.show)(data);
-                        window.location.reload();
+                        yangaiche(ls.back.set_back_to_his)('order_list.html');
                     }, function (error) {
                         yangaiche(app.show_msg.show)(error['message']);
                     });
