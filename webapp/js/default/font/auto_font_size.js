@@ -9,26 +9,31 @@ yangaiche(sys.init)(function (t) {
 
             function set_width(max_limit, font_size, text_size, max_font_size) {
 
-                //alert('max_limit : ' + max_limit + ' font_size : ' + font_size + ' text_size : ' + text_size);
+                console.log('max_limit : ' + max_limit + ' font_size : ' + font_size + ' text_size : ' + text_size + ' max_font_size : ' + max_font_size);
 
-                if (font_size * text_size < max_limit) {
-                    if (font_size + font_size_step > max_font_size) {
-                        return font_size;
-                    }
-                    return set_width(max_limit, font_size + font_size_step, text_size, max_font_size);
-                } else {
+                if (font_size * text_size > max_limit) {
                     return font_size - 2;
                 }
+
+                if (font_size + font_size_step > max_font_size) {
+                    return font_size;
+                }
+
+                return set_width(max_limit, font_size + font_size_step, text_size, max_font_size);
 
             }
 
             var need_auto_size = t('.' + class_name);
             t.each(need_auto_size, function (i, comp) {
                 var $comp = t(comp);
-                //最大高度
+
                 var max_limit = $comp.attr(size_limit_attr_name);
 
-                $comp.css('font-size', set_width(max_limit, min_font_size + font_size_step, $comp.text().replace(/^s*/, '').replace(/s*$/, '').length) + 'px', $comp.css('font-size').match(/\d*/)[1]);
+                $comp.css('font-size', set_width(max_limit,
+                        min_font_size + font_size_step,
+                        $comp.text().replace(/^s*/, '').replace(/s*$/, '').length,
+                        $comp.css('font-size').match(/(\d*)/)[1])
+                    + 'px');
             });
         }
     });
