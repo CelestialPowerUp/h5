@@ -12,12 +12,6 @@ yangaiche(sys.init)(function (t) {
                 return '/v1/api/radius/get_goods_info.json';
             }
             return app.http.abort;
-        } else if (type === app.http.hijacker) {
-            if (url === '/v1/api/radius/get_goods_info.json') {
-                return function(data) {
-                    alert(JSON.stringify(data));
-                };
-            }
         }
     });
 
