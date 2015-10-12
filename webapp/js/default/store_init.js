@@ -64,8 +64,10 @@ yangaiche(sys.init)(function (t) {
                 }
             });
         });
-        data.splice(to_move_index, 1);
-        data.push(to_append_data);
+        if (yangaiche(sys.exist)(to_move_index) && yangaiche(sys.exist)(to_append_data)) {
+            data.splice(to_move_index, 1);
+            data.push(to_append_data);
+        }
 
         var tpl = Handlebars.compile(t("#home_store_list_tpl").text());
         t('#home-page-wrapper').append(tpl(data));
