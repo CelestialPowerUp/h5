@@ -13,6 +13,8 @@ yangaiche(sys.load_default_module)('bigpipe/pipe_able');
 
 yangaiche(sys.init)(function (t) {
 
+    t('#home-page-wrapper').css('display', 'block');
+
     if (yangaiche(sys.browser_type).type !== 'h5_hybrid') {
         t('#location').css('display', 'block');
         t('#to_show_user_win').css('display', 'block');
