@@ -6,6 +6,7 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('back', {});
 yangaiche(sys.load_default_module)('template', {});
 yangaiche(sys.load_default_module)('parameter', {});
+yangaiche(sys.load_module)('order/create');
 
 app.order_info = {
     show: 'show_order_info'
@@ -115,7 +116,7 @@ yangaiche(app.order_info.show, function () {
                 var user = yangaiche(ls.user.touch)();
                 order.user_id = user.user_id;
                 order.peer_source = order.peer_source || yangaiche(sys.browser_type).type;
-                postReq("/v2/api/order/create.json", order, function (data) {
+                postReq(yangaiche(app.order_create.get_api), order, function (data) {
                     yangaiche(ls.order.set)(data);
                     yangaiche(ls.back.set_back_to_store)('order_success.html');
                 }, function (data) {
