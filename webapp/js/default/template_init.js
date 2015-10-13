@@ -256,7 +256,8 @@ yangaiche(sys.init)(function (t) {
 
     t('#activity-exist-add').click(function () {
         var params = yangaiche(app.form.to_obj)('#activity-add-form'),
-            components = yangaiche(app.activity_comp_editor.get_components)();
+            components = yangaiche(app.activity_comp_editor.get_components)(),
+            external_sale_configs = '{}';
 
         console.log(params);
         console.log(components);
@@ -271,6 +272,19 @@ yangaiche(sys.init)(function (t) {
             return false;
         }
 
+        if (yangaiche(sys.exist)(params.share_config)) {
+            try {
+                var externalSaleConfigs = params.share_config.toString();
+
+                JSON.parse(externalSaleConfigs);
+
+                external_sale_configs = externalSaleConfigs;
+            } catch (e) {
+                alert('请正确填写分享配置【思宇专用】');
+                return false;
+            }
+        }
+
         yangaiche(app.http.post_request)('/v1/api/h5template/update.json', {
             id: params.id,
             page_code: params.code,
@@ -279,7 +293,7 @@ yangaiche(sys.init)(function (t) {
                     id: parseInt(app.activity_comp_editor.current_js_suit)
                 },
                 rendered_html: yangaiche(app.activity_comp_editor.render)(components),
-                external_sale_configs: '{}'
+                external_sale_configs: external_sale_configs
             }
         }, function (data) {
             console.log(data);
