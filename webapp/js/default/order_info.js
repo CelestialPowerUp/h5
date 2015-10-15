@@ -28,6 +28,10 @@ yangaiche(app.order_info.show, function () {
         order.self_items = [];
 
         function products_divide(i, p) {
+            if (p['disabled']) {
+                return true;
+            }
+
             var selection_mode = p['selection_mode'] || 1;
             if (selection_mode === 1) {
                 order.self_items.push(p);
