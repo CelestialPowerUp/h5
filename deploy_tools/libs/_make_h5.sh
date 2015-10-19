@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo $1-\>$2-\>$3 &&
+echo $1-\>$2-\>$3\($4\) &&
 
 echo "making fis configs." &&
 bash _make_fis_configs.sh $1 &&
@@ -16,7 +16,7 @@ if [ -e $1/$3 ]; then
     rm -rf $1/$3/
 fi
 mkdir -p $1/$3 &&
-fis release -comp -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2"-conf.js" -d $1/$3 -D &&
+fis release -comp -r $1/tmp/ -f $1/"fis-cfgs"/"fis-"$2$4"-conf.js" -d $1/$3 -D &&
 
 echo "copy json configs..." &&
 bash _cp_json.sh $1/enviroment/$2 $1/platform/normal $1/$3 &&
