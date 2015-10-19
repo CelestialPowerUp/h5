@@ -34,6 +34,10 @@ yangaiche(app.env.get_host, function () {
         });
         var host = cfg['responseJSON']['domain'] + '/';
 
+        if (host.indexOf(window.location.protocol) < 0) {
+            host = host.replace(/http/, 'https');
+        }
+
         if (host.indexOf(window.location.host) >= 0) {
             return host;
         }
