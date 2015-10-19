@@ -1,7 +1,7 @@
 #!/bin/bash
 
 local_dir=".."
-config="local"
+config="local-ssl"
 make_dir="h5-"${config}"-ssl"
 
 PATH=$PATH:./libs/

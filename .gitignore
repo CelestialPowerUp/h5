@@ -12,3 +12,4 @@ h5-production
 */activities/*/platform.json
 webapp/map/env.json
 h5-local
+h5-local-ssl

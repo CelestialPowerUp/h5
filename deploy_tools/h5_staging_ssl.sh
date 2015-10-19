@@ -1,7 +1,7 @@
 #!/bin/bash
 
 local_dir=".."
-config="staging"
+config="staging-ssl"
 ssh_config="staging"
 make_dir="h5-"${config}"-ssl"
 

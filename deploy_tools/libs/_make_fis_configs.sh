@@ -20,4 +20,7 @@ for i in ${arr_enviroment[@]}
 do
     domain=$(jq '.domain' ${dir}/${enviroment_dir_name}/${i}/${enviroment_file_name})
     echo "fis.config.merge({ roadmap : { domain : "${domain}" } });"${tpl} > ${dir}/${fis_cfg_dir}/"fis-"${i}"-conf.js"
+
+    domain=$(jq '.domain' ${dir}/${enviroment_dir_name}/${i}/"ssl_"${enviroment_file_name})
+    echo "fis.config.merge({ roadmap : { domain : "${domain}" } });"${tpl} > ${dir}/${fis_cfg_dir}/"fis-"${i}"-ssl-conf.js"
 done

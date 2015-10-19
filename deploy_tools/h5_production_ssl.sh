@@ -1,7 +1,7 @@
 #!/bin/bash
 
 local_dir=".."
-config="production"
+config="production-ssl"
 ssh_config="production"
 make_dir="h5-"${config}"-ssl"
 
