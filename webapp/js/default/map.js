@@ -1,4 +1,5 @@
 yangaiche(sys.load_default_module)('location');
+yangaiche(sys.load_default_module)('show_msg');
 
 app.map = {
     init: 'map_init',
@@ -31,7 +32,7 @@ yangaiche(app.map.auto_location, function () {
                     });
                 } else {
                     // 定位失败事件
-                    show_msg(e.message);
+                    yangaiche(app.show_msg.show)(e.message);
                 }
             }, {enableHighAccuracy: true});
         }();
