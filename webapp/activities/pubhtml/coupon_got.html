@@ -111,10 +111,24 @@
         .bg5 {
             background: url("../pubimg/coupon_got_5.png") no-repeat center;
         }
+
+        #to_hide span, #to_hide a {
+            font-size: 28px;
+        }
     </style>
 </head>
 <body root="../.." style="background-color: #f1f1f1;">
-<div style="width: 640px; margin: 0 auto;background-color: #fff;">
+<div id="to_hide" style="position: fixed; z-index: 2; width: 100%; left: 0; top: 0;">
+    <div style="width: 640px; margin: 0 auto;">
+        <div style="background: rgba(0, 0, 0, 0.6); overflow: hidden; height: 100px;">
+            <img id="footer_close" src="../pubimg/guanbi.png" />
+            <span style="color: #FFF;">下载养爱车客户端让养车管家找到你</span>
+            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">下载APP</a>
+        </div>
+    </div>
+</div>
+
+<div style="width: 640px; margin: 0 auto; background-color: #fff;">
     <div id="editor_component_0" data-tpl="image" class="component bg0"
          style="overflow: hidden; height: 348px; position: relative; z-index: 1;">
     </div>

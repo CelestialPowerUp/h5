@@ -70,16 +70,8 @@ yangaiche(sys.load_default_module)('http');
          */
         wx.ready(function () {
             var shareData = {
-                //success: function () {
-                //    // 用户确认分享后执行的回调函数
-                //    alert('分享成功了，你敢信？');
-                //},
-                //cancel: function () {
-                //    // 用户取消分享后执行的回调函数
-                //    alert('快去分享，不让不送你摸摸哒了！');
-                //},
-                title: '【养爱车】给车主任性大礼，用心养护您的爱车',
-                desc: '【养爱车】打蜡洗车只要19.9元，任性补贴贴到底',
+                title: key.external_sale_configs.title || '【养爱车】给车主任性大礼，用心养护您的爱车',
+                desc: key.external_sale_configs.desc || '【养爱车】打蜡洗车只要19.9元，任性补贴贴到底',
                 link: decodeURIComponent(link),
                 imgUrl: 'http://baseimg.yangaiche.com/extra_sale_share_logo.png'
             };
