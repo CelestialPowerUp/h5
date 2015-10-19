@@ -1,9 +1,9 @@
 #!/bin/bash
 
 local_dir=".."
-config="production-ssl"
+config="production"
 ssh_config="production"
-make_dir="h5-"${config}
+make_dir="h5-"${config}"-ssl"
 
 PATH=$PATH:./libs/
 

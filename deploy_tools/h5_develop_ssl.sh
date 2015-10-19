@@ -1,9 +1,9 @@
 #!/bin/bash
 
 local_dir=".."
-config="develop-ssl"
+config="develop"
 ssh_config="staging"
-make_dir="h5-"${config}
+make_dir="h5-"${config}"-ssl"
 
 PATH=$PATH:./libs/
 
