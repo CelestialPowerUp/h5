@@ -3,7 +3,7 @@
 local_dir=".."
 config="staging-ssl"
 ssh_config="staging"
-make_dir="h5-"${config}"-ssl"
+make_dir="h5-"${config}
 
 PATH=$PATH:./libs/
 

@@ -2,7 +2,7 @@
 
 local_dir=".."
 config="local-ssl"
-make_dir="h5-"${config}"-ssl"
+make_dir="h5-"${config}
 
 PATH=$PATH:./libs/
 
