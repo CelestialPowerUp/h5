@@ -23,6 +23,7 @@ yangaiche(app.supplier.simple, function() {
     return function(callback, ware_id) {
         var location_info = yangaiche(ls.location.touch)();
         if (!yangaiche(sys.exist)(location_info['address']) || '' === location_info['address']) {
+            alert('没有位置信息，自动定位当前位置。。。');
             yangaiche(app.map.auto_location)(function (address, auto_loacation_info) {
                 supplier_adapt(auto_loacation_info, callback, ware_id);
             });
