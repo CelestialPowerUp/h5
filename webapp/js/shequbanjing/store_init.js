@@ -20,7 +20,8 @@ yangaiche(sys.init)(function (t) {
             if (url === '/v2/api/store/home_ware_list.json') {
                 return '/v1/api/radius/get_goods_info.json';
             }
-            return app.http.abort;
+            return url;
+            //return app.http.abort;
         }
     });
 
