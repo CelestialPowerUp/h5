@@ -25,132 +25,168 @@
             border: none;
         }
 
-        .bg0 {
-            background: url("../pubimg/coupon_got_1.png") no-repeat center;
+        #order_success_logo {
+            width: 640px;
+            height: 100px;
+
+            margin: 50px 0 10px;
+
+            background: url("../pubimg/new/goumaichenggong.png") 50% 50% no-repeat;
         }
 
-        .bg1 {
-            background: url("../pubimg/coupon_got_2.png") no-repeat center;
-        }
-
-        .bg2 {
-            background: url("../pubimg/coupon_got_3.png") no-repeat center;
-        }
-
-        .bg3 {
-            background: #e44815;
-        }
-
-        .bg3 .yac-coupon-got-btn {
-            position: relative;
-            display: inline-block;
-            width: 480px;
-            height: 80px;
-            line-height: 70px;
-
-            margin: 0 80px;
-            padding: 5px;
-
-            font-weight: 700;
-            font-size: 36px;
-            color: #c53202;
+        #order_success_text {
+            width: 640px;
+            height: 30px;
 
             text-align: center;
-            text-decoration: none;
-            background-color: #ffe400;
 
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
+            font-size: 30px;
+            line-height: 30px;
+
+            color: #09be00;
+
+            margin-bottom: 50px;
+        }
+
+        #order_success_product {
+            width: 640px;
+            height: 100px;
+
+            padding: 0 20px;
+
+            background: #ffffff;
+        }
+
+        #order_success_product > * {
+            float: left;
+        }
+
+        #product_logo {
+            width: 70px;
+            height: 100px;
+
+            margin-right: 10px;
+
+            background: url("../pubimg/new/xichedala.png") 50% 50% no-repeat;
+        }
+
+        #product_text {
+            width: 300px;
+            height: 100px;
+
+            line-height: 100px;
+
+            color: #333333;
+
+            font-size: 30px;
+        }
+
+        #product_price {
+            width: 220px;
+            height: 100px;
+
+            text-align: right;
+
+            line-height: 100px;
+
+            font-size: 38px;
+
+            color: #ff6600;
+        }
+
+        #product_price span {
+            font-size: 26px;
+        }
+
+        #order_success_info {
+            padding: 0;
+            margin: 20px 0 30px;
+
+            list-style-type: none;
+
+            width: 640px;
+            height: 228px;
+        }
+
+        #order_success_info li {
+            width: 640px;
+            height: 28px;
+
+            padding: 0 20px;
+        }
+
+        #order_success_info li + li {
+            margin-top: 22px;
+        }
+
+        #order_success_info li > * {
+            float: left;
+            font-size: 28px;
+            color: #333333;
+
+            line-height: 28px;
+        }
+
+        .label {
+            width: 150px;
+        }
+
+        .value {
+            width: 450px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        #download_app {
+            width: 600px;
+            height: 90px;
+
+            color: #ffffff;
+            background: #09be00;
+
             border-radius: 8px;
 
-            -webkit-box-shadow: 0 9px 0 #ff7e00;
-            -moz-box-shadow: 0 9px 0 #ff7e00;
-            box-shadow: 0 9px 0 #ff7e00;
+            padding: 0;
+            margin: 0 20px 30px 20px;
 
-            -webkit-transition: all .1s ease;
-            -moz-transition: all .1s ease;
-            -ms-transition: all .1s ease;
-            -o-transition: all .1s ease;
-            transition: all .1s ease;
+            line-height: 90px;
 
-            -webkit-user-select: none; /* Chrome/Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+ */
-
-            /* Rules below not implemented in browsers yet */
-            -o-user-select: none;
-            user-select: none;
-        }
-
-        .bg3 .yac-coupon-got-btn:active {
-            background-color: #ffcc00;
-
-            -webkit-box-shadow: 0 3px 0 #ff7e00;
-            -moz-box-shadow: 0 3px 0 #ff7e00;
-            box-shadow: 0 3px 0 #ff7e00;
-
-            position: relative;
-            top: 6px;
-        }
-
-        .bg3 .yac-coupon-got-btn-hover {
-            background-color: #ffcc00;
-
-            -webkit-box-shadow: 0 3px 0 #ff7e00;
-            -moz-box-shadow: 0 3px 0 #ff7e00;
-            box-shadow: 0 3px 0 #ff7e00;
-
-            position: relative;
-            top: 6px;
-        }
-
-        .bg4 {
-            background: url("../pubimg/coupon_got_4.png") no-repeat center;
-        }
-
-        .bg5 {
-            background: url("../pubimg/coupon_got_5.png") no-repeat center;
-        }
-
-        #to_hide span, #to_hide a {
-            font-size: 28px;
+            font-size: 30px;
         }
     </style>
 </head>
-<body root="../.." style="background-color: #f1f1f1;">
-<!--<div id="to_hide" style="position: fixed; z-index: 2; width: 100%; left: 0; top: 0;">-->
-    <!--<div style="width: 640px; margin: 0 auto;">-->
-        <!--<div style="background: rgba(0, 0, 0, 0.6); overflow: hidden; height: 100px;">-->
-            <!--<img id="footer_close" src="../pubimg/guanbi.png" />-->
-            <!--<span style="color: #FFF;">下载养爱车客户端让养车管家找到你</span>-->
-            <!--<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">下载APP</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+<body root="../.." style="background-color: #ffffff;">
 
-<div style="width: 640px; margin: 0 auto; background-color: #fff;">
-    <div id="editor_component_0" data-tpl="image" class="component bg0"
-         style="overflow: hidden; height: 348px; position: relative; z-index: 1;">
-    </div>
-    <div id="editor_component_1" data-tpl="image" class="component bg1"
-         style="overflow: hidden; height: 228px; position: relative; z-index: 1;">
-    </div>
-    <div id="editor_component_2" data-tpl="image" class="component bg2"
-         style="overflow: hidden; height: 78px; position: relative; z-index: 1;">
-    </div>
-    <div id="editor_component_3" data-tpl="image" class="component bg3"
-         style="overflow: hidden; height: 100px; position: relative; z-index: 1;">
-        <div class="am-vertical-align" style="width: 640px; height: 100px;">
-            <a class="am-vertical-align-middle am-btn yac-coupon-got-btn">快去使用优惠券吧</a>
-        </div>
-    </div>
-    <div id="editor_component_4" data-tpl="image" class="component bg4"
-         style="overflow: hidden; height: 290px; position: relative; z-index: 1;">
-    </div>
-    <div id="editor_component_5" data-tpl="image" class="component bg5"
-         style="overflow: hidden; height: 346px; position: relative; z-index: 1;">
-    </div>
+<div style="width: 640px; height: 240px; background: #f0f0f0; overflow: hidden;">
+    <div id="order_success_logo"></div>
+
+    <div id="order_success_text">购买成功</div>
 </div>
+
+<div id="order_success_product">
+    <div id="product_logo"></div>
+    <div id="product_text">洗车打蜡1次</div>
+    <div id="product_price"><span>￥</span>19.9</div>
+</div>
+
+<div style="width: 640px; height: 20px; background: #f0f0f0; overflow: hidden;"></div>
+
+<ul id="order_success_info">
+    <li><div class="label">接车地址: </div><div class="value">XXXXXXX</div></li>
+    <li><div class="label">用户姓名: </div><div class="value">XXXXXXX</div></li>
+    <li><div class="label">手机号: </div><div class="value">XXXXXXXX</div></li>
+    <li><div class="label">接车时间: </div><div class="value">XXXXXXX</div></li>
+    <li><div class="label">车辆信息: </div><div class="value">XXXXXXX</div></li>
+</ul>
+
+<a href="#" class="am-btn" id="download_app">下载APP</a>
+
+<div style="width: 640px; height: 200px;">
+    <img src="../pubimg/new/erweima.png" style="display: block; width: 200px; margin: 0 auto;">
+</div>
+
+<div style="width: 640px; height: 20px; text-align: center; margin: 10px 0;">关注养爱车公众号可查看订单信息</div>
 
 <script type="text/javascript" src="../../js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/lib/amazeui.min.js"></script>
