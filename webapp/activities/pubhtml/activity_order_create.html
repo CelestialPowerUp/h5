@@ -338,6 +338,94 @@
         #alipay_text, #alipay_choose, #wechat_img, #wechat_text, #wechat_choose {
             border-bottom: 1px solid #e0e0e0;
         }
+
+        .swiper-wrapper {
+            width: 2240px;
+            height: 396px;
+        }
+
+        .swiper-wrapper .swiper-slide {
+            float: left;
+        }
+
+        .swiper-wrapper .swiper-slide .day {
+            width: 160px;
+            height: 108px;
+
+            background: url("../pubimg/new/riqiquan.png") 50% 50% no-repeat;
+
+            padding: 25px 0;
+
+            line-height: 29px;
+            font-size: 26px;
+            text-align: center;
+        }
+
+        .swiper-wrapper .swiper-slide ul {
+            width: 160px;
+            height: 288px;
+
+            padding: 0;
+            margin: 0;
+
+            list-style-type: none;
+        }
+
+        .swiper-wrapper .swiper-slide ul li {
+            width: 160px;
+            height: 72px;
+
+            line-height: 72px;
+            text-align: center;
+            font-size: 24px;
+            color: #333333;
+
+            border-bottom: 1px solid #cccccc;
+            border-right: 1px solid #cccccc;
+        }
+
+        .swiper-wrapper .swiper-slide ul li.gray {
+            background: #e0e0e0;
+        }
+
+        .swiper-wrapper .swiper-slide ul li.white {
+            background: #ffffff;
+        }
+
+        .swiper-wrapper .swiper-slide ul li:first-child {
+            border-top: 1px solid #cccccc;
+        }
+
+        .swiper-wrapper .swiper-slide:first-child ul li {
+            border-left: 1px solid #cccccc;
+        }
+
+        #legend {
+            position: fixed;
+            left: 0;
+            bottom: 442px;
+            width: 640px;
+            height: 30px;
+            z-index: 2;
+        }
+
+        #legend > * {
+            display: block;
+            float: left;
+        }
+
+        #legend span {
+            height: 30px;
+
+            line-height: 30px;
+            font-size: 26px;
+            color: #ffffff;
+        }
+
+        #legend img {
+            margin-left: 20px;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body root="../.." style="background-color: #f0f0f0;">
@@ -384,16 +472,19 @@
         <li>
             <div class="label">车辆</div>
             <input type="text" class="am-form-field" name="contact_name" placeholder="请选择车辆信息" disabled>
+
             <div class="more"></div>
         </li>
         <li>
             <div class="label">地址</div>
             <input type="text" class="am-form-field" name="contact_name" placeholder="请选择接车地址" disabled>
+
             <div class="more"></div>
         </li>
         <li>
             <div class="label">时间</div>
             <input type="text" class="am-form-field" name="contact_name" placeholder="请选择接车时间" disabled>
+
             <div class="more"></div>
         </li>
     </ul>
@@ -412,9 +503,153 @@
 
 <div id="footer_button">立即下单</div>
 
+<div id="dimmer"
+     style="position: fixed; left: 0; top: 0; width: 640px; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1;"></div>
+
+<div id="legend">
+    <img src="../pubimg/new/keyuyue.png"><span>可预约</span>
+    <img src="../pubimg/new/xuanzhong.png"><span>选中</span>
+    <img src="../pubimg/new/yiyuyue.png"><span>已预约</span>
+</div>
+
+<div class="swiper-container"
+     style="position: fixed; left: 0; bottom: 0; width: 640px; height: 416px; background: #ffffff; z-index: 2;">
+    <!-- Add Scrollbar -->
+    <div class="swiper-scrollbar"></div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="day">9<br>一</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">10<br>二</div>
+            <ul>
+                <li class="white">09:00</li>
+                <li class="gray">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">11<br>三</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">12<br>四</div>
+            <ul>
+                <li class="white">09:00</li>
+                <li class="gray">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">13<br>五</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">14<br>六</div>
+            <ul>
+                <li class="white">09:00</li>
+                <li class="gray">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">15<br>日</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">16<br>一</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">17<br>二</div>
+            <ul>
+                <li class="white">09:00</li>
+                <li class="gray">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">18<br>三</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">19<br>四</div>
+            <ul>
+                <li class="white">09:00</li>
+                <li class="gray">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">20<br>五</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">21<br>六</div>
+            <ul>
+                <li class="white">09:00</li>
+                <li class="gray">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <div class="day">22<br>日</div>
+            <ul>
+                <li class="gray">09:00</li>
+                <li class="white">11:00</li>
+                <li class="gray">13:00</li>
+                <li class="white">15:00</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="../../js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/lib/amazeui.min.js"></script>
 <script type="text/javascript" src="../../js/lib/handlebars.min.js"></script>
+<script type="text/javascript" src="../../js/lib/swiper.min.js"></script>
 <script type="text/javascript" src="../../js/lib/pingpp_pay.js"></script>
 <script type="text/javascript" src="../../js/lib/yangaiche.js"></script>
 </body>
