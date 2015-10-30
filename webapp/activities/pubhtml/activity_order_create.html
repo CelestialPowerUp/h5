@@ -319,23 +319,16 @@
             line-height: 90px;
         }
 
-        #alipay_choose, #wechat_choose {
+        .choose {
             width: 90px;
-        }
-
-        #alipay_choose {
             background: url('../pubimg/new/weixuan.png') 50% 50% no-repeat;
         }
 
-        #wechat_choose {
-            background: url('../pubimg/new/gouxuan.png') 50% 50% no-repeat;
-        }
-
-        #alipay_img, #alipay_text, #alipay_choose {
+        #alipay_img, #alipay_text, #hot_fix {
             border-top: 1px solid #e0e0e0;
         }
 
-        #alipay_text, #alipay_choose, #wechat_img, #wechat_text, #wechat_choose {
+        #alipay_text, #wechat_img, #wechat_text, .choose {
             border-bottom: 1px solid #e0e0e0;
         }
 
@@ -493,12 +486,16 @@
 <div class="title">支付方式</div>
 
 <div id="order_create_pay_method">
-    <div id="alipay_img" class="float-left"></div>
-    <div id="alipay_text" class="float-left">支付宝支付</div>
-    <div id="alipay_choose" class="float-left"></div>
-    <div id="wechat_img" class="float-left"></div>
-    <div id="wechat_text" class="float-left">微信支付</div>
-    <div id="wechat_choose" class="float-left"></div>
+    <div id="alipay_btn">
+        <div id="alipay_img" class="float-left"></div>
+        <div id="alipay_text" class="float-left">支付宝支付</div>
+        <div id="hot_fix" class="float-left choose"></div>
+    </div>
+    <div id="wechat_btn">
+        <div id="wechat_img" class="float-left"></div>
+        <div id="wechat_text" class="float-left">微信支付</div>
+        <div class="float-left choose"></div>
+    </div>
 </div>
 
 <div id="footer_button">立即下单</div>
