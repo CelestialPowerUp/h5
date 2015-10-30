@@ -49,6 +49,7 @@ yangaiche(sys.init)(function(t) {
             var can_select = yangaiche(app.url_parameter)['can_select'];
             t('.coupon-btn').click(function () {
                 if (yangaiche(sys.exist)(can_select) && can_select && 'false' === t(this).attr('data-used')) {
+                    var url = yangaiche(ls.back.get_parent_of)('my_coupons.html?can_select=true');
                     var order = yangaiche(ls.order.touch)();
                     var seleted_id = parseInt(t(this).attr('data-id'));
                     if (order['coupon_id'] === seleted_id) {
@@ -56,7 +57,7 @@ yangaiche(sys.init)(function(t) {
                         order['coupon_name'] = null;
                         order['coupon_value'] = 0;
                         updateOrder(order);
-                        set_back_to_his('base_info.html');
+                        set_back_to_his(url);
                     } else {
                         var coupon_name = t(this).attr('data-name');
                         var coupon_type = t(this).attr('data-type');
@@ -73,7 +74,7 @@ yangaiche(sys.init)(function(t) {
                             order['paid_price'] = 0;
                             order['not_paid_price'] = data['total_price'];
                             updateOrder(order);
-                            set_back_to_his('base_info.html');
+                            set_back_to_his(url);
                         }, function(error) {
                             show_msg(error['message']);
                         });
