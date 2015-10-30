@@ -123,7 +123,37 @@ yangaiche(sys.init)(function (t) {
             return;
         }
 
-        
+        var today = moment();
+        var weekday_str = ['日', '一', '二', '三', '四', '五', '六'];
+
+        var count = 14, view = [];
+        for (var i = 0; i < count; i++) {
+            var thisday = today.add(i, 'd');
+            var date_str = thisday.toArray()[2];
+            var weekday = thisday.isoWeekday();
+
+            view.push({
+                date_str: date_str,
+                weekday_str: weekday_str[weekday]
+            });
+
+            count += 1;
+        }
+
+        var html = '{{#each this}}'
+            + '<div class="swiper-slide">'
+            + '<div class="day">{{date_str}}<br>{{weekday_str}}</div>'
+            + '<ul>'
+            + '<li class="gray">09:00</li>'
+            + '<li class="white">11:00</li>'
+            + '<li class="gray">13:00</li>'
+            + '<li class="white">15:00</li>'
+            + '</ul>'
+            + '</div>'
+            + '{{/each}}';
+
+        var template = Handlebars.compile(html);
+        t('#picker .swiper-wrapper').html(template(view));
 
         reset_button('#submit_button');
     }
