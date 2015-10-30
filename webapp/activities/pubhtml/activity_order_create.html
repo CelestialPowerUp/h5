@@ -481,7 +481,7 @@
 
             <div class="more"></div>
         </li>
-        <li>
+        <li id="pick_time">
             <div class="label">时间</div>
             <input type="text" class="am-form-field" name="contact_name" placeholder="请选择接车时间" disabled>
 
@@ -504,16 +504,16 @@
 <div id="footer_button">立即下单</div>
 
 <div id="dimmer"
-     style="position: fixed; left: 0; top: 0; width: 640px; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1;"></div>
+     style="display: none; position: fixed; left: 0; top: 0; width: 640px; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1;"></div>
 
-<div id="legend">
+<div id="legend" style="display: none;">
     <img src="../pubimg/new/keyuyue.png"><span>可预约</span>
     <img src="../pubimg/new/xuanzhong.png"><span>选中</span>
     <img src="../pubimg/new/yiyuyue.png"><span>已预约</span>
 </div>
 
-<div class="swiper-container"
-     style="position: fixed; left: 0; bottom: 0; width: 640px; height: 416px; background: #ffffff; z-index: 2;">
+<div id="picker" class="swiper-container"
+     style="display: none; position: fixed; left: 0; bottom: 0; width: 640px; height: 416px; background: #ffffff; z-index: 2;">
     <!-- Add Scrollbar -->
     <div class="swiper-scrollbar"></div>
     <div class="swiper-wrapper">
