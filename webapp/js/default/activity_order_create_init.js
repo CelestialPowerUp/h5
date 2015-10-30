@@ -1,24 +1,27 @@
 yangaiche(sys.init)(function (t) {
     t('#dimmer').click(function () {
-        t('#dimmer').hide();
-        t('#legend').hide();
-        t('#picker').hide();
+        t('#legend').css('display', 'none');
+        t('#picker').css('display', 'none');
+        t('#dimmer').css('display', 'none');
     });
 
     t('#pick_time').click(function () {
-        t('#dimmer').show();
-        t('#legend').show();
-        t('#picker').show();
+        t('#dimmer').css('display', 'block');
 
-        var swiper = swiper || new Swiper('.swiper-container', {
-                direction: 'horizontal',
-                scrollbar: '.swiper-scrollbar',
-                slidesPerView: 'auto',
-                scrollbarHide: true,
-                centeredSlides: false,
-                grabCursor: true,
-                freeMode: true
-            });
+        setTimeout(function() {
+            t('#legend').css('display', 'block');
+            t('#picker').css('display', 'block');
+
+            var swiper = swiper || new Swiper('.swiper-container', {
+                    direction: 'horizontal',
+                    scrollbar: '.swiper-scrollbar',
+                    slidesPerView: 'auto',
+                    scrollbarHide: true,
+                    centeredSlides: false,
+                    grabCursor: true,
+                    freeMode: true
+                });
+        }, 0);
     });
 
     var pay_btn_group = [t('#alipay_btn'), t('#wechat_btn')];
@@ -44,4 +47,6 @@ yangaiche(sys.init)(function (t) {
             btn.find('.choose').css('background', gouxuan);
         });
     });
+
+
 });
