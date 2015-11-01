@@ -124,27 +124,36 @@ yangaiche(sys.init)(function (t) {
         }
 
         var today = moment();
-        var weekday_str = ['日', '一', '二', '三', '四', '五', '六'];
+        var weekday_str = ['', '一', '二', '三', '四', '五', '六', '日'];
+        var pick_time_point = ["09:00", "11:00", "13:00", "15:00"];
 
         var count = 14, view = [];
-        for (var i = 0; i < count; i++) {
-            var thisday = today.add(i, 'd');
-            var date_str = thisday.toArray()[2];
-            var weekday = thisday.isoWeekday();
+        for (var i = 0, p = 0; i < count; i++) {
+            today.add(0 === i ? 0 : 1, 'd');
+
+            console.log(today.toArray());
+
+            var date_str = today.toArray()[2];
+            var weekday = today.isoWeekday();
+
+            console.log(weekday);
+
+
 
             view.push({
                 date_str: date_str,
-                weekday_str: weekday_str[weekday]
-            });
+                weekday_str: weekday_str[weekday],
+                pick_time: [
 
-            count += 1;
+                ]
+            });
         }
 
         var html = '{{#each this}}'
             + '<div class="swiper-slide">'
             + '<div class="day">{{date_str}}<br>{{weekday_str}}</div>'
             + '<ul>'
-            + '<li class="gray">09:00</li>'
+            + '<li class="{{}}">09:00</li>'
             + '<li class="white">11:00</li>'
             + '<li class="gray">13:00</li>'
             + '<li class="white">15:00</li>'
