@@ -128,43 +128,92 @@ yangaiche(sys.init)(function (t) {
         var pick_time_point = ["09:00", "11:00", "13:00", "15:00"];
 
         var count = 14, view = [];
-        for (var i = 0, p = 0; i < count; i++) {
-            today.add(0 === i ? 0 : 1, 'd');
 
-            console.log(today.toArray());
+        for (var i = 0, p = 0; i < count; i += 1) {
+            today.add(1, 'd');
 
-            var date_str = today.toArray()[2];
+            var data_array = today.toArray();
+            var date_str = data_array[2];
+            var data_key = data_array[0] + '-' + (data_array[1] + 1) + '-' + ((data_array[2] > 9) ? data_array[2] : ('0' + data_array[2]));
+
             var weekday = today.isoWeekday();
 
-            console.log(weekday);
+            var current_points = data[p];
 
+            var get_pick_time = function () {
+                var ret = [];
 
+                if (current_points.key.indexOf(data_key) < 0) {
+                    t.each(pick_time_point, function (ii, pp) {
+                        ret.push({
+                            color: 'gray',
+                            value: pick_time_point[ii]
+                        });
+                    });
+                    current_points.quick_pass = true;
+                    return ret;
+                }
+
+                current_points.quick_pass = false;
+                for (var ii = 0, jj = 0; ii < pick_time_point.length; ii += 1) {
+                    if (current_points.data[jj].indexOf(pick_time_point[ii]) > -1) {
+                        ret.push({
+                            color: 'white',
+                            value: pick_time_point[ii]
+                        });
+                        jj += 1;
+                    } else {
+                        ret.push({
+                            color: 'gray',
+                            value: pick_time_point[ii]
+                        });
+                    }
+                }
+
+                return ret;
+            }();
 
             view.push({
                 date_str: date_str,
                 weekday_str: weekday_str[weekday],
-                pick_time: [
-
-                ]
+                pick_time: get_pick_time
             });
+
+            if (!current_points.quick_pass) {
+                p += 1;
+            }
         }
 
         var html = '{{#each this}}'
             + '<div class="swiper-slide">'
             + '<div class="day">{{date_str}}<br>{{weekday_str}}</div>'
             + '<ul>'
-            + '<li class="{{}}">09:00</li>'
-            + '<li class="white">11:00</li>'
-            + '<li class="gray">13:00</li>'
-            + '<li class="white">15:00</li>'
+            + '{{#each pick_time}}'
+            + '<li class="{{color}} btn">{{value}}</li>'
+            + '{{/each}}'
             + '</ul>'
             + '</div>'
             + '{{/each}}';
 
         var template = Handlebars.compile(html);
-        t('#picker .swiper-wrapper').html(template(view));
+        t('#picker .swiper-wrapper').empty().html(template(view));
 
-        reset_button('#submit_button');
+        var last_clicked = null;
+        t('#picker .swiper-wrapper .btn').click(function () {
+            if (last_clicked) {
+                last_clicked.removeClass('green');
+                last_clicked.addClass('white');
+            }
+
+            var $this = t(this);
+            if ($this.hasClass('white')) {
+                $this.removeClass('white');
+                $this.addClass('green');
+                last_clicked = $this;
+            }
+        });
+
+        reset_button('#footer_button');
     }
 
     function set_activity_time_segments(address_info) {
@@ -176,7 +225,7 @@ yangaiche(sys.init)(function (t) {
     }
 
     function auto_get_location(order) {
-        disable_button('#submit_button');
+        disable_button('#footer_button');
 
         var geolocation = new BMap.Geolocation();
         geolocation.getCurrentPosition(function (e) {
@@ -198,11 +247,11 @@ yangaiche(sys.init)(function (t) {
                     }
                 });
                 t('#pick_location .am-form-field').text(address);
-                reset_button('#submit_button');
+                reset_button('#footer_button');
             } else {
                 // 定位失败事件
                 show_msg(e.message);
-                reset_button('#submit_button');
+                reset_button('#footer_button');
             }
         }, {enableHighAccuracy: true});
     }
