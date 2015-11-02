@@ -21,6 +21,11 @@
       "moduleRoot": "xiaomi"
     },
     {
+      "type": "shequbanjing",
+      "userAgent": "shequbanjing",
+      "moduleRoot": "shequbanjing"
+    },
+    {
       "type": "normal",
       "userAgent": "",
       "moduleRoot": "normal"

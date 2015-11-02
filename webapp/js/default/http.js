@@ -11,12 +11,16 @@ app.http = {
     tweak: 'tweak_sth',
     fire_tweaks: 'fire_tweaks',
 
+    abort_or_hijack: 'abort_or_hijack',
+    hijacker: 'http_hijacker',
     before_render: 'before_render',
     after_render: 'after_render',
 
     get: 'get_request_key',
     post: 'post_request_key',
     charge: 'charge_request_key',
+
+    abort: 'app_http_abort',
 
     tweaks: []
 };
@@ -53,9 +57,32 @@ yangaiche(app.http.tweak, function () {
 
 yangaiche(app.http.fire_tweaks, function () {
     return function (type, request_type, url) {
-        for (var i = 0; i < app.http.tweaks.length; i++) {
-            app.http.tweaks[i](type, request_type, url);
+        var i = 0;
+
+        if (type === app.http.abort_or_hijack) {
+            for (; i < app.http.tweaks.length; i++) {
+                var ret = app.http.tweaks[i](type, request_type, url);
+
+                if (yangaiche(sys.exist)(ret)) {
+                    return ret;
+                }
+            }
+
+            return url;
+        } else if (type === app.http.hijacker) {
+            for (; i < app.http.tweaks.length; i++) {
+                var callback = app.http.tweaks[i](type, request_type, url);
+
+                if (yangaiche(sys.exist)(callback)) {
+                    return callback;
+                }
+            }
+        } else {
+            for (; i < app.http.tweaks.length; i++) {
+                app.http.tweaks[i](type, request_type, url);
+            }
         }
+
     };
 });
 
@@ -78,6 +105,12 @@ function default_header(request) {
 yangaiche(app.http.get_request, function () {
     var tweaker = yangaiche(app.http.fire_tweaks);
     return function (url, callBack, failureBack) {
+        url = tweaker(app.http.abort_or_hijack, app.http.get, url);
+
+        if (url === app.http.abort) {
+            return;
+        }
+
         var real_url = get_real_url(url);
 
         $.ajax({
@@ -89,7 +122,7 @@ yangaiche(app.http.get_request, function () {
             success: function (data) {
                 if (data && data['code'] == '00000') {
                     tweaker(app.http.before_render, app.http.get, url);
-                    callBack(data['data']);
+                    (tweaker(app.http.hijacker, app.http.get, url) || callBack)(data['data']);
                     tweaker(app.http.after_render, app.http.get, url);
                 } else if (data && data['code'] === '20007') {
                     yangaiche(ls.openid.login_by_opencode)();
@@ -110,6 +143,12 @@ yangaiche(app.http.get_request, function () {
 yangaiche(app.http.post_request, function () {
     var tweaker = yangaiche(app.http.fire_tweaks);
     return function (url, param, callBack, failureBack) {
+        url = tweaker(app.http.abort_or_hijack, app.http.post, url);
+
+        if (url === app.http.abort) {
+            return;
+        }
+
         var real_url = get_real_url(url);
 
         $.ajax({
@@ -123,7 +162,7 @@ yangaiche(app.http.post_request, function () {
             success: function (data) {
                 if (data && data['code'] == '00000') {
                     tweaker(app.http.before_render, app.http.post, url);
-                    callBack(data['data']);
+                    (tweaker(app.http.hijacker, app.http.post, url) || callBack)(data['data']);
                     tweaker(app.http.after_render, app.http.post, url);
                 } else if (data && data['code'] == '20007') {
                     yangaiche(ls.openid.login_by_opencode)();

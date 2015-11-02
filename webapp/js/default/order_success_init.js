@@ -1,6 +1,7 @@
 yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('parameter', {});
 yangaiche(sys.load_default_module)('pay', {});
+yangaiche(sys.load_module)('order/get_payment_order_id');
 
 yangaiche(sys.init)(function (t) {
     var order_info = yangaiche(ls.order.touch)();
@@ -20,10 +21,12 @@ yangaiche(sys.init)(function (t) {
     t("#info_view").html(info_template(order_info));
 
     t('#pay_button').click(function () {
-        var param = yangaiche(app.pay.get_param)({order_id: order_info['id']}, 'order_success.html?suc=true', 'order_success.html');
-        yangaiche(app.pay.do)(param, function () {
-            t('#total_price').text('0');
-            t('#pay_button').css('display', 'none');
+        yangaiche(app.order_get_payment_order_id.get_id)(order_info['id'], function(real_order_id) {
+            var param = yangaiche(app.pay.get_param)({order_id: real_order_id}, 'order_success.html?suc=true', 'order_success.html');
+            yangaiche(app.pay.do)(param, function () {
+                t('#total_price').text('0');
+                t('#pay_button').css('display', 'none');
+            });
         });
     });
 
