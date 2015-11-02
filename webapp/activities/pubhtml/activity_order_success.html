@@ -188,20 +188,22 @@
 <div style="width: 640px; height: 20px; background: #f0f0f0; overflow: hidden;"></div>
 
 <ul id="order_success_info">
-    <li><div class="label">接车地址: </div><div class="value">XXXXXXX</div></li>
-    <li><div class="label">用户姓名: </div><div class="value">XXXXXXX</div></li>
-    <li><div class="label">手机号: </div><div class="value">XXXXXXXX</div></li>
-    <li><div class="label">接车时间: </div><div class="value">XXXXXXX</div></li>
-    <li><div class="label">车辆信息: </div><div class="value">XXXXXXX</div></li>
+    <li><div class="label">接车地址: </div><div id="location" class="value"></div></li>
+    <li><div class="label">用户姓名: </div><div id="contact_name" class="value"></div></li>
+    <li><div class="label">手机号: </div><div id="phone_number" class="value"></div></li>
+    <li><div class="label">接车时间: </div><div id="pick_time" class="value"></div></li>
+    <li><div class="label">车辆信息: </div><div id="car_info" class="value"></div></li>
 </ul>
 
-<a href="#" class="am-btn" id="download_app">下载APP</a>
+<div id="not_seen_in_hybrid" style="display: none;">
+    <a href="#" class="am-btn" id="download_app">下载APP</a>
 
-<div style="width: 640px; height: 200px;">
-    <img src="../pubimg/new/erweima.png" style="display: block; width: 200px; margin: 0 auto;">
+    <div style="width: 640px; height: 200px;">
+        <img src="../pubimg/new/erweima.png" style="display: block; width: 200px; margin: 0 auto;">
+    </div>
+
+    <div style="width: 640px; height: 20px; text-align: center; margin: 10px 0;">关注养爱车公众号可查看订单信息</div>
 </div>
-
-<div style="width: 640px; height: 20px; text-align: center; margin: 10px 0;">关注养爱车公众号可查看订单信息</div>
 
 <script type="text/javascript" src="../../js/lib/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/lib/amazeui.min.js"></script>
