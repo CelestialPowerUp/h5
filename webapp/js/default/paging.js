@@ -49,7 +49,6 @@ yangaiche(app.paging.load_more, function() {
     return function() {
         var progress = $.AMUI.progress;
         progress.start();
-        app.paging.active = false;
         getReq(app.paging.url_request + '&total_size=' + app.paging.total_size + '&page=' + app.paging.page + '&page_size=' + app.paging.page_size, function (data) {
             load_suc(data);
             progress.done();
@@ -91,7 +90,8 @@ yangaiche(app.paging.setup, function() {
                             if (app.paging.real_total_size === app.paging.total_size) {
                                 show_msg('没有更多了! ');
                             } else {
-                                setTimeout(load_more, 1);
+                                app.paging.active = false;
+                                setTimeout(load_more, 0);
                             }
                         }
                     }

@@ -11,11 +11,25 @@ var sys = {
     start: 'start', //供框架调用.
     root: 'root',
 
-    inits: []
+    inits: [],
+
+    string: 1,
+    number: 2,
+    bool: 3
 };
 
-function exist(obj) {
-    return typeof obj !== 'undefined' && obj !== null;
+function exist(obj, feature) {
+    if (!feature) {
+        return obj || obj === 0 || obj === false || obj === '';
+    } else if (feature === sys.string) {
+        return obj || obj === 0 || obj === false;
+    } else if (feature === sys.number) {
+        return obj || obj === false || obj === '';
+    } else if (feature === sys.bool) {
+        return obj || obj === 0 || obj === '';
+    } else {
+        throw 'wrong feature code';
+    }
 }
 
 var runtime_obj = {};
@@ -150,7 +164,7 @@ yangaiche(sys.start, function () {
     };
 });
 
-yangaiche(sys.root, function() {
+yangaiche(sys.root, function () {
     var $ = yangaiche(sys.$), root = '.';
     var $root = $('body').attr('root');
     if (yangaiche(sys.exist)($root)) {
