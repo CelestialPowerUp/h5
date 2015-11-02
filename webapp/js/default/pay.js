@@ -38,15 +38,9 @@ yangaiche(app.pay.do, function() {
                     if (yangaiche(sys.exist)(debug_flag)) {
                         alert(JSON.stringify(error));
                     }
-                    if (yangaiche(sys.exist)(else_callback)) {
-                        else_callback();
-                    }
                 } else if (result === "cancel") {
                     reset_button("#submit_button");
                     show_msg('您已取消支付');
-                    if (yangaiche(sys.exist)(else_callback)) {
-                        else_callback();
-                    }
                 }
             });
         }, function (error) {
