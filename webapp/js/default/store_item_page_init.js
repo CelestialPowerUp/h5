@@ -6,7 +6,13 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
 yangaiche(sys.load_default_module)('paging');
 yangaiche(sys.load_default_module)('format');
-yangaiche(sys.load_module)('supplier');
+
+if (/=42$/.test(window.location.href)) {
+    yangaiche(sys.load_default_module)('supplier');
+} else {
+    yangaiche(sys.load_module)('supplier');
+}
+
 yangaiche(sys.load_module)('set_activity_peer_source');
 
 yangaiche(sys.init)(function (t) {
@@ -37,7 +43,7 @@ yangaiche(sys.init)(function (t) {
 
         yangaiche(app.paging.setup)({
             url_request: '/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids,
-            data_handler: function(data) {
+            data_handler: function (data) {
                 t.each(data['items'], function (i, d) {
                     d['order_rating'] = make_array(d['service_rating']);
                     d['keeper_rating'] = make_array(d['keeper_rating']);
@@ -62,6 +68,7 @@ yangaiche(sys.init)(function (t) {
     }
 
     var gsth;
+
     function get_unique_service_type(sth) {
         if (undefined !== sth) {
             gsth = sth;
@@ -122,7 +129,7 @@ yangaiche(sys.init)(function (t) {
                         yangaiche(app.set_activity_peer_source)(order);
                     }
 
-                    t.each(t('#my-btn-group button'), function(i, btn) {
+                    t.each(t('#my-btn-group button'), function (i, btn) {
                         if (t(btn).hasClass('service-type-choose-chosen')) {
                             order.service_type = t(btn).attr('data-key');
                         }
