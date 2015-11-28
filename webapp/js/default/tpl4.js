@@ -34,7 +34,7 @@ yangaiche(sys.load_default_module)('parameter');
                     "            <div style=\"margin: 0 0 0 125px; float: left; overflow: hidden;\">\n" +
                     "                <div style=\"font-size: 50px; line-height: 50px; float: left;\">¥</div>\n" +
  //                   "                <div style=\"font-size: 118px; line-height: 118px; float: left;\">{{value}}</div>\n" +
-                    "                <div style=\"font-size: 118px; line-height: 118px; float: left;\">119</div>\n" +
+                    "                <div style=\"font-size: 88px; line-height: 118px; float: left;\">119</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"margin: 0 0 0 0; float: left;\">\n" +
                     "                <div style=\"font-size: 22px; line-height: 22px;\">YUAN</div>\n" +
@@ -48,7 +48,7 @@ yangaiche(sys.load_default_module)('parameter');
                     "        </div>\n" +
                     "    </div>\n" +
                     "    <div style=\"font-size: 24px; text-align: center; width: inherit;\">\n" +
-                    "        两张优惠券（69元管家接车券、50元通用代金券）已存入养爱车账户\n" +
+                    "        69元管家接车券、50元通用代金券已存入您账户\n" +
                     "        <br>\n" +
                     "        {{user_phone_number}}\n" +
                     "        <span id='modify_phone_number' style=\"font-size: 24px; color: #ffeb08;\">修改></span>\n" +
