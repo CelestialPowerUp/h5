@@ -53,7 +53,7 @@ yangaiche(sys.load_default_module)('parameter');
                     "    </div>" +
                     "    <button id=\"to_use_button\" type=\"button\" class=\"am-btn\"\n" +
                     "        style=\"margin: 13px 161px 13px 161px;padding: 20px 48px 40px 48px;background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_get_coupon.png') 50% 50% no-repeat;color: #850000;font-size: 48px;border-radius: 8px;width: 317px;height: 107px;\">\n" +
-                    "       去领取\n" +
+                    "       去使用\n" +
                     "    </button>";
 
                 var tpl_fn = Handlebars.compile(text);
