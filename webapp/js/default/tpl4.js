@@ -51,7 +51,7 @@ yangaiche(sys.load_default_module)('parameter');
                     "        69元管家接车券、50元通用代金券已存入您账户\n" +
                     "        <br>\n" +
                     "        {{user_phone_number}}\n" +
-                    "        <span id='modify_phone_number' style=\"font-size: 24px; color: #ffeb08;\">修改></span>\n" +
+//                    "        <span id='modify_phone_number' style=\"font-size: 24px; color: #ffeb08;\">修改></span>\n" +
                     "    </div>" +
                     "    <button id=\"to_use_button\" type=\"button\" class=\"am-btn\"\n" +
                     "        style=\"margin: 13px 161px 13px 161px;padding: 20px 48px 40px 48px;background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_get_coupon.png') 50% 50% no-repeat;color: #850000;font-size: 48px;border-radius: 8px;width: 317px;height: 107px;\">\n" +
