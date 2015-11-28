@@ -31,17 +31,17 @@ yangaiche(sys.load_default_module)('parameter');
 
                 var text = "<div style=\"background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/coupon_bg.png') 50% 50% no-repeat; width: inherit; height: 270px; overflow: hidden;\">\n" +
                     "        <div style=\"margin: 70px 0 0 0; overflow: hidden;\">\n" +
-                    "            <div style=\"margin: 0 0 0 125px; background-color: #ffffff; float: left; overflow: hidden;\">\n" +
+                    "            <div style=\"margin: 0 0 0 125px; float: left; overflow: hidden;\">\n" +
                     "                <div style=\"font-size: 50px; line-height: 50px; float: left;\">¥</div>\n" +
                     "                <div style=\"font-size: 118px; line-height: 118px; float: left;\">{{value}}</div>\n" +
                     "            </div>\n" +
-                    "            <div style=\"margin: 0 0 0 0; background-color: #ffff00; float: left;\">\n" +
+                    "            <div style=\"margin: 0 0 0 0; float: left;\">\n" +
                     "                <div style=\"font-size: 22px; line-height: 22px;\">YUAN</div>\n" +
                     "                <div style=\"font-size: 44px; line-height: 78px;\">{{coupon_type_value}}</div>\n" +
                     "                <div style=\"font-size: 18px; line-height: 18px;\">COUPON</div>\n" +
                     "            </div>\n" +
                     "        </div>\n" +
-                    "        <div style=\"margin: 10px auto; background-color: #ff0000; font-size: 24px; width: inherit; clear: both; text-align: center;\">\n" +
+                    "        <div style=\"margin: 10px auto; font-size: 24px; width: inherit; clear: both; text-align: center;\">\n" +
                     "            有效期至{{expired_time}}\n" +
                     "        </div>\n" +
                     "    </div>\n" +
@@ -67,12 +67,12 @@ yangaiche(sys.load_default_module)('parameter');
 
                 var coupon = tpl_fn(tpl_data);
 
-                store.set(key.activity.login_html, t('body').html());
+                store.set(key.activity.login_html, t('.component[data-tpl=input4]').html());
 
-                t('#editor_component_0').empty().html(coupon);
+                t('.component[data-tpl=input4]').empty().html(coupon);
 
                 t('#modify_phone_number').click(function () {
-                    t('#editor_component_0').empty().html(store.get(key.activity.login_html));
+                    t('.component[data-tpl=input4]').empty().html(store.get(key.activity.login_html));
                 });
 
                 t('#to_use_button').click(function() {
