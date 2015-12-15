@@ -1,6 +1,3 @@
-/**
- * Created by caols on 15/7/8.
- */
 // doT.js
 // 2011-2014, Laura Doktorova, https://github.com/olado/doT
 // Licensed under the MIT license.
@@ -28,7 +25,7 @@
             defineParams: /^\s*([\w$]+):([\s\S]+)/,
             // 条件语句
             conditional: /\{\{\?(\?)?\s*([\s\S]*?)\s*\}\}/g,
-            // 迭代语句
+            // 迭代语句 {{~ 数组名称 : 值 : 下标 }}
             iterate: /\{\{~\s*(?:\}\}|([\s\S]+?)\s*\:\s*([\w$]+)\s*(?:\:\s*([\w$]+))?\s*\}\})/g,
             // 写模板的时候，根节点叫啥名字嘞
             varname: "it",
