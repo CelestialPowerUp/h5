@@ -17,6 +17,61 @@ yangaiche(sys.load_default_module)('parameter');
         store = yangaiche(sys.local_storage),
         url_params = yangaiche(app.url_parameter);
 
+    var timeout;
+    var start_timer_controll = function (value) {
+        if (typeof(t("#verify_button")) === 'undefined') {
+            return;
+        }
+        t("#verify_button").text(value);
+        if (value === 0) {
+            t("#verify_button").text("获取验证码");
+            reset_button("verify_button");
+            return;
+        }
+        timeout = setTimeout(function () {
+            return start_timer_controll(value - 1);
+        }, 1000);
+    };
+    var verify_button_click_fn = function () {
+        disable_button("verify_button");
+        var phone_number = t("#phone").val();
+        if (phone_number === "") {
+            show_msg("请输入手机号码获取验证码");
+            reset_button("verify_button");
+            return;
+        }
+        if (!phone_number.match(/^\d{11}$/)) {
+            show_msg("请输入正确的手机号码获取验证码");
+            reset_button("verify_button");
+            return;
+        }
+        getReq("/v1/api/sign_verify_code.json/" + phone_number, function (data) {
+            start_timer_controll(60);
+        }, function (data) {
+            reset_button("verify_button");
+            show_msg(data['message'])
+        });
+    };
+    var login_button_click_fn = function () {
+        disable_button("login_button");
+        var phone_number = t("#phone").val();
+        var verify_code = t("#verify_code").val();
+        if (phone_number === "" || verify_code === "") {
+            show_msg("手机号码与验证码均不能为空");
+            reset_button("login_button");
+            return;
+        }
+
+        store.set('external_sale_phone_number', phone_number);
+        store.set('external_sale_verify_code', verify_code);
+
+        if (is_weixin && !store.get('external_sale_wechat_openid')) {
+            yangaiche(sys.load_module)('simple_get_openid_init');
+        } else {
+            to_do_sth();
+        }
+    };
+
     getReq('/v1/api/order_coupon_share_picks.json?order_id=' + url_params['order_id'] + '&url_key=' + url_params['url_key'], function (data) {
         t.each(data, function (i, d) {
             d.create_time = d.create_time.replace(/T/, ' ').replace(/\.0{3}/, '');
@@ -94,7 +149,12 @@ yangaiche(sys.load_default_module)('parameter');
                 t('.component[data-tpl=input4]').empty().html(coupon);
 
                 t('#modify_phone_number').click(function () {
+                    clearTimeout(timeout);
+                    start_timer_controll(0);
                     t('.component[data-tpl=input4]').empty().html(store.get(key.activity.login_html));
+                    t("#verify_button").text("获取验证码");
+                    t("#verify_button").click(verify_button_click_fn);
+                    t("#login_button").click(login_button_click_fn);
                 });
 
                 t('#to_use_button').click(function () {
@@ -124,59 +184,6 @@ yangaiche(sys.load_default_module)('parameter');
         yangaiche(sys.load_module)('simple_get_openid_init');
     }
 
-    var start_timer_controll = function (value) {
-        if (typeof(t("#verify_button")) === 'undefined') {
-            return;
-        }
-        t("#verify_button").text(value);
-        if (value === 0) {
-            t("#verify_button").text("获取验证码");
-            reset_button("verify_button");
-            return;
-        }
-        setTimeout(function () {
-            return start_timer_controll(value - 1);
-        }, 1000);
-    };
-
-    t("#verify_button").click(function () {
-        disable_button("verify_button");
-        var phone_number = t("#phone").val();
-        if (phone_number === "") {
-            show_msg("请输入手机号码获取验证码");
-            reset_button("verify_button");
-            return;
-        }
-        if (!phone_number.match(/^\d{11}$/)) {
-            show_msg("请输入正确的手机号码获取验证码");
-            reset_button("verify_button");
-            return;
-        }
-        getReq("/v1/api/sign_verify_code.json/" + phone_number, function (data) {
-            start_timer_controll(60);
-        }, function (data) {
-            reset_button("verify_button");
-            show_msg(data['message'])
-        });
-    });
-
-    t("#login_button").click(function () {
-        disable_button("login_button");
-        var phone_number = t("#phone").val();
-        var verify_code = t("#verify_code").val();
-        if (phone_number === "" || verify_code === "") {
-            show_msg("手机号码与验证码均不能为空");
-            reset_button("login_button");
-            return;
-        }
-
-        store.set('external_sale_phone_number', phone_number);
-        store.set('external_sale_verify_code', verify_code);
-
-        if (is_weixin && !store.get('external_sale_wechat_openid')) {
-            yangaiche(sys.load_module)('simple_get_openid_init');
-        } else {
-            to_do_sth();
-        }
-    });
+    t("#verify_button").click(verify_button_click_fn);
+    t("#login_button").click(login_button_click_fn);
 }(yangaiche(sys.$));
