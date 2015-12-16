@@ -59,7 +59,7 @@ yangaiche(sys.init)(function(t) {
 
     console.log(response);
 
-    var tpl = t('#test_share_picks').text();
+    var tpl = t('#coupon_share_list_tpl').text();
 
     console.log(tpl);
 

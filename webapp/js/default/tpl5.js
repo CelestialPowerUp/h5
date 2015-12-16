@@ -14,7 +14,26 @@ yangaiche(sys.load_default_module)('parameter');
         reset_button = yangaiche(app.ds.reset_button),
         postReq = yangaiche(app.http.post_request),
         getReq = yangaiche(app.http.get_request),
-        store = yangaiche(sys.local_storage);
+        store = yangaiche(sys.local_storage),
+        url_params = yangaiche(app.url_parameter);
+
+    getReq('/v1/api/order_coupon_share_picks.json?order_id=' + url_params['order_id'] + '&url_key=' + url_params['url_key'], function (data) {
+        t.each(data, function (i, d) {
+            d.create_time = d.create_time.replace(/T/, ' ').replace(/\.0{3}/, '');
+            d.wechat_user_info.nickname = d.wechat_user_info.nickname || d.user_name.substr(0, d.user_name.length - 1) + '*' || '***';
+            d.wechat_user_info.headimgurl = d.wechat_user_info.headimgurl || 'http://7xiqe8.com2.z0.glb.qiniucdn.com/default_avatar.png';
+        });
+
+        var tpl = t('#coupon_share_list_tpl').text();
+
+        var tplFn = Handlebars.compile(tpl);
+
+        var rHtml = tplFn({data: data});
+
+        t('#coupon_share_list').empty().html(rHtml);
+    }, function (error) {
+        show_msg(error['message']);
+    });
 
     var to_do_sth = function () {
         postReq("/v1/api/car_user/sign_up.json", {
@@ -25,21 +44,22 @@ yangaiche(sys.load_default_module)('parameter');
 
             yangaiche(ls.user.set)(data);
 
-            postReq('/v1/api/coupon_package_pick.json', {
-                coupon_package_id: 1
+            postReq('/v1/api/order_coupon_share_pick.json', {
+                order_id: url_params['order_id'],
+                url_key: url_params['url_key']
             }, function (data) {
 
                 var text = "<div style=\"background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/coupon_bg.png') 50% 50% no-repeat; width: inherit; height: 270px; overflow: hidden;\">\n" +
                     "        <div style=\"margin: 70px 0 0 0; overflow: hidden;\">\n" +
                     "            <div style=\"margin: 0 0 0 125px; float: left; overflow: hidden;\">\n" +
                     "                <div style=\"font-size: 50px; line-height: 50px; float: left;\">¥</div>\n" +
-                        //                   "                <div style=\"font-size: 118px; line-height: 118px; float: left;\">{{value}}</div>\n" +
-                    "                <div style=\"font-size: 88px; line-height: 118px; float: left;\">119</div>\n" +
+                    "                <div style=\"font-size: 118px; line-height: 118px; float: left;\">{{value}}</div>\n" +
+                    //"                <div style=\"font-size: 88px; line-height: 118px; float: left;\">119</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"margin: 0 0 0 0; float: left;\">\n" +
                     "                <div style=\"font-size: 22px; line-height: 22px;\">YUAN</div>\n" +
-                        //                   "                <div style=\"font-size: 44px; line-height: 78px;\">{{coupon_type_value}}</div>\n" +
-                    "                <div style=\"font-size: 44px; line-height: 78px;\">VIP体验券</div>\n" +
+                    "                <div style=\"font-size: 44px; line-height: 78px;\">{{coupon_type_value}}</div>\n" +
+                    //"                <div style=\"font-size: 44px; line-height: 78px;\">VIP体验券</div>\n" +
                     "                <div style=\"font-size: 18px; line-height: 18px;\">COUPON</div>\n" +
                     "            </div>\n" +
                     "        </div>\n" +
@@ -48,10 +68,10 @@ yangaiche(sys.load_default_module)('parameter');
                     "        </div>\n" +
                     "    </div>\n" +
                     "    <div style=\"font-size: 24px; text-align: center; width: inherit;\">\n" +
-                    "        69元管家接车券、50元通用代金券已存入您账户\n" +
+                    "        {{coupon_type_value}}已存入您账户\n" +
                     "        <br>\n" +
                     "        {{user_phone_number}}\n" +
-//                    "        <span id='modify_phone_number' style=\"font-size: 24px; color: #ffeb08;\">修改></span>\n" +
+                    "        <span id='modify_phone_number' style=\"font-size: 24px; color: #ffeb08;\">修改></span>\n" +
                     "    </div>" +
                     "    <button id=\"to_use_button\" type=\"button\" class=\"am-btn\"\n" +
                     "        style=\"margin: 13px 161px 13px 161px;padding: 20px 48px 40px 48px;background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_get_coupon.png') 50% 50% no-repeat;color: #850000;font-size: 48px;border-radius: 8px;width: 317px;height: 107px;\">\n" +
@@ -61,10 +81,10 @@ yangaiche(sys.load_default_module)('parameter');
                 var tpl_fn = Handlebars.compile(text);
 
                 var tpl_data = {
-                    value: data[0].coupon.value,
-                    coupon_type_value: data[0].coupon.coupon_type_value,
-                    expired_time: data[0].coupon.expired_time.match(/^(.*)T.*$/)[1],
-                    user_phone_number: data[0].user_phone_number
+                    value: data.coupon.value,
+                    coupon_type_value: data.coupon.coupon_type_value,
+                    expired_time: data.coupon.expired_time.match(/^(.*)T.*$/)[1],
+                    user_phone_number: data.user_phone_number
                 };
 
                 var coupon = tpl_fn(tpl_data);

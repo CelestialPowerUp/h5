@@ -72,9 +72,11 @@
     <!--</style>-->
 <!--</script>-->
 
-<script type="text/x-handlebars-template" id="test_share_picks">
+<div id="coupon_share_list"></div>
+
+<script type="text/x-handlebars-template" id="coupon_share_list_tpl">
     <div style="width: 640px; background: url('./img/coupon_share_list_bg.png') 50% 50% repeat-y;">
-        <ul style="list-style-type: none; padding: 0; margin-left: 51px;">
+        <ul style="list-style-type: none; padding: 0; margin: 0 0 0 51px;">
             {{#each data}}
             <li class="share_list_item" style="width: 538px; height: 145px; background: #fffcd6;">
                 <div style="float: left; width: 100px; height: 145px; line-height: 145px; text-align: center;">
@@ -100,7 +102,7 @@
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;">{{create_time}}</span>
-                    <br/>
+                <br/>
                 <span style="
                 display: inline-block;
                 width: 330px;
@@ -111,12 +113,13 @@
                 text-overflow: ellipsis;">红包的颜值和你的一样高哦</span>
                 </div>
                 <div style="float: left; width: 106px; height: 145px; line-height: 145px; text-align: right; font-size: 34px; color: #ed7671;">
-                    69元
+                    {{coupon.value}}元
                 </div>
             </li>
             {{/each}}
         </ul>
     </div>
+    <div style="width: 640px; height: 18px; background: url('./img/bg_bottom_coupon_share_list.png');"></div>
     <style>
         .share_list_item + .share_list_item {
             border-top: 1px solid #d6d3b5;
