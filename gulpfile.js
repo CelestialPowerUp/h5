@@ -17,7 +17,10 @@ var gulp = require('gulp'),                       //基础库
     revCollector = require('gulp-rev-collector'); //替换相应的文件
 
 var srcRoot = './webapp',
-    dstRoot = './dist';
+    dstRoot = './dist',
+    thirdLibRoot = '/3rdLibs',
+    thirdLibSrcRoot = srcRoot + thirdLibRoot,
+    thirdLibDstRoot = dstRoot + thirdLibRoot;
 
 // HTML处理
 gulp.task('html', function () {
@@ -28,12 +31,13 @@ gulp.task('html', function () {
 });
 
 // Activity文件
-//gulp.task('activity', function() {
-//    var activitySrc = './activities/*.html';
-//
-//    gulp.src(activitySrc)
-//        .pipe(gulp.dest(dstRoot));
-//});
+gulp.task('activityImages', function() {
+    var activityImagesSrc = srcRoot + '/activities/**/*.png';
+
+    gulp.src(activityImagesSrc)
+        .pipe(imagemin())
+        .pipe(gulp.dest(dstRoot + '/activities'));
+});
 
 // 配置文件
 gulp.task('cfg', function() {
@@ -47,12 +51,16 @@ gulp.task('cfg', function() {
 // 样式处理
 gulp.task('css', function () {
     var cssSrc = srcRoot + '/css/**/*',
-        activityCssSrc = dstRoot + '/activities/pubcss',
-        cssDst = dstRoot + '/css';
+        thirdLibCssSrc = thirdLibSrcRoot + '/css/**/*',
+        cssDst = dstRoot + '/css',
+        thirdLibCssDst = thirdLibDstRoot + '/css';
 
-    gulp.src(cssSrc, activityCssSrc)
+    gulp.src(cssSrc)
         .pipe(minifycss())
         .pipe(gulp.dest(cssDst));
+
+    gulp.src(thirdLibCssSrc)
+        .pipe(gulp.dest(thirdLibCssDst));
 });
 
 // 图片处理
@@ -68,7 +76,9 @@ gulp.task('images', function () {
 // js处理
 gulp.task('js', function () {
     var jsSrc = srcRoot + '/js/**/*.js',
-        jsDst = dstRoot + '/js';
+        thirdLibJsSrc = thirdLibSrcRoot + '/js/**/*.js',
+        jsDst = dstRoot + '/js',
+        thirdLibJsDst = thirdLibDstRoot + '/js';
 
     gulp.src(jsSrc)
         .pipe(jshint('.jshintrc'))
@@ -80,6 +90,9 @@ gulp.task('js', function () {
         .pipe(gulp.dest(jsDst))
         .pipe(rev.manifest('map.json'))
         .pipe(gulp.dest(dstRoot));
+
+    gulp.src(thirdLibJsSrc)
+        .pipe(gulp.dest(thirdLibJsDst));
 });
 
 // 清空
@@ -90,7 +103,7 @@ gulp.task('clean', function () {
 
 // 构建任务 清空图片、样式、js并重建 运行语句 gulp
 gulp.task('build', function () {
-    gulp.start('html', 'cfg', 'css', 'images', 'js');
+    gulp.start('html', 'activityImages', 'cfg', 'css', 'images', 'js');
 });
 
 // 替换成md5版本
