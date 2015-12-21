@@ -6,7 +6,9 @@ echo $1-\>$3
 echo $2-\>$3
 
 cp -a $1/* $3 &&
-cp -a $2/* $3
+cp -a $2/* $3 &&
+cp -a $1/* $3/map &&
+cp -a $2/* $3/map
 
 str=$(ls $3/activities/ | sort)
 arr=(${str// / })

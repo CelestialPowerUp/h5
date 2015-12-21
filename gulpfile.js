@@ -41,7 +41,7 @@ gulp.task('activityImages', function() {
 
 // 配置文件
 gulp.task('cfg', function() {
-    var cfgSrc = './map/*',
+    var cfgSrc = srcRoot + '/map/*',
         cfgDst = dstRoot + '/map';
 
     gulp.src(cfgSrc)
