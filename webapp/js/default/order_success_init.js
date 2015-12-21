@@ -4,6 +4,8 @@ yangaiche(sys.load_default_module)('pay', {});
 yangaiche(sys.load_module)('order/get_payment_order_id');
 
 yangaiche(sys.init)(function (t) {
+    t('.normal-bottom-btn-div').css('display', 'block');
+
     var order_info = yangaiche(ls.order.touch)();
 
     if (1 === order_info['pay_mode'] && !order_info['paid'] && order_info['total_price'] > 0) {
@@ -33,4 +35,5 @@ yangaiche(sys.init)(function (t) {
     t("#close_button").click(function () {
         yangaiche(sys.load_module)('close_app', {});
     });
+
 });

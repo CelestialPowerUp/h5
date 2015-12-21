@@ -37,29 +37,36 @@ window.mobileUtil = (function (win, doc) {
          */
         fixScreen: function () {
             var metaEl = doc.querySelector('meta[name="viewport"]'),
-                metaCtt = metaEl ? metaEl.content : '';
+                metaCtt = (metaEl ? metaEl.content : '').replace(/\s*/g, '');
+
+            var kvs = metaCtt.split(','), data = {};
+            for (var i = 0; i < kvs.length; i++) {
+                var kv = kvs[i].split('=');
+                if (/width/.test(kv[0])) {
+                    width = kv[1];
+                }
+                data[kv[0]] = kv[1];
+            }
+            data.width = data.width || 640;
+
             if (isMobile) { // 定宽
                 if (isAndroid) {
-                    var medium_dpi = 640 / win.screen.availWidth * window.devicePixelRatio * 160;
+                    var medium_dpi = data.width / win.screen.availWidth * window.devicePixelRatio * 160;
 
                     medium_dpi = medium_dpi.toFixed(2);
-                    metaEl.content = metaCtt + ', width=640, target-densitydpi=' + medium_dpi;
 
+                    data['target-densitydpi'] = medium_dpi;
                 } else {
-                    var scale = win.screen.availWidth / 640;
+                    var scale = win.screen.availWidth / data.width;
 
                     scale = scale.toFixed(2);
-                    metaEl.content = metaCtt + ', width=640, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale;
+
+                    data['initial-scale'] = data['maximum-scale'] = data['minimum-scale'] = scale;
                 }
-                console.log("report:" +
-                    "\nscreen avail width: " +
-                    win.screen.availWidth +
-                    "\ndevice pixel ratio: " +
-                    window.devicePixelRatio +
-                    //"\nscale: " + scale +
-                    "\n" + metaEl.content
-                );
+
+                metaEl.content = JSON.stringify(data).replace(/\s*/g, '').replace(/[{}"]/g, '').replace(/:/g, '=');
             }
+            console.log(data);
         },
 
         /**

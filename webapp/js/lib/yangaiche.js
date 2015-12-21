@@ -184,7 +184,7 @@ yangaiche(sys.load, function () {
         dataType: 'json'
     });
     try {
-        map = map['responseJSON']['res'];
+        map = map['responseJSON'];
     } catch (e) {
         map = null;
     }
@@ -195,12 +195,12 @@ yangaiche(sys.load, function () {
         var enable_sync_mode_flag = exist(enable_sync_mode);
         if (exist(map)) {
             if (exist(map[url])) {
-                url = map[url]['uri'];
+                url = yangaiche(sys.root) + '/js/' + map[url];
             } else {
                 return enable_sync_mode_flag ? false : null;
             }
         } else {
-            url = yangaiche(sys.root) + '/' + url;
+            url = yangaiche(sys.root) + '/js/' + url;
         }
         if (!loaded.includes(url)) {
             loaded.push(url);
@@ -237,4 +237,4 @@ yangaiche(sys.load, function () {
     };
 });
 
-yangaiche(sys.load)('js/lib/yangaiche_init.js');
+yangaiche(sys.load)('lib/yangaiche_init.js');
