@@ -3,7 +3,7 @@
 local_dir=".."
 config="production"
 ssh_config="production"
-make_dir="dist"
+make_dir="h5-"${config}
 
 PATH=$PATH:./libs/
 

@@ -11,7 +11,7 @@ mkdir -p $1/${fixedDir} &&
 
 cd $1 &&
 
-gulp build && gulp rev &&
+gulp build --dstRoot fixedDir && gulp rev &&
 
 cd "deploy_tools" &&
 
