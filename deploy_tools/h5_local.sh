@@ -2,7 +2,7 @@
 
 local_dir=".."
 config="local"
-make_dir="h5-"${config}
+make_dir="dist"
 
 PATH=$PATH:./libs/
 

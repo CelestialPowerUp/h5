@@ -2,7 +2,7 @@
 
 echo $1-\>$2-\>$3 &&
 
-fixedDir="dist"
+fixedDir=$3
 
 if [ -e $1/${fixedDir} ]; then
     rm -rf $1/${fixedDir}/
