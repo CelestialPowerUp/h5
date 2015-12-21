@@ -13,7 +13,7 @@ cd $1 &&
 
 gulp build --dstRoot fixedDir && gulp rev &&
 
-cd "deploy_tools" &&
+cd deploy_tools &&
 
 echo "copy json configs..." &&
 bash _cp_json.sh $1/enviroment/$2 $1/platform/normal $1/${fixedDir} &&
