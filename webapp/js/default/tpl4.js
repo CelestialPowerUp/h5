@@ -48,7 +48,7 @@ yangaiche(sys.load_default_module)('parameter');
                     "        </div>\n" +
                     "    </div>\n" +
                     "    <div style=\"font-size: 24px; text-align: center; width: inherit;\">\n" +
-                    "        69元管家接车券、50元通用代金券已存入您账户\n" +
+                    "        69元管家接车券、50元保养现金券已存入您账户\n" +
                     "        <br>\n" +
                     "        {{user_phone_number}}\n" +
 //                    "        <span id='modify_phone_number' style=\"font-size: 24px; color: #ffeb08;\">修改></span>\n" +
