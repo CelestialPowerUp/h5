@@ -16,8 +16,19 @@ var gulp = require('gulp'),                       //基础库
     rev = require('gulp-rev'),                    //- 对文件名加MD5后缀
     revCollector = require('gulp-rev-collector'); //替换相应的文件
 
+
+var minimist = require('minimist');
+
+var knownOptions = {
+    string: 'dstRoot',
+    default: { dstRoot: process.env.NODE_ENV || 'production' }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
+
+
 var srcRoot = './webapp',
-    dstRoot = './dist',
+    dstRoot = './' + options.dstRoot,
     thirdLibRoot = '/3rdLibs',
     thirdLibSrcRoot = srcRoot + thirdLibRoot,
     thirdLibDstRoot = dstRoot + thirdLibRoot;

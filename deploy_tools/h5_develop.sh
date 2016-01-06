@@ -3,7 +3,7 @@
 local_dir=".."
 config="develop"
 ssh_config="staging"
-make_dir="dist"
+make_dir="h5-"${config}
 
 PATH=$PATH:./libs/
 
