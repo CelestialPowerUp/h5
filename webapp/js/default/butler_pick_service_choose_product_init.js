@@ -20,9 +20,7 @@ yangaiche(sys.init)(function (t) {
         var order = yangaiche(ls.order.touch)(),
             calculate = yangaiche(ls.products.calculate);
 
-        var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
-
-        yangaiche(app.http.get_request)('/v2/api/products.json?service_type=11' + config + '&car_model_type=' + order.car_model_type, function (data) {
+        function process(data) {
             var required_products = data['required_products'], required_price = calculate(data['required_products']), product_dict = {};
 
             t.each(data['optional_products'] ? data['optional_products'] : [], function (i, p_c) {
@@ -139,6 +137,20 @@ yangaiche(sys.init)(function (t) {
 
                 yangaiche(ls.back.set_back_to_self)('base_info.html');
             });
+        }
+
+        var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
+
+        yangaiche(app.http.get_request)('/v2/api/products.json?service_type=11' + config + '&car_model_type=' + order.car_model_type, function (data) {
+            if (data['required_products'].length === 0 && data['optional_products'].length === 0 && config) {
+                yangaiche(app.http.get_request)('/v2/api/products.json?service_type=11&car_model_type=' + order.car_model_type, function (data) {
+                    process(data);
+                }, function () {
+                    yangaiche(app.show_msg.show)("AJAX ERROR!");
+                });
+            } else {
+                process(data);
+            }
         }, function () {
             yangaiche(app.show_msg.show)("AJAX ERROR!");
         });

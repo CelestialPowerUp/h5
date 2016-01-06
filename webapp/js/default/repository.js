@@ -35,5 +35,8 @@ var key = {
     },
     supplier: {
         current: 'supplier_current'
+    },
+    activity: {
+        login_html: 'activity_login_html'
     }
 };

@@ -98,6 +98,7 @@ yangaiche(app.activity_comp_editor.data.get, function () {
         var comps = app.activity_comp_editor.components;
         if (yangaiche(sys.exist)(comps[id].data)) {
             comps[id].data.id = id;
+            comps[id].data.overflow_hidden = comps[id].data.height === 0 ? '' : 'overflow: hidden;';
             return comps[id].data;
         } else {
             return yangaiche(app.activity_comp_editor.data.init)(id);
@@ -106,7 +107,7 @@ yangaiche(app.activity_comp_editor.data.get, function () {
 });
 
 yangaiche(app.activity_comp_editor.template, function () {
-    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="overflow: hidden;height: {{height}}px;background: {{background}};">{{{inner_html}}}</div>');
+    var tpl = Handlebars.compile('<div id="{{id}}" data-tpl="{{data_tpl}}" class="component" style="{{overflow_hidden}}height: {{height}}px;background: {{background}};">{{{inner_html}}}</div>');
     return function (id) {
         return tpl(yangaiche(app.activity_comp_editor.data.get)(id));
     };

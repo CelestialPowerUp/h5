@@ -3,7 +3,6 @@
 tmp
 h5-develop
 fis-cfgs
-node_modules
 h5-staging
 h5-production
 */data.json
@@ -15,3 +14,5 @@ h5-local
 h5-develop-ssl
 h5-local-ssl
 h5-staging-ssl
+dist
+node_modules

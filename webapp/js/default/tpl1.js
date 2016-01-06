@@ -86,6 +86,11 @@ yangaiche(sys.load_default_module)('parameter');
 
         // 检查是否过期
         var activity_code = yangaiche(app.url_parameter)['page_code'];
+
+        activity_code = decodeURIComponent(activity_code).replace(/\s*/g, '');
+
+        console.log(activity_code);
+
         getReq('/v1/api/activity/is_valid?code=' + activity_code, function (data) {
             if (data['code'] === activity_code) {
                 if (data['status'] === false) {
