@@ -38,5 +38,8 @@ var key = {
     },
     activity: {
         login_html: 'activity_login_html'
+    },
+    activity399: {
+        is_checked: false
     }
 };
