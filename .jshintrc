@@ -1,15 +1,62 @@
 {
-//  "curly": true, // true: Require {} for every new block or scope
-//  "eqeqeq": true, // true: Require triple equals (===) for comparison
-//  "immed": true, // true: Require immediate invocations to be wrapped in parens e.g. `(function () { } ());`
-//  "latedef": true, // true: Require variables/functions to be defined before being used
-//  "newcap": true, // true: Require capitalization of all constructor functions e.g. `new F()`
-//  "noarg": true, // true: Prohibit use of `arguments.caller` and `arguments.callee`
-//  "sub": true, // true: Prohibit use of empty blocks
-//  "undef": true, // true: Require all non-global variables to be declared (prevents global leaks)
-//  "boss": true, // true: Require all defined variables be used
-//  "eqnull": true, // true: Requires all functions run in ES5 Strict Mode
-//  "es3": true, // {int} Max number of formal params allowed per function
-//  "node": true, // {int} Max depth of nested blocks (within functions)
-//  "-W117": true // {int} Max number statements per function
+  /*
+   * ENVIRONMENTS
+   * =================
+   */
+
+  // Define globals exposed by modern browsers.
+  "browser": true,
+
+  // Define globals exposed by jQuery.
+  "jquery": true,
+
+  // Define globals exposed by Node.js.
+  "node": true,
+
+  // Allow ES6.
+  "esnext": true,
+
+  /*
+   * ENFORCING OPTIONS
+   * =================
+   */
+
+  // Force all variable names to use either camelCase style or UPPER_CASE
+  // with underscores.
+  "camelcase": true,
+
+  // Prohibit use of == and != in favor of === and !==.
+  "eqeqeq": true,
+
+  // Enforce tab width of 2 spaces.
+  "indent": 2,
+
+  // Prohibit use of a variable before it is defined.
+  "latedef": true,
+
+  // Enforce line length to 100 characters
+  "maxlen": 100,
+
+  // Require capitalized names for constructor functions.
+  "newcap": true,
+
+  // Enforce use of single quotation marks for strings.
+  "quotmark": "single",
+
+  // Enforce placing 'use strict' at the top function scope
+  "strict": true,
+
+  // Prohibit use of explicitly undeclared variables.
+  "undef": true,
+
+  // Warn when variables are defined but never used.
+  "unused": true,
+
+  /*
+   * RELAXING OPTIONS
+   * =================
+   */
+
+  // Suppress warnings about == null comparisons.
+  "eqnull": true
 }
