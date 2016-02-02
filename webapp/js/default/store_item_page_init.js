@@ -119,7 +119,7 @@ yangaiche(sys.init)(function (t) {
                 }
             });
 
-            t('.store-item-u-price').text('¥' + yangaiche(ls.products.calculate)(mutable_products));
+            t('.store-item-u-price').text('¥' + yangaiche(ls.products.calculate)(mutable_products) + '(含服务费)');
 
             t(group_p).find('button').removeClass('service-type-choose-chosen');
             t(group_p).find('button').addClass('service-type-choose-chosen-not');
@@ -146,7 +146,6 @@ yangaiche(sys.init)(function (t) {
             var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
             t('body').prepend(tpl(store_item));
 
-            t('.store-item-u-price').text('¥' + store_item['ware_mark_price'].toFixed(2));
             t('#item_title').text(store_item['ware_name']);
 
             load_comments(store_item);
