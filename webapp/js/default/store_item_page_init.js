@@ -94,6 +94,10 @@ yangaiche(sys.init)(function (t) {
             t('#my-btn-group button[data-key="self"]').css('display', 'none');
         }
 
+        t.each(service_products, function(i, service_product) {
+            service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(2);
+        });
+
         t('#my-btn-group').on('click', 'button', function () {
             var $this = t(this);
             var group_p = $this.parents()[0];
@@ -167,7 +171,14 @@ yangaiche(sys.init)(function (t) {
 
                     t.each(t('#my-btn-group button'), function (i, btn) {
                         if (t(btn).hasClass('service-type-choose-chosen')) {
-                            order.service_type = t(btn).attr('data-key');
+                            var local_key = t(btn).attr('data-key');
+                            order.service_type = local_key;
+                            order[ls.products.products_info] = order[ls.products.products_info] || [];
+                            t.each(service_products, function(i, service_product) {
+                                if (service_product.service_type === local_key) {
+                                    order[ls.products.products_info].push(service_product);
+                                }
+                            });
                         }
                     });
                 });
