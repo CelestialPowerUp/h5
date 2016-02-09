@@ -1,9 +1,8 @@
-/**
- * Created by Administrator on 2015/5/20.
- */
-var domain = '', api_root = "/v1/api/", dev = '', external_sale_situation = 'test';
+'use strict';
 
-!function () {
+var domain = '', api_root = '/v1/api/', dev = '', external_sale_situation = 'test';
+
+(function () {
     var obj = $.ajax({
         url: './data.json',
         cache: false,
@@ -11,45 +10,45 @@ var domain = '', api_root = "/v1/api/", dev = '', external_sale_situation = 'tes
         dataType: 'json'
     });
     console.log(obj.responseJSON);
-    //alert(obj.responseJSON['thisis']);
-    if ('dev' === obj.responseJSON['thisis']) {
+    //alert(obj.responseJSON.thisis);
+    if ('dev' === obj.responseJSON.thisis) {
         dev = '/develop';
-    } else if ('staging' === obj.responseJSON['thisis']) {
+    } else if ('staging' === obj.responseJSON.thisis) {
         dev = '/staging';
     } else {
         external_sale_situation = 'production';
     }
     loadCfg('platform.json', function (platform) {
-        if ('rc' === platform['platform']) {
+        if ('rc' === platform.platform) {
             domain = '/java/rc';
             dev = '/develop';
         }
     });
-}();
+}());
 
 var default_header = function (request) {
-    request.setRequestHeader("Accept-Encoding", 'gzip');
-    request.setRequestHeader("API-Client-Device-Type", loadCfg('platform.json', function (platform) {
+    request.setRequestHeader('Accept-Encoding', 'gzip');
+    request.setRequestHeader('API-Client-Device-Type', loadCfg('platform.json', function (platform) {
         return conditionalReturn(platform);
     }));
-    /*request.setRequestHeader("API-Access-Token", '4ANoFzcFRA4sS1okrMztxWLnxR6guEe971kcHb8TE5xUNkn68j0uKaz7MqMv53zC');*/
+    /*request.setRequestHeader('API-Access-Token', '4ANoFzcFRA4sS1okrMztxWLnxR6guEe971kcHb8TE5xUNkn68j0uKaz7MqMv53zC');*/
     //var user = getUser();
-    var user = getStore().get("user_info");
+    var user = getStore().get('user_info');
     if (typeof(user) !== 'undefined' && user !== null) {
-        request.setRequestHeader("API-Access-Token", user.token);
+        request.setRequestHeader('API-Access-Token', user.token);
     }
-    /*request.setRequestHeader("API-Access-Token", '4ANoFzcFRA4sS1okrMztxWLnxR6guEe971kcHb8TE5xUNkn68j0uKaz7MqMv53zC');*/
+    /*request.setRequestHeader('API-Access-Token', '4ANoFzcFRA4sS1okrMztxWLnxR6guEe971kcHb8TE5xUNkn68j0uKaz7MqMv53zC');*/
 };
 
 
 var login_by_opencode = function () {
     loadCfg('platform.json', function (platform) {
-        if ('normal' === platform['platform']) {
+        if ('normal' === platform.platform) {
             show_login_win();
-        } else if ('rc' === platform['platform']) {
+        } else if ('rc' === platform.platform) {
             show_login_win();
         } else {
-            window.location.href = "./open_id.html";
+            window.location.href = './open_id.html';
         }
     });
 };
@@ -62,11 +61,11 @@ var getReqParam = function () {
     var url = location.href; //
     var theRequest = {};
     theRequest.counts = 0;
-    if (url.indexOf("?") != -1) {
-        var str = url.substr(url.indexOf("?") + 1);
-        var strs = str.split("&");
+    if (url.indexOf('?') !== -1) {
+        var str = url.substr(url.indexOf('?') + 1);
+        var strs = str.split('&');
         for (var i = 0; i < strs.length; i++) {
-            var ss = strs[i].split("=");
+            var ss = strs[i].split('=');
             theRequest[ss[0]] = ss[1];
             theRequest.counts++;
         }
@@ -78,11 +77,11 @@ var getHashParam = function () {
     var url = location.href; //
     var theRequest = {};
     theRequest.counts = 0;
-    if (url.indexOf("#") != -1) {
-        var str = url.substr(url.indexOf("#") + 1);
-        var strs = str.split("&");
+    if (url.indexOf('#') !== -1) {
+        var str = url.substr(url.indexOf('#') + 1);
+        var strs = str.split('&');
         for (var i = 0; i < strs.length; i++) {
-            var ss = strs[i].split("=");
+            var ss = strs[i].split('=');
             theRequest[ss[0]] = ss[1];
             theRequest.counts++;
         }
@@ -102,26 +101,26 @@ var getReq = function (url, callBack, failureBack) {
     var real_url = get_real_url(url);
 
     $.ajax({
-        type: "GET",
-        dataType: "json",
+        type: 'GET',
+        dataType: 'json',
         timeout: 45 * 1000,
         url: real_url,
         beforeSend: default_header,
         success: function (data) {
-            if (data && data['code'] == '00000') {
-                callBack(data['data']);
-            } else if (data && data['code'] === '20007') {
+            if (data && data.code === '00000') {
+                callBack(data.data);
+            } else if (data && data.code === '20007') {
                 //show_login_win();
                 login_by_opencode();
             } else {
-                console.log(data['message']);
+                console.log(data.message);
                 if (failureBack) {
                     failureBack(data);
                 }
             }
         },
         error: function (xhr, status, error) {
-            console.log("服务器失败 status : " + status);
+            console.log('服务器失败 status : ' + status);
         }
     });
 };
@@ -134,28 +133,28 @@ var postReq = function (url, param, callBack, failureBack) {
     var real_url = get_real_url(url);
 
     $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json",
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
         timeout: 45 * 1000,
         url: real_url,
         data: JSON.stringify(param),
         beforeSend: default_header,
         success: function (data) {
-            if (data && data['code'] == '00000') {
-                callBack(data['data']);
-            } else if (data && data['code'] == '20007') {
+            if (data && data.code === '00000') {
+                callBack(data.data);
+            } else if (data && data.code === '20007') {
                 //show_login_win();
                 login_by_opencode();
             } else {
-                console.log(data['message']);
+                console.log(data.message);
                 if (failureBack) {
                     failureBack(data);
                 }
             }
         },
         error: function (xhr, status, error) {
-            console.log("服务器失败 status : " + status);
+            console.log('服务器失败 status : ' + status);
         }
     });
 };
@@ -164,9 +163,9 @@ var postChargeReq = function (url, param, callBack, failureBack) {
     var real_url = get_real_url(url);
 
     $.ajax({
-        type: "POST",
-        dataType: "text",
-        contentType: "application/json",
+        type: 'POST',
+        dataType: 'text',
+        contentType: 'application/json',
         timeout: 45 * 1000,
         url: real_url,
         data: JSON.stringify(param),
@@ -179,12 +178,12 @@ var postChargeReq = function (url, param, callBack, failureBack) {
                 parsed_data = data;
             } finally {
                 //alert(typeof(parsed_data));
-                if ('string' == typeof(parsed_data) && failureBack) {
+                if ('string' === typeof(parsed_data) && failureBack) {
                     failureBack(parsed_data);
-                } else if ('object' == typeof(parsed_data)) {
-                    if (parsed_data['code'] == "20007") {
+                } else if ('object' === typeof(parsed_data)) {
+                    if (parsed_data.code === '20007') {
                         if (failureBack) {
-                            failureBack(parsed_data['message']);
+                            failureBack(parsed_data.message);
                         } else {
                             alert('建议设置请求错误的回调');
                         }
@@ -201,7 +200,7 @@ var postChargeReq = function (url, param, callBack, failureBack) {
         error: function (xhr, status, error) {
             alert(status);
             alert(error);
-            console.log("服务器失败 status : " + status);
+            console.log('服务器失败 status : ' + status);
         }
     });
 };
@@ -209,7 +208,7 @@ var postChargeReq = function (url, param, callBack, failureBack) {
 var arrToJson = function (arr) {
     var obj = {};
     for (var i = 0; i < arr.length; i++) {
-        obj[arr[i]['name']] = arr[i]['value'];
+        obj[arr[i].name] = arr[i].value;
     }
     return obj;
 };
@@ -224,10 +223,10 @@ var getStore = function () {
 };
 
 var getOrder = function () {
-    var order = getStore().get("order_info");
+    var order = getStore().get('order_info');
     if (typeof (order) === 'undefined' || order === null) {
         order = {};
-        getStore().set("order_info", order);
+        getStore().set('order_info', order);
     }
     return order;
 };
@@ -239,8 +238,8 @@ var getLocation = function () {
         location = {
             latitude: 21.1,
             longitude: 21.1,
-            name: "",
-            address: ""
+            name: '',
+            address: ''
         };
         order.location = location;
     }
@@ -254,17 +253,17 @@ var updateLocation = function (location) {
 };
 
 var updateOrder = function (order) {
-    getStore().set("order_info", order);
+    getStore().set('order_info', order);
 };
 
 var updateUser = function (user) {
-    getStore().set("user_info", user);
+    getStore().set('user_info', user);
     return getUser();
 };
 
 var getUser = function () {
-    var userInfo = getStore().get("user_info");
-    if (typeof(userInfo) === "undefined" || userInfo === null) {
+    var userInfo = getStore().get('user_info');
+    if (typeof(userInfo) === 'undefined' || userInfo === null) {
         //show_login_win();
         login_by_opencode();
     }
@@ -272,23 +271,23 @@ var getUser = function () {
 };
 
 var clearOrder = function () {
-    getStore().remove("order_info");
+    getStore().remove('order_info');
 };
 
 var updateSuccessOrder = function (data) {
-    getStore().set("success_order", data);
+    getStore().set('success_order', data);
 };
 
 var getSuccessOrder = function () {
-    return getStore().get("success_order");
+    return getStore().get('success_order');
 };
 
 var clearSuccessOrder = function () {
-    getStore().remove("success_order");
+    getStore().remove('success_order');
 };
 
 var getFormValues = function (id) {
-    return arrToJson($("#" + id).serializeArray());
+    return arrToJson($('#' + id).serializeArray());
 };
 
 var copyObj = function (obj, value) {
@@ -306,7 +305,7 @@ var parseFormValue = function (id, data) {
         if (typeof(data[a]) === 'function') {
             continue;
         }
-        var tag = $("#" + a);
+        var tag = $('#' + a);
         if (typeof(tag) === 'undefined' || tag === null) {
             continue;
         }
@@ -315,8 +314,8 @@ var parseFormValue = function (id, data) {
 };
 
 function stripscript(s) {
-    var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“'。，、？]")
-    var rs = "";
+    var pattern = new RegExp('[`~!@#$^&*()=|{}\':;,\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“。，、？]');
+    var rs = '';
     for (var i = 0; i < s.length; i++) {
         rs = rs + s.substr(i, 1).replace(pattern, '');
     }
@@ -325,31 +324,31 @@ function stripscript(s) {
 
 var disable_button = function (id) {
     var rawcss = {};
-    var $2 = $("#" + id);
-    rawcss.color = $2.css("color");
-    rawcss['border-color'] = $2.css("border-color");
-    rawcss['background-color'] = $2.css("background-color");
+    var $2 = $('#' + id);
+    rawcss.color = $2.css('color');
+    rawcss.border_color = $2.css('border-color');
+    rawcss.background_color = $2.css('background-color');
     getStore().set(id, rawcss);
-    $2.attr({"disabled": "disabled"});
-    $2.css("background-color", "#cecece");
-    $2.css("border-color", "#cecece");
-    $2.css("color", "#aaaaaa");
+    $2.attr({'disabled': 'disabled'});
+    $2.css('background-color', '#cecece');
+    $2.css('border-color', '#cecece');
+    $2.css('color', '#aaaaaa');
 };
 
 var reset_button = function (id) {
     var rawcss = getStore().get(id);
-    var $2 = $("#" + id);
-    $2.removeAttr("disabled");
-    $2.css("background-color", rawcss['background-color']);
-    $2.css("border-color", rawcss['border-color']);
-    $2.css("color", rawcss.color);
+    var $2 = $('#' + id);
+    $2.removeAttr('disabled');
+    $2.css('background-color', rawcss.background_color);
+    $2.css('border-color', rawcss.border_color);
+    $2.css('color', rawcss.color);
 };
 
 var format_time = function (time) {
-    var timeArr = time.split("T");
-    var d = timeArr[0].split("-");
-    var t = timeArr[1].split(":");
-    var data = new Date(d[0], (d[1] - 1), d[2], t[0], t[1], "");
+    var timeArr = time.split('T');
+    var d = timeArr[0].split('-');
+    var t = timeArr[1].split(':');
+    var data = new Date(d[0], (d[1] - 1), d[2], t[0], t[1], '');
     var year = data.getFullYear();  //获取年
     var month = data.getMonth() + 1;    //获取月
     var day = data.getDate(); //获取日
@@ -357,33 +356,33 @@ var format_time = function (time) {
     var minutes = data.getMinutes();
     var seconds = data.getUTCSeconds();
     var milliseconds = data.getUTCMilliseconds();
-    time = year + "/" + paddedBits(month) + "/" + paddedBits(day) + " " + paddedBits(hours) + ":" + paddedBits(minutes);
+    time = year + '/' + paddedBits(month) + '/' + paddedBits(day) + ' ' + paddedBits(hours) + ':' + paddedBits(minutes);
     return time;
 };
 
 var paddedBits = function (val) {
-    val += "";
+    val += '';
     if (val.length === 1) {
-        return "0" + val;
+        return '0' + val;
     }
     return val;
 };
 
 var getPayTypeInfo = function (order) {
-    if (order['pay_mode']) {
-        if (1 === order['pay_mode']) {
+    if (order.pay_mode) {
+        if (1 === order.pay_mode) {
             return '在线支付';
-        } else if (2 === order['pay_mode']) {
+        } else if (2 === order.pay_mode) {
             return '线下支付';
         }
     }
-    return "线下支付";
+    return '线下支付';
 };
 
 var show_msg = function (msg) {
-    $("#msg").text(msg);
+    $('#msg').text(msg);
     setTimeout(function () {
-        $("#msg").text("");
+        $('#msg').text('');
     }, 3000);
     alert(msg);
 };
@@ -399,17 +398,17 @@ function loadCfg(url, callback) {
 }
 
 function conditionalReturn(platform) {
-    if ('wechat' === platform['platform']) {
+    if ('wechat' === platform.platform) {
         return 'weixin';
-    } else if ('xiaomi' === platform['platform']) {
+    } else if ('xiaomi' === platform.platform) {
         return 'xiaomi';
-    } else if ('alipay' === platform['platform']) {
+    } else if ('alipay' === platform.platform) {
         return 'alipay';
-    } else if ('normal' === platform['platform']) {
+    } else if ('normal' === platform.platform) {
         return 'h5_normal';
-    } else if ('rc' === platform['platform']) {
+    } else if ('rc' === platform.platform) {
         return 'rc';
-    } else if ('mirc' === platform['platform']) {
+    } else if ('mirc' === platform.platform) {
         return 'mirc';
     } else {
         alert('未识别的平台');
@@ -427,7 +426,7 @@ function bind_openid() {
         postReq('openid_bind.json', param, function (data) {
             console.log('绑定openID成功');
         }, function (data) {
-            console.log('绑定openID失败: ' + data['message']);
+            console.log('绑定openID失败: ' + data.message);
         });
     }
 }
@@ -440,9 +439,9 @@ function get_host() {
         async: false,
         dataType: 'json'
     });
-    if ('dev' === thisis.responseJSON['thisis']) {
+    if ('dev' === thisis.responseJSON.thisis) {
         host = 'dev.yangaiche.com%2Fdeveloper%2F';
-    } else if ('staging' === thisis.responseJSON['thisis']) {
+    } else if ('staging' === thisis.responseJSON.thisis) {
         host = 'dev.yangaiche.com%2Fstage%2F';
     } else {
         host = 'pay.yangaiche.com%2F';
@@ -455,10 +454,10 @@ function get_host() {
 
 function set_back_to_home() {
     loadCfg('platform.json', function (platform) {
-        if ('wechat' === platform['platform']) {
-            window.history.replaceState(null, null, "./home_with_products.html");
+        if ('wechat' === platform.platform) {
+            window.history.replaceState(null, null, './home_with_products.html');
         } else {
-            window.history.replaceState(null, null, "./home.html");
+            window.history.replaceState(null, null, './home.html');
         }
     });
 }

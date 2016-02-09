@@ -14,14 +14,20 @@ var gulp = require('gulp'),                       //基础库
     concat = require('gulp-concat'),              //合并文件
     clean = require('gulp-clean'),                //清空文件夹
     rev = require('gulp-rev'),                    //- 对文件名加MD5后缀
-    revCollector = require('gulp-rev-collector'); //替换相应的文件
+    revCollector = require('gulp-rev-collector'), //替换相应的文件
+    genData = function(destFilePrefix) {
+        console.log(destFilePrefix);
+    };
 
+var header = require('gulp-header');
+var footer = require('gulp-footer');
+var replace = require('gulp-replace');
 
 var minimist = require('minimist');
 
 var knownOptions = {
     string: ['dstRoot', 'f'],
-    default: { dstRoot: process.env.NODE_ENV || 'production', f: process.env.NodeENV || '*' }
+    default: {dstRoot: process.env.NODE_ENV || 'production', f: process.env.NodeENV || '*'}
 };
 
 var options = minimist(process.argv.slice(2), knownOptions);
@@ -42,7 +48,7 @@ gulp.task('html', function () {
 });
 
 // Activity文件
-gulp.task('activityImages', function() {
+gulp.task('activityImages', function () {
     var activityImagesSrc = srcRoot + '/activities/**/*.png';
 
     gulp.src(activityImagesSrc)
@@ -51,7 +57,7 @@ gulp.task('activityImages', function() {
 });
 
 // 配置文件
-gulp.task('cfg', function() {
+gulp.task('cfg', function () {
     var cfgSrc = srcRoot + '/map/*',
         cfgDst = dstRoot + '/map';
 
@@ -118,10 +124,28 @@ gulp.task('build', function () {
 });
 
 // 替换成md5版本
-gulp.task('rev', function() {
+gulp.task('rev', function () {
     gulp.src([dstRoot + '/map.json', dstRoot + '/**/*.html'])
         .pipe(revCollector())
         .pipe(gulp.dest(dstRoot));
+});
+
+// 生成数据包
+gulp.task('genData', function() {
+    gulp.src([dstRoot + '/map.json', dstRoot + '/**/*.js'])
+        .pipe(genData('yangaiche-'));
+});
+
+// 整体处理JS文件,添加;(function() {...} ());
+gulp.task('batch', function () {
+    gulp.src(srcRoot + '/js/**/*.js')
+        //.pipe(header(';(function() {\n\n\t\'use strict\';\n\n'))
+        //.pipe(footer('\n} ());'))
+        //.pipe(replace(/\['(.*?)']/g, '.$1'))
+        //.pipe(replace(/"(.*?)"/g, '\'$1\''))
+        //.pipe(replace(/'use strict';/g, '\'use strict\';\n'))
+        .pipe(replace(/'use strict';[\s\S\n]*?yangaiche\(/g, '\'use strict\';\n\n\tyangaiche('))
+        .pipe(gulp.dest(dstRoot + '/js/'));
 });
 
 // jshint处理

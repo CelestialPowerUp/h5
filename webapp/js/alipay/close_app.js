@@ -1,1 +1,7 @@
-AlipayJSBridge.call('exitApp');
+;(function () {
+
+    'use strict';
+
+    AlipayJSBridge.call('exitApp');
+
+}());

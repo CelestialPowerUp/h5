@@ -35,7 +35,7 @@
   "latedef": true,
 
   // Enforce line length to 100 characters
-  "maxlen": 100,
+  "maxlen": 2200,
 
   // Require capitalized names for constructor functions.
   "newcap": true,
@@ -49,6 +49,27 @@
   // Prohibit use of explicitly undeclared variables.
   "undef": true,
 
+  "globals": {
+    "alert": false,
+    "confirm": false,
+    "wx": false,
+    "AlipayJSBridge": false,
+    "pingpp": false,
+    "Qiniu": false,
+    "Handlebars": false,
+    "Swiper": false,
+    "BMap": false,
+    "BMapLib": false,
+    "BMAP_STATUS_SUCCESS": false,
+    "BMAP_ANIMATION_BOUNCE": false,
+    "BMAP_NAVIGATION_CONTROL_ZOOM": false,
+    "yangaiche": true,
+    "sys": true,
+    "app": true,
+    "ls": true,
+    "key": true
+  },
+
   // Warn when variables are defined but never used.
   "unused": true,
 
@@ -56,6 +77,8 @@
    * RELAXING OPTIONS
    * =================
    */
+
+  "validthis": true,
 
   // Suppress warnings about == null comparisons.
   "eqnull": true

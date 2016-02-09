@@ -1,7 +1,10 @@
-yangaiche(sys.load_default_module)('repository', {});
+;(function () {
 
-app.router = {
+    'use strict';
 
-};
+	yangaiche(sys.load_default_module)('repository', {});
+
+    app.router = {};
 
 
+}());
