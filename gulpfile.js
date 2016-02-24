@@ -3,12 +3,6 @@
  * npm install gulp-util gulp-modify through-gulp gulp-imagemin gulp-ruby-sass gulp-minify-css gulp-rev gulp-rev-collector gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-clean gulp-livereload tiny-lr --save-dev
  */
 
-var gutil = require('gulp-util');
-var through = require('through-gulp');
-var file = require('vinyl-file');
-var sortKeys = require('sort-keys');
-var compiledFiles = {};
-
 // 引入 gulp及组件
 var gulp = require('gulp'),                       //基础库
     imagemin = require('gulp-imagemin'),          //图片压缩
@@ -16,187 +10,16 @@ var gulp = require('gulp'),                       //基础库
     minifycss = require('gulp-minify-css'),       //css压缩
     jshint = require('gulp-jshint'),              //js检查
     uglify = require('gulp-uglify'),              //js压缩
-    modify = require('gulp-modify'),              //修改文件
     rename = require('gulp-rename'),              //重命名
     concat = require('gulp-concat'),              //合并文件
     clean = require('gulp-clean'),                //清空文件夹
     rev = require('gulp-rev'),                    //- 对文件名加MD5后缀
     revCollector = require('gulp-rev-collector'), //替换相应的文件
-    compile = function(root, manifestPath) {
-        var mapObj, initFiles = [], replacedFiles = [], dstPath = root;
-        root = root.replace(/^(\.\/)*/, '');
-
-        Function.prototype.genMapObjKey = function(index, callback) {
-            var __self = this;
-            return function() {
-                var ret = callback.apply(this, arguments);
-                if (ret) {
-                    var args = Array.from(arguments);
-                    args.splice(index, 1, ret);
-                    return __self.apply(this, args);
-                } else {
-                    return __self.apply(this, arguments);
-                }
-            };
-        };
-
-        function genEqual(toEqual) {
-            return function(currentValue) {
-                return toEqual === currentValue;
-            };
-        }
-
-        function compile(context, content) {
-            var continueToCompile = false;
-            var replaceValue = function(matched, $1, $2) {
-                continueToCompile = true;
-                var fileContent = mapObj[$2];
-                console.log(context, matched, $1, $2);
-                if (fileContent) {
-                    if (replacedFiles.some(genEqual($2))) {
-                        return '';
-                    } else {
-                        replacedFiles.push($2);
-                        return fileContent;
-                    }
-                } else {
-                    throw 'sth. wrong when compiling...';
-                }
-            }.genMapObjKey(2, function(matched, $1, $2) {
-                if ($1 === 'load') {
-                    if (mapObj[context + '/' + $2 + '.js']) {
-                        return context + '/' + $2 + '.js';
-                    } else {
-                        return 'default/' + $2 + '.js';
-                    }
-                }
-            }).genMapObjKey(2, function(matched, $1, $2) {
-                if ($1 === 'load_default') {
-                    return 'default/' + $2 + '.js';
-                }
-            }).genMapObjKey(2, function(matched, $1, $2) {
-                if ($1 === 'load_lib') {
-                    return 'lib/' + $2 + '.js';
-                }
-            });
-            var replacedContent = content.replace(/yangaiche\(sys\.(load.*?)_module\)\(['"](.*?)['"]\)[,;]*/, replaceValue);
-            if (continueToCompile) {
-                return compile(context, replacedContent);
-            } else {
-                return replacedContent;
-            }
-        }
-
-        function getManifestFile(opts, cb) {
-            file.read(opts.path, opts, function (err, manifest) {
-                if (err) {
-                    // not found
-                    if (err.code === 'ENOENT') {
-                        cb(null, new gutil.File(opts));
-                    } else {
-                        cb(err);
-                    }
-
-                    return;
-                }
-
-                cb(null, manifest);
-            });
-        }
-
-        return through(function(file, encoding, callback) {
-
-            if (file.isStream()) {
-                callback(new gutil.PluginError('gulp-rev', 'Streaming not supported'));
-                return;
-            }
-
-            if (file.isBuffer()) {
-
-                console.log(file.path);
-                var content = file.contents.toString();
-
-                if (file.path.endsWith('.json')) {
-                    mapObj = JSON.parse(content);
-                } else {
-                    var mapObjKey = file.path.substring(file.base.length).match(/(.*)-.*\.js$/)[1] + '.js';
-
-                    mapObj[mapObjKey] = content;
-                }
-
-                if (file.path.match(/init\/.*_init-.*\.js$/)) {
-                    initFiles.push(file);
-                }
-
-            }
-
-            //给下一个流
-            this.push(file);
-            callback();
-
-        }, function(callback) {
-            console.log('at last!!!');
-            console.log(Object.keys(mapObj));
-
-            for (var i = 0; i < initFiles.length; i++) {
-                var initFile = initFiles[i];
-                console.log(initFile.path);
-                var simpleFileName = initFile.path.substring(initFile.base.length), context;
-                if (simpleFileName[0] === '/') {
-                    context = simpleFileName.match(/\/(.*?)\/.*/)[1];
-                } else {
-                    context = simpleFileName.match(/(.*?)\/.*/)[1];
-                }
-                replacedFiles = [];
-                var compiledInitFile = compile(context, initFile.contents.toString());
-                compiledFiles[initFile.path] = compiledInitFile;
-                console.log(compiledInitFile);
-            }
-
-            var opts = {
-                path: manifestPath
-            };
-
-            getManifestFile(opts, function (err, manifestFile) {
-                if (err) {
-                    callback(err);
-                    return;
-                }
-
-                manifestFile.contents = new Buffer(JSON.stringify(sortKeys(compiledFiles), null, '  '));
-
-                this.push(manifestFile);
-                callback();
-            }.bind(this));
-        });
-    },
-    writeCompiledFiles = function() {
-        return through(function(file, encoding, callback) {
-
-            if(file.isBuffer()) {
-                var compiledFileContent = compiledFiles[file.path];
-                if (compiledFileContent) {
-                    try {
-                        file.contents = new Buffer(compiledFileContent);
-                    } catch (e) {
-                        console.log(e);
-                    }
-                    console.log('write ' + file.path);
-                }
-            }
-
-            //给下一个流
-            this.push(file);
-            callback();
-
-        });
-    };
-
-var header = require('gulp-header');
-var footer = require('gulp-footer');
-var replace = require('gulp-replace');
-
-var minimist = require('minimist');
+    header = require('gulp-header'),
+    footer = require('gulp-footer'),
+    replace = require('gulp-replace'),
+    minimist = require('minimist'),
+    compile = require('./gulp-plugin/compile_init.js');
 
 var knownOptions = {
     string: ['dstRoot', 'f'],
@@ -305,7 +128,7 @@ gulp.task('rev', function () {
 gulp.task('genData', function() {
     // 生成数据包
     gulp.src([dstRoot + '/map.json', dstRoot + '/js/**/*.js'])
-        .pipe(compile(dstRoot, 'init-js-data.json'))
+        .pipe(compile(dstRoot))
         //.pipe(modify({
         //    fileModifier: function(file, contents) {
         //
@@ -319,7 +142,7 @@ gulp.task('genData', function() {
         //        }
         //    }
         //}))
-        .pipe(gulp.dest(dstRoot));
+        .pipe(gulp.dest(dstRoot + '/js/'));
 });
 
 // 整体处理JS文件,添加;(function() {...} ());
