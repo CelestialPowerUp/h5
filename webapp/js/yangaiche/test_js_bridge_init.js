@@ -7,22 +7,32 @@
 
     yangaiche(sys.init)(function (t) {
         yangaiche(app.bridge.connect)(function (bridge) {
-            t('submit').click(function () {
+            t('#submit').click(function () {
                 var params;
                 try {
                     params = JSON.parse(t('#params').val());
                 } catch (e) {
-                    alert(JSON.stringify(e));
+                    alert('JSON参数格式解析报错' + JSON.stringify(e));
                 }
 
-                bridge.callHandler('jumpToPage', params, function(responseData) {
+                bridge.callHandler('route', params, function(responseData) {
                     if (typeof responseData === 'string') {
                         alert(responseData);
                     } else {
                         alert(JSON.stringify(responseData));
                     }
                 });
-            })
+            });
         });
+        //t('#submit').click(function () {
+        //    var params;
+        //    try {
+        //        params = JSON.parse(t('#params').val());
+        //    } catch (e) {
+        //        alert(JSON.stringify(e));
+        //    }
+        //
+        //    console.log(params, t('#cmd').val());
+        //});
     });
 }());
