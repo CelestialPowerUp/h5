@@ -2,12 +2,12 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('parameter', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
-    yangaiche(sys.load_default_module)('order', {});
-    yangaiche(sys.load_default_module)('products', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('parameter');
+    yangaiche(sys.load_default_module)('show_msg');
+    yangaiche(sys.load_default_module)('order');
+    yangaiche(sys.load_default_module)('products');
     yangaiche(sys.load_default_module)('paging');
     yangaiche(sys.load_default_module)('format');
     yangaiche(sys.load_default_module)('obj_util');

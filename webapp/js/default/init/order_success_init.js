@@ -2,9 +2,9 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('order', {});
-    yangaiche(sys.load_default_module)('parameter', {});
-    yangaiche(sys.load_default_module)('pay', {});
+	yangaiche(sys.load_default_module)('order');
+    yangaiche(sys.load_default_module)('parameter');
+    yangaiche(sys.load_default_module)('pay');
     yangaiche(sys.load_module)('order/get_payment_order_id');
 
     yangaiche(sys.init)(function (t) {
@@ -37,7 +37,7 @@
         });
 
         t('#close_button').click(function () {
-            yangaiche(sys.load_module)('close_app', {});
+            yangaiche(sys.load_module)('close_app');
         });
 
     });

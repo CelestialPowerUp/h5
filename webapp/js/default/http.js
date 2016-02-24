@@ -2,10 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('openid', {});
-    yangaiche(sys.load_default_module)('env', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('openid');
+    yangaiche(sys.load_default_module)('env');
 
     app.http = {
         get_api_root: 'get_api_root',

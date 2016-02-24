@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('order', {});
+	yangaiche(sys.load_default_module)('order');
 
     ls.location = {
         map: 'order_location_map',

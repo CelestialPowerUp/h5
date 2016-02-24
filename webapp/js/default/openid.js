@@ -2,10 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('back', {});
-    yangaiche(sys.load_default_module)('env', {});
-    yangaiche(sys.load_default_module)('http', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('back');
+    yangaiche(sys.load_default_module)('env');
+    yangaiche(sys.load_default_module)('http');
 
     ls.openid = {
         login_by_opencode: 'login_by_opencode',

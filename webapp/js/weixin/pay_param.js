@@ -2,8 +2,8 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('openid', {});
-    yangaiche(sys.load_default_module)('user', {});
+	yangaiche(sys.load_default_module)('openid');
+    yangaiche(sys.load_default_module)('user');
 
     app.pay.get_extra_param = 'get_pay_extra_param';
 

@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
+	yangaiche(sys.load_default_module)('repository');
 
     app.show_msg = {
         init: 'init_show_msg',

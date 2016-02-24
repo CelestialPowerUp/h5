@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('env', {});
+	yangaiche(sys.load_default_module)('env');
 
     ls.back = {
         set_back_to: 'set_back_to_anywhere',

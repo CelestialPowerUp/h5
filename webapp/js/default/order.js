@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
+	yangaiche(sys.load_default_module)('repository');
 
     ls.order = {
         touch: 'order_touch',

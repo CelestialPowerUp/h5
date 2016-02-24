@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('store_init');
+	yangaiche(sys.load_default_module)('init/store_init');
     yangaiche(sys.load_default_module)('user');
     yangaiche(sys.load_default_module)('http');
     yangaiche(sys.load_module)('ios/bridge');

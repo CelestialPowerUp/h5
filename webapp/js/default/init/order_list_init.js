@@ -2,10 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('format', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
+	yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('format');
+    yangaiche(sys.load_default_module)('show_msg');
     yangaiche(sys.load_default_module)('paging');
     yangaiche(sys.load_default_module)('parameter');
 

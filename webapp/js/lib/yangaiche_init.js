@@ -3,7 +3,7 @@
     'use strict';
 
 	yangaiche(sys.load)('lib/yangaiche_module.js', true);
-    yangaiche(sys.load_default_module)('repository', true);
+    yangaiche(sys.load_default_module)('repository');
 
     yangaiche(sys.load_default_module)('show_msg');
     yangaiche(app.show_msg.init)();

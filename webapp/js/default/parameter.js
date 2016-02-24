@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
+	yangaiche(sys.load_default_module)('repository');
 
     app.url_parameter = 'url_parameter';
     app.hash_parameter = 'hash_parameter';

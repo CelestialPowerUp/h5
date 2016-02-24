@@ -2,11 +2,11 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('openid', {});
-    yangaiche(sys.load_default_module)('env', {});
-    yangaiche(sys.load_default_module)('parameter', {});
-    yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('user', {});
+	yangaiche(sys.load_default_module)('openid');
+    yangaiche(sys.load_default_module)('env');
+    yangaiche(sys.load_default_module)('parameter');
+    yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('user');
 
     app.open_id_init = {};
 
