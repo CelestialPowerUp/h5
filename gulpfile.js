@@ -20,8 +20,8 @@ var gulp = require('gulp'),                       //基础库
 var minimist = require('minimist');
 
 var knownOptions = {
-    string: 'dstRoot',
-    default: { dstRoot: process.env.NODE_ENV || 'production' }
+    string: ['dstRoot', 'f'],
+    default: { dstRoot: process.env.NODE_ENV || 'production', f: process.env.NodeENV || '*' }
 };
 
 var options = minimist(process.argv.slice(2), knownOptions);
@@ -122,6 +122,15 @@ gulp.task('rev', function() {
     gulp.src([dstRoot + '/map.json', dstRoot + '/**/*.html'])
         .pipe(revCollector())
         .pipe(gulp.dest(dstRoot));
+});
+
+// jshint处理
+gulp.task('jshint', function () {
+    var jsSrc = options.f === '*' ? srcRoot + '/js/**/*.js' : srcRoot + '/js/' + options.f;
+
+    gulp.src(jsSrc)
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('default'))
 });
 
 // 监听任务 运行语句 gulp watch

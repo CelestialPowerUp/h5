@@ -6,6 +6,7 @@ yangaiche(sys.load_default_module)('order', {});
 yangaiche(sys.load_default_module)('products', {});
 yangaiche(sys.load_default_module)('paging');
 yangaiche(sys.load_default_module)('format');
+yangaiche(sys.load_default_module)('obj_util');
 
 if (/=42$/.test(window.location.href)) {
     yangaiche(sys.load_default_module)('supplier');
@@ -19,7 +20,7 @@ yangaiche(sys.init)(function (t) {
 
     if (/=50$/.test(window.location.href)) {
         yangaiche(ls.user.touch)();
-        yangaiche(app.http.get_request)('/v1/api/pass_card/exchange_check?code=wei_ka_voucher', function(data) {}, function(error) {
+        yangaiche(app.http.get_request)('/v1/api/pass_card/exchange_check?code=wei_ka_voucher', function() {}, function(error) {
             yangaiche(ls.back.set_back_to_self)('activities/pubhtml/activity399v2.html');
         });
     }
@@ -39,10 +40,10 @@ yangaiche(sys.init)(function (t) {
 
     var getReq = yangaiche(app.http.get_request),
         show_msg = yangaiche(app.show_msg.show),
-        product_ids = '', store_item = null;
+        product_ids = '';
 
-    function load_comments(data) {
-        t.each(data['ware_products'], function (i, wp) {
+    function load_comments(store_item) {
+        t.each(store_item['ware_products'], function (i, wp) {
             if (i !== 0) {
                 product_ids += ',';
             }
@@ -85,7 +86,7 @@ yangaiche(sys.init)(function (t) {
         return key.service.type + gsth + yangaiche(app.url_parameter)['ware_id'];
     }
 
-    function init(suppliers) {
+    function init(suppliers, service_products) {
         if (suppliers.length > 0) {
             t('#store-item-supplier span:last-child').text(suppliers[0]['supplier_name']);
         } else {
@@ -93,36 +94,66 @@ yangaiche(sys.init)(function (t) {
             t('#my-btn-group button[data-key="self"]').css('display', 'none');
         }
 
+        t.each(service_products, function(i, service_product) {
+            service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(2);
+        });
+
+        t('#my-btn-group').on('click', 'button', function () {
+            var $this = t(this);
+            var group_p = $this.parents()[0];
+            var local_key = $this.attr('data-key');
+            var selected_key = t(group_p).attr('data-key');
+            if (local_key === selected_key) {
+                return false;
+            }
+
+            t(group_p).attr('data-key', local_key);
+            storage.set(get_unique_service_type(), $this.attr('data-key'));
+            t('#store-item-service-type span').text($this.text());
+
+            const products = yangaiche(ls.products.touch)();
+            const mutable_products = yangaiche(app.obj_util.copy)(products);
+            t.each(service_products, function(i, service_product) {
+                if (service_product.service_type === local_key) {
+                    mutable_products.push(service_product);
+                }
+            });
+
+            t('.store-item-u-price').text('¥' + yangaiche(ls.products.calculate)(mutable_products) + '(含服务费)');
+
+            t(group_p).find('button').removeClass('service-type-choose-chosen');
+            t(group_p).find('button').addClass('service-type-choose-chosen-not');
+
+            $this.removeClass('service-type-choose-chosen-not');
+            $this.addClass('service-type-choose-chosen');
+        });
+
         var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
-        getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (data) {
+        getReq('/v2/api/store/ware/detail.json?ware_id=' + yangaiche(app.url_parameter)['ware_id'] + config, function (store_item) {
 
-            store_item = data;
+            t.each(store_item['ware_products'], function (i, wp) {
+                wp['price'] = wp['total_price'] = wp['product_price'];
+                wp['product_type'] = wp['product_id'];
+                wp['unit_count'] = 1;
+                wp['labour_price'] = 0;
+            });
+            yangaiche(ls.products.set)(store_item['ware_products']);
 
-            t('#item_image_cover').attr('src', data['cover_img']['raw_url'] + '?imageView2/3/w/180/h/180/interlace/1');
+            t('#item_image_cover').attr('src', store_item['cover_img']['raw_url'] + '?imageView2/3/w/180/h/180/interlace/1');
 
-            data['cover_img']['raw_url'] = data['cover_img']['raw_url'] + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
+            store_item['cover_img']['raw_url'] = store_item['cover_img']['raw_url'] + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
 
             var tpl = Handlebars.compile(t("#store_item_page_tpl").text());
-            t('body').prepend(tpl(data));
+            t('body').prepend(tpl(store_item));
 
-            t('.store-item-u-price').text('¥' + data['ware_mark_price'].toFixed(2));
-            t('#item_title').text(data['ware_name']);
+            t('#item_title').text(store_item['ware_name']);
 
-            load_comments(data);
+            load_comments(store_item);
 
             t('#submit_btn').click(function () {
                 if (!yangaiche(sys.exist)(store_item)) {
                     return true;
                 }
-
-                yangaiche(ls.products.update)(function (products) {
-                    t.each(store_item['ware_products'], function (i, wp) {
-                        wp['total_price'] = wp['product_price'];
-                        wp['product_type'] = wp['product_id'];
-                        wp['unit_count'] = 1;
-                        products.push(wp);
-                    });
-                });
 
                 var storage = yangaiche(sys.local_storage);
 
@@ -133,13 +164,20 @@ yangaiche(sys.init)(function (t) {
                     order.car_model_type = car.car_model_type;
                     order.car_number = car.car_number;
 
-                    if ('洗车打蜡' === data['ware_name']) {
+                    if ('洗车打蜡' === store_item['ware_name']) {
                         yangaiche(app.set_activity_peer_source)(order);
                     }
 
                     t.each(t('#my-btn-group button'), function (i, btn) {
                         if (t(btn).hasClass('service-type-choose-chosen')) {
-                            order.service_type = t(btn).attr('data-key');
+                            var local_key = t(btn).attr('data-key');
+                            order.service_type = local_key;
+                            order[ls.products.products_info] = order[ls.products.products_info] || [];
+                            t.each(service_products, function(i, service_product) {
+                                if (service_product.service_type === local_key) {
+                                    order[ls.products.products_info].push(service_product);
+                                }
+                            });
                         }
                     });
                 });
@@ -198,25 +236,7 @@ yangaiche(sys.init)(function (t) {
 
     var storage = yangaiche(sys.local_storage);
 
-    t('#my-btn-group').on('click', 'button', function () {
-        var $this = t(this);
-        var group_p = $this.parents()[0];
-        var local_key = $this.attr('data-key');
-        var selected_key = t(group_p).attr('data-key');
-        if (local_key === selected_key) {
-            return false;
-        }
 
-        t(group_p).attr('data-key', local_key);
-        storage.set(get_unique_service_type(), $this.attr('data-key'));
-        t('#store-item-service-type span').text($this.text());
-
-        t(group_p).find('button').removeClass('service-type-choose-chosen');
-        t(group_p).find('button').addClass('service-type-choose-chosen-not');
-
-        $this.removeClass('service-type-choose-chosen-not');
-        $this.addClass('service-type-choose-chosen');
-    });
 
     var car_info = storage.get(key.car.info);
     if (yangaiche(sys.exist)(car_info)) {
