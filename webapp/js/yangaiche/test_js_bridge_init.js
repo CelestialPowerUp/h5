@@ -6,6 +6,18 @@
     //yangaiche(sys.load_lib_module)('');
 
     yangaiche(sys.init)(function (t) {
+
+        t('#submit').click(function () {
+            var params;
+            try {
+                params = JSON.parse(t('#params').val());
+            } catch (e) {
+                alert(JSON.stringify(e));
+            }
+
+            console.log(params, t('#cmd').val());
+        });
+
         yangaiche(app.bridge.connect)(function (bridge) {
             t('#submit').click(function () {
                 var params;
@@ -15,7 +27,7 @@
                     alert('JSON参数格式解析报错' + JSON.stringify(e));
                 }
 
-                bridge.callHandler('route', params, function(responseData) {
+                bridge.callHandler(t('#cmd').val(), params, function(responseData) {
                     if (typeof responseData === 'string') {
                         alert(responseData);
                     } else {
@@ -24,15 +36,5 @@
                 });
             });
         });
-        //t('#submit').click(function () {
-        //    var params;
-        //    try {
-        //        params = JSON.parse(t('#params').val());
-        //    } catch (e) {
-        //        alert(JSON.stringify(e));
-        //    }
-        //
-        //    console.log(params, t('#cmd').val());
-        //});
     });
 }());
