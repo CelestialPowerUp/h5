@@ -1558,121 +1558,132 @@ body {
 
 /* store item */
 #cover-wrapper {
-    width: 640px;
-    max-height: 360px;
+    width: 750px;
+    max-height: 420px;
     overflow: hidden;
 }
 
 .store-item-img {
-    width: 640px;
+    width: 750px;
 }
 
-#store-item-wrapper, #store-item-brief-intro, #store-service-flow, #store-item-comments {
-    width: 640px;
-    background: #FFF;
+#store-item-info {
+    width: 750px;
+    height: 168px;
+
+    z-index: 1;
+    position: absolute;
+
+    left: 0;
+    top: 252px;
+
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
-#store-item-brief-intro {
-    display: block;
-    height: 200px;
+#store-item-info > #text {
+    margin-top: 18px;
+    margin-left: 30px;
+    color: #fff;
+    font-size: 36px;
+    line-height: 60px;
 }
 
-#store-item-go-to-detail {
-    width: 74px;
-    float: right;
-    height: 200px;
-    line-height: 200px;
-    text-align: center;
+#store-item-info > #price, #full_price {
+    float: left;
+    margin-left: 30px;
 }
 
-#store-item-brief-intro #store-item-brief-intro-text-wrapper {
-    float: right;
-    height: 200px;
-    padding-left: 20px;
-    width: 566px;
+#store-item-info > #full_price {
+    margin-top: 14px;
 }
 
-#store-item-brief-intro #store-item-brief-intro-text-wrapper span {
-    display: inline;
-    color: #FF6600;
-    font-size: 27px;
-}
-
-#store-item-brief-intro #store-item-brief-intro-text-wrapper span:first-child {
-    display: block;
-    height: 62px;
-    font-size: 34px;
-    line-height: 62px;
-    color: #333;
-}
-
-#store-item-brief-intro #store-item-brief-intro-text-wrapper span:last-child {
-    font-size: 54px;
+#store-item-info > #price > span {
+    color: #09be00;
     line-height: 72px;
 }
 
-#store-item-brief-intro #store-item-brief-intro-text-wrapper #store-item-brief-intro-text {
-    height: 66px;
-    font-size: 26px;
-    line-height: 38px;
-    color: #666;
+#store-item-info > #full_price > span {
+    color: #ffffff;
+    line-height: 54px;
+    text-decoration: line-through;
 }
 
-#store-item-supplier, #store-item-car-choose, #store-item-service-type {
-    margin-top: 20px;
-    font-size: 30px;
-    height: 88px;
-    line-height: 88px;
-    width: 640px;
-    background: #FFF;
-    padding-left: 20px;
+#store-item-info > #price > span:not(.dollar-sign) {
+    font-size: 48px;
 }
 
-#store-item-supplier {
-    font-size: 0;
+#store-item-info > #price > span.dollar-sign {
+    font-size: 24px;
 }
 
-#store-item-supplier span {
-    display: inline-block;
-    float: left;
-    margin: 0;
-    padding: 0;
+#store-item-info > #full_price > span:not(.dollar-sign) {
     font-size: 30px;
 }
 
-#store-item-supplier span:first-child {
-    width: 180px;
+#store-item-info > #full_price > span.dollar-sign {
+    font-size: 18px;
 }
 
-#store-item-supplier span:last-child {
-    width: 430px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+#store-item-info > #supplier {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
 }
 
-#store-item-car-choose span {
-    display: inline-block;
-    width: 546px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-#store-item-service-type span {
-    display: inline-block;
-    width: 546px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.store-item-detail {
-    width: 74px;
+#store-item-info > #supplier > * {
+    display: block;
     float: right;
-    height: 88px;
-    line-height: 88px;
-    text-align: center;
+}
+
+#store-item-info > #supplier > .text {
+    font-size: 26px;
+    line-height: 36px;
+    color: #ffffff;
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#operations {
+    width: 750px;
+    background-color: #ffffff;
+    list-style: none;
+    padding: 0;
+    border-bottom: solid 1px #e0e0e0;
+}
+
+#operations .line {
+    width: 720px;
+    background-color: #ffffff;
+    margin-left: 30px;
+    height: 100px;
+}
+
+#operations .line + .line {
+    border-top: solid 1px #e0e0e0;
+}
+
+#operations .line .text {
+    font-size: 30px;
+    line-height: 100px;
+}
+
+#operations .line > * {
+    display: block;
+}
+
+#operations .line > *[class*='left'] {
+    float: left;
+}
+
+#operations .line > *[class*='right'] {
+    float: right;
+}
+
+#store-service-flow, #store-item-comments {
+    width: 750px;
+    background: #FFF;
 }
 
 #store-service-flow {
@@ -1708,7 +1719,7 @@ body {
 #store-item-footer {
     position: fixed;
     bottom: 0;
-    width: 640px;
+    width: 750px;
     height: 90px;
     background: rgba(0, 0, 0, 0.9);
 }
@@ -1822,7 +1833,7 @@ body {
     position: fixed;
     z-index: 1000;
     background: rgba(255, 255, 255, 1.0);
-    width: 640px;
+    width: 750px;
     height: 400px;
     bottom: 0;
     left: 0;
@@ -1900,7 +1911,7 @@ body {
 
 #old-service-supplier {
     background: transparent;
-    width: 640px;
+    width: 750px;
     height: 88px;
     line-height: 88px;
     border-bottom: solid #999 1px;

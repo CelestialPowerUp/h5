@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content=" user-scalable=no">
+    <meta name="viewport" content="width=750, user-scalable=no">
     <script type="text/javascript" src="./js/lib/mobile-util.js"></script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,19 +24,12 @@
 </head>
 <body class="body-background-color-gray">
 
-<div id="store-item-supplier">
-    <span>修理厂</span><span></span>
-</div>
-
-<div id="store-item-car-choose">
-    <div class="store-item-detail"><img src="./img/right_arrow.png"/></div>
-    <span>选择车辆</span>
-</div>
-
-<div id="store-item-service-type">
-    <div class="store-item-detail"><img src="./img/right_arrow.png"/></div>
-    <span>选择服务方式</span>
-</div>
+<ul id="operations">
+    <li class="line" id="car_choose"><div class="left text">选择车辆</div><div class="right text">选择车辆</div></li>
+    <li class="line" id="service_type"><div class="left text">服务方式</div></li>
+    <li class="line" id="products"><div class="left text"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/car2.png" alt="" width="36px" height="36px"></div><div class="left text">选择车辆</div></li>
+    <li class="line"><div class="left text">商品总价</div></li>
+</ul>
 
 <div id="store-service-flow">
     <div>服务流程</div>
@@ -99,15 +92,14 @@
         </div>
         {{/cover_img}}
 
-        <div id="store-item-wrapper">
-            <a href="./store_item_detail.html?ware_id={{ware_id}}" id="store-item-brief-intro">
-                <div id="store-item-go-to-detail"><img src="./img/right_arrow.png"/></div>
-                <div id="store-item-brief-intro-text-wrapper">
-                    <span>{{ware_name}}</span>
-                    <div id="store-item-brief-intro-text">{{brief_introduction}}</div>
-                    <span></span><span class="">¥{{ware_mark_price}}</span>
-                </div>
-            </a>
+        <div id="store-item-info">
+            <div id="text">{{ware_name}}</div>
+            <div id="price"><span class="dollar-sign">¥</span><span>{{ware_mark_price}}</span></div>
+            <div id="full_price"><span class="dollar-sign">¥</span><span>{{ware_full_price}}</span></div>
+            <div id="supplier">
+                <div class="text">{{supplier_name}}啊对方的发生地方</div>
+                <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/car2.png" alt="" width="36px" height="36px">
+            </div>
         </div>
     {{/this}}
 </script>
