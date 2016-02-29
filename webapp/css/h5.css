@@ -1567,6 +1567,10 @@ body {
     width: 750px;
 }
 
+#store-item-detail {
+    width: 750px;
+}
+
 #store-item-info {
     width: 750px;
     height: 168px;
@@ -1598,14 +1602,8 @@ body {
 }
 
 #store-item-info > #price > span {
-    color: #09be00;
+    color: #38c87c;
     line-height: 72px;
-}
-
-#store-item-info > #full_price > span {
-    color: #ffffff;
-    line-height: 54px;
-    text-decoration: line-through;
 }
 
 #store-item-info > #price > span:not(.dollar-sign) {
@@ -1614,6 +1612,12 @@ body {
 
 #store-item-info > #price > span.dollar-sign {
     font-size: 24px;
+}
+
+#store-item-info > #full_price > span {
+    color: #ffffff;
+    line-height: 54px;
+    text-decoration: line-through;
 }
 
 #store-item-info > #full_price > span:not(.dollar-sign) {
@@ -1639,7 +1643,8 @@ body {
     font-size: 26px;
     line-height: 36px;
     color: #ffffff;
-    width: 200px;
+    text-align: right;
+    max-width: 300px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -1656,7 +1661,8 @@ body {
 #operations .line {
     width: 720px;
     background-color: #ffffff;
-    margin-left: 30px;
+    margin: 0 0 0 30px;
+    padding-right: 30px;
     height: 100px;
 }
 
@@ -1666,6 +1672,34 @@ body {
 
 #operations .line .text {
     font-size: 30px;
+    line-height: 100px;
+}
+
+#operations .line .text.green {
+    color: #38c87c;
+}
+
+#operations .line .text.car-info-text {
+    max-width: 500px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#operations .line .text.price {
+    color: #38c87c;
+}
+
+.price span:not(.dollar-sign) {
+    font-size: 48px;
+}
+
+.price span.dollar-sign {
+    font-size: 24px;
+}
+
+#operations .line .img {
+    font-size: 0;
     line-height: 100px;
 }
 
@@ -1681,14 +1715,30 @@ body {
     float: right;
 }
 
-#store-service-flow, #store-item-comments {
+#operations .line > .img.left + .text.left {
+    margin-left: 12px;
+}
+
+#operations .line > .text.left + .img.left {
+    margin-left: 40px;
+}
+
+#operations .line > *[class*='right'] + *[class*='right'] {
+    margin-right: 20px;
+}
+
+#store-item-details {
+    margin-top: 20px;
+}
+
+#store-service-flow, #store-item-details {
     width: 750px;
     background: #FFF;
 }
 
 #store-service-flow {
     height: 320px;
-    padding: 0 20px;
+    padding-left: 30px;
     margin-top: 20px;
     overflow: hidden;
 }
@@ -1698,22 +1748,47 @@ body {
     border-color: #999;
 }
 
-#store-service-flow > div {
+#store-service-flow > div:first-child {
     font-size: 30px;
-    height: 88px;
-    line-height: 88px;
+    height: 90px;
+    padding-top: 20px;
+    line-height: 70px;
     color: #333;
 }
 
 #store-service-flow ul {
     list-style-type: none;
+    padding: 8px 0 18px;
 }
 
 #store-service-flow ul li {
-    height: 58px;
-    font-size: 26px;
+    height: 52px;
+}
+
+#store-service-flow ul li > div {
+    display: block;
+    float: left;
+    height: 52px;
+    font-size: 28px;
     color: #333;
-    line-height: 58px;
+    line-height: 52px;
+}
+
+#store-service-flow ul li > div:first-child {
+    font-size: 0;
+    margin-right: 20px;
+}
+
+#store-item-comment-link {
+    width: 372px;
+    height: 72px;
+    border-radius: 8px;
+    border: solid 2px #38c87c;
+    color: #38c87c;
+    font-size: 24px;
+    line-height: 68px;
+    text-align: center;
+    margin: 30px 189px 110px;
 }
 
 #store-item-footer {
@@ -1721,35 +1796,27 @@ body {
     bottom: 0;
     width: 750px;
     height: 90px;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
 }
 
-#store-item-footer .store-item-bottom-div {
+#store-item-footer .price {
     float: left;
+    width: 550px;
     height: 90px;
+    color: #ededed;
     line-height: 90px;
-    font-size: 40px;
+    padding-left: 30px;
 }
 
-#store-item-footer .store-item-bottom-div:first-child {
-    width: 420px;
-    padding-left: 20px;
-    color: #FFF;
-}
-
-#store-item-footer .store-item-bottom-div:last-child {
-    width: 220px;
-    padding-right: 20px;
-}
-
-#store-item-footer .store-item-bottom-div button {
-    color: #FFFFFF;
-    border-radius: 8px;
-    height: 70px;
-    padding: 0;
-    margin-top: 10px;
-    font-size: 30px;
-    background: #FF6600;
+#store-item-footer .submit {
+    float: left;
+    width: 200px;
+    height: 90px;
+    color: #ffffff;
+    font-size: 36px;
+    line-height: 90px;
+    text-align: center;
+    background-color: #ff6600;
 }
 
 #store-item-comments {
