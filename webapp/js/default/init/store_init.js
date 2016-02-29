@@ -28,6 +28,11 @@
         //var data = JSON.parse(raw_data).data;
 
         yangaiche(app.http.get_request)('/v2/api/store/banners.json', function (data) {
+            t.each(data, function (i, d) {
+                var matched = d.image_url.match(/^"(.*)"$/);
+                d.image_url = matched ? matched[1] : d.image_url;
+            });
+            
             if (data.length > 1) {
                 data = {multi: {data: data}};
             } else if (data.length === 1) {
