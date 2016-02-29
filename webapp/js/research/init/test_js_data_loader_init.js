@@ -8,7 +8,7 @@
     yangaiche(sys.init)(function (t) {
         //debugger;
 
-        const resources = {
+        var resources = {
             defineFnA: 'function a() {console.log(\'A\' + b);}',
             defineVarB: 'var b = \"b\";',
         };
