@@ -8,7 +8,7 @@ html, body, div, ul, li, span, input, img, a, p {
 
 /* use with viewport */
 body {
-    width: 640px;
+    /*width: 640px;*/
     background: #f1f1f1;
     overflow-x: hidden;
 }
@@ -1557,6 +1557,10 @@ body {
 }
 
 /* store item */
+#cover-info-wrapper {
+    height: 420px;
+}
+
 #cover-wrapper {
     width: 750px;
     max-height: 420px;
@@ -1644,7 +1648,7 @@ body {
     line-height: 36px;
     color: #ffffff;
     text-align: right;
-    max-width: 300px;
+    max-width: 200px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -1890,7 +1894,7 @@ body {
     position: absolute;
     z-index: 999;
     background: rgba(0, 0, 0, 0.5);
-    width: 100%;
+    width: 750px;
     height: 100%;
     top: 0;
     left: 0;

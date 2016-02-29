@@ -45,39 +45,46 @@
             storage = yangaiche(sys.local_storage),
             gsth;
 
-        //function load_comments(store_item) {
-        //    t.each(store_item.ware_products, function (i, wp) {
-        //        if (i !== 0) {
-        //            product_ids += ',';
-        //        }
-        //        product_ids += wp.product_id;
-        //    });
-        //
-        //    yangaiche(app.paging.setup)({
-        //        url_request: '/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids,
-        //        data_handler: function (data) {
-        //            t.each(data.items, function (i, d) {
-        //                d.order_rating = make_array(d.service_rating);
-        //                d.keeper_rating = make_array(d.keeper_rating);
-        //                d.create_time = d.create_time.substr(0, (4 + 2 + 1 + 2 + 1));
-        //                d.comment_user_name = d.comment_user_name.substr(0, 1) + '**';
-        //                d.comment_text = yangaiche(app.format.stripscript)(d.comment_text);
-        //            });
-        //
-        //            var tpl = Handlebars.compile(t('#store_item_comment_tpl').text());
-        //            t('#store-item-comments ul').append(tpl(data.items));
-        //
-        //            var total_height = 0;
-        //            t.each(t('#store-item-comments ul li'), function (i, l) {
-        //                var list = t(l);
-        //                var height = (list.children('p').eq(0).height() + 70 * 2);
-        //                total_height += height;
-        //                list.css('height', height + 'px');
-        //            });
-        //            t('#store-item-comments ul').height(total_height);
-        //        }
-        //    });
-        //}
+        function load_comments(store_item) {
+            var product_ids = '';
+            t.each(store_item.ware_products, function (i, wp) {
+                if (i !== 0) {
+                    product_ids += ',';
+                }
+                product_ids += wp.product_id;
+            });
+
+            getReq('/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids + '&page=1&page_size=1', function (data) {
+                t('#store-item-comment-link').html('用户评价 ( ' + data.total_size + ' )');
+            }, function (error) {
+                show_msg(error.message || JSON.stringify(error));
+            });
+
+            //yangaiche(app.paging.setup)({
+            //    url_request: '/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids,
+            //    data_handler: function (data) {
+            //        t.each(data.items, function (i, d) {
+            //            d.order_rating = make_array(d.service_rating);
+            //            d.keeper_rating = make_array(d.keeper_rating);
+            //            d.create_time = d.create_time.substr(0, (4 + 2 + 1 + 2 + 1));
+            //            d.comment_user_name = d.comment_user_name.substr(0, 1) + '**';
+            //            d.comment_text = yangaiche(app.format.stripscript)(d.comment_text);
+            //        });
+            //
+            //        var tpl = Handlebars.compile(t('#store_item_comment_tpl').text());
+            //        t('#store-item-comments ul').append(tpl(data.items));
+            //
+            //        var total_height = 0;
+            //        t.each(t('#store-item-comments ul li'), function (i, l) {
+            //            var list = t(l);
+            //            var height = (list.children('p').eq(0).height() + 70 * 2);
+            //            total_height += height;
+            //            list.css('height', height + 'px');
+            //        });
+            //        t('#store-item-comments ul').height(total_height);
+            //    }
+            //});
+        }
 
         function get_unique_service_type(sth) {
             if (undefined !== sth) {
@@ -88,9 +95,13 @@
         }
 
         function init(suppliers, service_products) {
+            if (suppliers.length <= 0) {
+                t('#my-btn-group button[data-key="self"]').css('display', 'none');
+            }
 
             t.each(service_products, function (i, service_product) {
                 service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(2);
+                t('#my-btn-group button[data-key=' + service_product.service_type + ']').attr('data-rel', service_product.product_name + '(¥' + service_product.total_price + ')');
             });
 
             t('#my-btn-group').on('click', 'button', function () {
@@ -104,7 +115,7 @@
 
                 t(group_p).attr('data-key', local_key);
                 storage.set(get_unique_service_type(), $this.attr('data-key'));
-                t('#store-item-service-type span').text($this.text());
+                t('#store-item-service-type .service-type-text').text($this.attr('data-rel'));
 
                 var products = yangaiche(ls.products.touch)();
                 var mutable_products = yangaiche(app.obj_util.copy)(products);
@@ -114,7 +125,7 @@
                     }
                 });
 
-                t('.store-item-u-price').text('¥' + yangaiche(ls.products.calculate)(mutable_products) + '(含服务费)');
+                t('.store-item-u-price').text(yangaiche(ls.products.calculate)(mutable_products));
 
                 t(group_p).find('button').removeClass('service-type-choose-chosen');
                 t(group_p).find('button').addClass('service-type-choose-chosen-not');
@@ -138,9 +149,11 @@
 
                 store_item.cover_img.raw_url = store_item.cover_img.raw_url + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
                 store_item.supplier_name = suppliers.length > 0 ? suppliers[0].supplier_name : '养爱车综合店';
+                store_item.ware_mark_price = store_item.ware_mark_price.toFixed(2);
+                store_item.ware_full_price = store_item.ware_full_price.toFixed(2);
 
                 var tpl = Handlebars.compile(t('#store_item_page_tpl').text());
-                t('body').prepend(tpl(store_item));
+                t('#cover-info-wrapper').html(tpl(store_item));
 
                 t.each(store_item.introduction_imgs, function (i, img) {
                     img.raw_url = img.raw_url + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
@@ -150,6 +163,8 @@
                 t('#store-item-details').html(tpl(store_item));
 
                 t('#item_title').text(store_item.ware_name);
+
+                load_comments(store_item);
 
                 t('#submit_btn').click(function () {
                     if (!yangaiche(sys.exist)(store_item)) {
@@ -205,7 +220,7 @@
                     }
                 }
             }, function (error) {
-                show_msg(error.message);
+                show_msg(error.message || JSON.stringify(error));
             });
         }
 
@@ -227,15 +242,18 @@
             t('#popup').css('display', 'block');
         }
 
+        t('#store-item-footer .submit').click(ready_submit);
+        t('#store-item-service-type').click(ready_submit);
+
         t('.store-item-cover').click(function () {
             t('#popup').css('display', 'none');
         });
 
         var car_info = storage.get(key.car.info);
         if (yangaiche(sys.exist)(car_info)) {
-            t('#store-item-car-choose .car-info-text').text(car_info.model);
-            var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
-            t('#car_model').text(short_model);
+            t('#store-item-car-choose .car-info-text').text(car_info.car_number);
+            //var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
+            t('#car_model').text(car_info.car_number);
         }
     });
 
