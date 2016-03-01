@@ -87,7 +87,7 @@
                             total_price += parseFloat(calculate([p]));
                         }
                     });
-                    var now_total_price = (parseFloat(required_price) + total_price).toFixed(2);
+                    var now_total_price = (parseFloat(required_price) + total_price).toFixed(1);
                     t('#total_price').html('¥' + now_total_price);
                     yangaiche(ls.order.update)(function (order) {
                         order.total_price = now_total_price;

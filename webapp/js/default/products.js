@@ -27,7 +27,7 @@
             yangaiche(sys.$).each(products, function (i, p) {
                 price += product_price(p);
             });
-            return price.toFixed(2);
+            return price.toFixed(1);
         };
     });
 

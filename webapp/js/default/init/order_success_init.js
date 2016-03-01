@@ -23,7 +23,7 @@
 
         console.log(order_info);
         var info_template = Handlebars.compile(t('#info-tpl').html());
-        order_info.total_price = order_info.total_price.toFixed(2);
+        order_info.total_price = order_info.total_price.toFixed(1);
         t('#info_view').html(info_template(order_info));
 
         t('#pay_button').click(function () {

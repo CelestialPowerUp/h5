@@ -100,7 +100,7 @@
             }
 
             t.each(service_products, function (i, service_product) {
-                service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(2);
+                service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(1);
                 t('#my-btn-group .selectable[data-key=' + service_product.service_type + '] .text').html(service_product.product_name + '(¥' + service_product.total_price + ')');
             });
 
