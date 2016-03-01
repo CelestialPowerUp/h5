@@ -77,35 +77,51 @@
 
 <div id="store-item-details"></div>
 
-<div id="store-item-comment-link">用户评价(0)</div>
+<div id="store-item-comments-link-wrapper">
+    <div id="store-item-comment-link">用户评价(0)</div>
+</div>
 
-<div id="popup" style="display: none">
+<!--<div id="popup" style="display: none">-->
+    <!--<div class="store-item-cover"></div>-->
+    <!--<div class="service-type-choose-wrapper">-->
+        <!--<div class="service-type-price-wrapper">-->
+            <!--<span id="item_price" class="store-item-u-price"></span>-->
+            <!--<span id="item_title"></span>-->
+            <!--<div>已选择&nbsp;&nbsp;“<span id="car_model"></span>”</div>-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div class="am-vertical-align" id="my-btn-group" data-rel="">-->
+            <!--<button type="button" class="service-type-choose service-type-choose-chosen am-vertical-align-middle"-->
+                    <!--data-rel="" data-key="keeper">-->
+                <!--管家接车-->
+            <!--</button>-->
+            <!--<button type="button" class="service-type-choose service-type-choose-chosen-not am-vertical-align-middle"-->
+                    <!--data-rel="" data-key="self">-->
+                <!--自驾到店-->
+            <!--</button>-->
+        <!--</div>-->
+        <!--<div class="normal-bottom-btn-div">-->
+            <!--<button type="button" id="submit_btn" class="am-btn am-btn-danger bottom-button-orange"-->
+                    <!--style="width: 100%;">去支付-->
+            <!--</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="store-item-image-cover">-->
+        <!--<img id="item_image_cover">-->
+    <!--</div>-->
+<!--</div>-->
+
+<div id="popup" style="display: none;">
     <div class="store-item-cover"></div>
-    <div class="service-type-choose-wrapper">
-        <div class="service-type-price-wrapper">
-            <span id="item_price" class="store-item-u-price"></span>
-            <span id="item_title"></span>
-            <div>已选择&nbsp;&nbsp;“<span id="car_model"></span>”</div>
+    <div class="checkbox" id="my-btn-group">
+        <div class="selectable am-vertical-align" data-key="keeper">
+            <div class="text am-vertical-align-middle"></div>
+            <div class="img am-vertical-align-middle"></div>
         </div>
-        <hr>
-        <div class="am-vertical-align" id="my-btn-group" data-rel="">
-            <button type="button" class="service-type-choose service-type-choose-chosen am-vertical-align-middle"
-                    data-rel="" data-key="keeper">
-                管家接车
-            </button>
-            <button type="button" class="service-type-choose service-type-choose-chosen-not am-vertical-align-middle"
-                    data-rel="" data-key="self">
-                自驾到店
-            </button>
+        <div class="selectable am-vertical-align" data-key="self">
+            <div class="text am-vertical-align-middle"></div>
+            <div class="img am-vertical-align-middle"></div>
         </div>
-        <div class="normal-bottom-btn-div">
-            <button type="button" id="submit_btn" class="am-btn am-btn-danger bottom-button-orange"
-                    style="width: 100%;">去支付
-            </button>
-        </div>
-    </div>
-    <div class="store-item-image-cover">
-        <img id="item_image_cover">
     </div>
 </div>
 
@@ -132,7 +148,7 @@
         <div id="full_price"><span class="dollar-sign">¥</span><span>{{ware_full_price}}</span></div>
         <div id="supplier">
             <div class="text">{{supplier_name}}</div>
-            <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/car2.png" alt="" width="36px" height="36px">
+            <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/duigou.png" alt="" width="36px" height="36px">
         </div>
     </div>
     {{/this}}

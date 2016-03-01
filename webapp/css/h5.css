@@ -1648,6 +1648,7 @@ body {
     line-height: 36px;
     color: #ffffff;
     text-align: right;
+    margin-left: 8px;
     max-width: 200px;
     overflow: hidden;
     white-space: nowrap;
@@ -1898,6 +1899,51 @@ body {
     height: 100%;
     top: 0;
     left: 0;
+}
+
+.checkbox {
+    position: fixed;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 1.0);
+    width: 500px;
+    height: auto;
+    top: 45%;
+    left: 50%;
+    margin-left: -250px;
+    font-size: 0;
+}
+
+.checkbox > .selectable {
+    height: 70px;
+}
+
+.checkbox > .selectable + .selectable {
+    border-top: solid 1px #333;
+}
+
+.selectable > * {
+    display: block;
+    float: left;
+    height: inherit;
+}
+
+.selectable > .img {
+    width: 70px;
+}
+
+.selectable > .text {
+    width: 430px;
+    font-size: 36px;
+    padding-left: 10px;
+    line-height: 70px;
+}
+
+.selectable.selected > .img {
+    background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/checked.png') no-repeat 50% 50%;
+}
+
+.selectable:not(.selected) > .img {
+    background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/unchecked.png') no-repeat 50% 50%;
 }
 
 .service-type-choose-wrapper {

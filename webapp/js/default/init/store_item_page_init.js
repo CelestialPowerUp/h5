@@ -96,15 +96,15 @@
 
         function init(suppliers, service_products) {
             if (suppliers.length <= 0) {
-                t('#my-btn-group button[data-key="self"]').css('display', 'none');
+                t('#my-btn-group .selectable[data-key="self"]').css('display', 'none');
             }
 
             t.each(service_products, function (i, service_product) {
                 service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(2);
-                t('#my-btn-group button[data-key=' + service_product.service_type + ']').attr('data-rel', service_product.product_name + '(¥' + service_product.total_price + ')');
+                t('#my-btn-group .selectable[data-key=' + service_product.service_type + '] .text').html(service_product.product_name + '(¥' + service_product.total_price + ')');
             });
 
-            t('#my-btn-group').on('click', 'button', function () {
+            t('#my-btn-group').on('click', '.selectable', function () {
                 var $this = t(this);
                 var group_p = $this.parents()[0];
                 var local_key = $this.attr('data-key');
@@ -115,7 +115,7 @@
 
                 t(group_p).attr('data-key', local_key);
                 storage.set(get_unique_service_type(), $this.attr('data-key'));
-                t('#store-item-service-type .service-type-text').text($this.attr('data-rel'));
+                t('#store-item-service-type .service-type-text').text($this.children('.text').html());
 
                 var products = yangaiche(ls.products.touch)();
                 var mutable_products = yangaiche(app.obj_util.copy)(products);
@@ -127,11 +127,8 @@
 
                 t('.store-item-u-price').text(yangaiche(ls.products.calculate)(mutable_products));
 
-                t(group_p).find('button').removeClass('service-type-choose-chosen');
-                t(group_p).find('button').addClass('service-type-choose-chosen-not');
-
-                $this.removeClass('service-type-choose-chosen-not');
-                $this.addClass('service-type-choose-chosen');
+                t(group_p).find('.selectable').removeClass('selected');
+                $this.addClass('selected');
             });
 
             var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
@@ -149,8 +146,8 @@
 
                 store_item.cover_img.raw_url = store_item.cover_img.raw_url + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
                 store_item.supplier_name = suppliers.length > 0 ? suppliers[0].supplier_name : '养爱车综合店';
-                store_item.ware_mark_price = store_item.ware_mark_price.toFixed(2);
-                store_item.ware_full_price = store_item.ware_full_price.toFixed(2);
+                store_item.ware_mark_price = store_item.ware_mark_price.toFixed(1);
+                store_item.ware_full_price = store_item.ware_full_price.toFixed(1);
 
                 var tpl = Handlebars.compile(t('#store_item_page_tpl').text());
                 t('#cover-info-wrapper').html(tpl(store_item));
@@ -166,7 +163,7 @@
 
                 load_comments(store_item);
 
-                t('#submit_btn').click(function () {
+                t('#store-item-footer .submit').click(function () {
                     if (!yangaiche(sys.exist)(store_item)) {
                         return true;
                     }
@@ -205,16 +202,16 @@
 
                 var service_type = storage.get(get_unique_service_type(suppliers.length > 0 ? suppliers[0].supplier_name : ''));
                 if (yangaiche(sys.exist)(service_type)) {
-                    var btn = t('#my-btn-group button[data-key="' + service_type + '"]');
+                    var btn = t('#my-btn-group .selectable[data-key="' + service_type + '"]');
                     if (btn.css('display') === 'none') {
-                        t('#my-btn-group button[data-key="keeper"]').click();
+                        t('#my-btn-group .selectable[data-key="keeper"]').click();
                     } else {
                         btn.click();
                     }
                 } else {
-                    var self_btn = t('#my-btn-group button[data-key="self"]');
+                    var self_btn = t('#my-btn-group .selectable[data-key="self"]');
                     if (self_btn.css('display') === 'none') {
-                        t('#my-btn-group button[data-key="keeper"]').click();
+                        t('#my-btn-group .selectable[data-key="keeper"]').click();
                     } else {
                         self_btn.click();
                     }
@@ -230,8 +227,8 @@
             yangaiche(sys.local_storage).remove(key.goto.car_list);
             yangaiche(ls.back.set_back_to_self)('car_list.html');
         });
-
-        function ready_submit() {
+        
+        t('#store-item-service-type').click(function () {
             var storage = yangaiche(sys.local_storage);
             var car = storage.get(key.car.info);
             if (!yangaiche(sys.exist)(car)) {
@@ -240,10 +237,7 @@
             }
 
             t('#popup').css('display', 'block');
-        }
-
-        t('#store-item-footer .submit').click(ready_submit);
-        t('#store-item-service-type').click(ready_submit);
+        });
 
         t('.store-item-cover').click(function () {
             t('#popup').css('display', 'none');
@@ -255,6 +249,7 @@
             //var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
             t('#car_model').text(car_info.car_number);
         }
+
     });
 
 }());
