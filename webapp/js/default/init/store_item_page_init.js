@@ -11,6 +11,7 @@
     yangaiche(sys.load_default_module)('paging');
     yangaiche(sys.load_default_module)('format');
     yangaiche(sys.load_default_module)('obj_util');
+    yangaiche(sys.load_default_module)('unique_service_type');
 
     if (/=42$/.test(window.location.href)) {
         yangaiche(sys.load_default_module)('supplier');
@@ -43,7 +44,7 @@
         var getReq = yangaiche(app.http.get_request),
             show_msg = yangaiche(app.show_msg.show),
             storage = yangaiche(sys.local_storage),
-            gsth;
+            get_unique_service_type = yangaiche(app.unique_service_type.get);
 
         function load_comments(store_item) {
             var product_ids = '';
@@ -86,15 +87,9 @@
             //});
         }
 
-        function get_unique_service_type(sth) {
-            if (undefined !== sth) {
-                gsth = sth;
-                return key.service.type + sth + yangaiche(app.url_parameter).ware_id;
-            }
-            return key.service.type + gsth + yangaiche(app.url_parameter).ware_id;
-        }
-
         function init(suppliers, service_products) {
+            storage.set(key.service.data, service_products);
+            storage.set(key.service.can_self, suppliers.length > 0);
             if (suppliers.length <= 0) {
                 t('#my-btn-group .selectable[data-key="self"]').css('display', 'none');
             }
@@ -168,8 +163,6 @@
                         return true;
                     }
 
-                    var storage = yangaiche(sys.local_storage);
-
                     var car = storage.get(key.car.info);
 
                     yangaiche(ls.order.update)(function (order) {
@@ -197,10 +190,10 @@
 
                     storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
 
-                    yangaiche(ls.back.set_back_to_self)('base_info.html');
+                    yangaiche(ls.back.set_back_to_self)('order_settle.html');
                 });
 
-                var service_type = storage.get(get_unique_service_type(suppliers.length > 0 ? suppliers[0].supplier_name : ''));
+                var service_type = storage.get(get_unique_service_type((suppliers.length > 0 ? suppliers[0].supplier_name : '') + yangaiche(app.url_parameter).ware_id));
                 if (yangaiche(sys.exist)(service_type)) {
                     var btn = t('#my-btn-group .selectable[data-key="' + service_type + '"]');
                     if (btn.css('display') === 'none') {

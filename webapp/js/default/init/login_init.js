@@ -21,7 +21,7 @@
             t('#verify_button').text(value);
             if (value === 0) {
                 t('#verify_button').text('获取验证码');
-                reset_button('verify_button');
+                reset_button('#verify_button');
                 return;
             }
             setTimeout(function () {

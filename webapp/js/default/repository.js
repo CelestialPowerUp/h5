@@ -26,7 +26,10 @@
             info: 'car_info'
         },
         service: {
-            type: 'service_type'
+            type: 'service_type',
+            can_self: 'service_can_self',
+            sth: 'service_sth',
+            data: 'service_data'
         },
         snapshot: {
             order_list: 'snapshot_order_list'

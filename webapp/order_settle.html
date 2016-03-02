@@ -10,7 +10,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="renderer" content="webkit">
     <meta name="format-detection" content="telephone=no">
-    <title>order_settle</title>
+    <title>确认订单</title>
     <meta name="description" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -21,24 +21,24 @@
 <body style="background-color: #f1f1f1;">
 
 <ul id="service_types" class="operations">
-    <li class="line selectable">
-        <div class="left text">X X X</div>
+    <li class="line selectable invisible" data-key="keeper">
+        <div class="left text"></div>
         <div class="right img"></div>
     </li>
-    <li class="line selectable">
-        <div class="left text">X X X</div>
+    <li class="line selectable invisible" data-key="self">
+        <div class="left text"></div>
         <div class="right img"></div>
     </li>
 </ul>
 
 <ul id="baseinfo" class="operations">
-    <li class="line">
+    <li id="contact_name" class="line">
         <div class="left text">姓名</div>
         <div class="left input">
             <input type="text" placeholder="请输入姓名…"/>
         </div>
     </li>
-    <li class="line">
+    <li id="phone_number" class="line">
         <div class="left text">手机</div>
         <div class="left input">
             <input type="tel" placeholder="请输入电话…"/>
@@ -61,7 +61,7 @@
         <div class="right img"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/right_arrow.png" width="14px" height="25px"/></div>
         <div class="right red text value"></div>
     </li>
-    <li class="line">
+    <li id="comment" class="line">
         <div class="left text">备注</div>
         <div class="left input">
             <input type="text" placeholder="无则留空…"/>
@@ -70,21 +70,21 @@
 </ul>
 
 <ul id="payment" class="operations">
-    <li class="line selectable">
+    <li class="line selectable invisible" data-pay-mode="1" data-pay-way="wx">
         <div class="left img">
             <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/weixin.png" width="60px" height="60px"/>
         </div>
         <div class="left text">微信支付</div>
         <div class="right img"></div>
     </li>
-    <li class="line selectable">
+    <li class="line selectable invisible" data-pay-mode="1" data-pay-way="alipay">
         <div class="left img">
             <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/zhifubao.png" width="60px" height="60px"/>
         </div>
         <div class="left text">支付宝支付</div>
         <div class="right img"></div>
     </li>
-    <li class="line selectable">
+    <li class="line selectable" data-pay-mode="0" data-pay-way="fuwu">
         <div class="left img">
             <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/fuwu.png" width="60px" height="60px"/>
         </div>
@@ -95,11 +95,11 @@
 
 <footer id="order_settle_footer">
     <div class="price">
-        ¥<span class="value">69</span>
+        ¥<span class="value"></span>
     </div>
     <div class="vertical-line"></div>
     <div class="coupon">
-        订单优惠<span class="value">12</span>元
+        订单优惠<span class="value"></span>元
     </div>
     <div class="submit">
         立即结算
@@ -111,77 +111,16 @@
     <div id="picker">
         <div id="day" class="picker-wrapper swiper-container-day">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
-                <div class="swiper-slide">1</div>
-                <div class="swiper-slide">2</div>
             </div>
         </div>
         <div id="time" class="picker-wrapper swiper-container-time">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
-                <div class="swiper-slide">3</div>
-                <div class="swiper-slide">4</div>
             </div>
         </div>
     </div>
 </div>
 
+<script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./3rdLibs/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="./3rdLibs/js/amazeui/amazeui.min.js"></script>
 <script type="text/javascript" src="./3rdLibs/js/handlebars/handlebars.min.js"></script>

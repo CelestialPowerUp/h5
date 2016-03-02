@@ -31,6 +31,10 @@ ul.operations > li.line + li.line {
     border-top: solid 1px #e0e0e0;
 }
 
+ul.operations > li.line:first-child.invisible + li.line {
+    border-top: none;
+}
+
 ul.operations > li.line > * {
     display: block;
     height: 100px;
@@ -80,4 +84,8 @@ ul.operations > li.line > .text.red {
 
 .selectable:not(.selected) > .right.img {
     background: url('http://7xiqe8.com2.z0.glb.qiniucdn.com/unchecked.png') no-repeat 50% 50%;
+}
+
+ul.operations > li.line.invisible {
+    display: none;
 }

@@ -18,6 +18,7 @@
             reset_button = yangaiche(app.ds.reset_button),
             user = yangaiche(ls.user.touch)(),
             set_back_to_his = yangaiche(ls.back.set_back_to_his),
+            get_parent_of_this = yangaiche(ls.back.get_parent_of_this),
             updateOrder = yangaiche(ls.order.set);
 
         function load_coupons() {
@@ -60,7 +61,7 @@
                             order.coupon_name = null;
                             order.coupon_value = 0;
                             updateOrder(order);
-                            set_back_to_his('base_info.html');
+                            set_back_to_his(get_parent_of_this());
                         } else {
                             var coupon_name = t(this).attr('data-name');
                             var coupon_type = t(this).attr('data-type');
@@ -77,7 +78,7 @@
                                 order.paid_price = 0;
                                 order.not_paid_price = data.total_price;
                                 updateOrder(order);
-                                set_back_to_his('base_info.html');
+                                set_back_to_his(get_parent_of_this());
                             }, function (error) {
                                 show_msg(error.message);
                             });

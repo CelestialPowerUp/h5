@@ -131,7 +131,7 @@
                     } else if (data && data.code === '20007') {
                         yangaiche(ls.openid.login_by_opencode)();
                     } else {
-                        console.log(data.message);
+                        console.log(data.message || JSON.stringify(data));
                         if (failureBack) {
                             failureBack(data);
                         }
@@ -171,7 +171,7 @@
                     } else if (data && data.code === '20007') {
                         yangaiche(ls.openid.login_by_opencode)();
                     } else {
-                        console.log(data.message);
+                        console.log(data.message || JSON.stringify(data));
                         if (failureBack) {
                             failureBack(data);
                         }

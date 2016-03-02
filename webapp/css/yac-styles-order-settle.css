@@ -53,7 +53,7 @@ ul.operations > li.line > .input > input {
     position: fixed;
     bottom: 0;
     width: 750px;
-    height: 110px;
+    height: 90px;
     background: rgba(0, 0, 0, 0.8);
 }
 
@@ -68,28 +68,28 @@ ul.operations > li.line > .input > input {
 
 #order_settle_footer .vertical-line {
     height: 50px;
-    margin: 30px 20px;
+    margin: 20px 20px;
     border-left: solid 1px #afafaf;
 }
 
 #order_settle_footer .price, #order_settle_footer .price span {
-    font-size: 50px;
+    font-size: 48px;
     color: #ffffff;
-    line-height: 110px;
+    line-height: 90px;
 }
 
 #order_settle_footer .coupon, #order_settle_footer .coupon span {
     font-size: 24px;
     color: #a0a0a0;
-    line-height: 110px;
+    line-height: 90px;
 }
 
 #order_settle_footer .submit {
     float: right;
-    height: 110px;
-    line-height: 110px;
+    height: 90px;
+    line-height: 90px;
     padding: 0 20px;
-    font-size: 48px;
+    font-size: 36px;
     color: #ffffff;
     background-color: #ff6600;
 }
@@ -112,6 +112,7 @@ ul.operations > li.line > .input > input {
     bottom: 0;
     left: 0;
     border-top: solid 1px #cccccc;
+    background-color: #f1f1f1;
 }
 
 .picker-wrapper {
@@ -123,6 +124,19 @@ ul.operations > li.line > .input > input {
 }
 
 .swiper-slide {
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
     color: #ffffff;
+    margin: 0 50px;
+    border-radius: 8px;
     text-align: center;
+}
+
+.swiper-slide.selected {
+    background-color: #38c87c;
+}
+
+.swiper-slide:not(.selected) {
+    background-color: #09be00;
 }
