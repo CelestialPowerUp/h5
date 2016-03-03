@@ -199,9 +199,7 @@
         }
 
         if ((!exist(address_info.name) || address_info.name === '') &&
-            (!exist(address_info.address) || address_info.address === '') ||
-            !exist(address_info.latitude) ||
-            !exist(address_info.longitude)) {
+            (!exist(address_info.address) || address_info.address === '') || !exist(address_info.latitude) || !exist(address_info.longitude)) {
             auto_get_location();
         } else {
             if ('' !== address_info.address) {
@@ -231,6 +229,34 @@
 
         t('#coupon').click(function () {
             yangaiche(ls.back.set_back_to_self)('my_coupons.html?can_select=true');
+        });
+
+        t('#order_settle_footer .submit').click(function () {
+            function gen_valid_fn(val_fn_name) {
+                return function (input) {
+                    var $input = t(input);
+                    var pattern = $input.attr('data-reg');
+                    var val = $input[val_fn_name]();
+
+                    var invalid = !(pattern ? new RegExp(pattern).test(val) : Boolean(val));
+
+                    if (invalid) {
+                        show_msg($input.attr('data-reg-msg'));
+                    }
+
+                    return invalid;
+                };
+            }
+
+            var is_any_input_invalid = Array.from(t('#baseinfo input')).some(gen_valid_fn('val'))
+                ? Array.from(t('#baseinfo .line:not(.invisible) .value')).some(gen_valid_fn('html'))
+                : false;
+
+            if (is_any_input_invalid) {
+                return false;
+            }
+
+            console.log('go on');
         });
 
     });
