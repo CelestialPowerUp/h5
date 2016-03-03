@@ -26,8 +26,8 @@
 
         getReq('/v1/api/time_segments.json', function (data) {
 
-            var tpl = Handlebars.compile('{{#each this}}<div class="swiper-slide">{{key}}</div>{{/each}}');
-            var tpl2 = Handlebars.compile('{{#each this}}<div class="swiper-slide">{{this}}</div>{{/each}}');
+            var tpl = Handlebars.compile('{{#each this}}<div class="swiper-slide"><div class="text">{{key}}</div></div>{{/each}}');
+            var tpl2 = Handlebars.compile('{{#each this}}<div class="swiper-slide"><div class="text">{{this}}</div></div>{{/each}}');
             t('.swiper-container-day .swiper-wrapper').html(tpl(data));
 
             var swiper1, swiper2;
@@ -40,7 +40,7 @@
                     slidesPerColumnFill: 'row',
                     scrollbarHide: true,
                     centeredSlides: false,
-                    spaceBetween: 10,
+                    spaceBetween: 0,
                     grabCursor: true,
                     freeMode: true,
                     observer: true
@@ -52,7 +52,7 @@
             t('.swiper-container-day').on('click', '.swiper-slide', function () {
                 var $this = t(this);
                 t.each(data, function (i, d) {
-                    if (d.key === $this.html()) {
+                    if (d.key === $this.children('.text').html()) {
                         t('.swiper-container-day').attr('data-rel', d.key);
                         t('.swiper-container-time .swiper-wrapper').html(tpl2(d.data));
                     }
@@ -63,10 +63,13 @@
             });
 
             t('.swiper-container-time').on('click', '.swiper-slide', function () {
-                t('#pick_time .value').html(t('.swiper-container-day').attr('data-rel') + ' ' + t(this).html());
+                var $this = t(this);
+                t('#pick_time .value').html(t('.swiper-container-day').attr('data-rel') + ' ' + $this.children('.text').html());
 
                 t('.swiper-container-time .swiper-slide').removeClass('selected');
-                t(this).addClass('selected');
+                $this.addClass('selected');
+
+                t('#popup .cover').click();
             });
 
             t('.swiper-container-day .swiper-slide:first-child').click();
