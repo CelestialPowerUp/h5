@@ -19,10 +19,11 @@
             postReq = yangaiche(app.http.post_request),
             user = yangaiche(ls.user.touch)(),
             exist = yangaiche(sys.exist),
-            order = yangaiche(ls.order.touch)(),
+            get_order = yangaiche(ls.order.touch),
             set_order = yangaiche(ls.order.set),
             show_msg = yangaiche(app.show_msg.show),
-            address_info = yangaiche(ls.location.touch)();
+            address_info = yangaiche(ls.location.touch)(),
+            preview_order = yangaiche(ls.order.preview);
 
         getReq('/v1/api/time_segments.json', function (data) {
 
@@ -93,7 +94,8 @@
         $service_types.on('click', '.selectable', function () {
             var $this = t(this);
             var service_type = $this.attr('data-key');
-            if (service_type === $service_types.attr('data-key')) {
+            var old_service_type = $service_types.attr('data-key');
+            if (service_type === old_service_type) {
                 return false;
             }
             $service_types.attr('data-key', service_type);
@@ -105,36 +107,40 @@
 
             t('#service_types .selectable').removeClass('selected');
             $this.addClass('selected');
+
+            yangaiche(ls.products.update)(function (products) {
+                var already_has = false;
+                var filtered = products.filter(function (product) {
+                    already_has = already_has ? true : product.service_type === service_type;
+                    return !Boolean(product.service_type) || product.service_type !== old_service_type;
+                });
+
+                if (!already_has) {
+                    t.each(service_products, function (i, service_product) {
+                        if (service_product.service_type === service_type) {
+                            filtered.push(service_product);
+                        }
+                    });
+                }
+
+                filtered.splice(0, 0, 0, products.length);
+                [].splice.apply(products, filtered);
+            });
+
+            console.log(preview_order_cb);
+            preview_order(get_order(), preview_order_cb);
         });
+
+        function preview_order_cb() {
+            var order = get_order();
+            t('#order_settle_footer .price .value').html(order.not_paid_price);
+            t('#order_settle_footer .coupon .value').html(order.coupon_price);
+        }
 
         var service_type = yangaiche(sys.local_storage).get(yangaiche(app.unique_service_type.get)());
         t('#service_types .selectable[data-key="' + service_type + '"]').click();
 
-        function preview_order(order) {
-            var params = {
-                car_model_type: order.car_model_type,
-                coupon_id: order.coupon_id,
-                products: order.products,
-                user_id: user[ls.user.user_id]
-            };
-            if (exist(order.supplier_id)) {
-                params.supplier_id = order.supplier_id;
-            }
-            postReq('/v1/api/order_preview', params, function (data) {
-                order.coupon_price = data.free_price;
-                order.paid_price = 0;
-                order.not_paid_price = data.total_price;
-                set_order(order);
-
-                t('#order_settle_footer .price .value').html(order.not_paid_price);
-                t('#order_settle_footer .coupon .value').html(order.coupon_price);
-            }, function (error) {
-                order.coupon_id = null;
-                set_order(order);
-                show_msg(error.message || JSON.stringify(error));
-            });
-        }
-
+        var order = get_order();
         if (exist(order.coupon_id)) {
             t('#coupon .value').html(order.coupon_name);
         } else {
@@ -152,8 +158,7 @@
             order.coupon_value = 0;
             set_order(order);
         }
-
-        preview_order(order);
+        preview_order(order, preview_order_cb);
 
         if (!t('#comment input').val()) {
             t('#comment input').val(order.comment);

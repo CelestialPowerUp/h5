@@ -174,16 +174,11 @@
                             yangaiche(app.set_activity_peer_source)(order);
                         }
 
-                        t.each(t('#my-btn-group button'), function (i, btn) {
-                            if (t(btn).hasClass('service-type-choose-chosen')) {
-                                var local_key = t(btn).attr('data-key');
-                                order.service_type = local_key;
-                                order[ls.products.products_info] = order[ls.products.products_info] || [];
-                                t.each(service_products, function (i, service_product) {
-                                    if (service_product.service_type === local_key) {
-                                        order[ls.products.products_info].push(service_product);
-                                    }
-                                });
+                        order.service_type = t('#my-btn-group .selectable.selected').attr('data-key');
+                        order[ls.products.products_info] = order[ls.products.products_info] || [];
+                        t.each(service_products, function (i, service_product) {
+                            if (service_product.service_type === order.service_type) {
+                                order[ls.products.products_info].push(service_product);
                             }
                         });
                     });
