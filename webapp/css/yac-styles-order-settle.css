@@ -94,16 +94,6 @@ ul.operations > li.line > .input > input {
     background-color: #ff6600;
 }
 
-#popup > .cover {
-    position: fixed;
-    z-index: 999;
-    background: rgba(0, 0, 0, 0.5);
-    width: 750px;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
 #popup > #picker {
     position: fixed;
     z-index: 1000;
