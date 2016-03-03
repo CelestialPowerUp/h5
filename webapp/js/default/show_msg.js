@@ -8,13 +8,10 @@
         init: 'init_show_msg',
         show: 'show_msg',
 
-        html: '<div class="am-modal am-modal-no-btn" tabindex="-1" id="yac-modal">' +
-        '<div class="am-modal-dialog">' +
-        '<div class="am-modal-hd">' +
-        '</div>' +
-        '<div class="am-modal-bd">' +
+        html: '<div class="cover" style="display: none;"></div>' +
+        '<div tabindex="-1" id="yac-modal" style="display: none;">' +
+        '<div class="modal-body">' +
         '{{msg_to_show}}' +
-        '</div>' +
         '</div>' +
         '</div>',
 
@@ -45,22 +42,26 @@
             console.log(text);
             t('#msg_wrapper').empty().html(text);
 
-            var $modal = t('#yac-modal');
-            $modal.modal();
+            t('#msg_wrapper .cover').show();
+            t('#yac-modal').show();
+
             active = false;
 
-            t('.am-dimmer').css('background-color', 'rgba(0,0,0,0)');
-            t('.am-modal-dialog').css('border-radius', '8px');
-            t('.am-modal-dialog').css('background-color', 'rgba(0,0,0,0.6)');
-            t('.am-modal-dialog *').css('color', 'rgba(255,255,255,1)');
-
-            setTimeout(function () {
-                $modal.modal('close');
+            function close_modal() {
+                t('#yac-modal').hide();
+                t('#msg_wrapper .cover').hide();
                 active = true;
                 if ('function' === typeof(on_close)) {
                     on_close();
                 }
-            }, 2000);
+            }
+
+            var timeout = setTimeout(close_modal, 2000);
+
+            t('#yac-modal').click(function () {
+                clearTimeout(timeout);
+                close_modal();
+            });
 
             //alert(msg);
         };
