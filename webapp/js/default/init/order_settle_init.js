@@ -249,14 +249,16 @@
             }
 
             var is_any_input_invalid = Array.from(t('#baseinfo input')).some(gen_valid_fn('val'))
-                ? Array.from(t('#baseinfo .line:not(.invisible) .value')).some(gen_valid_fn('html'))
-                : false;
+                ? true
+                : Array.from(t('#baseinfo .line:not(.invisible) .value')).some(gen_valid_fn('html'));
 
             if (is_any_input_invalid) {
                 return false;
             }
 
-            console.log('go on');
+            yangaiche(app.show_msg.show_agreement)(order.car_number, function () {
+                console.log('confirmed');
+            });
         });
 
     });
