@@ -13,6 +13,9 @@
  *                      元素尺寸写法 -- html { font-size: $ppr*1rem; } body { width: 750px/$ppr; }。
  */
 window.mobileUtil = (function (win, doc) {
+
+    'use strict';
+
     var UA = navigator.userAgent,
         isAndroid = /android|adr/gi.test(UA),
         isIos = /iphone|ipod|ipad/gi.test(UA) && !isAndroid, // 据说某些国产机的UA会同时包含 android iphone 字符
@@ -43,7 +46,7 @@ window.mobileUtil = (function (win, doc) {
             for (var i = 0; i < kvs.length; i++) {
                 var kv = kvs[i].split('=');
                 if (/width/.test(kv[0])) {
-                    width = kv[1];
+                    data.width = kv[1];
                 }
                 data[kv[0]] = kv[1];
             }
@@ -76,10 +79,12 @@ window.mobileUtil = (function (win, doc) {
          */
         getSearch: function (href) {
             href = href || win.location.search;
-            var data = {}, reg = new RegExp("([^?=&]+)(=([^&]*))?", "g");
-            href && href.replace(reg, function ($0, $1, $2, $3) {
-                data[$1] = $3;
-            });
+            var data = {}, reg = new RegExp('([^?=&]+)(=([^&]*))?', 'g');
+            if (href) {
+                href.replace(reg, function ($0, $1, $2, $3) {
+                    data[$1] = $3;
+                });
+            }
             return data;
         }
 
@@ -87,4 +92,4 @@ window.mobileUtil = (function (win, doc) {
 })(window, document);
 
 // 默认直接适配页面
-mobileUtil.fixScreen();
+window.mobileUtil.fixScreen();
