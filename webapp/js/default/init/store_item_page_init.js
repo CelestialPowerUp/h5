@@ -137,8 +137,6 @@
                 });
                 yangaiche(ls.products.set)(store_item.ware_products);
 
-                t('#item_image_cover').attr('src', store_item.cover_img.raw_url + '?imageView2/3/w/180/h/180/interlace/1');
-
                 store_item.cover_img.raw_url = store_item.cover_img.raw_url + '?imageView2/3/w/' + parseInt(device_width) + '/h/' + parseInt(device_width / 16 * 9) + '/interlace/1';
                 store_item.supplier_name = suppliers.length > 0 ? suppliers[0].supplier_name : '养爱车综合店';
                 store_item.ware_mark_price = store_item.ware_mark_price.toFixed(1);

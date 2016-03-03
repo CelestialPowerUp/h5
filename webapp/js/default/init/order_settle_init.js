@@ -127,7 +127,6 @@
                 [].splice.apply(products, filtered);
             });
 
-            console.log(preview_order_cb);
             preview_order(get_order(), preview_order_cb);
         });
 

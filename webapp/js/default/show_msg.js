@@ -9,15 +9,15 @@
         show: 'show_msg',
         show_agreement: 'show_agreement',
 
-        html: '<div class="cover" style="display: none;"></div>' +
-        '<div tabindex="-1" id="yac-modal" style="display: none;">' +
+        html: '<div class="cover"></div>' +
+        '<div tabindex="-1" id="yac-modal">' +
         '<div class="modal-body">' +
         '{{msg_to_show}}' +
         '</div>' +
         '</div>',
 
-        agreement_html: '<div class="cover" style="display: none;"></div>' +
-        '<div tabindex="-1" id="yac-modal" style="display: none;">' +
+        agreement_html: '<div class="cover"></div>' +
+        '<div tabindex="-1" id="yac-modal">' +
         '<div class="modal-body white fixed">' +
         '<div class="modal-title">养爱车声明协议</div>' +
         '<div class="modal-text">{{car_number}}</div>' +
@@ -28,7 +28,7 @@
         '</div>' +
         '</div>',
 
-        wrapper: '<div id="msg_wrapper"></div>'
+        wrapper: '<div id="msg_wrapper" style="display: none;"></div>'
     };
 
     yangaiche(app.show_msg.init, function () {
@@ -55,14 +55,12 @@
             console.log(text);
             t('#msg_wrapper').empty().html(text);
 
-            t('#msg_wrapper .cover').show();
-            t('#yac-modal').show();
+            t('#msg_wrapper').show();
 
             active = false;
 
             function close_modal() {
-                t('#yac-modal').hide();
-                t('#msg_wrapper .cover').hide();
+                t('#msg_wrapper').hide();
                 active = true;
                 if ('function' === typeof(on_close)) {
                     on_close();
@@ -93,15 +91,13 @@
             console.log(text);
             t('#msg_wrapper').empty().html(text);
 
-            t('#msg_wrapper .cover').show();
-            t('#yac-modal').show();
+            t('#msg_wrapper').show();
 
             active = false;
 
             function gen_click_fn(is_confirm) {
                 return function () {
-                    t('#yac-modal').hide();
-                    t('#msg_wrapper .cover').hide();
+                    t('#msg_wrapper').hide();
                     active = true;
                     if (is_confirm && 'function' === typeof(confirm_cb)) {
                         confirm_cb();

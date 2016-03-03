@@ -8,7 +8,7 @@ html, body, div, ul, li, span, input, img, a, p {
 
 /* use with viewport */
 body {
-    /*width: 640px;*/
+    width: 640px;
     background: #f1f1f1;
     overflow-x: hidden;
 }
@@ -1338,12 +1338,16 @@ body {
 }
 
 .my-product-list {
-    margin-bottom: 280px;
+    margin: 0 20px 90px;
 }
 
 .my-product-list li {
     border-width: 0;
     border-top: 1px solid #cccccc;
+}
+
+.am-list > li {
+    margin: 0;
 }
 
 .my-product-list li:first-child {
@@ -1413,7 +1417,7 @@ body {
 
 /* choose product */
 .my-product-line {
-    height: 168px;
+    height: 150px;
 }
 
 .my-product-comment {
@@ -1431,20 +1435,24 @@ body {
 .my-product-line-content-label {
     color: #666666;
     /*background: #555;*/
-    width: 80px;
-    margin-left: 30px;
-    margin-right: 10px;
-    text-align: center;
-    font-size: 30px;
+    height: 24px;
+    margin: 22px 0 20px;
+    text-align: left;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.my-product-line-content, .swiper-container {
+    height: 63px;
 }
 
 .my-product-line-content-button {
-    width: 200px;
-    height: 104px;
+    width: 120px;
+    height: 60px;
     margin-top: 3px;
     margin-left: 24px;
     border-radius: 8px;
-    font-size: 30px;
+    font-size: 24px;
     text-align: center;
     background-color: #FFFFFF;
     border: 1px solid #cccccc;
@@ -1456,10 +1464,6 @@ body {
     background-color: #0db603;
     border: 1px solid #0db603;
     color: #FFFFFF;
-}
-
-.swiper-container {
-    height: 110px;
 }
 
 /* my coupons */
@@ -1675,6 +1679,11 @@ body {
     border-top: solid 1px #e0e0e0;
 }
 
+#operations .line .wrapper {
+    max-width: 676px;
+    height: 100px;
+    overflow: hidden;
+}
 #operations .line .text {
     font-size: 30px;
     line-height: 100px;
@@ -1720,11 +1729,19 @@ body {
     float: right;
 }
 
-#operations .line > .img.left + .text.left {
+#operations .line > .wrapper > *[class*='left'] {
+    float: left;
+}
+
+#operations .line > .wrapper > *[class*='right'] {
+    float: right;
+}
+
+#operations .line > .wrapper > .img.left + .text.left {
     margin-left: 12px;
 }
 
-#operations .line > .text.left + .img.left {
+#operations .line > .wrapper > .text.left + .img.left {
     margin-left: 40px;
 }
 
@@ -1784,6 +1801,13 @@ body {
     margin-right: 20px;
 }
 
+#store-item-comments-link-wrapper {
+    height: 0;
+    /*margin-top: 30px;*/
+    margin-bottom: 110px;
+    overflow: hidden;
+}
+
 #store-item-comment-link {
     width: 372px;
     height: 72px;
@@ -1793,7 +1817,7 @@ body {
     font-size: 24px;
     line-height: 68px;
     text-align: center;
-    margin: 30px 189px 110px;
+    margin: 0 189px 0;
 }
 
 #store-item-footer {
@@ -1951,7 +1975,7 @@ body {
     z-index: 1000;
     background: rgba(255, 255, 255, 1.0);
     width: 750px;
-    height: 400px;
+    /*height: auto;*/
     bottom: 0;
     left: 0;
     font-size: 0;
@@ -1965,10 +1989,22 @@ body {
 }
 
 .service-type-choose-wrapper hr {
-    width: 600px;
+    width: 710px;
     margin: 20px 20px;
     padding: 0;
     border-color: #999999;
+}
+
+.service-type-choose-wrapper .submit_btn {
+    width: 750px;
+    height: 90px;
+    position: absolute;
+    bottom: 0;
+    color: #ffffff;
+    background-color: #ff6600;
+    font-size: 36px;
+    text-align: center;
+    line-height: 90px;
 }
 
 .service-type-choose {
@@ -2001,7 +2037,7 @@ body {
     position: fixed;
     z-index: 1001;
     left: 20px;
-    bottom: 265px;
+    /*bottom: 265px;*/
     display: block;
     width: 180px;
     height: 180px;
@@ -2011,6 +2047,12 @@ body {
 
 #item_price {
     display: block;
+    color: #FF6600;
+    font-size: 30px;
+}
+
+#item_price:before {
+    content: '¥';
     color: #FF6600;
     font-size: 30px;
 }

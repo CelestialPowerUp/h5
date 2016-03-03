@@ -147,14 +147,17 @@ gulp.task('genData', function() {
 
 // 整体处理JS文件,添加;(function() {...} ());
 gulp.task('batch', function () {
-    gulp.src(srcRoot + '/js/**/*.js')
+    //gulp.src(srcRoot + '/js/**/*.js')
+    gulp.src(srcRoot + '/**/*.html')
         //.pipe(header(';(function() {\n\n\t\'use strict\';\n\n'))
         //.pipe(footer('\n} ());'))
         //.pipe(replace(/\['(.*?)']/g, '.$1'))
         //.pipe(replace(/"(.*?)"/g, '\'$1\''))
         //.pipe(replace(/'use strict';/g, '\'use strict\';\n'))
-        .pipe(replace(/'use strict';[\s\S\n]*?yangaiche\(/g, '\'use strict\';\n\n\tyangaiche('))
-        .pipe(gulp.dest(dstRoot + '/js/'));
+        //.pipe(replace(/'use strict';[\s\S\n]*?yangaiche\(/g, '\'use strict\';\n\n\tyangaiche('))
+        .pipe(replace(/<link rel="stylesheet" href="\.\/css\/h5\.css">/, '<link rel="stylesheet" href="./css/h5.css">\n\t<link rel="stylesheet" href="./css/yac-modal.css">'))
+        .pipe(gulp.dest(dstRoot));
+        //.pipe(gulp.dest(dstRoot + '/js/'));
 });
 
 // jshint处理
