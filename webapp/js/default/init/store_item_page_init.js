@@ -161,7 +161,12 @@
                         return true;
                     }
 
+                    var storage = yangaiche(sys.local_storage);
                     var car = storage.get(key.car.info);
+                    if (!yangaiche(sys.exist)(car)) {
+                        yangaiche(app.show_msg.show)('请先选车');
+                        return false;
+                    }
 
                     yangaiche(ls.order.update)(function (order) {
                         order.car_id = car.car_id;

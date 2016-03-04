@@ -1715,6 +1715,7 @@ body {
 #operations .line .img {
     font-size: 0;
     line-height: 100px;
+    height: 100px;
 }
 
 #operations .line > * {
@@ -1833,6 +1834,7 @@ body {
     width: 550px;
     height: 90px;
     color: #ededed;
+    font-size: 36px;
     line-height: 90px;
     padding-left: 30px;
 }
