@@ -11,16 +11,26 @@
 
     app.simple_service_products = {
         config: {
-            car_beauty_service: 12,
+            car_beauty_service: 22,
             renewal_service: 13,
-            home_testing_service: 14,
-            set_loss_service: 15
+            set_loss_service: 25
+        },
+        need_for_car_pick: {
+            car_beauty_service: true,
+            renewal_service: false,
+            set_loss_service: true
         }
     };
 
     yangaiche(sys.init)(function (t) {
-        function init() {
-            app.simple_service_products.key = window.location.href.match(/\/.*\/(.*?)\.html/)[1];
+
+        var storage = yangaiche(sys.local_storage);
+        app.simple_service_products.key = window.location.href.match(/\/.*\/(.*?)\.html/)[1];
+
+        function init(service_products) {
+            storage.set(key.service.data, service_products);
+
+            storage.set(key.service.can_self, false);
 
             var order = yangaiche(ls.order.touch)(),
                 service_type = app.simple_service_products.config[app.simple_service_products.key];
@@ -28,6 +38,9 @@
             //var config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
 
             yangaiche(app.http.get_request)('/v2/api/products.json?service_type=' + service_type + '&car_model_type=' + order.car_model_type, function (data) {
+                if (service_products.length > 0) {
+                    data.required_products.push(service_products[0]);
+                }
                 yangaiche(ls.products.set)(data.required_products);
 
                 // 去支付按钮
@@ -53,10 +66,15 @@
             });
         }
 
-        init();
-        //yangaiche(app.supplier.init)(init);
+        if (app.simple_service_products.need_for_car_pick[app.simple_service_products.key]) {
+            yangaiche(app.http.get_request)('/v1/api/service_products.json?code=keeper', function (data) {
+                init(data);
+            });
+        } else {
+            init([]);
+        }
 
-        var car_info = yangaiche(sys.local_storage).get(key.car.info);
+        var car_info = storage.get(key.car.info);
         if (yangaiche(sys.exist)(car_info)) {
             t('#store-item-car-choose .car-info-text').text(car_info.car_number);
             //var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
