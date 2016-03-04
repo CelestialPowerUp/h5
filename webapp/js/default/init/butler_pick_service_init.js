@@ -240,6 +240,9 @@
                 }
 
                 t('#submit_btn').click(function () {
+
+                    storage.set(key.shequbanjin.is_butler_pick, true);
+
                     yangaiche(ls.back.set_back_to_self)('order_settle.html');
                 });
             }

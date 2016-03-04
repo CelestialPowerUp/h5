@@ -2,6 +2,7 @@
     'use strict';
 
     //yangaiche(sys.load_module)('');
+    yangaiche(sys.load_module)('order/create');
     yangaiche(sys.load_default_module)('user');
     yangaiche(sys.load_default_module)('order');
     yangaiche(sys.load_default_module)('location');
@@ -11,6 +12,7 @@
     yangaiche(sys.load_default_module)('show_msg');
     yangaiche(sys.load_default_module)('products');
     yangaiche(sys.load_default_module)('unique_service_type');
+    yangaiche(sys.load_default_module)('pay');
     //yangaiche(sys.load_lib_module)('');
 
     yangaiche(sys.init)(function (t) {
@@ -19,6 +21,7 @@
             postReq = yangaiche(app.http.post_request),
             user = yangaiche(ls.user.touch)(),
             exist = yangaiche(sys.exist),
+            storage = yangaiche(sys.local_storage),
             get_order = yangaiche(ls.order.touch),
             set_order = yangaiche(ls.order.set),
             show_msg = yangaiche(app.show_msg.show),
@@ -65,7 +68,9 @@
 
             t('.swiper-container-time').on('click', '.swiper-slide', function () {
                 var $this = t(this);
-                t('#pick_time .value').html(t('.swiper-container-day').attr('data-rel') + ' ' + $this.children('.text').html());
+                var pick_time_segment = $this.children('.text').html();
+                t('#pick_time .value').html(t('.swiper-container-day').attr('data-rel') + ' ' + pick_time_segment);
+                t('.swiper-container-time').attr('data-rel', pick_time_segment);
 
                 t('.swiper-container-time .swiper-slide').removeClass('selected');
                 $this.addClass('selected');
@@ -83,7 +88,7 @@
             show_msg(error.message || JSON.stringify(error));
         });
 
-        var service_products = yangaiche(sys.local_storage).get(key.service.data);
+        var service_products = storage.get(key.service.data);
         t.each(service_products, function (i, service_product) {
             service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(1);
             t('#service_types .selectable[data-key="' + service_product.service_type + '"] .text').html(service_product.product_name + '(¥' + service_product.total_price + ')');
@@ -91,7 +96,7 @@
         });
 
         var $service_types = t('#service_types');
-        $service_types.on('click', '.selectable', function () {
+        $service_types.on('click', '.selectable:not(.invisible)', function () {
             var $this = t(this);
             var service_type = $this.attr('data-key');
             var old_service_type = $service_types.attr('data-key');
@@ -235,6 +240,52 @@
             yangaiche(ls.back.set_back_to_self)('my_coupons.html?can_select=true');
         });
 
+        function create_order() {
+            var order = {},
+                car = storage.get(key.car.info),
+                user = yangaiche(ls.user.touch)(),
+                location = yangaiche(ls.location.touch)();
+
+            order.pick_time = t('.swiper-container-day').attr('data-rel');
+            order.pick_time_segment = t('.swiper-container-time').attr('data-rel');
+
+            order.comment = t('#comment input').val();
+            order.contact_name = t('#contact_name input').val();
+            order.phone_number = t('#phone_number input').val();
+            order.car_id = car.car_id;
+            order.car_number = car.car_number;
+
+            order.pay_mode = parseInt(t('#payment').attr('data-pay-mode'));
+
+            order.user_id = user.user_id;
+            order.peer_source = order.peer_source || yangaiche(sys.browser_type).type;
+            order.client_basic = {
+                name: order.contact_name,
+                phone_number: order.phone_number,
+                car_number: order.car_number,
+                location: location
+            };
+            order.location = location;
+            order[ls.products.products_info] = yangaiche(ls.products.touch)();
+            order.order_status_key = 'creating';
+            postReq(yangaiche(app.order_create.get_api), order, function (data) {
+                data.location = data.client_basic.location;
+                yangaiche(ls.order.set)(data);
+
+                if (data.pay_status !== 1 && data.not_paid_price > 0) {
+                    var param = yangaiche(app.pay.get_param)({order_id: data.id},
+                        'order_success_v2.html?msg_key=pay_suc',
+                        'order_success_v2.html?msg_key=pay_fail');
+
+                    yangaiche(app.pay.do)(param);
+                } else {
+                    yangaiche(ls.back.set_back_to_store)('order_success_v2.html?msg_key=no_need_to_pay');
+                }
+            }, function (data) {
+                show_msg('下单失败:' + data.message);
+            });
+        }
+
         t('#order_settle_footer .submit').click(function () {
             function gen_valid_fn(val_fn_name) {
                 return function (input) {
@@ -260,9 +311,11 @@
                 return false;
             }
 
-            yangaiche(app.show_msg.show_agreement)(order.car_number, function () {
-                console.log('confirmed');
-            });
+            if (t('#service_types').attr('data-key') === 'keeper') {
+                yangaiche(app.show_msg.show_agreement)(order.car_number, create_order);
+            } else {
+                create_order();
+            }
         });
 
     });

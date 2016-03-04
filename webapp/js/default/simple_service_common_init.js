@@ -43,26 +43,28 @@
                 }
                 yangaiche(ls.products.set)(data.required_products);
 
-                // 去支付按钮
-                t('#store-item-footer .submit').click(function () {
-                    var storage = yangaiche(sys.local_storage);
-                    var car = storage.get(key.car.info);
-                    if (!yangaiche(sys.exist)(car)) {
-                        yangaiche(app.show_msg.show)('请先选车');
-                        return false;
-                    }
-
-                    yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value3);
-
-                    yangaiche(ls.back.set_back_to_self)('order_settle.html');
-                });
-
-                t('#store-item-car-choose').click(function () {
-                    yangaiche(sys.local_storage).remove(key.goto.car_list);
-                    yangaiche(ls.back.set_back_to_self)('car_list.html');
-                });
             }, function () {
                 yangaiche(app.show_msg.show)('AJAX ERROR!');
+            });
+
+            // 去支付按钮
+            t('#store-item-footer .submit').click(function () {
+                var storage = yangaiche(sys.local_storage);
+                var car = storage.get(key.car.info);
+                if (!yangaiche(sys.exist)(car)) {
+                    yangaiche(app.show_msg.show)('请先选车');
+                    return false;
+                }
+
+                yangaiche(sys.local_storage).set(key.submit_button.submit_text_key, key.submit_button.submit_text_value3);
+                yangaiche(sys.local_storage).set(key.shequbanjin.is_butler_pick, false);
+
+                yangaiche(ls.back.set_back_to_self)('order_settle.html');
+            });
+
+            t('#store-item-car-choose').click(function () {
+                yangaiche(sys.local_storage).remove(key.goto.car_list);
+                yangaiche(ls.back.set_back_to_self)('car_list.html');
             });
         }
 

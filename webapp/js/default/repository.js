@@ -49,6 +49,9 @@
         },
         activity399: {
             is_checked: false
+        },
+        shequbanjin: {
+            is_butler_pick: 'shequbanjin_is_butler_pick'
         }
     };
 }());

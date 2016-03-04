@@ -187,6 +187,7 @@
                     });
 
                     storage.set(key.submit_button.submit_text_key, key.submit_button.submit_text_value1);
+                    storage.set(key.shequbanjin.is_butler_pick, false);
 
                     yangaiche(ls.back.set_back_to_self)('order_settle.html');
                 });

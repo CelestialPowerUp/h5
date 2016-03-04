@@ -37,6 +37,10 @@ ul.operations > li.line + li.line {
     border-top: solid 1px #e0e0e0;
 }
 
+ul.operations.one-child > li.line + li.line {
+    border-top: none;
+}
+
 ul.operations > li.line:first-child.invisible + li.line {
     border-top: none;
 }

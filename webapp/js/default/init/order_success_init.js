@@ -12,7 +12,7 @@
 
         var order_info = yangaiche(ls.order.touch)();
 
-        if (1 === order_info.pay_mode && !order_info.paid && order_info.total_price > 0) {
+        if (1 !== order_info.pay_status && !order_info.paid && order_info.not_paid_price > 0) {
             t('#pay_button').css('display', 'block');
         }
 
