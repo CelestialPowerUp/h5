@@ -2,10 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('parameter', {});
-    yangaiche(sys.load_default_module)('back', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
+	yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('parameter');
+    yangaiche(sys.load_default_module)('back');
+    yangaiche(sys.load_default_module)('show_msg');
 
     yangaiche(sys.init)(function (t) {
         t('.star-group img').bind('click', function () {

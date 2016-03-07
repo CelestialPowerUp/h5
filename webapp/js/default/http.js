@@ -2,10 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('openid', {});
-    yangaiche(sys.load_default_module)('env', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('openid');
+    yangaiche(sys.load_default_module)('env');
 
     app.http = {
         get_api_root: 'get_api_root',
@@ -131,7 +131,7 @@
                     } else if (data && data.code === '20007') {
                         yangaiche(ls.openid.login_by_opencode)();
                     } else {
-                        console.log(data.message);
+                        console.log(data.message || JSON.stringify(data));
                         if (failureBack) {
                             failureBack(data);
                         }
@@ -171,7 +171,7 @@
                     } else if (data && data.code === '20007') {
                         yangaiche(ls.openid.login_by_opencode)();
                     } else {
-                        console.log(data.message);
+                        console.log(data.message || JSON.stringify(data));
                         if (failureBack) {
                             failureBack(data);
                         }

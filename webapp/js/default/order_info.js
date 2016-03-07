@@ -2,15 +2,15 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('duplicate_submission', {});
-    yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
-    yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('order', {});
-    yangaiche(sys.load_default_module)('back', {});
-    yangaiche(sys.load_default_module)('template', {});
-    yangaiche(sys.load_default_module)('parameter', {});
-    yangaiche(sys.load_default_module)('pay', {});
+	yangaiche(sys.load_default_module)('duplicate_submission');
+    yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('show_msg');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('order');
+    yangaiche(sys.load_default_module)('back');
+    yangaiche(sys.load_default_module)('template');
+    yangaiche(sys.load_default_module)('parameter');
+    yangaiche(sys.load_default_module)('pay');
     yangaiche(sys.load_module)('order/create');
 
     app.order_info = {

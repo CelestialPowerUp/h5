@@ -2,8 +2,8 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('env', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('env');
 
     yangaiche(sys.init)(function (t) {
 //    var bought_time = new Date().toString().replace('年', '-').replace('月', '-').replace('日 GMT+8', 'T'), y = 0, m = 0;

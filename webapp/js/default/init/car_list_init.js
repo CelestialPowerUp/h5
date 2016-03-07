@@ -2,11 +2,11 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('order', {});
-    yangaiche(sys.load_default_module)('format', {});
-    yangaiche(sys.load_default_module)('back', {});
+	yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('order');
+    yangaiche(sys.load_default_module)('format');
+    yangaiche(sys.load_default_module)('back');
 
     yangaiche(sys.init)(function (t) {
         var progress = $.AMUI.progress;

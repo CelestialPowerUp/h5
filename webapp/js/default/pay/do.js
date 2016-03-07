@@ -17,7 +17,7 @@
             yangaiche(app.http.post_charge_request)(url || '/v3/api/charge.json', param, function (charge) {
                 pingpp.createPayment(charge, function (result, error) {
                     if (result === 'success') {
-                        yangaiche(sys.load_module)('close_app', {});
+                        yangaiche(sys.load_module)('close_app');
                         if (yangaiche(sys.exist)(success_callback)) {
                             success_callback();
                         }

@@ -1,6 +1,6 @@
 /**
  * 组件安装
- * npm install gulp-util gulp-imagemin gulp-ruby-sass gulp-minify-css gulp-rev gulp-rev-collector gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-clean gulp-livereload tiny-lr --save-dev
+ * npm install gulp-util gulp-modify through-gulp gulp-imagemin gulp-ruby-sass gulp-minify-css gulp-rev gulp-rev-collector gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-clean gulp-livereload tiny-lr --save-dev
  */
 
 // 引入 gulp及组件
@@ -15,15 +15,11 @@ var gulp = require('gulp'),                       //基础库
     clean = require('gulp-clean'),                //清空文件夹
     rev = require('gulp-rev'),                    //- 对文件名加MD5后缀
     revCollector = require('gulp-rev-collector'), //替换相应的文件
-    genData = function(destFilePrefix) {
-        console.log(destFilePrefix);
-    };
-
-var header = require('gulp-header');
-var footer = require('gulp-footer');
-var replace = require('gulp-replace');
-
-var minimist = require('minimist');
+    header = require('gulp-header'),
+    footer = require('gulp-footer'),
+    replace = require('gulp-replace'),
+    minimist = require('minimist'),
+    compile = require('./gulp-plugin/compile_init.js');
 
 var knownOptions = {
     string: ['dstRoot', 'f'],
@@ -31,7 +27,6 @@ var knownOptions = {
 };
 
 var options = minimist(process.argv.slice(2), knownOptions);
-
 
 var srcRoot = './webapp',
     dstRoot = './' + options.dstRoot,
@@ -130,22 +125,39 @@ gulp.task('rev', function () {
         .pipe(gulp.dest(dstRoot));
 });
 
-// 生成数据包
 gulp.task('genData', function() {
-    gulp.src([dstRoot + '/map.json', dstRoot + '/**/*.js'])
-        .pipe(genData('yangaiche-'));
+    // 生成数据包
+    gulp.src([dstRoot + '/map.json', dstRoot + '/js/**/*.js'])
+        .pipe(compile(dstRoot))
+        //.pipe(modify({
+        //    fileModifier: function(file, contents) {
+        //
+        //        var compiledFileContent = compiledFiles[file.path];
+        //        if (compiledFileContent) {
+        //
+        //            return compiledFileContent;
+        //        } else {
+        //
+        //            return contents;
+        //        }
+        //    }
+        //}))
+        .pipe(gulp.dest(dstRoot + '/js/'));
 });
 
 // 整体处理JS文件,添加;(function() {...} ());
 gulp.task('batch', function () {
-    gulp.src(srcRoot + '/js/**/*.js')
+    //gulp.src(srcRoot + '/js/**/*.js')
+    gulp.src(srcRoot + '/**/*.html')
         //.pipe(header(';(function() {\n\n\t\'use strict\';\n\n'))
         //.pipe(footer('\n} ());'))
         //.pipe(replace(/\['(.*?)']/g, '.$1'))
         //.pipe(replace(/"(.*?)"/g, '\'$1\''))
         //.pipe(replace(/'use strict';/g, '\'use strict\';\n'))
-        .pipe(replace(/'use strict';[\s\S\n]*?yangaiche\(/g, '\'use strict\';\n\n\tyangaiche('))
-        .pipe(gulp.dest(dstRoot + '/js/'));
+        //.pipe(replace(/'use strict';[\s\S\n]*?yangaiche\(/g, '\'use strict\';\n\n\tyangaiche('))
+        .pipe(replace(/<link rel="stylesheet" href="\.\/css\/h5\.css">/, '<link rel="stylesheet" href="./css/h5.css">\n\t<link rel="stylesheet" href="./css/yac-modal.css">'))
+        .pipe(gulp.dest(dstRoot));
+        //.pipe(gulp.dest(dstRoot + '/js/'));
 });
 
 // jshint处理
@@ -155,6 +167,72 @@ gulp.task('jshint', function () {
     gulp.src(jsSrc)
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
+});
+
+gulp.task('tester', function() {
+    //var str = '/Users/caoyouxin/git/yangaiche/h5/h5-local/js/yangaiche/ios/bridge-9e443ea4d2.js';
+    //var root = 'h5-local';
+    //var file = str.match(new RegExp(root + '/js/(.*)-.*\\.js$'))[1] + '.js';
+    //console.log(file);
+    //
+    //console.log(str.match(new RegExp(root + '/js/(.*?)/'))[1]);
+
+    Function.prototype.genMapObjKey = function(callback) {
+        var __self = this;
+        return function() {
+
+            var ret = callback.apply(this, arguments);
+            if (ret) {
+                var args = Array.from(arguments).slice(0, arguments.length - 1);
+                args.push(ret);
+                __self.apply(this, args);
+            } else {
+                __self.apply(this, arguments);
+            }
+        };
+    };
+
+    //(function ($1, $2, $3) {
+    //    console.log(arguments);
+    //}).genMapObjKey(function($1, $2, $3) {
+    //    if ($1) {
+    //        console.log('$1 = true, mod $3');
+    //        return 'aaa';
+    //    }
+    //}).genMapObjKey(function($1, $2, $3) {
+    //    if (!$1) {
+    //        console.log('$1 = false, mod $3');
+    //        return 'bbb';
+    //    }
+    //})(false, 1);
+
+    //var context = 'alipay';
+    //(function(matched, $1, $2) {
+    //    continueToCompile = true;
+    //    console.log(context, $1, $2);
+    //    if (mapObj[$2]) {
+    //        return mapObj[$2];
+    //    } else {
+    //        throw 'sth. wrong when compiling...';
+    //    }
+    //}).genMapObjKey(function(matched, $1, $2) {
+    //    if ($1 === 'load') {
+    //        if (mapObj[context + '/' + $2 + '.js']) {
+    //            return context + '/' + $2 + '.js';
+    //        } else {
+    //            return 'default/' + $2 + '.js';
+    //        }
+    //    }
+    //}).genMapObjKey(function(matched, $1, $2) {
+    //    if ($1 === 'load_default') {
+    //        return 'default/' + $2 + '.js';
+    //    }
+    //}).genMapObjKey(function(matched, $1, $2) {
+    //    if ($1 === 'load_lib') {
+    //        return 'lib/' + $2 + '.js';
+    //    }
+    //})(context, 'load_default', 'openid');
+
 });
 
 // 监听任务 运行语句 gulp watch

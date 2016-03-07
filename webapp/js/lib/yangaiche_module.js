@@ -47,7 +47,7 @@
     yangaiche(sys.load_module, function () {
         var browser = yangaiche(sys.browser_type);
         return function (name) {
-            var result = yangaiche(sys.load)(browser.module_root + '/' + name + '.js', {});
+            var result = yangaiche(sys.load)(browser.module_root + '/' + name + '.js', true);
             if (yangaiche(sys.exist)(result) && !result) {
                 yangaiche(sys.load_default_module)(name);
             }

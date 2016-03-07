@@ -2,11 +2,11 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('parameter', {});
-    yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
-    yangaiche(sys.load_default_module)('duplicate_submission', {});
+	yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('parameter');
+    yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('show_msg');
+    yangaiche(sys.load_default_module)('duplicate_submission');
     yangaiche(sys.load_module)('pay/do');
 
     app.pay = {
@@ -17,7 +17,7 @@
 
     yangaiche(app.pay.get_param, function () {
         // 加载方法所需模块
-        yangaiche(sys.load_module)('pay_param', {});
+        yangaiche(sys.load_module)('pay_param');
         return function (param, success_url, cancel_url) {
             param.subject = '养爱车-一站式管家服务';
             param.body = '养爱车-一站式管家服务';

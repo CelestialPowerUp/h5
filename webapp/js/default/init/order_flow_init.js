@@ -2,8 +2,8 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('parameter', {});
+	yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('parameter');
 
     yangaiche(sys.init)(function (t) {
 

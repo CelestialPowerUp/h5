@@ -2,8 +2,8 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('openid', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('openid');
 
     ls.user = {
         if_exist: 'if_user_exist',

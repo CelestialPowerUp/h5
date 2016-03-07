@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content=" user-scalable=no">
+    <meta name="viewport" content="width=750, user-scalable=no">
     <script type="text/javascript" src="./js/lib/mobile-util.js"></script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,98 +17,122 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <link rel="dns-prefetch" href="http://baseimg.yangaiche.com/">
+    <link rel="dns-prefetch" href="http://7xiqe8.com2.z0.glb.qiniucdn.com/">
 
     <link rel="stylesheet" href="./3rdLibs/css/amazeui/amazeui.min.css">
     <link rel="stylesheet" href="./css/h5.css">
+	<link rel="stylesheet" href="./css/yac-modal.css">
 
 </head>
 <body class="body-background-color-gray">
 
-<div id="store-item-supplier">
-    <span>修理厂</span><span></span>
-</div>
+<div id="cover-info-wrapper"></div>
 
-<div id="store-item-car-choose">
-    <div class="store-item-detail"><img src="./img/right_arrow.png"/></div>
-    <span>选择车辆</span>
-</div>
-
-<div id="store-item-service-type">
-    <div class="store-item-detail"><img src="./img/right_arrow.png"/></div>
-    <span>选择服务方式</span>
-</div>
+<ul id="operations">
+    <li class="line" id="store-item-car-choose">
+        <div class="left text">选择车辆</div>
+        <div class="right img">
+            <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/right_arrow.png" alt="" width="14px" height="25px">
+        </div>
+        <div class="right green text car-info-text">选择车辆</div>
+    </li>
+    <li class="line" id="store-item-service-type">
+        <div class="left text">服务方式</div>
+        <div class="right img">
+            <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/right_arrow.png" alt="" width="14px" height="25px">
+        </div>
+        <div class="right green text service-type-text">服务方式</div>
+    </li>
+    <!--<li class="line" id="products">-->
+        <!--<div class="left img">-->
+            <!--<img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/car2.png" alt="" width="36px" height="36px">-->
+        <!--</div>-->
+        <!--<div class="left text">选择车辆</div>-->
+        <!--<div class="left img">-->
+            <!--<img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/car2.png" alt="" width="36px" height="36px">-->
+        <!--</div>-->
+        <!--<div class="left text">选择车辆</div>-->
+        <!--<div class="left img">-->
+            <!--<img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/car2.png" alt="" width="36px" height="36px">-->
+        <!--</div>-->
+        <!--<div class="left text">选择车辆</div>-->
+        <!--<div class="right img">-->
+            <!--<img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/right_arrow.png" alt="" width="14px" height="25px">-->
+        <!--</div>-->
+    <!--</li>-->
+    <li class="line">
+        <div class="left text">商品总价</div>
+        <div class="price right text"><span class="dollar-sign">¥</span><span class="store-item-u-price"></span></div>
+    </li>
+</ul>
 
 <div id="store-service-flow">
-    <div>服务流程</div>
+    <div><b>服务流程</b></div>
     <hr>
     <ul>
-        <li><img src="./img/1_.png"/>购买过程需填写姓名手机号</li>
-        <li><img src="./img/2_.png"/>下单后客服会回访您，确认服务时间及项目</li>
-        <li><img src="./img/3_.png"/>车管家按时接车并完成服务项目</li>
-        <li><img src="./img/4_.png"/>车管家按约定按时还车</li>
+        <li><div><img src="./img/1_.png"/></div><div>购买过程需填写姓名手机号</div></li>
+        <li><div><img src="./img/2_.png"/></div><div>下单后客服会回访您，确认服务时间及项目</div></li>
+        <li><div><img src="./img/3_.png"/></div><div>车管家按时接车并完成服务项目</div></li>
+        <li><div><img src="./img/4_.png"/></div><div>车管家按约定按时还车</div></li>
     </ul>
 </div>
 
-<div id="store-item-comments">
-    <div>用户评价</div>
-    <ul></ul>
+<div id="store-item-details"></div>
+
+<div id="store-item-comments-link-wrapper">
+    <div id="store-item-comment-link">用户评价(0)</div>
 </div>
 
-<div id="popup" style="display: none">
+<div id="popup" style="display: none;">
     <div class="store-item-cover"></div>
-    <div class="service-type-choose-wrapper">
-        <div class="service-type-price-wrapper">
-            <span id="item_price" class="store-item-u-price"></span>
-            <span id="item_title"></span>
-            <div>已选择&nbsp;&nbsp;“<span id="car_model"></span>”</div>
+    <div class="checkbox" id="my-btn-group">
+        <div class="selectable am-vertical-align" data-key="keeper">
+            <div class="text am-vertical-align-middle"></div>
+            <div class="img am-vertical-align-middle"></div>
         </div>
-        <hr>
-        <div class="am-vertical-align" id="my-btn-group" data-rel="">
-            <button type="button" class="service-type-choose service-type-choose-chosen am-vertical-align-middle"
-                    data-rel="" data-key="keeper">
-                管家接车
-            </button>
-            <button type="button" class="service-type-choose service-type-choose-chosen-not am-vertical-align-middle"
-                    data-rel="" data-key="self">
-                自驾到店
-            </button>
+        <div class="selectable am-vertical-align" data-key="self">
+            <div class="text am-vertical-align-middle"></div>
+            <div class="img am-vertical-align-middle"></div>
         </div>
-        <div class="normal-bottom-btn-div">
-            <button type="button" id="submit_btn" class="am-btn am-btn-danger bottom-button-orange" style="width: 100%;">去下单</button>
-        </div>
-    </div>
-    <div class="store-item-image-cover">
-        <img id="item_image_cover">
     </div>
 </div>
 
 <footer id="store-item-footer">
-    <div class="store-item-bottom-div">
-        <span class="store-item-u-price"></span>
+    <div class="price">
+        <span class="dollar-sign">¥</span><span class="store-item-u-price"></span>
     </div>
-    <div class="store-item-bottom-div">
-        <button id="ready_submit" class="am-btn am-btn-block">去下单</button>
+    <div class="submit">
+        去支付
     </div>
 </footer>
 
 <script type="text/x-handlebars-template" id="store_item_page_tpl">
     {{#this}}
-        {{#cover_img}}
-        <div id="cover-wrapper">
-            <img class="store-item-img" src="{{raw_url}}"/>
-        </div>
-        {{/cover_img}}
+    {{#cover_img}}
+    <div id="cover-wrapper">
+        <img class="store-item-img" src="{{raw_url}}"/>
+    </div>
+    {{/cover_img}}
 
-        <div id="store-item-wrapper">
-            <a href="./store_item_detail.html?ware_id={{ware_id}}" id="store-item-brief-intro">
-                <div id="store-item-go-to-detail"><img src="./img/right_arrow.png"/></div>
-                <div id="store-item-brief-intro-text-wrapper">
-                    <span>{{ware_name}}</span>
-                    <div id="store-item-brief-intro-text">{{brief_introduction}}</div>
-                    <span></span><span class="">¥{{ware_mark_price}}</span>
-                </div>
-            </a>
+    <div id="store-item-info">
+        <div id="text">{{ware_name}}</div>
+        <div id="price"><span class="dollar-sign">¥</span><span>{{ware_mark_price}}</span></div>
+        <div id="full_price"><span class="dollar-sign">¥</span><span>{{ware_full_price}}</span></div>
+        <div id="supplier">
+            <div class="text">{{supplier_name}}</div>
+            <img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/duigou.png" alt="" width="36px" height="36px">
         </div>
+    </div>
+    {{/this}}
+</script>
+
+<script type="text/x-handlebars-template" id="store_item_detail_tpl">
+    {{#this}}
+    <div id="store-item-detail">
+        {{#each introduction_imgs}}
+        <img class="store-item-img" src="{{raw_url}}"/>
+        {{/each}}
+    </div>
     {{/this}}
 </script>
 

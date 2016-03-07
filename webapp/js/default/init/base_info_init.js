@@ -2,14 +2,14 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('form', {});
-    yangaiche(sys.load_default_module)('order', {});
-    yangaiche(sys.load_default_module)('location', {});
-    yangaiche(sys.load_default_module)('user', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
-    yangaiche(sys.load_default_module)('duplicate_submission', {});
-    yangaiche(sys.load_default_module)('back', {});
+	yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('form');
+    yangaiche(sys.load_default_module)('order');
+    yangaiche(sys.load_default_module)('location');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('show_msg');
+    yangaiche(sys.load_default_module)('duplicate_submission');
+    yangaiche(sys.load_default_module)('back');
 
     yangaiche(sys.init)(function (t) {
         t('#contact_name').bind('mouseup', function (event) {

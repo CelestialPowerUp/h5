@@ -2,10 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
-    yangaiche(sys.load_default_module)('http', {});
-    yangaiche(sys.load_default_module)('show_msg', {});
-    yangaiche(sys.load_default_module)('parameter', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('show_msg');
+    yangaiche(sys.load_default_module)('parameter');
 
     yangaiche(sys.init)(function (t) {
         var device_width = t(window).width();

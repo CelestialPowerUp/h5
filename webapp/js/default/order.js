@@ -2,7 +2,10 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
+	yangaiche(sys.load_default_module)('repository');
+    yangaiche(sys.load_default_module)('user');
+    yangaiche(sys.load_default_module)('http');
+    yangaiche(sys.load_default_module)('show_msg');
 
     ls.order = {
         touch: 'order_touch',
@@ -10,6 +13,7 @@
         update: 'order_update',
         form_obj: 'order_form_obj',
         clear: 'order_clear',
+        preview: 'order_preview',
 
         order_info: 'order_info'
     };
@@ -65,6 +69,35 @@
     yangaiche(ls.order.clear, function () {
         return function () {
             yangaiche(sys.local_storage).remove(ls.order.order_info);
+        };
+    });
+
+    yangaiche(ls.order.preview, function () {
+        var exist = yangaiche(sys.exist),
+            get_user = yangaiche(ls.user.touch),
+            set_order = yangaiche(ls.order.set),
+            show_msg = yangaiche(app.show_msg.show),
+            postReq = yangaiche(app.http.post_request);
+        return function (order, cb) {
+            var params = {
+                car_model_type: order.car_model_type,
+                coupon_id: order.coupon_id,
+                products: order.products,
+                user_id: get_user()[ls.user.user_id]
+            };
+            if (exist(order.supplier_id)) {
+                params.supplier_id = order.supplier_id;
+            }
+            postReq('/v1/api/order_preview', params, function (data) {
+                order.coupon_price = data.free_price;
+                order.paid_price = 0;
+                order.not_paid_price = data.total_price;
+                set_order(order);
+
+                cb();
+            }, function (error) {
+                show_msg(error.message || JSON.stringify(error));
+            });
         };
     });
 

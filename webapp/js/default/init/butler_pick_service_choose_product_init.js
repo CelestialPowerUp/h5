@@ -87,7 +87,7 @@
                             total_price += parseFloat(calculate([p]));
                         }
                     });
-                    var now_total_price = (parseFloat(required_price) + total_price).toFixed(2);
+                    var now_total_price = (parseFloat(required_price) + total_price).toFixed(1);
                     t('#total_price').html('¥' + now_total_price);
                     yangaiche(ls.order.update)(function (order) {
                         order.total_price = now_total_price;
@@ -144,19 +144,18 @@
             }
 
             var config = suppliers.length > 0 ? '&supplier_id=' + suppliers[0].supplier_id : '';
-
             yangaiche(app.http.get_request)('/v2/api/products.json?service_type=11' + config + '&car_model_type=' + order.car_model_type, function (data) {
                 if (data.required_products.length === 0 && data.optional_products.length === 0 && config) {
                     yangaiche(app.http.get_request)('/v2/api/products.json?service_type=11&car_model_type=' + order.car_model_type, function (data) {
                         process(data);
-                    }, function () {
-                        yangaiche(app.show_msg.show)('AJAX ERROR!');
+                    }, function (error) {
+                        yangaiche(app.show_msg.show)(error.message || JSON.stringify(error));
                     });
                 } else {
                     process(data);
                 }
-            }, function () {
-                yangaiche(app.show_msg.show)('AJAX ERROR!');
+            }, function (error) {
+                yangaiche(app.show_msg.show)(error.message || JSON.stringify(error));
             });
         }
 

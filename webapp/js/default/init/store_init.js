@@ -28,6 +28,11 @@
         //var data = JSON.parse(raw_data).data;
 
         yangaiche(app.http.get_request)('/v2/api/store/banners.json', function (data) {
+            t.each(data, function (i, d) {
+                var matched = d.image_url.match(/^"(.*)"$/);
+                d.image_url = matched ? matched[1] : d.image_url;
+            });
+            
             if (data.length > 1) {
                 data = {multi: {data: data}};
             } else if (data.length === 1) {
@@ -63,10 +68,10 @@
                         wl.odd_or_even = 'even';
                     }
                     wl.cover_img.raw_url = wl.cover_img.raw_url + '?imageView2/0/w/290/h/163/interlace/1';
-                    if (Math.abs(wl.ware_price_min.toFixed(2) - wl.ware_price_max.toFixed(2)) > 0) {
-                        wl.ware_mark_price = wl.ware_price_min.toFixed(2) + '~¥' + wl.ware_price_max.toFixed(2);
+                    if (Math.abs(wl.ware_price_min.toFixed(1) - wl.ware_price_max.toFixed(1)) > 0) {
+                        wl.ware_mark_price = wl.ware_price_min.toFixed(1) + '~¥' + wl.ware_price_max.toFixed(1);
                     } else {
-                        wl.ware_mark_price = wl.ware_mark_price.toFixed(2);
+                        wl.ware_mark_price = wl.ware_mark_price.toFixed(1);
                     }
                 });
             });

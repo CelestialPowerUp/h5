@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('repository', {});
+	yangaiche(sys.load_default_module)('repository');
 
     app.ds = {
         disable_button: 'disable_button',

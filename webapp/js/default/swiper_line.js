@@ -11,7 +11,7 @@
         return function (selector) {
 
             var label = t(selector).find('.my-product-line-content-label');
-            var max_len = 640 - 60 - label.width() - label.css('margin-right').match(/(\d*)/)[1];
+            var max_len = 710;
             t(selector).find('.swiper-container').css('width', max_len + 'px');
 
             var swipers = [];

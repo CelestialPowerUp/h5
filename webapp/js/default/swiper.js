@@ -2,7 +2,7 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('http', {});
+	yangaiche(sys.load_default_module)('http');
 
     app.swiper = {
         show: 'show_swiper'
