@@ -1,8 +1,8 @@
 ;(function () {
     'use strict';
 
-    //yangaiche(sys.load_module)('');
     yangaiche(sys.load_module)('order/create');
+    yangaiche(sys.load_module)('order/get_payment_order_id');
     yangaiche(sys.load_default_module)('user');
     yangaiche(sys.load_default_module)('order');
     yangaiche(sys.load_default_module)('location');
@@ -273,11 +273,13 @@
                 yangaiche(ls.order.set)(data);
 
                 if (data.pay_status !== 1 && data.not_paid_price > 0) {
-                    var param = yangaiche(app.pay.get_param)({order_id: data.id},
-                        'order_success_v2.html?msg_key=pay_suc',
-                        'order_success_v2.html?msg_key=pay_fail');
+                    yangaiche(app.order_get_payment_order_id.get_id)(data.id, function (real_order_id) {
+                        var param = yangaiche(app.pay.get_param)({order_id: real_order_id},
+                            'order_success_v2.html?msg_key=pay_suc',
+                            'order_success_v2.html?msg_key=pay_fail');
 
-                    yangaiche(app.pay.do)(param);
+                        yangaiche(app.pay.do)(param);
+                    });
                 } else {
                     yangaiche(ls.back.set_back_to_store)('order_success_v2.html?msg_key=no_need_to_pay');
                 }
