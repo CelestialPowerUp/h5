@@ -23,6 +23,7 @@
     "jshint": "^2.9.1",
     "lodash": "^4.6.1",
     "minimist": "latest",
+    "through-gulp": "latest",
     "tiny-lr": "^0.2.1"
   }
 }
