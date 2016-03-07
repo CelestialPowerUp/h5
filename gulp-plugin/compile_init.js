@@ -79,7 +79,7 @@ module.exports = function(root) {
 
         if (file.isBuffer()) {
 
-            const path = file.path;
+            var path = file.path;
             var content = file.contents.toString();
 
             if (path.endsWith('.json')) {
