@@ -3,7 +3,7 @@ ul.shequbanjing-list > li {
     height: 300px;
     margin: 0 20px;
     background: no-repeat center;
-    background-size: contain;
+    background-size: cover;
     background-clip: border-box;
     overflow: hidden;
 }
