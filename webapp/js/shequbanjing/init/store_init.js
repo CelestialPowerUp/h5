@@ -17,23 +17,11 @@
         t('#to_show_user_win').remove();
         t('#home-page-wrapper').empty().css('display', 'block');
 
-        yangaiche(app.http.tweak)(function (type, request_type, url) {
-            if (type === app.http.abort_or_hijack) {
-                if (url === '/v1/api/radius/auto_login.json') {
-                    if (user_info) {
-                        set_back_to_self('shequbanjing_store.html');
-                        return app.http.abort;
-                    }
-                    return url;
-                }
-                return app.http.abort;
-            }
-        });
-
         yangaiche(app.http.post_request)('/v1/api/radius/auto_login.json', yangaiche(app.url_parameter), function (data) {
             yangaiche(ls.user.set)(data);
             set_back_to_self('shequbanjing_store.html');
         }, function (error) {
+            yangaiche(ls.user.set)({});
             yangaiche(app.show_msg.show)(error.message || JSON.stringify(error));
         });
 
