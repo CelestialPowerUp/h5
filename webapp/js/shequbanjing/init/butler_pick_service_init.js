@@ -11,13 +11,12 @@
 
     yangaiche(sys.init)(function (t) {
 
-        var get_user = yangaiche(ls.user.touch);
+        var user_info = yangaiche(sys.local_storage).get(ls.user.user_info);
 
         yangaiche(app.http.tweak)(function (type, request_type, url) {
             if (type === app.http.abort_or_hijack) {
                 if (url === '/v1/api/radius/auto_login.json') {
-                    var user = get_user();
-                    if (user) {
+                    if (user_info) {
                         return app.http.abort;
                     }
                 }
@@ -32,7 +31,7 @@
         });
 
         t('#store-item-car-choose').click(function () {
-            return Boolean(get_user());
+            return Boolean(user_info);
         });
     }, 0);
 }());
