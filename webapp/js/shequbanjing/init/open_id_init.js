@@ -2,8 +2,8 @@
 
     'use strict';
 
-	yangaiche(sys.load_default_module)('openid');
+	yangaiche(sys.load_default_module)('show_msg');
 
-    yangaiche(ls.openid.show_login_win)();
+    yangaiche(app.show_msg.show)('缺少用户信息,请重新打开');
 
 }());
