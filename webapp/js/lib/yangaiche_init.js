@@ -1,15 +1,18 @@
-yangaiche(sys.load)('lib/yangaiche_module.js', {});
-yangaiche(sys.load_default_module)('repository', {});
+;(function () {
 
-//yangaiche(sys.load_default_module)('viewport', {});
-//yangaiche(app.viewport.set)();
+    'use strict';
 
-yangaiche(sys.load_default_module)('show_msg');
-yangaiche(app.show_msg.init)();
+	yangaiche(sys.load)('lib/yangaiche_module.js', true);
+    yangaiche(sys.load_default_module)('repository', true);
 
-window.location.href.replace(/\/.*\/(.*?)\.html/, function (sth, filename) {
-    yangaiche(sys.load_module)('go_back');
-    yangaiche(sys.load_module)(filename + '_init');
-    yangaiche(sys.load_module)('font/auto_font_size');
-    yangaiche(sys.start)();
-});
+    yangaiche(sys.load_default_module)('show_msg');
+    yangaiche(app.show_msg.init)();
+
+    window.location.href.replace(/\/.*\/(.*?)\.html/, function (sth, filename) {
+        yangaiche(sys.load_module)('go_back');
+        yangaiche(sys.load_module)('init/' + filename + '_init');
+        yangaiche(sys.load_module)('font/auto_font_size');
+        yangaiche(sys.start)();
+    });
+
+}());

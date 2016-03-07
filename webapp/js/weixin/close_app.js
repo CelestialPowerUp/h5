@@ -1,1 +1,7 @@
-wx.closeWindow();
+;(function () {
+
+    'use strict';
+
+    wx.closeWindow();
+
+}());
