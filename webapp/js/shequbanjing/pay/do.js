@@ -14,7 +14,7 @@
             yangaiche(app.http.get_request)('/v1/api/radius/get_access_token.json', function (data) {
                 var token = 'access_token=' + data.access_token + '&';
                 var call_back_url = data.call_back_url;
-                alert(JSON.stringify(data));
+                console.log(JSON.stringify(data));
                 window.location.href = call_back_url + '?' + token + 'type=payment&order_id=' + param.order_id;
             }, function (error) {
                 yangaiche(app.show_msg.show)(error.message);
