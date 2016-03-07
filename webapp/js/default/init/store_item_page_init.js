@@ -89,8 +89,8 @@
 
         function init(suppliers, service_products) {
             storage.set(key.service.data, service_products);
-            storage.set(key.service.can_self, suppliers.length > 0);
-            if (suppliers.length <= 0) {
+            storage.set(key.service.can_self, service_products.length > 0);
+            if (service_products.length <= 1) {
                 t('#my-btn-group .selectable[data-key="self"]').css('display', 'none');
             }
 
