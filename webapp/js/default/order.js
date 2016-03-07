@@ -74,13 +74,14 @@
 
     yangaiche(ls.order.preview, function () {
         var exist = yangaiche(sys.exist),
+            storage = yangaiche(sys.local_storage),
             get_user = yangaiche(ls.user.touch),
             set_order = yangaiche(ls.order.set),
             show_msg = yangaiche(app.show_msg.show),
             postReq = yangaiche(app.http.post_request);
         return function (order, cb) {
             var params = {
-                car_model_type: order.car_model_type,
+                car_model_type: storage.get(key.car.info).car_model_type,
                 coupon_id: order.coupon_id,
                 products: order.products,
                 user_id: get_user()[ls.user.user_id]
