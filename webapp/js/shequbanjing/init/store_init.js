@@ -11,7 +11,7 @@
 
     yangaiche(sys.init)(function (t) {
 
-        var get_user = yangaiche(ls.user.touch),
+        var user_info = yangaiche(sys.local_storage).get(ls.user.user_info),
             set_back_to_self = yangaiche(ls.back.set_back_to_self);
 
         t('#to_show_user_win').remove();
@@ -20,8 +20,7 @@
         yangaiche(app.http.tweak)(function (type, request_type, url) {
             if (type === app.http.abort_or_hijack) {
                 if (url === '/v1/api/radius/auto_login.json') {
-                    var user = get_user();
-                    if (user) {
+                    if (user_info) {
                         set_back_to_self('shequbanjing_store.html');
                         return app.http.abort;
                     }
