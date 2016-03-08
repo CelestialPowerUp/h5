@@ -4,6 +4,6 @@
     var t = yangaiche(sys.$);
 
     t('#payment .selectable[data-pay-way="wx"]').removeClass('invisible');
-    t('#payment .selectable[data-pay-way="wufu"]').removeClass('invisible');
+    t('#payment .selectable[data-pay-way="fuwu"]').removeClass('invisible');
 
 }());
