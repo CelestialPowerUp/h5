@@ -16,7 +16,10 @@
         yangaiche(app.http.tweak)(function (type, request_type, url) {
             if (type === app.http.abort_or_hijack) {
                 if (url === '/v1/api/radius/auto_login.json') {
-                    if (user_info) {
+                    var url_params = yangaiche(app.url_parameter);
+                    if (url_params.user_open_id && url_params.sign && url_params.nonce && url_params.timestamp) {
+                        return url;
+                    } else {
                         return app.http.abort;
                     }
                 }
@@ -27,6 +30,7 @@
         yangaiche(app.http.post_request)('/v1/api/radius/auto_login.json', yangaiche(app.url_parameter), function (data) {
             yangaiche(ls.user.set)(data);
         }, function (error) {
+            yangaiche(ls.user.set)({});
             yangaiche(app.show_msg.show)(error.message || JSON.stringify(error));
         });
 
