@@ -38,8 +38,16 @@
             var order = yangaiche(ls.order.touch)(),
                 service_type = app.simple_service_products.config[app.simple_service_products.key];
 
+
+            var car_info = storage.get(key.car.info);
+            if (yangaiche(sys.exist)(car_info)) {
+                t('#store-item-car-choose .car-info-text').text(car_info.car_number);
+                //var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
+                t('#car_model').text(car_info.car_number);
+            }
+
             //var config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
-            yangaiche(app.http.get_request)('/v2/api/products.json?service_type=' + service_type + '&car_model_type=' + order.car_model_type, function (data) {
+            yangaiche(app.http.get_request)('/v2/api/products.json?service_type=' + service_type + '&car_model_type=' + car_info.car_model_type, function (data) {
                 if (service_products.length > 0) {
                     data.required_products.push(service_products[0]);
 
@@ -83,13 +91,6 @@
             });
         } else {
             init([]);
-        }
-
-        var car_info = storage.get(key.car.info);
-        if (yangaiche(sys.exist)(car_info)) {
-            t('#store-item-car-choose .car-info-text').text(car_info.car_number);
-            //var short_model = car_info.model.length > 10 ? car_info.model.substr(0, 10) + '...' : car_info.model;
-            t('#car_model').text(car_info.car_number);
         }
     });
 
