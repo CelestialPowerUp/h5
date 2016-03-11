@@ -190,7 +190,6 @@
                         },
                         post: function () {
                             var list = t('.times_card_products');
-                            list.css('height', (parseInt((list.children().length + 1) / 2) * 271) + 'px');
                             list.find('li').click(function () {
                                 yangaiche(sys.local_storage).set(key.supplier.current, suppliers[0]);
                                 yangaiche(sys.local_storage).set(key.times_card.current, times_card_dic[t(this).attr('data-rel')]);
