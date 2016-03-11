@@ -5,7 +5,11 @@ ul.operations {
     border-bottom: solid 1px #e0e0e0;
 }
 
-ul.operations + ul.operations {
+ul.operations.invisible {
+    display: none;
+}
+
+ul.operations:not(.invisible) + ul.operations {
     margin-top: 20px;
 }
 
