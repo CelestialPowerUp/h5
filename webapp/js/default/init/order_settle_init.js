@@ -89,6 +89,9 @@
         });
 
         var service_products = storage.get(key.service.data);
+        if (service_products.length === 0) {
+            t('#service_types').addClass('invisible');
+        }
         t.each(service_products, function (i, service_product) {
             service_product.total_price = yangaiche(ls.products.calculate_single)(service_product).toFixed(1);
             t('#service_types .selectable[data-key="' + service_product.service_type + '"] .text').html(service_product.product_name + '(¥' + service_product.total_price + ')');

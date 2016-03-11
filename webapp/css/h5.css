@@ -2189,7 +2189,7 @@ body {
 .products-title {
     height: 60px;
     margin-top: 20px;
-    padding-left: 20px;
+    padding-left: 30px;
     background: #ffffff;
 }
 
@@ -2205,36 +2205,36 @@ body {
 
 .home-page-products li {
     display: block;
-    width: 320px;
-    height: 271px;
+    width: 375px;
+    height: 293px;
     float: left;
 }
 
 .home-page-products > .odd {
-    padding: 20px 10px 0 20px;
+    padding: 20px 15px 0 30px;
 }
 
 .home-page-products > .even {
-    padding: 20px 20px 0 10px;
+    padding: 20px 30px 0 15px;
 }
 
 .home-page-products li > div {
     display: block;
-    width: 290px;
-    height: 251px;
+    width: 330px;
+    height: 273px;
     background: #FFF;
 }
 
 .home-page-products .home-page-products-image {
-    width: 290px;
-    height: 163px;
+    width: 330px;
+    height: 185px;
     overflow: hidden;
-    line-height: 163px;
+    line-height: 185px;
     text-align: center;
 }
 
 .home-page-products .home-page-products-title {
-    width: 290px;
+    width: 330px;
     height: 40px;
     color: #333;
     font-size: 28px;
@@ -2242,7 +2242,7 @@ body {
 }
 
 .home-page-products .home-page-products-price {
-    width: 290px;
+    width: 330px;
     height: 48px;
 }
 

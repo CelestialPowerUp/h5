@@ -17,8 +17,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <link rel="dns-prefetch" href="http://baseimg.yangaiche.com/">
+    <link rel="dns-prefetch" href="http://7xiqe8.com2.z0.glb.qiniucdn.com/">
 
     <link rel="stylesheet" href="./3rdLibs/css/amazeui/amazeui.min.css">
+    <link rel="stylesheet" href="./css/yac-styles.css">
+    <link rel="stylesheet" href="./css/yac-services.css">
+    <link rel="stylesheet" href="./css/yac-good-suggest.css">
     <style type="text/css">
         #to_show_user_win {
             width: 100px;
@@ -39,8 +43,8 @@
         }
 
         /*  */
-        #home-page-wrapper, #banner, #services {
-            width: 640px;
+        #home-page-wrapper, #banner {
+            width: 750px;
             background: #f1f1f1;
         }
 
@@ -49,7 +53,7 @@
         }
 
         #location {
-            width: 640px;
+            width: 750px;
             height: 80px;
             background-color: #fff;
             line-height: 80px;
@@ -66,64 +70,16 @@
         }
 
         #banner img {
-            width: 640px;
-            height: 230px;
-        }
-
-        /* 六宫格 */
-        #services {
-            width: 640px;
-            height: 340px;
-            list-style-type: none;
-
-            /* 一点小小的优化，页面加载中不再错乱！*/
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
-
-        #services li {
-            width: 213px;
-            height: 170px;
-            float: left;
-            background: #FFF;
-        }
-
-        .border-left-right {
-            border-right: solid 1px #CCC;
-            border-left: solid 1px #CCC;
-        }
-
-        .border-bottom {
-            border-bottom: solid 1px #CCC;
-        }
-
-        #services li a {
             display: block;
-            width: 213px;
-            height: 170px;
-            overflow: hidden;
-        }
-
-        #services li a img {
-            display: block;
-            height: 64px;
-            margin: 30px auto 0;
-        }
-
-        #services li a span {
-            display: block;
-            width: 213px;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 24px;
-            color: #333;
+            width: 750px;
+            height: 270px;
         }
     </style>
 </head>
 <body>
 
-<img id="to_show_user_win" style="display: none;" src="img/user_logo4.png" data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
+<img id="to_show_user_win" style="display: none;" src="img/user_logo4.png"
+     data-am-offcanvas="{target: '#user-win', effect: 'overlay'}"/>
 
 <div id="user-win" class="am-offcanvas">
     <div class="am-offcanvas-bar user-win-content">
@@ -187,44 +143,15 @@
 
     </div>
 
-    <ul id="services">
-        <li class="border-bottom">
-            <a data-rel="butler_pick_service.html">
-                <img src="./img/1.png"/>
-                <span>保养维修</span>
-            </a>
-        </li>
-        <li class="border-bottom border-left-right">
-            <a data-rel="car_beauty_service.html">
-                <img src="./img/2.png"/>
-                <span>汽车美容</span>
-            </a>
-        </li>
-        <li class="border-bottom">
-            <a data-rel="renewal_service.html">
-                <img src="./img/3.png"/>
-                <span>保险续保</span>
-            </a>
-        </li>
-        <li class="border-bottom">
-            <a data-rel="home_testing_service.html">
-                <img src="./img/4.png"/>
-                <span>管家检测</span>
-            </a>
-        </li>
-        <li class="border-bottom border-left-right">
-            <a data-rel="set_loss_service.html">
-                <img src="./img/5.png"/>
-                <span>代办定损</span>
-            </a>
-        </li>
-        <li class="border-bottom">
-            <a data-rel="emergency_rescue_service.html">
-                <img src="./img/6.png"/>
-                <span>紧急救援</span>
-            </a>
-        </li>
+    <ul id="services" class="services">
+        <li data-rel="car_beauty_service.html"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_xiche.png" alt="汽车美容"><br><span>汽车美容</span></li>
+        <li data-rel="butler_pick_service.html"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_baoyang.png" alt="维修保养"><br><span>维修保养</span></li>
+        <li data-rel="tel:400-0102-766"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_hujiaoguanjia.png" alt="呼叫管家"><br><span>呼叫管家</span></li>
+        <li data-rel="renewal_service.html"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_baoxian.png" alt="保险续险"><br><span>保险续险</span></li>
+        <li data-rel="set_loss_service.html"><img src="http://7xiqe8.com2.z0.glb.qiniucdn.com/btn_dingsun.png" alt="代办定损"><br><span>代办定损</span></li>
     </ul>
+
+    <div id="good_suggest"></div>
 
     <div id="times_card_wrapper"></div>
 </div>
@@ -236,10 +163,20 @@
 <!--<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yac.yacapp">下载APP</a>-->
 <!--</footer>-->
 
+<script type="text/x-handlebars-template" id="good_suggest_tpl">
+    {{#if this.length}}
+    <ul class="good-suggest">
+    {{#each this}}
+        <li data-rel="{{link_id}}" style="background-image: url('{{title_img_view.raw_url}}?imageView2/0/w/375/interlace/1')"></li>
+    {{/each}}
+    </ul>
+    {{/if}}
+</script>
+
 <script type="text/x-handlebars-template" id="home_store_list_tpl">
     {{#each this}}
     <div class="am-vertical-align products-title">
-        <img class="am-vertical-align-middle" src="http://7xiqe8.com2.z0.glb.qiniucdn.com/vline.png"/>
+        <img class="am-vertical-align-middle" src="http://7xiqe8.com2.z0.glb.qiniucdn.com/hot.png"/>
         <span class="am-vertical-align-middle">{{ware_type_name}}</span>
     </div>
 
@@ -264,25 +201,26 @@
 
 <script type="text/x-handlebars-template" id="store_banners_tpl">{{#this}}
     {{#solo}}
-        <a data-rel="{{link_url}}">
-            <img src="{{image_url}}">
-        </a>
+    <a data-rel="{{link_url}}">
+        <img src="{{image_url}}">
+    </a>
     {{/solo}}
 
     {{#multi}}
     <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}'>
         <ul class="am-slides">
             {{#each data}}
-                <li>
-                    <a data-rel="{{link_url}}">
-                        <img src="{{image_url}}">
-                    </a>
-                </li>
+            <li>
+                <a data-rel="{{link_url}}">
+                    <img src="{{image_url}}">
+                </a>
+            </li>
             {{/each}}
         </ul>
     </div>
     {{/multi}}
-{{/this}}</script>
+    {{/this}}
+</script>
 
 <script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./3rdLibs/js/jquery/jquery.min.js"></script>
