@@ -18,3 +18,8 @@ ul.services > li {
 ul.services > li > * {
     display: inline-block;
 }
+
+ul.services > li > span {
+    font-size: 22px;
+    color: #666666;
+}
