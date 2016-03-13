@@ -21,16 +21,8 @@
 	<link rel="stylesheet" href="./css/yac-modal.css">
 </head>
 <body class="body-background-color-gray">
-<div class="new-bottom-button-div">
-    <a href="./get_address.html">
-        <button class="am-btn am-btn-success am-btn-block new-bottom-button">
-            <!--<i class="am-icon-plus"></i>-->
-            添加一个地址
-        </button>
-    </a>
-</div>
 <script type="text/x-handlebars-template" id="address_list_tpl">
-    <ul class="am-list address-list" style="margin-bottom: 150px;margin-top:30px;">
+    <ul class="address-list" style="margin-top:30px;">
         {{#each this}}
         <li class="address am-nbfc address-manager-line" data-rel="{{id}}">
             <div class="am-vertical-align address-btn address-manager-clickable"
@@ -44,6 +36,9 @@
             </div>
         </li>
         {{/each}}
+        <li class="add-address-btn am-nbfc address-manager-line">
+            添加一个地址
+        </li>
     </ul>
 </script>
 

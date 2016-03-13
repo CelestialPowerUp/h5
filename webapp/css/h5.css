@@ -1143,21 +1143,26 @@ body {
 }
 
 .address-manager-line {
-    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
     height: 120px;
 }
 
-.address-manager-line:first-child {
-    border-top: 1px solid #cccccc;
+.address-manager-line:last-child {
+    line-height: 120px;
+    font-size: 30px;
+    color: #09be00;
+    text-align: center;
+    cursor: pointer;
 }
 
 .address-manager-clickable {
     background-color: #FFFFFF;
     width: 640px;
-    height: 120px;
+    height: 119px;
     padding: 15px 0;
     position: absolute;
     z-index: 2;
+    left: 0;
 }
 
 .address-manager-clickable-text {
@@ -1171,10 +1176,11 @@ body {
 
 .address-manager-deletable {
     width: 140px;
-    height: 120px;
+    height: 119px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    left: 500px;
 }
 
 .address-manager-deletable-img {
