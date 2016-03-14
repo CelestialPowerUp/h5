@@ -275,7 +275,7 @@
                 data.location = data.client_basic.location;
                 yangaiche(ls.order.set)(data);
 
-                if (data.pay_status !== 1 && data.not_paid_price > 0) {
+                if (data.pay_status !== 1 && data.not_paid_price > 0 && order.pay_mode === 1) {//返回的pay_mode都是1,无奈额.
                     yangaiche(app.order_get_payment_order_id.get_id)(data.id, function (real_order_id) {
                         var param = yangaiche(app.pay.get_param)({order_id: real_order_id},
                             'order_success_v2.html?msg_key=pay_suc',
