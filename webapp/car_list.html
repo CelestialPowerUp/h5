@@ -21,21 +21,13 @@
 
 </head>
 <body class="body-background-color-gray">
-<div class="new-bottom-button-div">
-    <a data-rel="car_choose.html">
-        <button class="am-btn am-btn-success am-btn-block new-bottom-button">
-            <!--<i class="am-icon-plus"></i>-->
-            添加一款车型
-        </button>
-    </a>
-</div>
 
 <script type="text/x-handlebars-template" id="carinfo_list_tpl">
-    <ul class="am-list my-list">
+    <ul class="my-list">
         {{#each this}}
         <!--缩略图在标题左边-->
         <li class="my-list-line" data-rel="{{car_id}}">
-            <div class="carinfo-btn am-vertical-align car-manager-clickable" data-rel="{{car_id}}">
+            <div class="carinfo-btn am-vertical-align car-manager-clickable2" data-rel="{{car_id}}">
                 <div class="am-vertical-align-middle">
                     <img src="{{img_url}}" class="my-thumb-icon">
                 </div>
@@ -50,6 +42,7 @@
             </div>
         </li>
         {{/each}}
+        <li>添加一款车型</li>
     </ul>
 </script>
 

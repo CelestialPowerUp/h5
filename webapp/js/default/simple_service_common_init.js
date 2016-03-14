@@ -27,6 +27,7 @@
 
         var storage = yangaiche(sys.local_storage);
         var get_unique_service_type = yangaiche(app.unique_service_type.get);
+        var getReq = yangaiche(app.http.get_request);
 
         app.simple_service_products.key = window.location.href.match(/\/.*\/(.*?)\.html/)[1];
         function init(service_products) {
@@ -47,7 +48,7 @@
             }
 
             //var config = yangaiche(sys.exist)(order.supplier_id) ? '&supplier_id=' + order.supplier_id : '';
-            yangaiche(app.http.get_request)('/v2/api/products.json?service_type=' + service_type + '&car_model_type=' + car_info.car_model_type, function (data) {
+            getReq('/v2/api/products.json?service_type=' + service_type + '&car_model_type=' + car_info.car_model_type, function (data) {
                 if (service_products.length > 0) {
                     data.required_products.push(service_products[0]);
 
@@ -56,6 +57,23 @@
                     storage.set(get_unique_service_type(app.simple_service_products.key), '');
                 }
                 yangaiche(ls.products.set)(data.required_products);
+
+                var product_ids = '';
+                t.each(yangaiche(ls.products.touch)(), function (i, wp) {
+                    if (i !== 0) {
+                        product_ids += ',';
+                    }
+                    product_ids += wp.product_type;
+                });
+
+                getReq('/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids + '&page=1&page_size=1', function (data) {
+                    t('#store-item-comment-link').html('用户评价 ( ' + data.total_size + ' )');
+                    t('#store-item-comment-link').click(function () {
+                        yangaiche(ls.back.set_back_to_self)('comments_list.html?product_ids='+product_ids);
+                    });
+                }, function (error) {
+                    show_msg(error.message || JSON.stringify(error));
+                });
 
             }, function () {
                 yangaiche(app.show_msg.show)('AJAX ERROR!');

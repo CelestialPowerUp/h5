@@ -38,13 +38,21 @@
                 });
             });
 
-            t('.address-btn').css('left', '0px');
+            function get_set_top_fn() {
+                var top = 1;
+                return function (i, btn) {
+                    t(btn).css('top', (top + i * 120) + 'px');
+                }
+            }
 
-            t.each(t('.delete-btn'), function (i, delete_btn) {
-                t(delete_btn).css('left', (640 - 140) + 'px');
-            });
+            t.each(t('.address-btn'), get_set_top_fn());
+            t.each(t('.delete-btn'), get_set_top_fn());
 
             yangaiche(app.swiper.show)('.address', '.address-btn', '/v1/api/addresses/delete');
+
+            t('.add-address-btn').click(function () {
+                yangaiche(ls.back.set_back_to_self)('get_address.html');
+            });
 
             progress.done();
         });

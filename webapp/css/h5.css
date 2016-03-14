@@ -1143,21 +1143,26 @@ body {
 }
 
 .address-manager-line {
-    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
     height: 120px;
 }
 
-.address-manager-line:first-child {
-    border-top: 1px solid #cccccc;
+.address-manager-line:last-child {
+    line-height: 120px;
+    font-size: 30px;
+    color: #09be00;
+    text-align: center;
+    cursor: pointer;
 }
 
 .address-manager-clickable {
     background-color: #FFFFFF;
     width: 640px;
-    height: 120px;
+    height: 119px;
     padding: 15px 0;
     position: absolute;
     z-index: 2;
+    left: 0;
 }
 
 .address-manager-clickable-text {
@@ -1171,10 +1176,11 @@ body {
 
 .address-manager-deletable {
     width: 140px;
-    height: 120px;
+    height: 119px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    left: 500px;
 }
 
 .address-manager-deletable-img {
@@ -1234,17 +1240,26 @@ body {
     padding-left: 30px;
     background-color: #ffffff;
     width: 640px;
-    height: 118px;
+    height: 119px;
     position: absolute;
     z-index: 2;
+    left: 0;
+}
+
+.car-manager-clickable2 {
+    padding-left: 30px;
+    background-color: #ffffff;
+    width: 640px;
+    height: 119px;
 }
 
 .car-manager-deletable {
     width: 140px;
-    height: 118px;
+    height: 119px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    left: 500px;
 }
 
 .car-manager-deletable-img {
@@ -1258,20 +1273,21 @@ body {
 }
 
 .my-list li {
-    margin-bottom: 20px;
+    height: 120px;
     background-color: #f1f1f1;
+    border-top: 1px solid #cccccc;
 }
 
 .my-list li:last-child {
-    margin-bottom: 0;
+    line-height: 120px;
+    font-size: 30px;
+    color: #09be00;
+    text-align: center;
+    cursor: pointer;
 }
 
 .my-list-line-content {
     margin-left: 30px;
-}
-
-.my-list-line {
-    height: 120px;
 }
 
 .my-car-choose-list {
@@ -1803,8 +1819,8 @@ body {
 }
 
 #store-item-comments-link-wrapper {
-    height: 0;
-    /*margin-top: 30px;*/
+    /*height: 0;*/
+    margin-top: 30px;
     margin-bottom: 110px;
     overflow: hidden;
 }
@@ -1852,7 +1868,7 @@ body {
 
 #store-item-comments {
     height: auto;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     margin-bottom: 90px;
 }
 
@@ -1866,6 +1882,11 @@ body {
 
 #store-item-comments ul {
     list-style-type: none;
+    background-color: #ffffff;
+}
+
+#store-item-comments ul li > div {
+    overflow: hidden;
 }
 
 #store-item-comments ul li hr {
@@ -2177,7 +2198,7 @@ body {
 /* nprogress */
 #nprogress .nprogress-bar {
     height: 10px;
-    bottom: 90px;
+    bottom: 0;
     top: auto;
 }
 
@@ -2195,7 +2216,7 @@ body {
 
 .products-title span {
     padding-left: 12px;
-    font-size: 24px;
+    font-size: 30px;
     color: #666;
 }
 

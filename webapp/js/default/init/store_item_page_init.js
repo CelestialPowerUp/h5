@@ -12,6 +12,7 @@
     yangaiche(sys.load_default_module)('format');
     yangaiche(sys.load_default_module)('obj_util');
     yangaiche(sys.load_default_module)('unique_service_type');
+    yangaiche(sys.load_default_module)('back');
 
     if (/=42$/.test(window.location.href)) {
         yangaiche(sys.load_default_module)('supplier');
@@ -33,14 +34,6 @@
 
         var device_width = t(window).width();
 
-        function make_array(size) {
-            var array = [];
-            for (var i = 0; i < size; i++) {
-                array.push(i);
-            }
-            return array;
-        }
-
         var getReq = yangaiche(app.http.get_request),
             show_msg = yangaiche(app.show_msg.show),
             storage = yangaiche(sys.local_storage),
@@ -57,34 +50,12 @@
 
             getReq('/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids + '&page=1&page_size=1', function (data) {
                 t('#store-item-comment-link').html('用户评价 ( ' + data.total_size + ' )');
+                t('#store-item-comment-link').click(function () {
+                    yangaiche(ls.back.set_back_to_self)('comments_list.html?product_ids='+product_ids);
+                });
             }, function (error) {
                 show_msg(error.message || JSON.stringify(error));
             });
-
-            //yangaiche(app.paging.setup)({
-            //    url_request: '/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids,
-            //    data_handler: function (data) {
-            //        t.each(data.items, function (i, d) {
-            //            d.order_rating = make_array(d.service_rating);
-            //            d.keeper_rating = make_array(d.keeper_rating);
-            //            d.create_time = d.create_time.substr(0, (4 + 2 + 1 + 2 + 1));
-            //            d.comment_user_name = d.comment_user_name.substr(0, 1) + '**';
-            //            d.comment_text = yangaiche(app.format.stripscript)(d.comment_text);
-            //        });
-            //
-            //        var tpl = Handlebars.compile(t('#store_item_comment_tpl').text());
-            //        t('#store-item-comments ul').append(tpl(data.items));
-            //
-            //        var total_height = 0;
-            //        t.each(t('#store-item-comments ul li'), function (i, l) {
-            //            var list = t(l);
-            //            var height = (list.children('p').eq(0).height() + 70 * 2);
-            //            total_height += height;
-            //            list.css('height', height + 'px');
-            //        });
-            //        t('#store-item-comments ul').height(total_height);
-            //    }
-            //});
         }
 
         function init(suppliers, service_products) {

@@ -35,7 +35,7 @@
 
             t('body').children().eq(0).find('.fixed-width-content').css('width', (640 - 30 - 70 - 30 - 30 - 14) + 'px');
 
-            t('li').click(function () {
+            t('.my-list-line').click(function () {
                 var $this = t(this), car_id = $this.attr('data-rel'), car = items[parseInt(car_id)];
 
                 yangaiche(ls.order.update)(function (order) {
@@ -62,8 +62,8 @@
                 }
             });
 
-            t('a').click(function () {
-                yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
+            t('.my-list > li:last-child').click(function () {
+                yangaiche(ls.back.set_back_to_self)('car_choose.html');
             });
 
             progress.done();

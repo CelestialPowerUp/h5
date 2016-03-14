@@ -136,36 +136,6 @@
     {{/this}}
 </script>
 
-<script type="text/x-handlebars-template" id="store_item_comment_tpl">
-    {{#each this}}
-    <li>
-        <hr>
-        <div>
-            <div class="comment-corner comment-user">{{comment_user_name}}</div>
-            <div class="comment-corner comment-time">{{create_time}}</div>
-        </div>
-        <p>{{comment_text}}</p>
-
-        <div>
-            <div class="comment-corner comment-service am-vertical-align">
-                <img class="am-vertical-align-middle" src="./img/store_car.png"/>
-                <span class="am-vertical-align-middle">服务:</span>
-                {{#each order_rating}}
-                <img class="am-vertical-align-middle" src="./img/star.png"/>
-                {{/each}}
-            </div>
-            <div class="comment-corner comment-keeper am-vertical-align">
-                <img class="am-vertical-align-middle" src="./img/store_keeper.png"/>
-                <span class="am-vertical-align-middle">管家:</span>
-                {{#each keeper_rating}}
-                <img class="am-vertical-align-middle" src="./img/star.png"/>
-                {{/each}}
-            </div>
-        </div>
-    </li>
-    {{/each}}
-</script>
-
 <script src="http://api.map.baidu.com/api?v=2.0&ak=WVAXZ05oyNRXS5egLImmentg"></script>
 <script type="text/javascript" src="./3rdLibs/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="./3rdLibs/js/handlebars/handlebars.min.js"></script>

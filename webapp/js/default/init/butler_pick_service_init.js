@@ -22,6 +22,26 @@
             get_order = yangaiche(ls.order.touch),
             calculate = yangaiche(ls.products.calculate);
 
+        function load_comments() {
+            var product_ids = '';
+            t.each(yangaiche(ls.products.touch)(), function (i, wp) {
+                if (i !== 0) {
+                    product_ids += ',';
+                }
+                product_ids += wp.product_type;
+            });
+
+            getReq('/v2/api/order/service_comment/page_list.json?product_ids=' + product_ids + '&page=1&page_size=1', function (data) {
+                t('#store-item-comment-link').html('用户评价 ( ' + data.total_size + ' )');
+                t('#store-item-comment-link').click(function (e) {
+                    e.preventDefault();
+                    yangaiche(ls.back.set_back_to_self)('comments_list.html?product_ids='+product_ids);
+                });
+            }, function (error) {
+                show_msg(error.message || JSON.stringify(error));
+            });
+        }
+
         function init(suppliers, service_products) {
             var tpl = Handlebars.compile(t('#store_item_page_tpl').text());
             t('#cover-info-wrapper').html(tpl({supplier_name: suppliers.length > 0 ? suppliers[0].supplier_name : '养爱车综合店'}));
@@ -157,6 +177,8 @@
                         order.total_price = now_total_price;
                         order.products = total_products;
                     });
+
+                    load_comments();
                 }
 
                 recalculate_products();
