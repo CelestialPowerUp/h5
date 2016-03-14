@@ -15,7 +15,7 @@
         page: 1,
         total_size: 0,
         real_total_size: 0,
-        page_size: 2,
+        page_size: parseInt(yangaiche(sys.$)(window).height() / 172) + 1,
         active: true,
         url_request: null,
         data_handler: null,

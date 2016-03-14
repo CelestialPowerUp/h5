@@ -1819,8 +1819,8 @@ body {
 }
 
 #store-item-comments-link-wrapper {
-    height: 0;
-    /*margin-top: 30px;*/
+    /*height: 0;*/
+    margin-top: 30px;
     margin-bottom: 110px;
     overflow: hidden;
 }
@@ -1868,7 +1868,7 @@ body {
 
 #store-item-comments {
     height: auto;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     margin-bottom: 90px;
 }
 
@@ -1882,6 +1882,11 @@ body {
 
 #store-item-comments ul {
     list-style-type: none;
+    background-color: #ffffff;
+}
+
+#store-item-comments ul li > div {
+    overflow: hidden;
 }
 
 #store-item-comments ul li hr {
@@ -2193,7 +2198,7 @@ body {
 /* nprogress */
 #nprogress .nprogress-bar {
     height: 10px;
-    bottom: 90px;
+    bottom: 0;
     top: auto;
 }
 
