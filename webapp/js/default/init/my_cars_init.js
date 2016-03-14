@@ -45,8 +45,6 @@
                 yangaiche(ls.back.set_back_to_self)('car_choose4.html?update=true');
             });
 
-            t('.carinfo-btn').css('left', '0px');
-
             t('.delete-btn').click(function () {
                 yangaiche(app.http.post_request)('/v1/api/cars/delete', [t(this).attr('data-rel')], function () {
                     yangaiche(sys.local_storage).remove(key.car.info);
@@ -55,14 +53,20 @@
                 });
             });
 
-            t.each(t('.delete-btn'), function (i, delete_btn) {
-                t(delete_btn).css('left', (640 - 140) + 'px');
-            });
+            function gen_set_top_fn() {
+                var top = 1;
+                return function (i, btn) {
+                    t(btn).css('top', (top + i * 120) + 'px');
+                }
+            }
+
+            t.each(t('.carinfo-btn'), gen_set_top_fn());
+            t.each(t('.delete-btn'), gen_set_top_fn());
 
             yangaiche(app.swiper.show)('.carinfo', '.carinfo-btn', '/v1/api/cars/delete');
 
-            t('a').click(function () {
-                yangaiche(ls.back.set_back_to_self)(t(this).attr('data-rel'));
+            t('.my-list > li:last-child').click(function () {
+                yangaiche(ls.back.set_back_to_self)('car_choose.html');
             });
 
             progress.done();

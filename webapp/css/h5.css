@@ -1240,17 +1240,26 @@ body {
     padding-left: 30px;
     background-color: #ffffff;
     width: 640px;
-    height: 118px;
+    height: 119px;
     position: absolute;
     z-index: 2;
+    left: 0;
+}
+
+.car-manager-clickable2 {
+    padding-left: 30px;
+    background-color: #ffffff;
+    width: 640px;
+    height: 119px;
 }
 
 .car-manager-deletable {
     width: 140px;
-    height: 118px;
+    height: 119px;
     background-color: #ff6600;
     position: absolute;
     z-index: 1;
+    left: 500px;
 }
 
 .car-manager-deletable-img {
@@ -1264,20 +1273,21 @@ body {
 }
 
 .my-list li {
-    margin-bottom: 20px;
+    height: 120px;
     background-color: #f1f1f1;
+    border-top: 1px solid #cccccc;
 }
 
 .my-list li:last-child {
-    margin-bottom: 0;
+    line-height: 120px;
+    font-size: 30px;
+    color: #09be00;
+    text-align: center;
+    cursor: pointer;
 }
 
 .my-list-line-content {
     margin-left: 30px;
-}
-
-.my-list-line {
-    height: 120px;
 }
 
 .my-car-choose-list {
