@@ -26,6 +26,11 @@
       "moduleRoot": "shequbanjing"
     },
     {
+      "type": "research",
+      "userAgent": "research",
+      "moduleRoot": "research"
+    },
+    {
       "type": "normal",
       "userAgent": "",
       "moduleRoot": "normal"
