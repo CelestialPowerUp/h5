@@ -49,6 +49,9 @@ ul.operations > li.line > *[class*='right'] {
 
 ul.operations > li.line > .text {
     font-size: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 ul.operations > li.line > .img {
@@ -74,6 +77,12 @@ ul.operations > li.line > .text.green {
 
 ul.operations > li.line > .text.red {
     color: #ff6600;
+}
+
+ul.operations > li.line > .text.btn {
+    text-align: center;
+    color: #09be00;
+    cursor: pointer;
 }
 
 .selectable.selected > .right.img {

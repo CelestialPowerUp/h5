@@ -25,11 +25,23 @@
                 yangaiche(ls.location.update)(function (location_info) {
                     location_info.longitude = $this.attr('data-longitude');
                     location_info.latitude = $this.attr('data-latitude');
-                    location_info.name = $this.attr('data-name');
-                    location_info.address = $this.find('span').eq(0).text();
+                    location_info.name = $this.children('.address-manager-clickable-text').text().replace(/(^\s*)|(\s*$)/g, '');
+                    location_info.address = $this.children('.address-manager-clickable-subtext').text().replace(/(^\s*)|(\s*$)/g, '');
                 });
-                var url = yangaiche(ls.back.get_parent_of)('my_address_manage.html');
-                yangaiche(ls.back.set_back_to_his)(url);
+                window.history.back();
+            });
+
+            t('.address-manager-clickable-img').click(function () {
+                var $this = t(this).parent('.address-btn');
+                yangaiche(ls.location.update)(function (location_info) {
+                    location_info.id = $this.attr('data-id');
+                    location_info.longitude = $this.attr('data-longitude');
+                    location_info.latitude = $this.attr('data-latitude');
+                    location_info.name = $this.children('.address-manager-clickable-text').text().replace(/(^\s*)|(\s*$)/g, '');
+                    location_info.address = $this.children('.address-manager-clickable-subtext').text().replace(/(^\s*)|(\s*$)/g, '');
+                });
+                yangaiche(ls.back.set_back_to_self)('get_address_editor.html');
+                return false;
             });
 
             t('.delete-btn').click(function () {
@@ -51,7 +63,7 @@
             yangaiche(app.swiper.show)('.address', '.address-btn', '/v1/api/addresses/delete');
 
             t('.add-address-btn').click(function () {
-                yangaiche(ls.back.set_back_to_self)('get_address.html');
+                yangaiche(ls.back.set_back_to_self)('get_address_editor.html?add=true');
             });
 
             progress.done();
