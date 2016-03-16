@@ -243,6 +243,8 @@
         // 定义变量
 
         // 功能代码
+        yangaiche(ls.location.set)({});
+        
         t('#result').height(t(window).height() - 460);
         var opts = {
             direction: 'vertical',
