@@ -246,18 +246,18 @@
             order.order_status_key = 'creating';
             postReq(yangaiche(app.order_create.get_api), order, function (data) {
                 data.location = data.client_basic.location;
-                yangaiche(ls.order.set)(data);
+                yangaiche(ls.order.set)(order);
 
                 if (data.pay_status !== 1 && data.not_paid_price > 0 && order.pay_mode === 1) {//返回的pay_mode都是1,无奈额.
                     yangaiche(app.order_get_payment_order_id.get_id)(data.id, function (real_order_id) {
                         var param = yangaiche(app.pay.get_param)({order_id: real_order_id},
-                            'order_success_v2.html?msg_key=pay_suc',
-                            'order_success_v2.html?msg_key=pay_fail');
+                            'order_success_v2.html?order_id=' + data.id,
+                            'order_success_v2.html?order_id=' + data.id);
 
                         yangaiche(app.pay.do)(param);
                     });
                 } else {
-                    yangaiche(ls.back.set_back_to_store)('order_success_v2.html?msg_key=no_need_to_pay');
+                    yangaiche(ls.back.set_back_to_store)('order_success_v2.html?order_id=' + data.id);
                 }
             }, function (data) {
                 show_msg('下单失败:' + data.message);
