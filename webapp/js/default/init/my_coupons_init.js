@@ -61,7 +61,7 @@
                             order.coupon_name = null;
                             order.coupon_value = 0;
                             updateOrder(order);
-                            set_back_to_his(get_parent_of_this());
+                            window.history.back();
                         } else {
                             var coupon_name = t(this).attr('data-name');
                             var coupon_type = t(this).attr('data-type');
@@ -78,7 +78,7 @@
                                 order.paid_price = 0;
                                 order.not_paid_price = data.total_price;
                                 updateOrder(order);
-                                set_back_to_his(get_parent_of_this());
+                                window.history.back();
                             }, function (error) {
                                 show_msg(error.message);
                             });

@@ -1159,19 +1159,59 @@ body {
     background-color: #FFFFFF;
     width: 640px;
     height: 119px;
-    padding: 15px 0;
     position: absolute;
     z-index: 2;
     left: 0;
 }
 
 .address-manager-clickable-text {
+    display: block;
+    float: left;
+    width: 500px;
     padding: 0 30px;
     color: #666666;
-    line-height: 160%;
+    line-height: 60px;
     font-size: 30px;
     font-weight: lighter;
     text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.address-manager-clickable-subtext {
+    display: block;
+    float: left;
+    width: 500px;
+    padding: 0 30px;
+    color: #999999;
+    line-height: 59px;
+    font-size: 22px;
+    font-weight: lighter;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.address-manager-clickable-img {
+    display: block;
+    float: right;
+    width: 140px;
+    height: 119px;
+    text-align: center;
+}
+
+.address-manager-clickable-img:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+    width: 0;
+    height: 119px;
+    overflow: hidden;
+}
+
+.address-manager-clickable-img img {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .address-manager-deletable {

@@ -112,7 +112,7 @@
                         t('#location span').text(address);
                     });
                 } else {
-                    t('#location span').text(location.address);
+                    t('#location span').text(location.name + location.address);
                 }
             }
         }, function (error) {

@@ -311,11 +311,11 @@
             yangaiche(ls.location.set)({
                 longitude: $this.attr('data-longitude'),
                 latitude: $this.attr('data-latitude'),
-                name: $this.children('.text').html(),
-                address: $this.children('.subtext').html()
+                name: $this.children('.text').text().replace(/(^\s*)|(\s*$)/g, ''),
+                address: $this.children('.subtext').text().replace(/(^\s*)|(\s*$)/g, '')
             });
 
-            yangaiche(ls.back.set_back_to_self)('get_address_editor.html');
+            window.history.back();
         });
 
         // 添加定位控件

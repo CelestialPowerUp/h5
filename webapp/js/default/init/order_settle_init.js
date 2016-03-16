@@ -13,6 +13,7 @@
     yangaiche(sys.load_default_module)('products');
     yangaiche(sys.load_default_module)('unique_service_type');
     yangaiche(sys.load_default_module)('pay');
+    yangaiche(sys.load_default_module)('map');
     //yangaiche(sys.load_lib_module)('');
 
     yangaiche(sys.init)(function (t) {
@@ -184,41 +185,13 @@
             }
         }
 
-        function auto_get_location() {
-            var geolocation = new BMap.Geolocation();
-            geolocation.getCurrentPosition(function (e) {
-                if (this.getStatus() === BMAP_STATUS_SUCCESS) {
-                    // 定位成功事件
-                    var address = '';
-                    yangaiche(ls.location.update)(function (location_info) {
-                        address += e.address.city ? e.address.city : '';
-                        address += e.address.district ? e.address.district : '';
-                        address += e.address.street ? e.address.street : '';
-                        address += e.address.streetNumber ? e.address.streetNumber : '';
-                        location_info.name = e.address.city ? e.address.city : '';
-                        location_info.address = address;
-                        location_info.latitude = e.point.lat;
-                        location_info.longitude = e.point.lng;
-                        location_info.point = e.point;
-                    });
-                    t('#address .value').html(address);
-                } else {
-                    // 定位失败事件
-                    show_msg(e.message);
-                    t('#address .value').html('定位失败');
-                }
-            }, {enableHighAccuracy: true});
-        }
-
         if ((!exist(address_info.name) || address_info.name === '') &&
             (!exist(address_info.address) || address_info.address === '') || !exist(address_info.latitude) || !exist(address_info.longitude)) {
-            auto_get_location();
+            yangaiche(app.map.auto_location)(function (address) {
+                t('#address .value').text(address);
+            });
         } else {
-            if ('' !== address_info.address) {
-                t('#address .value').html(address_info.address.replace(/(^\s*)|(\s*$)/g, ''));
-            } else {
-                t('#address .value').html(address_info.name.replace(/(^\s*)|(\s*$)/g, ''));
-            }
+            t('#address .value').html(address_info.name + address_info.address);
         }
 
         yangaiche(sys.load_module)('show_payment');
